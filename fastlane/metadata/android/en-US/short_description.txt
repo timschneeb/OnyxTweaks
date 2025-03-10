@@ -1,0 +1,1 @@
+Xposed module for tweaking the Onyx Boox Go 7 Color e-reader
