@@ -33,11 +33,16 @@ jobs:
         echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > key.jks
         fi
 
-    - name: Build with Gradle
-      run: ./gradlew assembleRelease assembleDebug
+    - name: Build with Gradle (debug)
+      if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+      run: ./gradlew assembleDebug
+
+    - name: Build with Gradle (signed)
+      if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      run: ./gradlew assembleRelease
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Signed app bundle
+        name: App bundle
         path: app/build/outputs/apk
