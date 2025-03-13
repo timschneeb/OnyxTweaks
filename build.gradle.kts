@@ -16,6 +16,7 @@ allprojects {
         google()
         mavenCentral()
         maven(url = "https://api.xposed.info/")
+        maven(url = "https://jitpack.io" )
     }
 }
 

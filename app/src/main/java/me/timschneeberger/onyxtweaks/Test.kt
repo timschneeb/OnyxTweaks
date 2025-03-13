@@ -18,47 +18,52 @@ class Test : IXposedHookLoadPackage {
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
         if (BuildConfig.DEBUG) {
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " downgrade=" + prefs.getBoolean(
+                "D/$TAG downgrade=" + prefs.getBoolean(
                     "downgrade",
                     true
                 )
             )
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " authcreak=" + prefs.getBoolean(
+                "D/$TAG authcreak=" + prefs.getBoolean(
                     "authcreak",
                     false
                 )
             )
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " digestCreak=" + prefs.getBoolean(
+                "D/$TAG digestCreak=" + prefs.getBoolean(
                     "digestCreak",
                     true
                 )
             )
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " UsePreSig=" + prefs.getBoolean(
+                "D/$TAG UsePreSig=" + prefs.getBoolean(
                     "UsePreSig",
                     false
                 )
             )
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " bypassBlock=" + prefs.getBoolean(
+                "D/$TAG bypassBlock=" + prefs.getBoolean(
                     "bypassBlock",
                     true
                 )
             )
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " sharedUser=" + prefs.getBoolean(
+                "D/$TAG sharedUser=" + prefs.getBoolean(
                     "sharedUser",
                     false
                 )
             )
             XposedBridge.log(
-                "D/" + MainHook.Companion.TAG + " disableVerificationAgent=" + prefs.getBoolean(
+                "D/$TAG disableVerificationAgent=" + prefs.getBoolean(
                     "disableVerificationAgent",
                     true
                 )
             )
         }
+    }
+
+
+    companion object {
+        const val TAG: String = "OnyxTweaks"
     }
 }

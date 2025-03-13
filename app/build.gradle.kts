@@ -77,7 +77,7 @@ android {
 
     buildFeatures {
         buildConfig = true
-        dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -86,11 +86,13 @@ dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-    implementation("androidx.databinding:databinding-runtime:8.9.0")
     implementation("androidx.preference:preference-ktx:1.2.1")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
 
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
+    implementation("com.github.topjohnwu.libsu:core:6.0.0")
 
     compileOnly("de.robv.android.xposed:api:82")
 }
