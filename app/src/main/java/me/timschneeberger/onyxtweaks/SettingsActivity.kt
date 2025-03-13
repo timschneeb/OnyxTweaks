@@ -13,7 +13,6 @@ import android.preference.PreferenceFragment
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowInsets
-import me.timschneeberger.onyxtweaks.R
 
 @Suppress("deprecation")
 class SettingsActivity : Activity() {

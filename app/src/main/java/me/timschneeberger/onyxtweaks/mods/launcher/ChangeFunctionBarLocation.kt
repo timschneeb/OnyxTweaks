@@ -1,6 +1,5 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE

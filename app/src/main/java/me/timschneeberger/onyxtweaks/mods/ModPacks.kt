@@ -5,7 +5,6 @@ import me.timschneeberger.onyxtweaks.mods.launcher.AddFunctionBarSpacer
 import me.timschneeberger.onyxtweaks.mods.launcher.AddLauncherSettingsMenu
 import me.timschneeberger.onyxtweaks.mods.launcher.AddSettingCategories
 import me.timschneeberger.onyxtweaks.mods.launcher.ChangeFunctionBarLocation
-import me.timschneeberger.onyxtweaks.mods.launcher.DisableAppFilter
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableDesktopWidgets
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableDock
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableKeyboardSettings

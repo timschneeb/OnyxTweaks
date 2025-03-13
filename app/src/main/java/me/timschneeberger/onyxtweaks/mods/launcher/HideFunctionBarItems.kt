@@ -12,7 +12,6 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.getClass
-import me.timschneeberger.onyxtweaks.utils.renderToLog
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class HideFunctionBarItems : ModPack() {

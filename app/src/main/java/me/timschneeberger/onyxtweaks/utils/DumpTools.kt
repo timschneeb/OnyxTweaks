@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.finders.ClassFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
-import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
 import de.robv.android.xposed.XposedBridge
 import java.lang.reflect.Method

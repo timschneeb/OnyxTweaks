@@ -8,6 +8,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
 class MainHook : IXposedHookLoadPackage {
 
+    // TODO: general: add launcher grid customization
+
     // TODO: general: add fallbacks for resources & some extern method calls
     override fun handleLoadPackage(lpparam: LoadPackageParam) {
         val devConf = XposedHelpers.findClassIfExists(
@@ -19,7 +21,6 @@ class MainHook : IXposedHookLoadPackage {
                 XposedBridge.hookMethod(
                     method,
                     object : XC_MethodHook() {
-                        @Throws(Throwable::class)
                         override fun afterHookedMethod(param: MethodHookParam) {
                             // TODO check if this is necessary
                             if (method.name == "getDefaultQuickLauncherFunctions") {
