@@ -18,9 +18,8 @@ class EnableDock : ModPack() {
                 .createHook {
                     replace { param ->
                         // TODO create dummy list instead
-                        val list = param.thisObject.javaClass.getMethod("getConfigExtraApps")
+                        return@replace param.thisObject.javaClass.getMethod("getConfigExtraApps")
                             .invoke(param.thisObject) as? List<*>
-                        param.result = list
                     }
                 }
         }
