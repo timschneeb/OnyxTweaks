@@ -14,7 +14,7 @@ class EnableDock : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
-                .firstByName("getHotseatApps")
+                .firstByName("getHotSeatApps")
                 .createHook {
                     replace { param ->
                         // TODO create dummy list instead

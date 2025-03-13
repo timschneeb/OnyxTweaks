@@ -21,8 +21,8 @@ class MainHook : IXposedHookLoadPackage {
                     object : XC_MethodHook() {
                         @Throws(Throwable::class)
                         override fun afterHookedMethod(param: MethodHookParam) {
+                            // TODO check if this is necessary
                             if (method.name == "getDefaultQuickLauncherFunctions") {
-                                // TODO
 
                                 val modelCls = XposedHelpers.findClassIfExists(
                                     "com.onyx.common.applications.appwidget.model.QuickLauncherModel",
