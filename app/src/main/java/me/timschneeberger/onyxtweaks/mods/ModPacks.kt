@@ -7,6 +7,7 @@ import me.timschneeberger.onyxtweaks.mods.launcher.AddSettingCategories
 import me.timschneeberger.onyxtweaks.mods.launcher.ChangeFunctionBarLocation
 import me.timschneeberger.onyxtweaks.mods.launcher.DisableAppFilter
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableDesktopWidgets
+import me.timschneeberger.onyxtweaks.mods.launcher.EnableDock
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableKeyboardSettings
 import me.timschneeberger.onyxtweaks.mods.launcher.HideFunctionBarItems
 import me.timschneeberger.onyxtweaks.mods.launcher.HideTopBorder
@@ -16,7 +17,12 @@ import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
 import me.timschneeberger.onyxtweaks.mods.shared.QuickTileGridSize
 import me.timschneeberger.onyxtweaks.mods.systemui.AddGrayscaleModeQsTile
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
+import me.timschneeberger.onyxtweaks.mods.systemui.CompactQsPanel
+import me.timschneeberger.onyxtweaks.mods.systemui.CustomizeRecents
 import me.timschneeberger.onyxtweaks.mods.systemui.EnableHeadsUpNotifications
+import me.timschneeberger.onyxtweaks.mods.systemui.HideNotificationIconBorders
+import me.timschneeberger.onyxtweaks.mods.systemui.MoveNotificationHeaderToFooter
+import me.timschneeberger.onyxtweaks.mods.systemui.SetMaxNotificationIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowAdditionalStatusIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowWifiActivityIndicators
 
@@ -32,6 +38,7 @@ object ModPacks {
         ChangeFunctionBarLocation::class,
         // TODO DisableAppFilter::class,
         EnableDesktopWidgets::class,
+        EnableDock::class,
         EnableKeyboardSettings::class,
         HideFunctionBarItems::class,
         HideTopBorder::class,
@@ -45,7 +52,12 @@ object ModPacks {
         // SystemUI
         AddGrayscaleModeQsTile::class,
         AddSettingsButtonToQs::class,
+        CompactQsPanel::class,
+        CustomizeRecents::class,
         EnableHeadsUpNotifications::class,
+        MoveNotificationHeaderToFooter::class,
+        HideNotificationIconBorders::class,
+        SetMaxNotificationIcons::class,
         ShowAdditionalStatusIcons::class,
         ShowWifiActivityIndicators::class,
     )
