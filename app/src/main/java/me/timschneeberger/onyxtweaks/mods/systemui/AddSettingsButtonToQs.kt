@@ -1,7 +1,5 @@
 package me.timschneeberger.onyxtweaks.mods.systemui
 
-import android.content.Intent
-import android.provider.Settings
 import android.view.View
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
@@ -15,6 +13,7 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.getClass
+import me.timschneeberger.onyxtweaks.utils.invokeOriginalMethod
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
@@ -35,9 +34,10 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
             methodFinder()
                 .firstByName("startOnyxSettings")
                 .createHook {
-                    replace {
-                        // TODO add option to launch Onyx Settings instead (with invokeOriginalMethod?)
+                    replace { param ->
+                        // TODO Implement selection
                         startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))
+                        // Onyx: param.invokeOriginalMethod()
                     }
                 }
         }

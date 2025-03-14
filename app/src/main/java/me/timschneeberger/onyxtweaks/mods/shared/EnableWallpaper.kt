@@ -32,72 +32,69 @@ import me.timschneeberger.onyxtweaks.utils.runSafely
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableWallpaper : ModPack(), IEarlyZygoteHook {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
-        if (lpParam.packageName == LAUNCHER_PACKAGE) {
-            MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
-                .firstByName("isWallpaperFeatureEnabled")
-                .replaceWithConstant(true)
+        MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
+            .firstByName("isWallpaperFeatureEnabled")
+            .replaceWithConstant(true)
 
-            MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
-                .firstByName("getUserAppConfig")
-                .createAfterHook { param ->
-                    val config = param.invokeOriginalMethod()
-                    config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
-                    param.result = config
+        MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
+            .firstByName("getUserAppConfig")
+            .createAfterHook { param ->
+                val config = param.invokeOriginalMethod()
+                config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
+                param.result = config
+            }
+
+        @SuppressLint("MissingPermission")
+        ConstructorFinder.fromClass("com.onyx.common.applications.view.Workspace")
+            .filterByParamTypes(Context::class.java, AttributeSet::class.java)
+            .first()
+            .createAfterHook { param ->
+                fun setWallpaper() {
+                    runSafely {
+                        MethodFinder.fromClass(View::class)
+                            .filterByName("setBackground")
+                            .filterByParamTypes(Drawable::class.java)
+                            .first()
+                            .invoke(
+                                param.thisObject,
+                                WallpaperManager.getInstance(appContext).drawable
+                            )
+                    }
                 }
 
-            @SuppressLint("MissingPermission")
-            ConstructorFinder.fromClass("com.onyx.common.applications.view.Workspace")
-                .filterByParamTypes(Context::class.java, AttributeSet::class.java)
-                .first()
-                .createAfterHook { param ->
-                    fun setWallpaper() {
-                        runSafely {
-                            MethodFinder.fromClass(View::class)
-                                .filterByName("setBackground")
-                                .filterByParamTypes(Drawable::class.java)
-                                .first()
-                                .invoke(
-                                    param.thisObject,
-                                    WallpaperManager.getInstance(appContext).drawable
-                                )
+                // Set wallpaper on creation
+                setWallpaper()
+
+                // Register WALLPAPER_CHANGED broadcast receiver
+                ContextCompat.registerReceiver(
+                    appContext,
+                    object : BroadcastReceiver() {
+                        override fun onReceive(context: Context, intent: Intent) {
+                            setWallpaper()
+                            XposedBridge.log("Received broadcast: ${intent.action}")
                         }
-                    }
+                    },
+                    IntentFilter().apply {
+                        addAction("com.onyx.action.WALLPAPER_CHANGED")
+                        addAction("android.intent.action.WALLPAPER_CHANGED")
+                    },
+                    ContextCompat.RECEIVER_EXPORTED
+                )
+            }
 
-                    // Set wallpaper on creation
-                    setWallpaper()
 
-                    // Register WALLPAPER_CHANGED broadcast receiver
-                    ContextCompat.registerReceiver(
-                        appContext,
-                        object : BroadcastReceiver() {
-                            override fun onReceive(context: Context, intent: Intent) {
-                                setWallpaper()
-                                XposedBridge.log("Received broadcast: ${intent.action}")
-                            }
-                        },
-                        IntentFilter().apply {
-                            addAction("com.onyx.action.WALLPAPER_CHANGED")
-                            addAction("android.intent.action.WALLPAPER_CHANGED")
-                        },
-                        ContextCompat.RECEIVER_EXPORTED
-                    )
+        MethodFinder.fromClass("com.onyx.common.applications.action.DesktopOptionProcessImpl")
+            .firstByName("onWallpaperSelection")
+            .createHook {
+                replace {
+                    Intent().apply {
+                        action = "android.intent.action.MAIN"
+                        setClassName("com.android.settings", "com.android.settings.Settings\$UserSettingsActivity")
+                        setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }.let(appContext::startActivity)
+                    null
                 }
-
-
-            MethodFinder.fromClass("com.onyx.common.applications.action.DesktopOptionProcessImpl")
-                .firstByName("onWallpaperSelection")
-                .createHook {
-                    replace {
-                        Intent().apply {
-                            action = "android.intent.action.MAIN"
-                            setClassName("com.android.settings", "com.android.settings.Settings\$UserSettingsActivity")
-                            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        }.let(appContext::startActivity)
-                        null
-                    }
-                }
-
-        }
+            }
     }
 
     override fun handleZygoteInit(param: IXposedHookZygoteInit.StartupParam) {

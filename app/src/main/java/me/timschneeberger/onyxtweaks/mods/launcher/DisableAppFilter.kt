@@ -15,7 +15,7 @@ class DisableAppFilter : ModPack() {
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
                 .firstByName("getAppsFilter")
-                .replaceWithConstant(arrayOf<String>("com.onyx"))
+                .replaceWithConstant(listOf<String>(LAUNCHER_PACKAGE))
         }
     }
 }

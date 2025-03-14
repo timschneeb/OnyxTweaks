@@ -4,7 +4,7 @@ import com.topjohnwu.superuser.Shell;
 
 import java.util.Locale
 
-class AppUtils {
+object AppUtils {
     fun restart(what: String) {
         when (what.lowercase(Locale.getDefault())) {
             "systemui" -> Shell.cmd("killall com.android.systemui").exec()

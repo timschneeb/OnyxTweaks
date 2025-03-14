@@ -3,7 +3,6 @@ package me.timschneeberger.onyxtweaks.utils
 import android.view.View
 import android.view.ViewGroup
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.finders.ClassFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
 import de.robv.android.xposed.XposedBridge
@@ -30,7 +29,7 @@ object DumpTools {
         XposedBridge.log("$tag [$clsName] ${method.name}$args => ${if (isVoid) "<void>" else param.result}")
     }
 
-    fun logClassCalls(
+    fun printClassCalls(
         cls: Class<*>,
         tag: String,
         excludeMethods: List<String> = ArrayList()
@@ -42,53 +41,6 @@ object DumpTools {
                     printCall(param, tag)
                 }
             }
-    }
-
-    fun dumpClass(className: String) {
-        val ourClass = ClassFinder.of(className)?.first() ?: return
-        dumpClass(ourClass)
-    }
-
-    fun dumpClass(ourClass: Class<*>) {
-        XposedBridge.log("Class: ${ourClass.name}")
-        XposedBridge.log("extends: ${ourClass.superclass.name}")
-        XposedBridge.log("Subclasses:")
-        ourClass.declaredClasses.forEach { XposedBridge.log(it.name) }
-        XposedBridge.log("Methods:")
-
-        ourClass.declaredConstructors.forEach { m ->
-            XposedBridge.log("${m.name} -  - ${m.parameterCount}")
-            m.parameterTypes.forEach {
-                XposedBridge.log("\t\t${it.typeName}")
-            }
-        }
-
-        ourClass.declaredMethods.forEach { m ->
-            XposedBridge.log("${m.name} - " + m.returnType + " - ${m.parameterCount}")
-            m.parameterTypes.forEach {
-                XposedBridge.log("\t\t${it.typeName}")
-            }
-        }
-
-        XposedBridge.log("Fields:")
-        ourClass.declaredFields.forEach { f ->
-            XposedBridge.log("\t\t${f.name} - ${f.type.name}")
-        }
-
-        XposedBridge.log("")
-    }
-
-    fun dumpParentIDs(v: View) {
-        dumpParentIDs(v, 0)
-    }
-
-    private fun dumpParentIDs(v: View, level: Int) {
-        dumpID(v, level)
-        runSafelySilent {
-            if (v.parent is View) {
-                dumpParentIDs((v.parent as View?)!!, level + 1)
-            }
-        }
     }
 
     fun dumpIDs(v: View) {

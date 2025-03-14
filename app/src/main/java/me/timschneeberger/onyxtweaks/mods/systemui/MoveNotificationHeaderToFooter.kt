@@ -11,7 +11,7 @@ import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class MoveNotificationHeaderToFooter : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
-        // TODO broken when no notifications are present
+        // Note: may cause minor visual issues
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
             .firstByName("isNotificationManagerItemStayOnTop")
             .replaceWithConstant(false)

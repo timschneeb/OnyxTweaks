@@ -15,6 +15,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.dpToPx
 import me.timschneeberger.onyxtweaks.utils.getClass
 import java.lang.ref.WeakReference
 import java.lang.reflect.InvocationHandler
@@ -93,8 +94,10 @@ class AddLauncherSettingsMenu : ModPack() {
                         .first()
 
                     val newItemCount = items.size + 1
-                    val paddingResId = appContext.resources.getIdentifier("desktop_option_bottom_item_horizontal_padding", "dimen", LAUNCHER_PACKAGE)
-                    val padding = appContext.resources.getDimensionPixelSize(paddingResId)
+                    val padding = appContext.resources.getIdentifier("desktop_option_bottom_item_horizontal_padding", "dimen", LAUNCHER_PACKAGE)
+                        .takeIf { i -> i != 0 }
+                        ?.let(appContext.resources::getDimensionPixelSize)
+                        ?: appContext.dpToPx(25)
 
                     val oldWidth = MethodFinder.fromClass(View::class)
                         .filterByName("getWidth")

@@ -90,11 +90,10 @@ class AddUserSwitcherToQs : ModPack() {
                     // Add user switcher button to the QS panel
                     addView(
                         ImageView(ctx).apply {
-                            // TODO set fallbacks
                             val iconSize =
-                                ctx.resources.getDimensionPxByName("ic_edit_qs_tile_icon_size")!!
+                                ctx.resources.getDimensionPxByName("ic_edit_qs_tile_icon_size") ?: ctx.dpToPx(26)
                             val padding =
-                                ctx.resources.getDimensionPxByName("onyx_clock_row_button_padding")!!
+                                ctx.resources.getDimensionPxByName("onyx_clock_row_button_padding") ?: ctx.dpToPx(6)
 
                             layoutParams =
                                 LinearLayout.LayoutParams(iconSize, iconSize).apply {

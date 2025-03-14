@@ -10,6 +10,12 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResou
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.mods.ModManager
 
+
+// TODO: general: add launcher grid customization
+// TODO: general: add fallbacks for resources & some extern method calls
+// TODO also hook the setters to prevent overridden values to be saved?
+// TODO: EAC activity based settings
+
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {
     private var modManager: ModManager = ModManager()
 
@@ -21,7 +27,7 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
         // Only initialize using the first package for this process.
         // This is a workaround for the fact that the hook is called multiple times when an app is
         // running other packages within their process. (Example: com.google.android.webview)
-        if (loadPackageParam.isFirstApplication) { // TODO check if isFirstApplication also works
+        if (loadPackageParam.isFirstApplication) {
             XposedBridge.log("Initializing mod packs for: ${loadPackageParam.packageName}")
             EzXHelper.initHandleLoadPackage(loadPackageParam)
             EzXHelper.setLogTag(loadPackageParam.packageName)
