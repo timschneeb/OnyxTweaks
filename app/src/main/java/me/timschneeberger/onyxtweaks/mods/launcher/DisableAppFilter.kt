@@ -12,6 +12,7 @@ import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
 @TargetPackages(LAUNCHER_PACKAGE)
 class DisableAppFilter : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        // Note: added icons will persist after turning off this mod
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
                 .firstByName("getAppsFilter")

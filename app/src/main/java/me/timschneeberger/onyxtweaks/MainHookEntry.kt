@@ -12,7 +12,6 @@ import me.timschneeberger.onyxtweaks.mods.ModManager
 
 
 // TODO: general: add launcher grid customization
-// TODO also hook the setters to prevent overridden values to be saved?
 // TODO: EAC activity based settings
 
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {
