@@ -11,7 +11,6 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.mods.ModManager
 
 
-// TODO: general: add launcher grid customization
 // TODO: EAC activity based settings
 
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {

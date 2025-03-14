@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.ObjectHelper
+import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.ClassFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook
@@ -41,6 +43,11 @@ fun <T> Method.replaceWithConstant(value: T?) {
     createHook {
         replace { _ -> value }
     }
+}
+
+inline fun <T> T.applyObjectHelper(block: ObjectHelper.() -> Unit): T {
+    this?.objectHelper(block)
+    return this
 }
 
 fun MethodFinder.firstByName(name: String) = filterByName(name).first()
