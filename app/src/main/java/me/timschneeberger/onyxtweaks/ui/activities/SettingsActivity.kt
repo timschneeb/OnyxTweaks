@@ -30,8 +30,11 @@ class SettingsActivity : AppCompatActivity(),
                 .commit()
         }
         else {
-            supportActionBar?.title = savedInstanceState.getString(PERSIST_TITLE)
-            supportActionBar?.subtitle = savedInstanceState.getString(PERSIST_SUBTITLE)
+            supportActionBar?.apply {
+                title = savedInstanceState.getString(PERSIST_TITLE)
+                subtitle = savedInstanceState.getString(PERSIST_SUBTITLE)
+                setDisplayHomeAsUpEnabled(true)
+            }
         }
 
         supportFragmentManager.addOnBackStackChangedListener {
@@ -40,16 +43,17 @@ class SettingsActivity : AppCompatActivity(),
                     title = getString(R.string.app_name)
                     subtitle = getString(R.string.module_description)
                 }
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
             else {
                 supportActionBar?.apply {
                     title = supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1).name
                     subtitle = null
                 }
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.settingsToolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 

@@ -4,16 +4,17 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar">true</item>
 
-        <item name="android:divider">@color/divider_default</item>
+        <item name="android:divider">@drawable/shape_divider</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
         <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
         <item name="cardCornerRadius">@dimen/corner_radius</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
     </style>
 
     <style name="AppTheme.Dialog" parent="Theme.Material3.Light.Dialog">
-        <item name="android:divider">@color/divider_default</item>
+        <item name="android:divider">@drawable/shape_divider</item>
 
         <item name="windowActionBar">false</item>
         <item name="android:windowFrame">@null</item>
@@ -35,4 +36,12 @@
     </style>
 
     <style name="AppTheme.CardView" parent="Widget.Material3.CardView.Elevated" />
+
+    <style name="PreferenceTheme" parent="PreferenceThemeOverlay">
+        <item name="preferenceFragmentCompatStyle">@style/FragmentPreferenceStyle</item>
+    </style>
+
+    <style name="FragmentPreferenceStyle" parent="PreferenceFragment.Material">
+        <item name="android:divider">@drawable/shape_divider</item>
+    </style>
 </resources>

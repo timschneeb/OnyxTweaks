@@ -14,7 +14,7 @@ import me.timschneeberger.onyxtweaks.mods.launcher.HideTopBorder
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowChineseBookStore
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
-import me.timschneeberger.onyxtweaks.mods.shared.QuickTileGridSize
+import me.timschneeberger.onyxtweaks.mods.systemui.QuickTileGridSize
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
 import me.timschneeberger.onyxtweaks.mods.systemui.AddGrayscaleModeQsTile
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs

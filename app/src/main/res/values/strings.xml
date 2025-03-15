@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">OnyxTweaks</string>
-    <string name="module_description">Tweaks for the Onyx Boox</string>
+    <string name="module_description">Xposed tweaks for the Onyx Boox</string>
 
     <!-- Common -->
     <string name="yes">Yes</string>
@@ -12,8 +12,6 @@
     <string name="no_activity_found">No app found to handle action</string>
 
     <!-- Settings -->
-    <string name="about_settings">About</string>
-    <string name="about_settings_summary">Credits, support, updates</string>
     <string name="credits">Credits</string>
     <string name="credits_app">Developed by</string>
     <string name="credits_project_page">Visit project website on GitHub</string>
@@ -23,8 +21,21 @@
     <string name="credits_version">Application version</string>
     <string name="credits_build_info">Build info</string>
 
+    <string name="launcher_settings">Launcher</string>
+    <string name="launcher_settings_summary">Widgets, dock, wallpaper, apps, etc.</string>
+    <string name="status_bar_settings">Status Bar</string>
+    <string name="status_bar_settings_summary">Notifications, status icons, etc.</string>
+    <string name="quick_settings_settings">Quick Settings</string>
+    <string name="quick_settings_settings_summary">Grid size, user switcher, tiles</string>
+    <string name="recents_settings">Recents</string>
+    <string name="recents_settings_summary">Grid size, spacing, style</string>
+    <string name="eink_optimizations_settings">eInk optimizations</string>
+    <string name="eink_optimizations_settings_summary">Regal mode, per-activity settings</string>
     <string name="misc_settings">Miscellaneous</string>
     <string name="misc_settings_summary">Crash reports, other actions</string>
+    <string name="about_settings">About</string>
+    <string name="about_settings_summary">Credits, support, updates</string>
+
     <string name="privacy">Privacy</string>
     <string name="privacy_share_crash_reports">Share application crash reports</string>
     <string name="privacy_share_crash_reports_on">Send crash reports to the developer</string>
