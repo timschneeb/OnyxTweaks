@@ -1,16 +1,68 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:colorAccent">#000000</item>
+    <style name="AppTheme" parent="AppTheme.Monochrome">
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar">true</item>
-
-        <item name="android:divider">@drawable/shape_divider</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
+
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:divider">@drawable/shape_divider</item>
+
+        <item name="cardCornerRadius">@dimen/corner_radius</item>
+
+        <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
         <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
-        <item name="cardCornerRadius">@dimen/corner_radius</item>
         <item name="preferenceTheme">@style/PreferenceTheme</item>
+    </style>
+
+    <!-- Dialog theme w/ border and custom buttons  -->
+    <style name="AppTheme.AlertDialogTheme" parent="@style/ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:windowBackground">@drawable/shape_dialog_background</item>
+
+        <item name="dialogCornerRadius">@dimen/corner_radius</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Outlined</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
+        <item name="android:background">@drawable/shape_dialog_background</item>
+    </style>
+
+    <!-- Set the track color of disabled switches to pure white -->
+    <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorSurfaceContainerHighest">@color/colorOnPrimary</item>
+    </style>
+
+    <!-- Custom text buttons, mainly for dialog buttons -->
+    <style name="Widget.App.Button.Outlined" parent="Widget.App.Button">
+        <item name="android:background">@drawable/shape_dialog_background</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:background">@color/colorOnPrimary</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:paddingHorizontal">0dp</item>
+    </style>
+
+    <style name="AppTheme.CardView" parent="Widget.Material3.CardView.Elevated" />
+
+    <!-- Preference theme w/ custom divider -->
+    <style name="PreferenceTheme" parent="PreferenceThemeOverlay">
+        <item name="preferenceFragmentCompatStyle">@style/FragmentPreferenceStyle</item>
+    </style>
+
+    <style name="FragmentPreferenceStyle" parent="PreferenceFragment.Material">
+        <item name="android:divider">@drawable/shape_divider</item>
+    </style>
+
+    <!-- Custom eInk color scheme -->
+    <style name="AppTheme.Monochrome" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:colorAccent">@color/colorPrimary</item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
@@ -34,39 +86,5 @@
         <item name="colorOnSurfaceInverse">@color/colorInverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/colorInverseSurface</item>
         <item name="colorPrimaryInverse">@color/colorPrimaryInverse</item>
-    </style>
-
-    <style name="AppTheme.AlertDialogTheme" parent="@style/ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="android:windowBackground">@drawable/shape_dialog_background</item>
-
-        <item name="dialogCornerRadius">@dimen/corner_radius</item>
-        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
-        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Outlined</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
-    </style>
-
-    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
-        <item name="android:background">@drawable/shape_dialog_background</item>
-    </style>
-
-    <style name="Widget.App.Button.Outlined" parent="Widget.App.Button">
-        <item name="android:background">@drawable/shape_dialog_background</item>
-    </style>
-
-    <style name="Widget.App.Button" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:background">@color/colorOnPrimary</item>
-        <item name="backgroundTint">@null</item>
-        <item name="android:layout_marginStart">4dp</item>
-        <item name="android:paddingHorizontal">0dp</item>
-    </style>
-
-    <style name="AppTheme.CardView" parent="Widget.Material3.CardView.Elevated" />
-
-    <style name="PreferenceTheme" parent="PreferenceThemeOverlay">
-        <item name="preferenceFragmentCompatStyle">@style/FragmentPreferenceStyle</item>
-    </style>
-
-    <style name="FragmentPreferenceStyle" parent="PreferenceFragment.Material">
-        <item name="android:divider">@drawable/shape_divider</item>
     </style>
 </resources>
