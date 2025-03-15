@@ -1,56 +1,45 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--
-    Launcher
-        Widgets, dock, wallpaper, apps, etc.
-
-    Status Bar
-        Notifications, status icons, etc.
-
-    Quick Settings
-        Grid size, user switcher, tiles
-
-    Recents
-        Grid size, spacing, style
-
-    eInk optimizations
-        Regal mode, per-activity settings
-    -->
-
     <Preference
         app:title="@string/launcher_settings"
         app:summary="@string/launcher_settings_summary"
         app:icon="@drawable/ic_twotone_home_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsLauncherFragment"
         app:allowDividerBelow="true" />
 
     <Preference
         app:title="@string/status_bar_settings"
         app:summary="@string/status_bar_settings_summary"
         app:icon="@drawable/ic_twotone_ad_units_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsStatusBarFragment"
         app:allowDividerBelow="true" />
 
     <Preference
         app:title="@string/quick_settings_settings"
         app:summary="@string/quick_settings_settings_summary"
         app:icon="@drawable/ic_twotone_settings_suggest_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsQsFragment"
         app:allowDividerBelow="true" />
 
     <Preference
         app:title="@string/recents_settings"
         app:summary="@string/recents_settings_summary"
         app:icon="@drawable/ic_twotone_recents_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsRecentsFragment"
         app:allowDividerBelow="true" />
 
     <Preference
         app:title="@string/eink_optimizations_settings"
         app:summary="@string/eink_optimizations_settings_summary"
         app:icon="@drawable/ic_twotone_brush_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsEinkFragment"
         app:allowDividerBelow="true" />
 
     <Preference
         app:title="@string/misc_settings"
         app:summary="@string/misc_settings_summary"
         app:icon="@drawable/ic_twotone_more_horiz_24"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsMiscFragment"
         app:allowDividerBelow="true" />
 
     <Preference

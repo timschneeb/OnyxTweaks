@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        app:title="@string/eink_center"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_eink_center_always_show_regal_mode"
+            android:title="@string/eink_center_always_show_regal_mode"
+            android:summary="@string/eink_center_always_show_regal_mode_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

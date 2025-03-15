@@ -11,28 +11,53 @@
         <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
         <item name="cardCornerRadius">@dimen/corner_radius</item>
         <item name="preferenceTheme">@style/PreferenceTheme</item>
-    </style>
 
-    <style name="AppTheme.Dialog" parent="Theme.Material3.Light.Dialog">
-        <item name="android:divider">@drawable/shape_divider</item>
-
-        <item name="windowActionBar">false</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
-        <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
-        <item name="cardCornerRadius">@dimen/corner_radius</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
+        <item name="colorTertiary">@color/colorTertiary</item>
+        <item name="colorTertiaryContainer">@color/colorTertiaryContainer</item>
+        <item name="colorOnTertiary">@color/colorOnTertiary</item>
+        <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorOutline">@color/colorOutline</item>
+        <item name="colorOnSurfaceInverse">@color/colorInverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/colorInverseSurface</item>
+        <item name="colorPrimaryInverse">@color/colorPrimaryInverse</item>
     </style>
 
     <style name="AppTheme.AlertDialogTheme" parent="@style/ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="dialogCornerRadius">28dp</item>
-        <item name="colorBackgroundFloating">?attr/colorSurface</item>
+        <item name="android:windowBackground">@drawable/shape_dialog_background</item>
+
+        <item name="dialogCornerRadius">@dimen/corner_radius</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Outlined</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
+        <item name="android:background">@drawable/shape_dialog_background</item>
+    </style>
+
+    <style name="Widget.App.Button.Outlined" parent="Widget.App.Button">
+        <item name="android:background">@drawable/shape_dialog_background</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:background">@color/colorOnPrimary</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:paddingHorizontal">0dp</item>
     </style>
 
     <style name="AppTheme.CardView" parent="Widget.Material3.CardView.Elevated" />

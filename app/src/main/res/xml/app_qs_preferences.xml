@@ -1,0 +1,79 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="@string/qs_header"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_header_show_settings_button"
+            android:title="@string/qs_header_show_settings_button"
+            android:summary="@string/qs_header_show_settings_button_summary"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="@string/key_qs_header_settings_button_action"
+            android:title="@string/qs_header_settings_button_action"
+            android:entries="@array/qs_settings_button_actions"
+            android:entryValues="@array/qs_settings_button_actions_values"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_header_show_user_switcher"
+            android:title="@string/qs_header_show_user_switcher"
+            android:summary="@string/qs_header_show_user_switcher_summary"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/qs_panel_style"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_panel_compact"
+            android:title="@string/qs_panel_compact"
+            android:summary="@string/qs_panel_compact_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/qs_tiles"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_grid_custom_size"
+            android:title="@string/qs_grid_custom_size"
+            android:summary="@string/qs_grid_custom_size_summary"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="@string/key_qs_grid_row_count"
+            android:dependency="@string/key_qs_grid_custom_size"
+            android:title="@string/qs_grid_row_count"
+            android:summary="@string/qs_grid_row_count_summary"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="@string/key_qs_grid_column_count"
+            android:dependency="@string/key_qs_grid_custom_size"
+            android:title="@string/qs_grid_column_count"
+            android:summary="@string/qs_grid_column_count_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_grid_no_min_tile_count"
+            android:dependency="@string/key_qs_grid_custom_size"
+            android:title="@string/qs_grid_no_min_tile_count"
+            android:summary="@string/qs_grid_no_min_tile_count_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_grid_show_bw_tile"
+            android:title="@string/qs_grid_show_bw_tile"
+            android:summary="@string/qs_grid_show_bw_tile_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,3 +1,4 @@
 <resources>
-    <dimen name="corner_radius">12dp</dimen>
+    <dimen name="corner_radius">24dp</dimen>
+    <dimen name="dialog_border_width">2dp</dimen>
 </resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="scope">
+        <item>android</item>
+        <item>com.android.systemui</item>
+        <item>com.onyx</item>
+    </string-array>
+
+    <string-array name="settings_categories" translatable="false">
+        <item>@string/launcher_setting_cat_freeze_manager</item>
+        <item>@string/launcher_setting_cat_app_settings</item>
+        <item>@string/launcher_setting_cat_screensaver</item>
+        <item>@string/launcher_setting_cat_child_app_usage_statistics</item>
+    </string-array>
+    <string-array name="settings_categories_values" translatable="false">
+        <!-- Title resource name; category name; icon resource name -->
+        <item>frozen_app_settings;app_freeze;ic_freeze_manager</item>
+        <item>setting_application_management;application_management;ic_setting_application</item>
+        <item>launcher_screensaver_setting_title;launcher_screensaver_setting;ic_item_screen_saver</item>
+        <item>child_app_usage_statistics;child_app_usage_statistics;ic_item_usage_statistics</item>
+    </string-array>
+
+    <string-array name="function_bar_items" translatable="false">
+        <item>@string/launcher_bar_hidden_item_library</item>
+        <item>@string/launcher_bar_hidden_item_shop</item>
+        <item>@string/launcher_bar_hidden_item_note</item>
+        <item>@string/launcher_bar_hidden_item_storage</item>
+        <item>@string/launcher_bar_hidden_item_apps</item>
+        <item>@string/launcher_bar_hidden_item_settings</item>
+    </string-array>
+    <string-array name="function_bar_items_values" translatable="false">
+        <!-- Name; icon resource name -->
+        <item>library;home_library</item>
+        <item>shop;home_shop</item>
+        <item>note;home_note</item>
+        <item>storage;home_storage</item>
+        <item>apps;home_apps</item>
+        <item>setting;home_setting</item>
+    </string-array>
+
+    <string-array name="qs_settings_button_actions">
+        <item>@string/qs_header_settings_button_action_onyx_settings</item>
+        <item>@string/qs_header_settings_button_action_stock_settings</item>
+    </string-array>
+    <string-array name="qs_settings_button_actions_values">
+        <item>onyx_settings</item>
+        <item>stock_settings</item>
+    </string-array>
+</resources>

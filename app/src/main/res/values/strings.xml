@@ -16,7 +16,7 @@
     <string name="credits_app">Developed by</string>
     <string name="credits_project_page">Visit project website on GitHub</string>
     <string name="credits_project_page_summary">Report issues, keep yourself updated, and read the source code</string>
-    <string name="credits_project_play_page">Visit RootlessJamesDSP on Google Play</string>
+    <string name="credits_project_play_page">Visit OnyxTweaks on Google Play</string>
     <string name="credits_project_play_page_summary">Check for new updates</string>
     <string name="credits_version">Application version</string>
     <string name="credits_build_info">Build info</string>
@@ -29,26 +29,16 @@
     <string name="quick_settings_settings_summary">Grid size, user switcher, tiles</string>
     <string name="recents_settings">Recents</string>
     <string name="recents_settings_summary">Grid size, spacing, style</string>
-    <string name="eink_optimizations_settings">eInk optimizations</string>
+    <string name="eink_optimizations_settings">e-Ink optimizations</string>
     <string name="eink_optimizations_settings_summary">Regal mode, per-activity settings</string>
     <string name="misc_settings">Miscellaneous</string>
     <string name="misc_settings_summary">Crash reports, other actions</string>
     <string name="about_settings">About</string>
     <string name="about_settings_summary">Credits, support, updates</string>
 
-    <string name="privacy">Privacy</string>
-    <string name="privacy_share_crash_reports">Share application crash reports</string>
-    <string name="privacy_share_crash_reports_on">Send crash reports to the developer</string>
-    <string name="privacy_share_crash_reports_off">Don\'t send crash reports to the developer</string>
-
     <!-- Number box view -->
     <string name="number_box_decrement">Decrement</string>
     <string name="number_box_increment">Increment</string>
-
-    <!-- Slider widget -->
-    <string name="slider_dialog_title">Edit value</string>
-    <string name="slider_dialog_format_error">Invalid number format. Changes not applied.</string>
-    <string name="slider_dialog_step_error">Value must be a multiple of %1$d. Changes not applied.</string>
 
     <string name="corepatch">This version is for Android 9-15 only.\nPlease use the latest version of the LSPosed.</string>
     <string name="downgr">Allow downgrade</string>
@@ -71,4 +61,126 @@
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
     <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
+
+    <!-- Launcher -->
+    <string name="launcher_apps">Apps</string>
+    <string name="launcher_app_show_settings">Show stock settings app</string>
+    <string name="launcher_app_show_settings_summary">Remove the stock settings app from the app filter</string>
+    <string name="launcher_app_show_file_mgr">Show stock file manager app</string>
+    <string name="launcher_app_show_file_mgr_summary">Remove the stock file manager app from the app filter</string>
+    <string name="launcher_app_show_all">Show all hidden apps</string>
+    <string name="launcher_app_show_all_summary">Disable the built-in app filter and shows all apps</string>
+    <string name="launcher_apps_notice">After a hidden app has been shown, it will persist even after disabling this setting. To hide it again, you need to reset your desktop using the \'Re-initialize desktop\' option below.</string>
+    <string name="launcher_desktop">Desktop</string>
+    <string name="launcher_desktop_wallpaper">Enable system-wide wallpaper support</string>
+    <string name="launcher_desktop_wallpaper_summary">Allow setting wallpapers, even in 3rd party launchers</string>
+    <string name="launcher_desktop_widgets_advanced"><![CDATA[Enable widget support & advanced features]]></string>
+    <string name="launcher_desktop_widgets_advanced_summary">Allow adding widgets to the desktop by long-pressing. Removes the toolbar in the app drawer</string>
+    <string name="launcher_desktop_show_dock">Enable app dock</string>
+    <string name="launcher_desktop_show_dock_summary">Show an application dock at the bottom of the launcher</string>
+    <string name="launcher_desktop_show_settings">Enable hidden launcher settings</string>
+    <string name="launcher_desktop_show_settings_summary">Show the launcher settings button when long-pressing in an empty space on the desktop</string>
+    <string name="launcher_desktop_hide_top_border">Hide top border</string>
+    <string name="launcher_desktop_hide_top_border_summary">Hide the black top border below the status bar</string>
+    <string name="launcher_desktop_row_count">Desktop row count</string>
+    <string name="launcher_desktop_row_count_summary">Set the number of rows on the desktop</string>
+    <string name="launcher_desktop_column_count">Desktop column count</string>
+    <string name="launcher_desktop_column_count_summary">Set the number of columns on the desktop</string>
+    <string name="launcher_desktop_dock_column_count">Dock column count</string>
+    <string name="launcher_desktop_dock_column_count_summary">Set the number of columns in the dock</string>
+    <string name="launcher_desktop_reinit">Re-initialize desktop</string>
+    <string name="launcher_desktop_reinit_summary">Remove all widgets, folders, and shortcuts and relocate all apps. Use this if you encounter issues with the desktop after changing row/column sizes.</string>
+    <string name="launcher_function_bar">Function bar</string>
+    <string name="launcher_bar_show_position_setting">Allow changing function bar location</string>
+    <string name="launcher_bar_show_position_setting_summary">Add an option to change the location of the function bar in the Onyx settings</string>
+    <string name="launcher_bar_hidden_items">Hide function bar items</string>
+    <string name="launcher_bar_hidden_item_library">Library</string>
+    <string name="launcher_bar_hidden_item_shop">Shop</string>
+    <string name="launcher_bar_hidden_item_note">Note</string>
+    <string name="launcher_bar_hidden_item_storage">Storage</string>
+    <string name="launcher_bar_hidden_item_apps">Apps</string>
+    <string name="launcher_bar_hidden_item_settings">Settings</string>
+    <string name="launcher_settings_onyx">Settings</string>
+    <string name="launcher_settings_added_shortcuts">Additional Onyx settings shortcuts</string>
+    <string name="launcher_setting_cat_freeze_manager">App freeze manager</string>
+    <string name="launcher_setting_cat_app_settings">Application settings</string>
+    <string name="launcher_setting_cat_screensaver">Screensaver</string>
+    <string name="launcher_setting_cat_child_app_usage_statistics">App usage statistics</string>
+    <string name="launcher_settings_show_physical_input">Show physical keyboard/mouse settings</string>
+    <string name="launcher_settings_show_physical_input_summary"><![CDATA[Unlocks the physical input section in the \'Language & input\' Onyx settings]]></string>
+    <string name="launcher_store">Store</string>
+    <string name="launcher_store_show_chinese_store">Enable chinese book store</string>
+    <string name="launcher_store_show_chinese_store_summary">Remove the regional lock for the IGet book store</string>
+    <!-- Status bar -->
+    <string name="status_bar_notifications">Notifications</string>
+    <string name="status_bar_notifications_heads_up">Re-enable heads-up notifications</string>
+    <string name="status_bar_notifications_heads_up_summary">Display incoming notifications as a floating popup</string>
+    <string name="status_bar_notifications_enable_icon_colors">Re-enable notification icon colors in the expanded status bar</string>
+    <string name="status_bar_notifications_enable_icon_colors_summary">Use the app icon colors instead of monochrome icons in the expanded status bar</string>
+    <string name="status_bar_notifications_move_header_to_bottom">Move the header of the extended status bar to the bottom</string>
+    <string name="status_bar_notifications_move_header_to_bottom_summary">Clock, date, and clear all button will be displayed at the bottom of the notification panel</string>
+    <string name="status_bar_status_icons">Status icons</string>
+    <string name="status_bar_status_icons_show_refresh_mode">Show current eInk refresh mode</string>
+    <string name="status_bar_status_icons_show_refresh_mode_summary">Display the current eInk refresh mode in the status bar as an icon</string>
+    <string name="status_bar_status_icons_show_touch_mode">Show current touch/stylus mode</string>
+    <string name="status_bar_status_icons_show_touch_mode_summary">Display the current touch input mode in the status bar as an icon</string>
+    <string name="status_bar_status_icons_show_wifi_activity">Show wi-fi activity indicators</string>
+    <string name="status_bar_status_icons_show_wifi_activity_summary">Display arrow indicators for wi-fi activity in the status bar</string>
+    <string name="status_bar_status_icons_max_notification_icons">Maximum visible notification icons</string>
+    <string name="status_bar_status_icons_max_notification_icons_summary">Set the maximum number of notification icons that can be displayed in the status bar</string>
+    <string name="status_bar_status_icons_remove_borders">Remove notification icon borders</string>
+    <string name="status_bar_status_icons_remove_borders_summary">Disable the square borders around notification icons in the status bar</string>
+    <!-- Quick settings -->
+    <string name="qs_header">Header</string>
+    <string name="qs_header_show_settings_button">Show settings button in header</string>
+    <string name="qs_header_show_settings_button_summary">Display a shortcut to the system settings in the header</string>
+    <string name="qs_header_settings_button_action">Settings button action</string>
+    <string name="qs_header_settings_button_action_onyx_settings">Launch Onyx settings page</string>
+    <string name="qs_header_settings_button_action_stock_settings">Launch stock settings</string>
+    <string name="qs_header_show_user_switcher">Show user switcher in header</string>
+    <string name="qs_header_show_user_switcher_summary">Display a shortcut to switch users in the header</string>
+    <string name="qs_panel_style">Panel style</string>
+    <string name="qs_panel_compact">Compact panel style</string>
+    <string name="qs_panel_compact_summary">Only show the panel in the top right corner, instead of using the full screen height</string>
+    <string name="qs_tiles">Tiles</string>
+    <string name="qs_grid_custom_size">Customize QS grid size</string>
+    <string name="qs_grid_custom_size_summary">Enable custom row/column counts for the quick settings grid</string>
+    <string name="qs_grid_row_count">QS grid row count</string>
+    <string name="qs_grid_row_count_summary">Set the number of rows for the quick settings grid</string>
+    <string name="qs_grid_column_count">QS grid column count</string>
+    <string name="qs_grid_column_count_summary">Set the number of columns for the quick settings grid</string>
+    <string name="qs_grid_no_min_tile_count">Remove minimum tile count restriction</string>
+    <string name="qs_grid_no_min_tile_count_summary">Allow the quick settings grid to contain less than 6 tiles</string>
+    <string name="qs_grid_show_bw_tile">Show black/white-mode tile</string>
+    <string name="qs_grid_show_bw_tile_summary">Add the BW mode to the list of available quick settings tiles</string>
+    <!-- Recents -->
+    <string name="recents_grid">Recents grid</string>
+    <string name="recents_grid_custom_size">Customize recents grid size</string>
+    <string name="recents_grid_custom_size_summary">Enable custom row/column counts for the grid</string>
+    <string name="recents_grid_row_count_portrait">Recents grid row count (Portrait)</string>
+    <string name="recents_grid_row_count_portrait_summary">Set the number of rows of the recents grid in portrait mode</string>
+    <string name="recents_grid_column_count_portrait">Recents grid column count (Portrait)</string>
+    <string name="recents_grid_column_count_portrait_summary">Set the number of columns of the recents grid in portrait mode</string>
+    <string name="recents_grid_row_count_landscape">Recents grid row count (Landscape)</string>
+    <string name="recents_grid_row_count_landscape_summary">Set the number of rows of the recents grid in landscape mode</string>
+    <string name="recents_grid_column_count_landscape">Recents grid column count (Landscape)</string>
+    <string name="recents_grid_column_count_landscape_summary">Set the number of columns of the recents grid in landscape mode</string>
+    <string name="recents_grid_spacing">Recents grid spacing</string>
+    <string name="recents_grid_spacing_summary">Set the spacing between the grid items</string>
+    <string name="recents_style">Style</string>
+    <string name="recents_use_stock_header">Use stock Android recents header</string>
+    <string name="recents_use_stock_header_summary"><![CDATA[Use the stock Android recents header instead of the Onyx Boox header. Supports tap & hold to show app info.]]></string>
+    <!-- e-Ink optimizations -->
+    <string name="eink_center">e-Ink Center</string>
+    <string name="eink_center_always_show_regal_mode">Always show regal mode</string>
+    <string name="eink_center_always_show_regal_mode_summary">Allow any app to be used in regal mode, even in system apps</string>
+    <!-- Miscellaneous -->
+    <string name="misc_shortcuts">Shortcuts</string>
+    <string name="misc_open_stock_settings">Open stock settings</string>
+    <string name="misc_open_stock_settings_summary">Launch Android\'s stock settings app</string>
+    <string name="misc_privacy">Privacy</string>
+    <string name="misc_privacy_share_crash_reports">Share anonymous crash reports</string>
+    <string name="misc_privacy_share_crash_reports_summary">Helps the developer to fix crashes and incompatibilities on other Onyx Boox devices</string>
+
+
 </resources>

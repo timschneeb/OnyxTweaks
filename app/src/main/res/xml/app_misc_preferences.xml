@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="@string/misc_shortcuts"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/key_misc_open_stock_settings"
+            android:title="@string/misc_open_stock_settings"
+            android:summary="@string/misc_open_stock_settings_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/misc_privacy"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_misc_privacy_share_crash_reports"
+            android:title="@string/misc_privacy_share_crash_reports"
+            android:summary="@string/misc_privacy_share_crash_reports_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,11 +1,13 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.ClassHelper.Companion.classHelper
+import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
@@ -16,12 +18,12 @@ import me.timschneeberger.onyxtweaks.utils.getClass
 class AddSettingCategories : ModPack() {
     private data class SettingCategory(val title: String, val name: String, val icon: String)
 
-    private val injectedCategories = listOf(
-        SettingCategory("setting_application_management", "application_management", "ic_setting_application"),
-        SettingCategory("frozen_app_settings", "app_freeze", "ic_freeze_manager"),
-        SettingCategory("launcher_screensaver_setting_title", "launcher_screensaver_setting", "ic_item_screen_saver"),
-        SettingCategory("child_app_usage_statistics", "child_app_usage_statistics", "ic_item_usage_statistics")
-    )
+    private val injectedCategories = lazy {
+        // TODO
+        moduleRes.getStringArray(R.array.settings_categories_values)
+            .map { it.split(";") }
+            .map { SettingCategory(it[0], it[1], it[2]) }
+    }
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
@@ -33,7 +35,7 @@ class AddSettingCategories : ModPack() {
                     .invoke(param.result)
                     .let { (it as List<*>).toMutableList() }
                     .apply {
-                        injectedCategories
+                        injectedCategories.value
                             .takeWhile { category ->
                                 this.none { item ->
                                     item?.objectHelper()?.getObjectOrNull("name") == category.name
