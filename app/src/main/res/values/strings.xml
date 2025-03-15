@@ -1,6 +1,44 @@
 <resources>
     <string name="app_name">OnyxTweaks</string>
     <string name="module_description">Tweaks for the Onyx Boox</string>
+
+    <!-- Common -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="value_not_set">Not set</string>
+    <string name="close">Close</string>
+    <string name="continue_action">Continue</string>
+    <string name="never_show_warning_again">Never show this warning again</string>
+    <string name="no_activity_found">No app found to handle action</string>
+
+    <!-- Settings -->
+    <string name="about_settings">About</string>
+    <string name="about_settings_summary">Credits, support, updates</string>
+    <string name="credits">Credits</string>
+    <string name="credits_app">Developed by</string>
+    <string name="credits_project_page">Visit project website on GitHub</string>
+    <string name="credits_project_page_summary">Report issues, keep yourself updated, and read the source code</string>
+    <string name="credits_project_play_page">Visit RootlessJamesDSP on Google Play</string>
+    <string name="credits_project_play_page_summary">Check for new updates</string>
+    <string name="credits_version">Application version</string>
+    <string name="credits_build_info">Build info</string>
+
+    <string name="misc_settings">Miscellaneous</string>
+    <string name="misc_settings_summary">Crash reports, other actions</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_share_crash_reports">Share application crash reports</string>
+    <string name="privacy_share_crash_reports_on">Send crash reports to the developer</string>
+    <string name="privacy_share_crash_reports_off">Don\'t send crash reports to the developer</string>
+
+    <!-- Number box view -->
+    <string name="number_box_decrement">Decrement</string>
+    <string name="number_box_increment">Increment</string>
+
+    <!-- Slider widget -->
+    <string name="slider_dialog_title">Edit value</string>
+    <string name="slider_dialog_format_error">Invalid number format. Changes not applied.</string>
+    <string name="slider_dialog_step_error">Value must be a multiple of %1$d. Changes not applied.</string>
+
     <string name="corepatch">This version is for Android 9-15 only.\nPlease use the latest version of the LSPosed.</string>
     <string name="downgr">Allow downgrade</string>
     <string name="downgr_summary">Allow downgrade applications.</string>

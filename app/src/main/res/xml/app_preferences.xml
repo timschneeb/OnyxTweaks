@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:key="@string/key_misc"
+        app:title="@string/misc_settings"
+        app:summary="@string/misc_settings_summary"
+        app:icon="@drawable/ic_twotone_more_horiz_24"
+        app:allowDividerBelow="true" />
+
+    <Preference
+        app:key="@string/key_about"
+        app:title="@string/about_settings"
+        app:summary="@string/about_settings_summary"
+        app:icon="@drawable/ic_twotone_help_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsAboutFragment"
+        app:allowDividerAbove="true" />
+
+</PreferenceScreen>

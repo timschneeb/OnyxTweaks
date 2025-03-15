@@ -1,0 +1,54 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <me.timschneeberger.onyxtweaks.ui.preferences.AppIconPreference
+        app:selectable="false"
+        app:iconSpaceReserved="false"
+        app:allowDividerBelow="true" />
+
+    <Preference
+        android:title="@string/credits_version"
+        android:summary="x.x.x"
+        android:key="@string/key_credits_version"
+        android:icon="@drawable/ic_twotone_history_24dp"
+        app:allowDividerAbove="true" />
+
+    <Preference
+        android:title="@string/credits_build_info"
+        android:summary="@string/value_not_set"
+        android:icon="@drawable/ic_twotone_info_24dp"
+        android:key="@string/key_credits_build_info" />
+
+    <Preference
+        android:title="@string/credits_project_page"
+        android:summary="@string/credits_project_page_summary"
+        android:icon="@drawable/ic_baseline_github_24dp">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/timschneeb/OnyxTweaks" />
+    </Preference>
+
+    <Preference
+        android:key="@string/key_credits_google_play"
+        android:title="@string/credits_project_play_page"
+        android:summary="@string/credits_project_play_page_summary"
+        android:icon="@drawable/ic_baseline_google_play_24dp">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks" />
+    </Preference>
+
+    <PreferenceCategory
+        app:title="@string/credits"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:title="@string/credits_app"
+            android:summary="Tim Schneeberger (@timschneeb)"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/timschneeb" />
+        </Preference>
+
+    </PreferenceCategory>
+</PreferenceScreen>

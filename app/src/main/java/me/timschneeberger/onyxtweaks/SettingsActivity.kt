@@ -18,7 +18,7 @@ import android.view.WindowInsets
 class SettingsActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_settings_old)
         checkXSharedPreferences()
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction()

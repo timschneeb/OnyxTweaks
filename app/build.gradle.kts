@@ -19,6 +19,10 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "COMMIT_COUNT", "\"${getCommitCount()}\"")
+        buildConfigField("String", "COMMIT_SHA", "\"${getGitSha()}\"")
+        buildConfigField("String", "BUILD_TIME", "\"${getBuildTime()}\"")
     }
 
     project.setProperty("archivesBaseName", "OnyxTweaks-v${defaultConfig.versionName}-${defaultConfig.versionCode}")

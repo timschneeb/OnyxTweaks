@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="divider_default">@color/md_black_1000_12</color>
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimaryContainer">#000000</color>
+    <color name="colorOnPrimaryContainer">#FFFFFF</color>
+    <color name="colorSecondary">#000000</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorSecondaryContainer">#AAAAAA</color>
+    <color name="colorOnSecondaryContainer">#0C0C0C</color>
+    <color name="colorTertiary">#FFFFFF</color>
+    <color name="colorOnTertiary">#000000</color>
+    <color name="colorTertiaryContainer">#D8E2FF</color>
+    <color name="colorOnTertiaryContainer">#001947</color>
+    <color name="colorBackground">#FDFDFD</color>
+    <color name="colorOnBackground">#222222</color>
+    <color name="colorSurface">#FDFDFD</color>
+    <color name="colorOnSurface">#222222</color>
+    <color name="colorSurfaceVariant">#CCCCCC</color>
+    <color name="colorOnSurfaceVariant">#515151</color>
+    <color name="colorOutline">#838383</color>
+    <color name="colorInverseOnSurface">#F4F4F4</color>
+    <color name="colorInverseSurface">#333333</color>
+    <color name="colorPrimaryInverse">#555555</color>
+
+    <!-- Material Design Colors -->
+    <color name="md_black_1000">#000000</color>
+    <color name="md_black_1000_87">#DE000000</color>
+    <color name="md_black_1000_54">#8A000000</color>
+    <color name="md_black_1000_38">#61000000</color>
+    <color name="md_black_1000_12">#1F000000</color>
+    <color name="md_black_1000_8">#14000000</color>
+    <color name="md_black_1000_6">#0F000000</color>
+
+    <color name="md_white_1000">#FFFFFFFF</color>
+    <color name="md_white_1000_70">#B3FFFFFF</color>
+    <color name="md_white_1000_54">#8AFFFFFF</color>
+    <color name="md_white_1000_50">#80FFFFFF</color>
+    <color name="md_white_1000_20">#33FFFFFF</color>
+    <color name="md_white_1000_12">#1FFFFFFF</color>
+    <color name="md_white_1000_8">#14FFFFFF</color>
+    <color name="md_white_1000_6">#0FFFFFFF</color>
+
+    <color name="md_grey_50">#FAFAFA</color>
+    <color name="md_grey_50_75">#BFFAFAFA</color>
+    <color name="md_grey_100">#F5F5F5</color>
+    <color name="md_grey_300">#E0E0E0</color>
+    <color name="md_grey_800">#424242</color>
+    <color name="md_grey_900">#212121</color>
+    <color name="md_grey_900_75">#BF212121</color>
+
+    <color name="md_blue_A200">#448AFF</color>
+    <color name="md_blue_A200_75">#BF448AFF</color>
+    <color name="md_blue_A200_50">#80448AFF</color>
+
+    <color name="md_blue_A400">#2979FF</color>
+    <color name="md_blue_A400_75">#BF2979FF</color>
+    <color name="md_blue_A400_38">#612979FF</color>
+    <color name="md_blue_A400_12">#1F2979FF</color>
+
+    <color name="md_blue_grey_900">#263238</color>
+    <color name="md_blue_grey_800">#37474F</color>
+
+</resources>
