@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Internal -->
+    <bool name="default_launcher_reinit_flag" translatable="false">false</bool>
+
     <!-- Launcher -->
     <bool name="default_launcher_app_show_settings" translatable="false">false</bool>
     <bool name="default_launcher_app_show_file_mgr" translatable="false">false</bool>
@@ -9,6 +12,7 @@
     <bool name="default_launcher_desktop_show_dock" translatable="false">false</bool>
     <bool name="default_launcher_desktop_show_settings" translatable="false">false</bool>
     <bool name="default_launcher_desktop_hide_top_border" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_grid_custom_size" translatable="false">false</bool>
     <integer name="default_launcher_desktop_row_count" translatable="false">4</integer>
     <integer name="default_launcher_desktop_column_count" translatable="false">4</integer>
     <integer name="default_launcher_desktop_dock_column_count" translatable="false">6</integer>
@@ -18,8 +22,8 @@
     </string-array>
     <string-array name="default_launcher_settings_added_shortcuts" translatable="false">
     </string-array>
-    <string name="default_launcher_settings_show_physical_input" translatable="false">false</string>
-    <string name="default_launcher_store_show_chinese_store" translatable="false">false</string>
+    <bool name="default_launcher_settings_show_physical_input" translatable="false">false</bool>
+    <bool name="default_launcher_store_show_chinese_store" translatable="false">false</bool>
 
     <!-- Status bar -->
     <bool name="default_status_bar_notifications_heads_up" translatable="false">false</bool>

@@ -7,6 +7,7 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
@@ -17,15 +18,10 @@ import me.timschneeberger.onyxtweaks.utils.getClass
 @TargetPackages(LAUNCHER_PACKAGE)
 class HideFunctionBarItems : ModPack() {
     private data class FunctionItem(val name: String, val icon: String)
-
-    private val injectedCategories = listOf(
-        FunctionItem("library", "home_library"),
-        // FunctionItem("shop", "home_shop"),
-        // FunctionItem("note", "home_note"),
-        FunctionItem("storage", "home_storage"),
-        FunctionItem("apps", "home_apps"),
-        FunctionItem("setting", "home_setting"),
-    )
+    private val injectedItems get() =
+        preferences.get<Set<String>>(R.string.key_launcher_bar_hidden_items)
+            .map { it.split(";") }
+            .map { FunctionItem(it[0], it[1]) }
 
     private fun verifyContainerFunctionItem(item: String): Boolean =
         getClass("com.onyx.reader.main.model.FunctionConfig\$Function")
@@ -35,7 +31,6 @@ class HideFunctionBarItems : ModPack() {
             .invoke(null, item)
             .let { it as? Boolean == true }
             .also {
-
                 if (!it) {
                     XposedBridge.log("Critical: HideFunctionBarItems: Invalid function item for container: $item")
                 }
@@ -44,6 +39,9 @@ class HideFunctionBarItems : ModPack() {
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (injectedItems.isEmpty())
+            return
+
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("getFunctionConfig")
             .createAfterHook { param ->
@@ -54,7 +52,7 @@ class HideFunctionBarItems : ModPack() {
                     .let { (it as List<*>).toMutableList() }
                     .also(MutableList<Any?>::clear)
                     .apply {
-                        injectedCategories
+                        injectedItems
                             .mapNotNull(::createFunctionItem)
                             .forEach(this::add)
                     }

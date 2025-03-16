@@ -12,21 +12,20 @@ class CompactQsPanel : ModPack() {
     override val group = PreferenceGroups.QS
 
     override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {
-        if (!preferences.get<Boolean>(R.string.key_qs_panel_compact))
-            return
+        val enable = preferences.get<Boolean>(R.string.key_qs_panel_compact)
 
         param.res.setReplacement(
             SYSTEM_UI_PACKAGE,
             "bool",
             "qs_panel_height_custom",
-            true
+            enable
         )
 
         param.res.setReplacement(
             SYSTEM_UI_PACKAGE,
             "bool",
             "qs_panel_custom_bg",
-            true
+            enable
         )
     }
 }

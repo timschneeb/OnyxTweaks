@@ -18,7 +18,7 @@ class EnableDock : ModPack() {
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
-        if (!preferences.get<Boolean>(R.string.launcher_desktop_show_dock))
+        if (!preferences.get<Boolean>(R.string.key_launcher_desktop_show_dock))
             return
 
         getClass("com.onyx.common.common.model.DeviceConfig").apply {

@@ -12,6 +12,13 @@
     <string name="no_activity_found">No app found to handle action</string>
     <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
     <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
+    <string name="toast_launcher_restarting">Restarting launcher…</string>
+    <string name="toast_system_ui_restarting">Restarting system UI…</string>
+
+    <!-- Global menu -->
+    <string name="menu_restart_launcher">Restart Onyx launcher</string>
+    <string name="menu_restart_system_ui">Restart system UI</string>
+    <string name="menu_restart_zygote">Soft-reboot device</string>
 
     <!-- Settings -->
     <string name="credits">Credits</string>
@@ -62,6 +69,9 @@
     <string name="launcher_desktop_show_settings_summary">Show the launcher settings button when long-pressing in an empty space on the desktop</string>
     <string name="launcher_desktop_hide_top_border">Hide top border</string>
     <string name="launcher_desktop_hide_top_border_summary">Hide the black top border below the status bar</string>
+    <string name="launcher_desktop_grid">Grid</string>
+    <string name="launcher_desktop_grid_custom_size">Customize desktop grid size</string>
+    <string name="launcher_desktop_grid_custom_size_summary">Enable custom row/column counts for the desktop grid</string>
     <string name="launcher_desktop_row_count">Desktop row count</string>
     <string name="launcher_desktop_row_count_summary">Set the number of rows on the desktop</string>
     <string name="launcher_desktop_column_count">Desktop column count</string>
@@ -69,7 +79,10 @@
     <string name="launcher_desktop_dock_column_count">Dock column count</string>
     <string name="launcher_desktop_dock_column_count_summary">Set the number of columns in the dock</string>
     <string name="launcher_desktop_reinit">Re-initialize desktop</string>
-    <string name="launcher_desktop_reinit_summary">Remove all widgets, folders, and shortcuts and relocate all apps. Use this if you encounter issues with the desktop after changing row/column sizes.</string>
+    <string name="launcher_desktop_reinit_summary">Remove all widgets and folders, and relocate all apps. Use this if you encounter issues with the desktop after changing row/column sizes.</string>
+    <string name="launcher_desktop_reinit_confirm_title">Reset desktop items?</string>
+    <string name="launcher_desktop_reinit_confirm_message">By re-initializing your desktop, the desktop will be reset.\nExisting widgets and folders will be removed. All apps will be rearranged.\n\nThis action is recommended after changing the desktop grid size to a smaller value, as some items may now be cut-off and out-of-view. By resetting the desktop these icons will properly reappear.</string>
+    <string name="launcher_desktop_reinit_done_toast">Desktop has been re-initialized</string>
     <string name="launcher_function_bar">Function bar</string>
     <string name="launcher_bar_show_position_setting">Allow changing function bar location</string>
     <string name="launcher_bar_show_position_setting_summary">Add an option to change the location of the function bar in the Onyx settings</string>
@@ -95,6 +108,7 @@
     <string name="launcher_store">Store</string>
     <string name="launcher_store_show_chinese_store">Enable chinese book store</string>
     <string name="launcher_store_show_chinese_store_summary">Remove the regional lock for the IGet book store</string>
+
     <!-- Status bar -->
     <string name="status_bar_notifications">Notifications</string>
     <string name="status_bar_notifications_heads_up">Re-enable heads-up notifications</string>
@@ -114,6 +128,7 @@
     <string name="status_bar_status_icons_max_notification_icons_summary">Set the maximum number of notification icons that can be displayed in the status bar</string>
     <string name="status_bar_status_icons_remove_borders">Remove notification icon borders</string>
     <string name="status_bar_status_icons_remove_borders_summary">Disable the square borders around notification icons in the status bar</string>
+
     <!-- Quick settings -->
     <string name="qs_header">Header</string>
     <string name="qs_header_show_settings_button">Show settings button in header</string>
@@ -137,6 +152,7 @@
     <string name="qs_grid_no_min_tile_count_summary">Allow the quick settings grid to contain less than 6 tiles</string>
     <string name="qs_grid_show_bw_tile">Show black/white-mode tile</string>
     <string name="qs_grid_show_bw_tile_summary">Add the BW mode to the list of available quick settings tiles</string>
+
     <!-- Recents -->
     <string name="recents_grid">Recents grid</string>
     <string name="recents_grid_custom_size">Customize recents grid size</string>
@@ -153,11 +169,13 @@
     <string name="recents_grid_spacing_summary">Set the spacing between the grid items</string>
     <string name="recents_style">Style</string>
     <string name="recents_use_stock_header">Use stock Android recents header</string>
-    <string name="recents_use_stock_header_summary"><![CDATA[Use the stock Android recents header instead of the Onyx Boox header. Supports tap & hold to show app info.]]></string>
+    <string name="recents_use_stock_header_summary"><![CDATA[Use the stock Android recents header instead of the Onyx Boox header. Supports tap & hold to show app info. (Tablets only)]]></string>
+
     <!-- e-Ink optimizations -->
     <string name="eink_center">e-Ink Center</string>
     <string name="eink_center_always_show_regal_mode">Always show regal mode</string>
     <string name="eink_center_always_show_regal_mode_summary">Allow any app to be used in regal mode, even in system apps</string>
+
     <!-- Miscellaneous -->
     <string name="misc_shortcuts">Shortcuts</string>
     <string name="misc_open_stock_settings">Open stock settings</string>
@@ -165,5 +183,4 @@
     <string name="misc_privacy">Privacy</string>
     <string name="misc_privacy_share_crash_reports">Share anonymous crash reports</string>
     <string name="misc_privacy_share_crash_reports_summary">Helps the developer to fix crashes and incompatibilities on other Onyx Boox devices</string>
-
 </resources>

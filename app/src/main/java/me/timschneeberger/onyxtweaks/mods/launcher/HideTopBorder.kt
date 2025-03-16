@@ -12,7 +12,7 @@ class HideTopBorder : ModPack() {
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {
-        if (!preferences.get<Boolean>(R.string.launcher_desktop_hide_top_border))
+        if (!preferences.get<Boolean>(R.string.key_launcher_desktop_hide_top_border))
             return
 
         param.res.setReplacement(

@@ -1,14 +1,9 @@
 package me.timschneeberger.onyxtweaks.ui.utils
 
-import android.content.ActivityNotFoundException
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.text.Editable
 import android.text.InputType
 import android.view.LayoutInflater
@@ -17,7 +12,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.DialogTextinputBinding
@@ -25,55 +19,6 @@ import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInf
 
 
 object ContextExtensions {
-    fun Context.openPlayStoreApp(pkgName:String?){
-        if(!pkgName.isNullOrEmpty()) {
-            try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkgName")))
-            } catch (e: ActivityNotFoundException) {
-                try {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=$pkgName")
-                        )
-                    )
-                }
-                catch (e: ActivityNotFoundException) {
-                    toast(getString(R.string.no_activity_found))
-                }
-            }
-        }
-    }
-
-    /** Open another app.
-     * @param packageName the full package name of the app to open
-     * @return true if likely successful, false if unsuccessful
-     */
-    fun Context.launchApp(packageName: String?): Boolean {
-        val manager = this.packageManager
-        return try {
-            val i = manager.getLaunchIntentForPackage(packageName!!)
-                ?: return false
-            i.addCategory(Intent.CATEGORY_LAUNCHER)
-            this.startActivity(i)
-            true
-        } catch (e: ActivityNotFoundException) {
-            false
-        }
-    }
-
-    fun Context.sendLocalBroadcast(intent: Intent) {
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-    }
-
-    fun Context.registerLocalReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) {
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter)
-    }
-
-    fun Context.unregisterLocalReceiver(broadcastReceiver: BroadcastReceiver) {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
-    }
-
     fun Context.showAlert(@StringRes title: Int, @StringRes message: Int, callback: (() -> Unit)? = null) {
         showAlert(getString(title), getString(message), callback)
     }
@@ -88,23 +33,35 @@ object ContextExtensions {
             .show()
     }
 
-    fun Context.showYesNoAlert(title: String, message: String, callback: ((Boolean) -> Unit)) {
+    fun Context.showYesNoAlert(
+        title: String,
+        message: String,
+        positiveButton: String,
+        negativeButton: String,
+        callback: ((Boolean) -> Unit)? = null
+    ) {
         MaterialAlertDialogBuilder(this)
             .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
             .setMessage(message)
             .setTitle(title)
-            .setNegativeButton(getString(R.string.no)) { _, _ ->
-                callback.invoke(false)
+            .setNegativeButton(negativeButton) { _, _ ->
+                callback?.invoke(false)
             }
-            .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                callback.invoke(true)
+            .setPositiveButton(positiveButton) { _, _ ->
+                callback?.invoke(true)
             }
             .create()
             .show()
     }
 
-    fun Context.showYesNoAlert(@StringRes title: Int, @StringRes message: Int, callback: ((Boolean) -> Unit)) {
-        showYesNoAlert(getString(title), getString(message), callback)
+    fun Context.showYesNoAlert(
+        @StringRes title: Int,
+        @StringRes message: Int,
+        @StringRes positiveButton: Int = R.string.yes,
+        @StringRes negativeButton: Int = R.string.no,
+        callback: ((Boolean) -> Unit)? = null
+    ) {
+        showYesNoAlert(getString(title), getString(message), getString(positiveButton), getString(negativeButton), callback)
     }
 
     fun Context.showSingleChoiceAlert(

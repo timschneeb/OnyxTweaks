@@ -1,6 +1,7 @@
 package me.timschneeberger.onyxtweaks.mods.systemui
 
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
+import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
@@ -15,7 +16,7 @@ class ShowWifiActivityIndicators : ModPack() {
             SYSTEM_UI_PACKAGE,
             "bool",
             "config_showActivity",
-            false
+            preferences.get<Boolean>(R.string.key_status_bar_status_icons_show_wifi_activity)
         )
     }
 }

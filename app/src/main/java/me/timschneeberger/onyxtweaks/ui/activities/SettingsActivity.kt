@@ -1,12 +1,17 @@
 package me.timschneeberger.onyxtweaks.ui.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
 import me.timschneeberger.onyxtweaks.ui.fragments.SettingsFragment
+import me.timschneeberger.onyxtweaks.utils.restartLauncher
+import me.timschneeberger.onyxtweaks.utils.restartSystemUi
+import me.timschneeberger.onyxtweaks.utils.restartZygote
 
 class SettingsActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -56,6 +61,27 @@ class SettingsActivity : AppCompatActivity(),
         }
 
         binding.settingsToolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_restart, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.item_restart_launcher -> {
+            restartLauncher()
+            true
+        }
+        R.id.item_restart_system_ui -> {
+            restartSystemUi()
+            true
+        }
+        R.id.item_restart_zygote -> {
+            restartZygote()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

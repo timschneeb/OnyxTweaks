@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.CallSuper
 import androidx.preference.PreferenceFragmentCompat
 import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.transition.MaterialSharedAxis
@@ -20,7 +19,7 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
     protected val app
         get() = activity?.application as? OnyxTweakApp?
 
-    private val group by lazy {
+    protected val group by lazy {
         this::class.findAnnotations(PreferenceGroup::class).firstOrNull()?.group
             ?: throw IllegalStateException("No PreferenceGroup annotation found on ${this::class.simpleName}")
     }
@@ -44,8 +43,7 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
         }
     }
 
-    @CallSuper
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         try {
             preferenceManager.preferenceDataStore = WorldReadableDataStore(requireContext(), group)
         }
@@ -54,5 +52,9 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
             requireContext().showAlert(R.string.xsp_init_failed, R.string.xsp_init_failed_summary)
         }
         setPreferencesFromResource(group.xmlRes, rootKey)
+
+        onConfigurePreferences()
     }
+
+    open fun onConfigurePreferences() {}
 }

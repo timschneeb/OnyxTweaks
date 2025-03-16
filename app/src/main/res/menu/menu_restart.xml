@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_restart_launcher"
+        android:title="@string/menu_restart_launcher"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_restart_system_ui"
+        android:title="@string/menu_restart_system_ui"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_restart_zygote"
+        android:title="@string/menu_restart_zygote"
+        app:showAsAction="never" />
+</menu>

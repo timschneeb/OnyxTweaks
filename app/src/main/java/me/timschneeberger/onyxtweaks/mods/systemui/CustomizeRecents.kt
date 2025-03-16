@@ -8,6 +8,7 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
@@ -23,44 +24,55 @@ class CustomizeRecents : ModPack() {
     override val group = PreferenceGroups.RECENTS
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (preferences.get<Boolean>(R.string.key_recents_grid_custom_size)) {
+            getClass("com.android.systemui.recents.OnyxRecentsActivity").apply {
+                methodFinder()
+                    .firstByName("getRow")
+                    .replaceSizeByOrientation(
+                        preferences.get<Int>(R.string.key_recents_grid_row_count_portrait),
+                        preferences.get<Int>(R.string.key_recents_grid_row_count_landscape)
+                    )
 
-
-        getClass("com.android.systemui.recents.OnyxRecentsActivity").apply {
-            methodFinder()
-                .firstByName("getRow")
-                .replaceSizeByOrientation(5, 8)
-
-            methodFinder()
-                .firstByName("getColumn")
-                .replaceSizeByOrientation(5, 8)
+                methodFinder()
+                    .firstByName("getColumn")
+                    .replaceSizeByOrientation(
+                        preferences.get<Int>(R.string.key_recents_grid_column_count_portrait),
+                        preferences.get<Int>(R.string.key_recents_grid_column_count_landscape)
+                    )
+            }
         }
 
-        MethodFinder.fromClass("com.android.systemui.recents.OnyxRecentsActivity\$TabletManagerAdapter")
-            .firstByName("onPageCreateViewHolder")
-            .createHook {
-                replace { param ->
-                    val view = param.args[0].castNonNull<ViewGroup>().let { root ->
-                        root.context.inflateLayoutByName(
-                            root,
-                            "recents_task_view_phone"
-                        )
-                    }
+        if (preferences.get<Boolean>(R.string.key_recents_use_stock_header)) {
+            MethodFinder.fromClass("com.android.systemui.recents.OnyxRecentsActivity\$TabletManagerAdapter")
+                .firstByName("onPageCreateViewHolder")
+                .createHook {
+                    replace { param ->
+                        val view = param.args[0].castNonNull<ViewGroup>().let { root ->
+                            root.context.inflateLayoutByName(
+                                root,
+                                "recents_task_view_phone"
+                            )
+                        }
 
-                    return@replace ConstructorFinder.fromClass("com.android.systemui.recents.OnyxRecentsActivity\$RecentItemViewHolder")
-                        .filterByParamTypes(View::class.java)
-                        .first()
-                        .newInstance(view)
+                        return@replace ConstructorFinder.fromClass("com.android.systemui.recents.OnyxRecentsActivity\$RecentItemViewHolder")
+                            .filterByParamTypes(View::class.java)
+                            .first()
+                            .newInstance(view)
+                    }
                 }
-            }
+        }
     }
 
     override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {
+        if (!preferences.get<Boolean>(R.string.key_recents_grid_custom_size))
+            return
+
         // Set the space size between recent items
         param.res.setReplacement(
             SYSTEM_UI_PACKAGE,
             "integer",
             "onyx_recent_item_space_count",
-            30
+            preferences.get<Int>(R.string.key_recents_grid_spacing)
         )
     }
 

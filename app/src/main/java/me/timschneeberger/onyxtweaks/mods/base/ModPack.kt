@@ -1,9 +1,12 @@
 package me.timschneeberger.onyxtweaks.mods.base
 
+import android.os.Bundle
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import me.timschneeberger.onyxtweaks.receiver.ModEventReceiver
+import me.timschneeberger.onyxtweaks.receiver.ModEvents
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.XPreferences
 import kotlin.reflect.KClass
@@ -15,6 +18,10 @@ abstract class ModPack {
     val preferences by lazy { XPreferences(group).also {
         it.onPreferencesChanged = ::onPreferencesChanged
     }}
+
+    fun sendBroadcast(event: ModEvents, extras: Bundle? = null) {
+        EzXHelper.appContext.sendBroadcast(ModEventReceiver.createIntent(event, extras))
+    }
 
     /**
      * Called when a preference is changed.
