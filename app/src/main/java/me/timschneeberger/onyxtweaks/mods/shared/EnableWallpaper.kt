@@ -20,6 +20,7 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
@@ -35,6 +36,9 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (!preferences.get<Boolean>(R.string.key_launcher_desktop_wallpaper))
+            return
+
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isWallpaperFeatureEnabled")
             .replaceWithConstant(true)
@@ -101,6 +105,9 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
     }
 
     override fun handleZygoteInit(param: IXposedHookZygoteInit.StartupParam) {
+        if (!preferences.get<Boolean>(R.string.key_launcher_desktop_wallpaper))
+            return
+
         XResources.setSystemWideReplacement(
             "android",
             "bool",

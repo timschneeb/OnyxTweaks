@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.preference.PreferenceFragmentCompat
+import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.transition.MaterialSharedAxis
 import me.timschneeberger.onyxtweaks.OnyxTweakApp
+import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.showAlert
 import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.utils.WorldReadableDataStore
 import me.timschneeberger.onyxtweaks.ui.utils.setBackgroundFromAttribute
@@ -43,7 +46,13 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
 
     @CallSuper
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.preferenceDataStore = WorldReadableDataStore(requireContext(), group)
+        try {
+            preferenceManager.preferenceDataStore = WorldReadableDataStore(requireContext(), group)
+        }
+        catch (e: SecurityException) {
+            Log.e(e)
+            requireContext().showAlert(R.string.xsp_init_failed, R.string.xsp_init_failed_summary)
+        }
         setPreferencesFromResource(group.xmlRes, rootKey)
     }
 }

@@ -23,6 +23,8 @@ class CustomizeRecents : ModPack() {
     override val group = PreferenceGroups.RECENTS
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+
+
         getClass("com.android.systemui.recents.OnyxRecentsActivity").apply {
             methodFinder()
                 .firstByName("getRow")

@@ -3,6 +3,7 @@ package me.timschneeberger.onyxtweaks.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.annotation.StringRes
 import androidx.annotation.XmlRes
 import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
@@ -30,6 +31,7 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
  */
 class XPreferences(group: PreferenceGroups) : BasePreferences(group) {
     override val isReadOnly = true
+    override val resources get() = moduleRes
 
     override val prefs: SharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, group.prefName).also { it ->
         if(!it.file.exists())
@@ -51,12 +53,13 @@ class XPreferences(group: PreferenceGroups) : BasePreferences(group) {
  * @remarks This class is used to access preferences with read-write capabilities using SharedPreferences.
  *          Do not use in hooked apps.
  */
-class Preferences(context: Context, group: PreferenceGroups) : BasePreferences(group) {
+class Preferences(private val context: Context, group: PreferenceGroups) : BasePreferences(group) {
     private val dataStore = WorldReadableDataStore(context, group).also {
         it.prefs.registerOnSharedPreferenceChangeListener(this)
     }
 
     override val isReadOnly = false
+    override val resources: Resources get() = context.resources
     override val prefs: SharedPreferences = dataStore.prefs
 }
 
@@ -66,6 +69,7 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
     private val defaultCache: HashMap<String, Any> = hashMapOf()
 
     protected abstract val prefs: SharedPreferences
+    protected abstract val resources: Resources
     protected abstract val isReadOnly: Boolean
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
@@ -87,14 +91,8 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
      */
     @Suppress("UNCHECKED_CAST")
     fun <T : Any> get(@StringRes nameRes: Int, default: T? = null, type: KClass<T>): T {
-        val key = moduleRes.getString(nameRes)
-
-        XposedBridge.log("=====> GET $nameRes")
-        XposedBridge.log("get -> $key")
-
+        val key = resources.getString(nameRes)
         val defValue = default ?: getDefault(nameRes, type)
-
-        XposedBridge.log("  default -> $defValue")
 
         return when(type) {
             Boolean::class -> prefs.getBoolean(key, defValue as Boolean) as T
@@ -102,10 +100,11 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
             Int::class -> prefs.getInt(key, defValue as Int) as T
             Long::class -> prefs.getLong(key, defValue as Long) as T
             Float::class -> prefs.getFloat(key, defValue as Float) as T
+            Set::class -> prefs.getStringSet(key, defValue as Set<String>) as T
             else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
         }.also {
             // CrashlyticsImpl.setCustomKey("${namespace}_$key", it.toString())
-            XposedBridge.log("  value -> $it")
+            XposedBridge.log("=====> GET $key = $it")
         }
     }
 
@@ -115,13 +114,13 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
 
     @Suppress("UNCHECKED_CAST")
     fun <T : Any> getDefault(@StringRes nameRes: Int, type: KClass<T>): T {
-        val key = moduleRes.getString(nameRes)
+        val key = resources.getString(nameRes)
         return if(defaultCache.containsKey(key)) {
             defaultCache[key] as T
         }
         else {
             @SuppressLint("DiscouragedApi")
-            val defaultRes = moduleRes.getIdentifier(
+            val defaultRes = resources.getIdentifier(
                 "default_$key",
                 when(type)
                 {
@@ -130,6 +129,7 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
                     Int::class -> "integer"
                     Long::class -> "integer"
                     Float::class -> "integer"
+                    Set::class -> "array"
                     else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
                 },
                 BuildConfig.APPLICATION_ID
@@ -140,11 +140,12 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
             }
 
             (when(type) {
-                Boolean::class -> moduleRes.getBoolean(defaultRes)
-                String::class -> moduleRes.getString(defaultRes)
-                Int::class -> moduleRes.getInteger(defaultRes)
-                Long::class -> moduleRes.getInteger(defaultRes).toLong()
-                Float::class -> moduleRes.getInteger(defaultRes).toFloat()
+                Boolean::class -> resources.getBoolean(defaultRes)
+                String::class -> resources.getString(defaultRes)
+                Int::class -> resources.getInteger(defaultRes)
+                Long::class -> resources.getInteger(defaultRes).toLong()
+                Float::class -> resources.getInteger(defaultRes).toFloat()
+                Set::class -> resources.getStringArray(defaultRes).toSet()
                 else -> throw IllegalArgumentException("Unknown type")
             } as T).also {
                 defaultCache[key] = it as Any
@@ -171,7 +172,7 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
             throw IllegalStateException("This preferences implementation is read-only")
         }
 
-        val key = moduleRes.getString(nameRes)
+        val key = resources.getString(nameRes)
         val edit = prefs.edit()
         // CrashlyticsImpl.setCustomKey("${namespace}_$key", value.toString())
 

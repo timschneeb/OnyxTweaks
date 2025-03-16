@@ -7,7 +7,9 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ISystemUiActivityStarter
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
@@ -16,12 +18,16 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.getClass
+import me.timschneeberger.onyxtweaks.utils.invokeOriginalMethod
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
     override val group = PreferenceGroups.QS
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (!preferences.get<Boolean>(R.string.key_qs_header_show_settings_button))
+            return
+
         getClass("com.android.systemui.qs.QSPanel").apply {
             // Set the settings button to visible
             methodFinder()
@@ -39,9 +45,11 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
                 .firstByName("startOnyxSettings")
                 .createHook {
                     replace { param ->
-                        // TODO Implement selection
-                        startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))
-                        // Onyx: param.invokeOriginalMethod()
+                        when (preferences.get<String>(R.string.key_qs_header_settings_button_action)) {
+                            "onyx_settings" -> param.invokeOriginalMethod()
+                            "stock_settings" -> startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))
+                            else -> XposedBridge.log("Unknown QS settings action")
+                        }
                     }
                 }
         }

@@ -1,7 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.ClassHelper.Companion.classHelper
-import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
@@ -18,17 +17,17 @@ import me.timschneeberger.onyxtweaks.utils.getClass
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddSettingCategories : ModPack() {
     private data class SettingCategory(val title: String, val name: String, val icon: String)
-
-    private val injectedCategories = lazy {
-        // TODO
-        moduleRes.getStringArray(R.array.settings_categories_values)
+    private val injectedCategories get() =
+        preferences.get<Set<String>>(R.string.key_launcher_settings_added_shortcuts)
             .map { it.split(";") }
             .map { SettingCategory(it[0], it[1], it[2]) }
-    }
 
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (injectedCategories.isEmpty())
+            return
+
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("getSettingCategory")
             .createAfterHook { param ->
@@ -38,7 +37,7 @@ class AddSettingCategories : ModPack() {
                     .invoke(param.result)
                     .let { (it as List<*>).toMutableList() }
                     .apply {
-                        injectedCategories.value
+                        injectedCategories
                             .takeWhile { category ->
                                 this.none { item ->
                                     item?.objectHelper()?.getObjectOrNull("name") == category.name

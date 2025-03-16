@@ -1,6 +1,5 @@
 package me.timschneeberger.onyxtweaks.ui.fragments
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.BuildConfig
@@ -17,13 +16,8 @@ class SettingsAboutFragment : SettingsBaseFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         super.onCreatePreferences(savedInstanceState, rootKey)
 
+        val type = if(BuildConfig.DEBUG) "Debug" else "Release"
         version?.summary = BuildConfig.VERSION_NAME
-
-        val type = if(BuildConfig.DEBUG)
-            "Debug"
-        else
-            "Release"
-
         buildInfo?.summary = "$type build @${BuildConfig.COMMIT_SHA} (compiled at ${BuildConfig.BUILD_TIME})"
     }
 }

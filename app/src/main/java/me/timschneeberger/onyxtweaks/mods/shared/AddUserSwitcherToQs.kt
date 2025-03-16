@@ -37,6 +37,9 @@ class AddUserSwitcherToQs : ModPack() {
     override val group = PreferenceGroups.QS
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (!preferences.get<Boolean>(R.string.key_qs_header_show_user_switcher))
+            return
+
         when (lpParam.packageName) {
             SYSTEM_UI_PACKAGE -> handleLoadSystemUi()
             SYSTEM_FRAMEWORK_PACKAGE -> handleLoadFramework()

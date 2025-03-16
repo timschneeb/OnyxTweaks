@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.timschneeberger.onyxtweaks.R
@@ -79,6 +80,7 @@ object ContextExtensions {
 
     fun Context.showAlert(title: CharSequence, message: CharSequence, callback: (() -> Unit)? = null) {
         MaterialAlertDialogBuilder(this)
+            .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
             .setMessage(message)
             .setTitle(title)
             .setPositiveButton(android.R.string.ok) { _, _ -> callback?.invoke() }
@@ -88,6 +90,7 @@ object ContextExtensions {
 
     fun Context.showYesNoAlert(title: String, message: String, callback: ((Boolean) -> Unit)) {
         MaterialAlertDialogBuilder(this)
+            .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
             .setMessage(message)
             .setTitle(title)
             .setNegativeButton(getString(R.string.no)) { _, _ ->
@@ -111,6 +114,7 @@ object ContextExtensions {
         callback: ((Int?) -> Unit)
     ) {
         MaterialAlertDialogBuilder(this)
+            .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
             .setTitle(getString(title))
             .setSingleChoiceItems(choices, checkedIndex) { dialog, i ->
                 dialog.dismiss()
@@ -175,6 +179,7 @@ object ContextExtensions {
     ) {
         var selected = -1
         MaterialAlertDialogBuilder(this)
+            .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
             .setSingleChoiceItems(
                 entries,
                 -1
@@ -203,6 +208,7 @@ object ContextExtensions {
     ) {
         val selected = arrayListOf<T>()
         MaterialAlertDialogBuilder(this)
+            .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
             .setMultiChoiceItems(
                 entries,
                 null
