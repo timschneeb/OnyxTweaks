@@ -9,7 +9,10 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="false"
+        app:liftOnScrollColor="@color/colorInverseOnSurface"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/settingsToolbar"
@@ -18,6 +21,11 @@
             app:subtitle="@string/module_description"
             app:subtitleCentered="true"
             app:titleCentered="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_divider" />
 
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
