@@ -10,11 +10,12 @@
 
         <item name="cardCornerRadius">@dimen/corner_radius</item>
 
-        <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
+        <item name="materialSwitchStyle">@style/AppTheme.Widget.Switch</item>
+        <item name="actionOverflowMenuStyle">@style/AppTheme.PopupMenu.Overflow</item>
         <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
-        <item name="preferenceTheme">@style/PreferenceTheme</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
     </style>
 
     <!-- Dialog theme w/ border and custom buttons  -->
@@ -23,8 +24,8 @@
         <item name="android:windowBackground">@drawable/shape_dialog_background</item>
         <item name="dialogCornerRadius">@dimen/corner_radius</item>
         <item name="alertDialogStyle">@style/AppTheme.MaterialAlertDialog.Style</item>
-        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Outlined</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.Widget.Button.Outlined</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AppTheme.Widget.Button</item>
     </style>
 
     <style name="AppTheme.MaterialAlertDialog.Style" parent="MaterialAlertDialog.Material3">
@@ -32,7 +33,7 @@
     </style>
 
     <!-- Set the track color of disabled switches to pure white -->
-    <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+    <style name="AppTheme.Widget.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
     </style>
 
@@ -41,21 +42,33 @@
     </style>
 
     <!-- Custom text buttons, mainly for dialog buttons -->
-    <style name="Widget.App.Button.Outlined" parent="Widget.App.Button">
+    <style name="AppTheme.Widget.Button.Outlined" parent="AppTheme.Widget.Button">
         <item name="android:background">@drawable/shape_dialog_background</item>
     </style>
 
-    <style name="Widget.App.Button" parent="Widget.Material3.Button.OutlinedButton">
+    <style name="AppTheme.Widget.Button" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:background">@color/colorOnPrimary</item>
         <item name="backgroundTint">@null</item>
         <item name="android:layout_marginStart">4dp</item>
         <item name="android:paddingHorizontal">0dp</item>
     </style>
 
+    <style name="AppTheme.Overlay.ItemShape" parent="ShapeAppearance.M3.Sys.Shape.Corner.Full">
+        <item name="cornerRadius">@dimen/corner_radius</item>
+    </style>
+
     <style name="AppTheme.CardView" parent="Widget.Material3.CardView.Elevated" />
 
+    <!-- Custom popup menus w/ border and no elevation -->
+    <style name="AppTheme.PopupMenu.Overflow" parent="@style/Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/shape_menu_background</item>
+        <item name="android:divider">@drawable/shape_divider</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
     <!-- Preference theme w/ custom divider -->
-    <style name="PreferenceTheme" parent="PreferenceThemeOverlay">
+    <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay">
         <item name="preferenceFragmentCompatStyle">@style/FragmentPreferenceStyle</item>
     </style>
 
@@ -89,5 +102,13 @@
         <item name="colorOnSurfaceInverse">@color/colorInverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/colorInverseSurface</item>
         <item name="colorPrimaryInverse">@color/colorPrimaryInverse</item>
+
+        <item name="colorSurfaceContainer">@color/colorSurfaceContainer</item>
+        <item name="colorSurfaceContainerLow">@color/colorSurfaceContainerLow</item>
+        <item name="colorSurfaceContainerHigh">@color/colorSurfaceContainerHigh</item>
+        <item name="colorSurfaceContainerLowest">@color/colorSurfaceContainerLowest</item>
+        <item name="colorSurfaceContainerHighest">@color/colorSurfaceContainerHighest</item>
+        <item name="colorSurfaceDim">@color/colorSurfaceDim</item>
+        <item name="colorSurfaceBright">@color/colorSurfaceBright</item>
     </style>
 </resources>

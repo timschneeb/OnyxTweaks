@@ -4,5 +4,11 @@
     <stroke
         android:width="@dimen/border_width"
         android:color="@color/dialog_border" />
+    <padding
+        android:left="@dimen/menu_padding"
+        android:top="@dimen/menu_padding"
+        android:right="@dimen/menu_padding"
+        android:bottom="@dimen/menu_padding" />
+
     <corners android:radius="@dimen/corner_radius" />
 </shape>

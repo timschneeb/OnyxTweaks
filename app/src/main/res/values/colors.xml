@@ -26,6 +26,14 @@
     <color name="colorInverseSurface">#333333</color>
     <color name="colorPrimaryInverse">#555555</color>
 
+    <color name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral94</color>
+    <color name="colorSurfaceContainerLow">@color/m3_ref_palette_dynamic_neutral96</color>
+    <color name="colorSurfaceContainerHigh">@color/m3_ref_palette_dynamic_neutral92</color>
+    <color name="colorSurfaceContainerLowest">@color/colorOnPrimary</color>
+    <color name="colorSurfaceContainerHighest">@color/m3_ref_palette_dynamic_neutral90</color>
+    <color name="colorSurfaceDim">@color/m3_ref_palette_dynamic_neutral98</color>
+    <color name="colorSurfaceBright">@color/m3_ref_palette_dynamic_neutral87</color>
+
     <!-- Material Design Colors -->
     <color name="md_black_1000">#000000</color>
     <color name="md_black_1000_87">#DE000000</color>
