@@ -20,7 +20,7 @@ class SettingsActivity : AppCompatActivity(),
         setSupportActionBar(binding.settingsToolbar)
 
         if (savedInstanceState == null) {
-            val fragment = SettingsFragment.newInstance()
+            val fragment = SettingsFragment()
             @Suppress("DEPRECATION")
             fragment.setTargetFragment(null, 0)
 

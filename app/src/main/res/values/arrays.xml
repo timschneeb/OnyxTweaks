@@ -38,6 +38,17 @@
         <item>setting;home_setting</item>
     </string-array>
 
+    <string-array name="function_bar_item_alignments" translatable="false">
+        <item>@string/launcher_bar_item_alignment_no_change</item>
+        <item>@string/launcher_bar_item_alignment_centered</item>
+        <item>@string/launcher_bar_item_alignment_spacer</item>
+    </string-array>
+    <string-array name="function_bar_item_alignments_values" translatable="false">
+        <item>default</item>
+        <item>centered</item>
+        <item>spacer</item>
+    </string-array>
+
     <string-array name="qs_settings_button_actions">
         <item>@string/qs_header_settings_button_action_onyx_settings</item>
         <item>@string/qs_header_settings_button_action_stock_settings</item>

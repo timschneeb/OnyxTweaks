@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.utils
 
+import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.XposedBridge
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -9,11 +10,22 @@ import kotlin.math.max
 private const val MAX_DEPTH = 4
 
 @Suppress("unused")
-fun Any?.renderToLog(prefix: String? = null, multiline: Boolean = true, maxDepth: Int = MAX_DEPTH) {
+fun Any?.renderToXLog(prefix: String? = null, multiline: Boolean = true, maxDepth: Int = MAX_DEPTH) {
     renderToString(multiline, maxDepth)
         .lines()
         .forEach { line ->
             XposedBridge.log(
+                if (prefix.isNullOrBlank()) line else "$prefix: $line"
+            )
+        }
+}
+
+@Suppress("unused")
+fun Any?.renderToLog(prefix: String? = null, multiline: Boolean = true, maxDepth: Int = MAX_DEPTH) {
+    renderToString(multiline, maxDepth)
+        .lines()
+        .forEach { line ->
+            Log.e(
                 if (prefix.isNullOrBlank()) line else "$prefix: $line"
             )
         }

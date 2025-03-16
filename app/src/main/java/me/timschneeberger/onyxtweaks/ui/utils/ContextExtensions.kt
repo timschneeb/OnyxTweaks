@@ -73,15 +73,15 @@ object ContextExtensions {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
     }
 
-    fun Context.showAlert(@StringRes title: Int, @StringRes message: Int) {
-        showAlert(getString(title), getString(message))
+    fun Context.showAlert(@StringRes title: Int, @StringRes message: Int, callback: (() -> Unit)? = null) {
+        showAlert(getString(title), getString(message), callback)
     }
 
-    fun Context.showAlert(title: CharSequence, message: CharSequence) {
+    fun Context.showAlert(title: CharSequence, message: CharSequence, callback: (() -> Unit)? = null) {
         MaterialAlertDialogBuilder(this)
             .setMessage(message)
             .setTitle(title)
-            .setNegativeButton(android.R.string.ok, null)
+            .setPositiveButton(android.R.string.ok) { _, _ -> callback?.invoke() }
             .create()
             .show()
     }

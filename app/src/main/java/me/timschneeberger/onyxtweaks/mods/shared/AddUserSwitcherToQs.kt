@@ -23,6 +23,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import me.timschneeberger.onyxtweaks.utils.dpToPx
 import me.timschneeberger.onyxtweaks.utils.firstByName
@@ -33,6 +34,7 @@ import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
 
 @TargetPackages(SYSTEM_UI_PACKAGE, SYSTEM_FRAMEWORK_PACKAGE)
 class AddUserSwitcherToQs : ModPack() {
+    override val group = PreferenceGroups.QS
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         when (lpParam.packageName) {

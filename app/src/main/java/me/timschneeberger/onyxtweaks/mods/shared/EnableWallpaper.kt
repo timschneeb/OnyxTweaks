@@ -24,6 +24,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
@@ -31,6 +32,8 @@ import me.timschneeberger.onyxtweaks.utils.runSafely
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableWallpaper : ModPack(), IEarlyZygoteHook {
+    override val group = PreferenceGroups.LAUNCHER
+
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isWallpaperFeatureEnabled")

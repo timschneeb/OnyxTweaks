@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">OnyxTweaks</string>
-    <string name="module_description">Xposed tweaks for the Onyx Boox</string>
+    <string name="module_description">Xposed tweaks for Onyx Boox devices</string>
 
     <!-- Common -->
     <string name="yes">Yes</string>
@@ -10,6 +10,8 @@
     <string name="continue_action">Continue</string>
     <string name="never_show_warning_again">Never show this warning again</string>
     <string name="no_activity_found">No app found to handle action</string>
+    <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
+    <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
 
     <!-- Settings -->
     <string name="credits">Credits</string>
@@ -39,28 +41,6 @@
     <!-- Number box view -->
     <string name="number_box_decrement">Decrement</string>
     <string name="number_box_increment">Increment</string>
-
-    <string name="corepatch">This version is for Android 9-15 only.\nPlease use the latest version of the LSPosed.</string>
-    <string name="downgr">Allow downgrade</string>
-    <string name="downgr_summary">Allow downgrade applications.</string>
-    <string name="authcreak">Disable digest verify</string>
-    <string name="authcreak_summary">Allows install apps after modify file in apk (ignore invalid digest error).</string>
-    <string name="digestCreak">Disable compare signatures</string>
-    <string name="digestCreak_summary">Allow re-install app with different signatures.</string>
-    <string name="UsePreSig">Use installed signatures</string>
-    <string name="UsePreSig_summary">Always use signatures from already installed apps when installing.\n This is extremely <b>dangerous</b>.\n Only enable when really needed!</string>
-    <string name="settings">Settings</string>
-    <string name="ignore">Ignore</string>
-    <string name="config_error">Configuration initialization failed</string>
-    <string name="not_supported">It seems that you are using an out dated version of LSPosed or LSPosed is not activated, please update LSPosed or try again after activated.</string>
-    <string name="bypassBlock">Bypass block</string>
-    <string name="bypassBlock_summary">Bypass blocklist in some devices like Nothing Phone</string>
-    <string name="miui_usepresig_warn">UsePreSig won\'t work on MiUI because its framework changes too much.\nWe don\'t have time to track the case.</string>
-    <string name="usepresig_warn">!! Any apk can override the installed one !!\nBe carefully when installing unknown apk</string>
-    <string name="shared_user_title">Bypass shared user verify</string>
-    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
-    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
-    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
 
     <!-- Launcher -->
     <string name="launcher_apps">Apps</string>
@@ -93,6 +73,10 @@
     <string name="launcher_function_bar">Function bar</string>
     <string name="launcher_bar_show_position_setting">Allow changing function bar location</string>
     <string name="launcher_bar_show_position_setting_summary">Add an option to change the location of the function bar in the Onyx settings</string>
+    <string name="launcher_bar_item_alignment">Function bar item alignment</string>
+    <string name="launcher_bar_item_alignment_no_change">No change, use default</string>
+    <string name="launcher_bar_item_alignment_centered">Center items, distribute equally</string>
+    <string name="launcher_bar_item_alignment_spacer">Align last item right and other items left</string>
     <string name="launcher_bar_hidden_items">Hide function bar items</string>
     <string name="launcher_bar_hidden_item_library">Library</string>
     <string name="launcher_bar_hidden_item_shop">Shop</string>
@@ -181,6 +165,5 @@
     <string name="misc_privacy">Privacy</string>
     <string name="misc_privacy_share_crash_reports">Share anonymous crash reports</string>
     <string name="misc_privacy_share_crash_reports_summary">Helps the developer to fix crashes and incompatibilities on other Onyx Boox devices</string>
-
 
 </resources>

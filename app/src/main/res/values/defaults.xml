@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Launcher -->
+    <bool name="default_launcher_app_show_settings" translatable="false">false</bool>
+    <bool name="default_launcher_app_show_file_mgr" translatable="false">false</bool>
+    <bool name="default_launcher_app_show_all" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_widgets_advanced" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_wallpaper" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_show_dock" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_show_settings" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_hide_top_border" translatable="false">false</bool>
+    <integer name="default_launcher_desktop_row_count" translatable="false">4</integer>
+    <integer name="default_launcher_desktop_column_count" translatable="false">4</integer>
+    <integer name="default_launcher_desktop_dock_column_count" translatable="false">6</integer>
+    <bool name="default_launcher_bar_show_position_setting" translatable="false">false</bool>
+    <string name="default_launcher_bar_item_alignment" translatable="false">default</string>
+    <string-array name="default_launcher_bar_hidden_items" translatable="false">
+    </string-array>
+    <string-array name="default_launcher_settings_added_shortcuts" translatable="false">
+    </string-array>
+    <string name="default_launcher_settings_show_physical_input" translatable="false">false</string>
+    <string name="default_launcher_store_show_chinese_store" translatable="false">false</string>
+
+    <!-- Status bar -->
+    <bool name="default_status_bar_notifications_heads_up" translatable="false">false</bool>
+    <bool name="default_status_bar_notifications_enable_icon_colors" translatable="false">false</bool>
+    <bool name="default_status_bar_notifications_move_header_to_bottom" translatable="false">false</bool>
+    <bool name="default_status_bar_status_icons_show_refresh_mode" translatable="false">false</bool>
+    <bool name="default_status_bar_status_icons_show_touch_mode" translatable="false">false</bool>
+    <bool name="default_status_bar_status_icons_show_wifi_activity" translatable="false">true</bool>
+    <integer name="default_status_bar_status_icons_max_notification_icons" translatable="false">5</integer>
+    <bool name="default_status_bar_status_icons_remove_borders" translatable="false">false</bool>
+
+    <!-- Quick settings -->
+    <bool name="default_qs_header_show_settings_button" translatable="false">false</bool>
+    <string name="default_qs_header_settings_button_action" translatable="false">onyx_settings</string>
+    <bool name="default_qs_header_show_user_switcher" translatable="false">false</bool>
+    <bool name="default_qs_panel_compact" translatable="false">false</bool>
+    <bool name="default_qs_grid_custom_size" translatable="false">false</bool>
+    <integer name="default_qs_grid_row_count" translatable="false">4</integer>
+    <integer name="default_qs_grid_column_count" translatable="false">2</integer>
+    <bool name="default_qs_grid_no_min_tile_count" translatable="false">false</bool>
+    <bool name="default_qs_grid_show_bw_tile" translatable="false">false</bool>
+
+    <!-- Recents -->
+    <bool name="default_recents_grid_custom_size" translatable="false">false</bool>
+    <integer name="default_recents_grid_row_count_portrait" translatable="false">4</integer>
+    <integer name="default_recents_grid_column_count_portrait" translatable="false">3</integer>
+    <integer name="default_recents_grid_row_count_landscape" translatable="false">3</integer>
+    <integer name="default_recents_grid_column_count_landscape" translatable="false">4</integer>
+    <integer name="default_recents_grid_spacing" translatable="false">30</integer>
+    <bool name="default_recents_use_stock_header" translatable="false">false</bool>
+
+    <!-- eInk optimizations -->
+    <bool name="default_eink_center_always_show_regal_mode" translatable="false">false</bool>
+
+    <!-- Misc -->
+    <bool name="default_misc_privacy_share_crash_reports" translatable="false">true</bool>
+
+</resources>

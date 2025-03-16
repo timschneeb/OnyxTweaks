@@ -19,7 +19,6 @@
     <string name="key_launcher_app_show_settings" translatable="false">launcher_app_show_settings</string>
     <string name="key_launcher_app_show_file_mgr" translatable="false">launcher_app_show_file_mgr</string>
     <string name="key_launcher_app_show_all" translatable="false">launcher_app_show_all</string>
-    <string name="key_launcher_app_show_none" translatable="false">launcher_app_show_none</string>
     <string name="key_launcher_desktop_widgets_advanced" translatable="false">launcher_desktop_widgets_advanced</string>
     <string name="key_launcher_desktop_wallpaper" translatable="false">launcher_desktop_wallpaper</string>
     <string name="key_launcher_desktop_show_dock" translatable="false">launcher_desktop_show_dock</string>
@@ -30,6 +29,7 @@
     <string name="key_launcher_desktop_dock_column_count" translatable="false">launcher_desktop_dock_column_count</string>
     <string name="key_launcher_desktop_reinit" translatable="false">launcher_desktop_reinit</string>
     <string name="key_launcher_bar_show_position_setting" translatable="false">launcher_bar_show_position_setting</string>
+    <string name="key_launcher_bar_item_alignment" translatable="false">launcher_bar_item_alignment</string>
     <string name="key_launcher_bar_hidden_items" translatable="false">launcher_bar_hidden_items</string>
     <string name="key_launcher_settings_added_shortcuts" translatable="false">launcher_settings_added_shortcuts</string>
     <string name="key_launcher_settings_show_physical_input" translatable="false">launcher_settings_show_physical_input</string>

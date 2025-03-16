@@ -26,6 +26,7 @@ class ModManager {
 
             getPacksForPackage(lpParam.packageName)
                 .forEach {
+                    XposedBridge.log("Initializing mod pack: ${it::class.java.simpleName}")
                     runSafely { it.handleLoadPackage(lpParam) }
                 }
         }
@@ -97,15 +98,12 @@ class ModManager {
             .firstOrNull { it::class == cls }
             ?.let { return it }
 
-        return cls.java.getDeclaredConstructor().newInstance()
+        return cls.java
+            .getDeclaredConstructor()
+            .newInstance()
             .run { this as ModPack }
-            .also { mod ->
-                try {
-                    mod.updatePrefs()
-                } catch (t: Throwable) {
-                    XposedBridge.log(t)
-                }
-            }
+            // Ensure preferences are initialized at this point
+            .also { pack -> pack.preferences.value }
     }
 
     companion object {

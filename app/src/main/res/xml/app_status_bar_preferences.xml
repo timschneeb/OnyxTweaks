@@ -7,18 +7,21 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_notifications_heads_up"
+            android:defaultValue="@bool/default_status_bar_notifications_heads_up"
             android:title="@string/status_bar_notifications_heads_up"
             android:summary="@string/status_bar_notifications_heads_up_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_notifications_enable_icon_colors"
+            android:defaultValue="@bool/default_status_bar_notifications_enable_icon_colors"
             android:title="@string/status_bar_notifications_enable_icon_colors"
             android:summary="@string/status_bar_notifications_enable_icon_colors_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_notifications_move_header_to_bottom"
+            android:defaultValue="@bool/default_status_bar_notifications_move_header_to_bottom"
             android:title="@string/status_bar_notifications_move_header_to_bottom"
             android:summary="@string/status_bar_notifications_move_header_to_bottom_summary"
             app:iconSpaceReserved="false" />
@@ -31,30 +34,35 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_status_icons_show_refresh_mode"
+            android:defaultValue="@bool/default_status_bar_status_icons_show_refresh_mode"
             android:title="@string/status_bar_status_icons_show_refresh_mode"
             android:summary="@string/status_bar_status_icons_show_refresh_mode_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_status_icons_show_touch_mode"
+            android:defaultValue="@bool/default_status_bar_status_icons_show_touch_mode"
             android:title="@string/status_bar_status_icons_show_touch_mode"
             android:summary="@string/status_bar_status_icons_show_touch_mode_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_status_icons_show_wifi_activity"
+            android:defaultValue="@bool/default_status_bar_status_icons_show_wifi_activity"
             android:title="@string/status_bar_status_icons_show_wifi_activity"
             android:summary="@string/status_bar_status_icons_show_wifi_activity_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_status_bar_status_icons_max_notification_icons"
+            android:defaultValue="@integer/default_status_bar_status_icons_max_notification_icons"
             android:title="@string/status_bar_status_icons_max_notification_icons"
             android:summary="@string/status_bar_status_icons_max_notification_icons_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_status_icons_remove_borders"
+            android:defaultValue="@bool/default_status_bar_status_icons_remove_borders"
             android:title="@string/status_bar_status_icons_remove_borders"
             android:summary="@string/status_bar_status_icons_remove_borders_summary"
             app:iconSpaceReserved="false" />

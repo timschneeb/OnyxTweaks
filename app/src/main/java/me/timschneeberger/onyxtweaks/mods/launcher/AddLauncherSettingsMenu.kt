@@ -15,6 +15,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.dpToPx
 import me.timschneeberger.onyxtweaks.utils.getClass
 import java.lang.ref.WeakReference
@@ -24,6 +25,7 @@ import java.lang.reflect.Proxy
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddLauncherSettingsMenu : ModPack() {
+    override val group = PreferenceGroups.LAUNCHER
 
     private class SettingsClickHandler(private val instances: MutableList<WeakReference<Any?>>) :
         InvocationHandler {

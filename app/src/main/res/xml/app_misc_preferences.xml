@@ -18,6 +18,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_misc_privacy_share_crash_reports"
+            android:defaultValue="@bool/default_misc_privacy_share_crash_reports"
             android:title="@string/misc_privacy_share_crash_reports"
             android:summary="@string/misc_privacy_share_crash_reports_summary"
             app:iconSpaceReserved="false" />

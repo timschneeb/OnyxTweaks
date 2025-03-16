@@ -12,12 +12,15 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ISystemUiActivityStarter
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.getClass
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
+    override val group = PreferenceGroups.QS
+
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         getClass("com.android.systemui.qs.QSPanel").apply {
             // Set the settings button to visible

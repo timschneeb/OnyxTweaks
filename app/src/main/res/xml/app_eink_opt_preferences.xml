@@ -6,6 +6,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_eink_center_always_show_regal_mode"
+            android:defaultValue="@bool/default_eink_center_always_show_regal_mode"
             android:title="@string/eink_center_always_show_regal_mode"
             android:summary="@string/eink_center_always_show_regal_mode_summary"
             app:iconSpaceReserved="false" />

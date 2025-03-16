@@ -7,18 +7,21 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_app_show_settings"
+            android:defaultValue="@bool/default_launcher_app_show_settings"
             android:title="@string/launcher_app_show_settings"
             android:summary="@string/launcher_app_show_settings_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_app_show_file_mgr"
+            android:defaultValue="@bool/default_launcher_app_show_file_mgr"
             android:title="@string/launcher_app_show_file_mgr"
             android:summary="@string/launcher_app_show_file_mgr_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_app_show_all"
+            android:defaultValue="@bool/default_launcher_app_show_all"
             android:title="@string/launcher_app_show_all"
             android:summary="@string/launcher_app_show_all_summary"
             app:iconSpaceReserved="false" />
@@ -36,18 +39,21 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_wallpaper"
+            android:defaultValue="@bool/default_launcher_desktop_wallpaper"
             android:title="@string/launcher_desktop_wallpaper"
             android:summary="@string/launcher_desktop_wallpaper_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_widgets_advanced"
+            android:defaultValue="@bool/default_launcher_desktop_widgets_advanced"
             android:title="@string/launcher_desktop_widgets_advanced"
             android:summary="@string/launcher_desktop_widgets_advanced_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_show_dock"
+            android:defaultValue="@bool/default_launcher_desktop_show_dock"
             android:dependency="@string/key_launcher_desktop_widgets_advanced"
             android:title="@string/launcher_desktop_show_dock"
             android:summary="@string/launcher_desktop_show_dock_summary"
@@ -55,6 +61,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_show_settings"
+            android:defaultValue="@bool/default_launcher_desktop_show_settings"
             android:dependency="@string/key_launcher_desktop_widgets_advanced"
             android:title="@string/launcher_desktop_show_settings"
             android:summary="@string/launcher_desktop_show_settings_summary"
@@ -62,24 +69,28 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_hide_top_border"
+            android:defaultValue="@bool/default_launcher_desktop_hide_top_border"
             android:title="@string/launcher_desktop_hide_top_border"
             android:summary="@string/launcher_desktop_hide_top_border_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_launcher_desktop_row_count"
+            android:defaultValue="@integer/default_launcher_desktop_row_count"
             android:title="@string/launcher_desktop_row_count"
             android:summary="@string/launcher_desktop_row_count_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_launcher_desktop_column_count"
+            android:defaultValue="@integer/default_launcher_desktop_column_count"
             android:title="@string/launcher_desktop_column_count"
             android:summary="@string/launcher_desktop_column_count_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_launcher_desktop_dock_column_count"
+            android:defaultValue="@integer/default_launcher_desktop_dock_column_count"
             android:dependency="@string/key_launcher_desktop_widgets_advanced"
             android:title="@string/launcher_desktop_dock_column_count"
             android:summary="@string/launcher_desktop_dock_column_count_summary"
@@ -98,12 +109,22 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_bar_show_position_setting"
+            android:defaultValue="@bool/default_launcher_bar_show_position_setting"
             android:title="@string/launcher_bar_show_position_setting"
             android:summary="@string/launcher_bar_show_position_setting_summary"
             app:iconSpaceReserved="false" />
 
+        <ListPreference
+            android:key="@string/key_launcher_bar_item_alignment"
+            android:defaultValue="@string/default_launcher_bar_item_alignment"
+            android:title="@string/launcher_bar_item_alignment"
+            android:entries="@array/function_bar_item_alignments"
+            android:entryValues="@array/function_bar_item_alignments_values"
+            app:iconSpaceReserved="false" />
+
         <MultiSelectListPreference
             android:key="@string/key_launcher_bar_hidden_items"
+            android:defaultValue="@array/default_launcher_bar_hidden_items"
             android:title="@string/launcher_bar_hidden_items"
             android:entries="@array/function_bar_items"
             android:entryValues="@array/function_bar_items_values"
@@ -118,6 +139,7 @@
 
         <MultiSelectListPreference
             android:key="@string/key_launcher_settings_added_shortcuts"
+            android:defaultValue="@array/default_launcher_settings_added_shortcuts"
             android:title="@string/launcher_settings_added_shortcuts"
             android:entries="@array/settings_categories"
             android:entryValues="@array/settings_categories_values"
@@ -126,6 +148,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_settings_show_physical_input"
+            android:defaultValue="@string/default_launcher_settings_show_physical_input"
             android:title="@string/launcher_settings_show_physical_input"
             android:summary="@string/launcher_settings_show_physical_input_summary"
             app:iconSpaceReserved="false" />
@@ -139,6 +162,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_store_show_chinese_store"
+            android:defaultValue="@string/default_launcher_store_show_chinese_store"
             android:title="@string/launcher_store_show_chinese_store"
             android:summary="@string/launcher_store_show_chinese_store_summary"
             app:iconSpaceReserved="false" />

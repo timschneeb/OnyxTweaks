@@ -1,20 +1,13 @@
 package me.timschneeberger.onyxtweaks
 
-import me.timschneeberger.onyxtweaks.BuildConfig
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
-import java.lang.reflect.InvocationTargetException
 
 class Test : IXposedHookLoadPackage {
     val prefs: XSharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, "conf")
 
-    @Throws(
-        IllegalAccessException::class,
-        InvocationTargetException::class,
-        InstantiationException::class
-    )
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
         if (BuildConfig.DEBUG) {
             XposedBridge.log(

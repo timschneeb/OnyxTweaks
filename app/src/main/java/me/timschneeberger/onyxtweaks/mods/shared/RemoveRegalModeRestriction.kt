@@ -6,11 +6,14 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
 
 @TargetPackages(SYSTEM_UI_PACKAGE, SYSTEM_FRAMEWORK_PACKAGE)
 class RemoveRegalModeRestriction : ModPack() {
+    override val group = PreferenceGroups.EINK
+
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE) {
             MethodFinder.fromClass("android.onyx.optimization.data.v2.EACRefreshConfig")

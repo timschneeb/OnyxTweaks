@@ -11,6 +11,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.getClass
 
@@ -24,6 +25,8 @@ class AddSettingCategories : ModPack() {
             .map { it.split(";") }
             .map { SettingCategory(it[0], it[1], it[2]) }
     }
+
+    override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")

@@ -1,13 +1,30 @@
 package me.timschneeberger.onyxtweaks.mods.base
 
+import com.github.kyuubiran.ezxhelper.EzXHelper
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Preferences
 import kotlin.reflect.KClass
 
 abstract class ModPack {
-    val targetPackages by lazy { getTargetPackages(this::class) }
+    abstract val group: PreferenceGroups
 
-    open fun updatePrefs(vararg key: String?) {}
+    val targetPackages by lazy { getTargetPackages(this::class) }
+    val preferences = lazy { Preferences(group).also {
+        it.onPreferencesChanged = ::onPreferencesChanged
+    }}
+
+    /**
+     * Called when a preference is changed.
+     *
+     * @param key the key of the preference that was changed
+     *            or null if all preferences were changed during initialization
+     */
+    open fun onPreferencesChanged(key: String?) {
+        XposedBridge.log(EzXHelper.hostPackageName + ": Preference changed: $key")
+    }
 
     /**
      * Handle the loading of a package.

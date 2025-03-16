@@ -77,6 +77,7 @@ android {
 
     lint {
         abortOnError = false
+        disable += "NonConstantResourceId"
     }
 
     buildFeatures {
@@ -95,8 +96,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
 
     implementation("com.google.android.material:material:1.12.0")
+    implementation("com.crossbowffs.remotepreferences:remotepreferences:0.8")
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
     implementation("com.github.topjohnwu.libsu:core:6.0.0")
+    implementation("org.lsposed.hiddenapibypass:hiddenapibypass:6.1")
 
     compileOnly("de.robv.android.xposed:api:82")
 }
