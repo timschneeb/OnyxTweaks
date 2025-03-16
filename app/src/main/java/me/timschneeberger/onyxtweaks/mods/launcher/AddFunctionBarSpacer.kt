@@ -17,7 +17,7 @@ class AddFunctionBarSpacer : ModPack() {
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         XposedBridge.log("loading AddFunctionBarSpacer for ${lpParam.packageName}")
-        val mode = preferences.value.get<String>(R.string.key_launcher_bar_item_alignment)
+        val mode = preferences.get<String>(R.string.key_launcher_bar_item_alignment)
         XposedBridge.log("Function bar spacer mode: $mode")
 
         if(mode == "default")
@@ -26,7 +26,7 @@ class AddFunctionBarSpacer : ModPack() {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isConfigFunctionBarSpace")
             .replaceWithConstant(
-                when(preferences.value.get<String>(R.string.key_launcher_bar_item_alignment)) {
+                when(preferences.get<String>(R.string.key_launcher_bar_item_alignment)) {
                     "spacer" -> true
                     else -> false
                 }

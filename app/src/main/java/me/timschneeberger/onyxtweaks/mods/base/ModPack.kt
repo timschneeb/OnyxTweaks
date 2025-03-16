@@ -5,14 +5,14 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.utils.Preferences
+import me.timschneeberger.onyxtweaks.utils.XPreferences
 import kotlin.reflect.KClass
 
 abstract class ModPack {
     abstract val group: PreferenceGroups
 
     val targetPackages by lazy { getTargetPackages(this::class) }
-    val preferences = lazy { Preferences(group).also {
+    val preferences by lazy { XPreferences(group).also {
         it.onPreferencesChanged = ::onPreferencesChanged
     }}
 

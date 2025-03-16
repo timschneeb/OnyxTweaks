@@ -1,16 +1,16 @@
 package me.timschneeberger.onyxtweaks.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.StringRes
 import androidx.annotation.XmlRes
-import com.crossbowffs.remotepreferences.RemotePreferences
-import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
 import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import me.timschneeberger.onyxtweaks.BuildConfig
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.ui.utils.WorldReadableDataStore
 import kotlin.reflect.KClass
 
 enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
@@ -26,25 +26,17 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
 
 /**
  * @remarks This class is used to access preferences with read-only without an app context using XSharedPreferences.
- *          It should be always used when writing preferences is not needed.
+ *          Only for use in hooked apps.
  */
-class Preferences(group: PreferenceGroups) : BasePreferences(group) {
+class XPreferences(group: PreferenceGroups) : BasePreferences(group) {
+    override val isReadOnly = true
+
     override val prefs: SharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, group.prefName).also { it ->
-        it.makeWorldReadable()
+        if(!it.file.exists())
+            XposedBridge.log("INFO: '${group.prefName}' not yet created. Using defaults.")
+        else if (!it.file.canRead())
+            XposedBridge.log("CRITICAL: Preferences file '${group.prefName}' not readable")
 
-
-        XposedBridge.log("Preferences INIT: ${group.prefName}")
-        XposedBridge.log(it.file.toString())
-        XposedBridge.log("readable?: ${it.file.canRead()}")
-
-        if (!it.file.canRead()) {
-            XposedBridge.log("CRITICAL: Preferences file not readable")
-        }
-
-        it.reload()
-        it.all.forEach { t, u ->
-            XposedBridge.log("---> $t: $u")
-        }
         try {
             @Suppress("DEPRECATION")
             it.registerOnSharedPreferenceChangeListener(this)
@@ -56,20 +48,25 @@ class Preferences(group: PreferenceGroups) : BasePreferences(group) {
 }
 
 /**
- * @remarks This class is used to write preferences. It should be avoided if possible, as it requires an app context.
- *          EzXHelper.appContext must be initialized before using this class. Therefore it should not be used in zygote or resource hooks.
+ * @remarks This class is used to access preferences with read-write capabilities using SharedPreferences.
+ *          Do not use in hooked apps.
  */
-class WritablePreferences(group: PreferenceGroups) : BasePreferences(group) {
-    override val prefs: SharedPreferences = RemotePreferences(appContext, BuildConfig.APPLICATION_ID, group.prefName, true).also { it ->
-        it.registerOnSharedPreferenceChangeListener(this)
+class Preferences(context: Context, group: PreferenceGroups) : BasePreferences(group) {
+    private val dataStore = WorldReadableDataStore(context, group).also {
+        it.prefs.registerOnSharedPreferenceChangeListener(this)
     }
+
+    override val isReadOnly = false
+    override val prefs: SharedPreferences = dataStore.prefs
 }
 
 abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.OnSharedPreferenceChangeListener {
     var onPreferencesChanged: ((String?) -> Unit)? = null
 
     private val defaultCache: HashMap<String, Any> = hashMapOf()
+
     protected abstract val prefs: SharedPreferences
+    protected abstract val isReadOnly: Boolean
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         loadEverything(key)
@@ -160,16 +157,20 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
     }
 
     @SuppressLint("ApplySharedPref")
-    fun <T : Any> reset(@StringRes nameRes: Int, async: Boolean = true, type: KClass<T>) {
-        set(nameRes, getDefault(nameRes, type), async, type)
+    fun <T : Any> reset(@StringRes nameRes: Int, type: KClass<T>) {
+        set(nameRes, getDefault(nameRes, type), type)
     }
 
-    inline fun <reified T : Any> reset(@StringRes nameRes: Int, async: Boolean = true) {
-        return reset(nameRes, async, T::class)
+    inline fun <reified T : Any> reset(@StringRes nameRes: Int) {
+        return reset(nameRes, T::class)
     }
 
     @SuppressLint("ApplySharedPref")
-    fun <T : Any> set(@StringRes nameRes: Int, value: T, async: Boolean = true, type: KClass<T>) {
+    fun <T : Any> set(@StringRes nameRes: Int, value: T, type: KClass<T>) {
+        if(isReadOnly) {
+            throw IllegalStateException("This preferences implementation is read-only")
+        }
+
         val key = moduleRes.getString(nameRes)
         val edit = prefs.edit()
         // CrashlyticsImpl.setCustomKey("${namespace}_$key", value.toString())
@@ -181,15 +182,10 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
             Long::class -> edit.putLong(key, value as Long)
             Float::class -> edit.putFloat(key, value as Float)
             else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
-        }.run {
-            if(async)
-                apply()
-            else
-                commit()
-        }
+        }.run(SharedPreferences.Editor::commit)
     }
 
-    inline fun <reified T : Any> set(@StringRes nameRes: Int, value: T, async: Boolean = true) {
-        set(nameRes, value, async, T::class)
+    inline fun <reified T : Any> set(@StringRes nameRes: Int, value: T) {
+        set(nameRes, value, T::class)
     }
 }

@@ -103,7 +103,7 @@ class ModManager {
             .newInstance()
             .run { this as ModPack }
             // Ensure preferences are initialized at this point
-            .also { pack -> pack.preferences.value }
+            .also { pack -> pack.preferences }
     }
 
     companion object {
