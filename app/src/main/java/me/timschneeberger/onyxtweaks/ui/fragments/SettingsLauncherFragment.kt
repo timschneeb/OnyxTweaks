@@ -2,6 +2,8 @@ package me.timschneeberger.onyxtweaks.ui.fragments
 
 import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity.Companion.ZYGOTE_MARKER
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.showYesNoAlert
 import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -28,5 +30,14 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
             }
             true
         }
+    }
+
+    override fun onPreferenceChanged(key: String) {
+        requestPackageRestart(
+            when (key) {
+                getString(R.string.key_launcher_desktop_wallpaper) -> ZYGOTE_MARKER
+                else -> LAUNCHER_PACKAGE
+            }
+        )
     }
 }

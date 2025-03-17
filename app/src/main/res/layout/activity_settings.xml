@@ -9,10 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:liftOnScroll="false"
-        app:liftOnScrollColor="@color/colorInverseOnSurface"
-        >
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/settingsToolbar"
@@ -34,14 +31,63 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <LinearLayout
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintHeight="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="?colorErrorContainer">
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="?colorOnErrorContainer"
+                tools:text="SystemUI restart required to apply changes.\nTap here to reload now." />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/statusClose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@android:string/cancel"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_close_24dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/statusDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintHeight="wrap_content_constrained"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/settings"
+            app:layout_constraintTop_toBottomOf="@id/statusBar"
+            android:background="@drawable/shape_divider" />
+
         <FrameLayout
             android:id="@+id/settings"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/bottomDivider"
+            app:layout_constraintTop_toBottomOf="@id/statusDivider"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View

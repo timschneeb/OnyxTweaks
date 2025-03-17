@@ -11,6 +11,8 @@ import org.lsposed.hiddenapibypass.HiddenApiBypass
 import java.io.File
 
 class WorldReadableDataStore(private val context: Context, private val group: PreferenceGroups) : PreferenceDataStore(), SharedPreferences.OnSharedPreferenceChangeListener {
+    var onDataStoreModified: ((key: String) -> Unit)? = null
+
     @Suppress("DEPRECATION")
     @SuppressLint("WorldReadableFiles")
     val prefs: SharedPreferences = context.getSharedPreferences(group.prefName, Context.MODE_WORLD_READABLE).also { preferences ->
@@ -35,20 +37,20 @@ class WorldReadableDataStore(private val context: Context, private val group: Pr
             ?: Log.e("Failed to set preferences file readable! getSharedPreferencesPath call failed (group: ${group.prefName})")
     }
 
-    private fun SharedPreferences.commit(block: SharedPreferences.Editor.() -> Unit) =
-        prefs.edit().apply(block).commit().let {}
+    private fun SharedPreferences.commit(key: String, block: SharedPreferences.Editor.() -> Unit) =
+        prefs.edit().apply(block).commit().let { onDataStoreModified?.invoke(key); Unit }
 
-    override fun putString(key: String?, value: String?) = prefs.commit { putString(key, value) }
-    override fun putStringSet(key: String?, values: Set<String?>?) = prefs.commit { putStringSet(key, values) }
-    override fun putInt(key: String?, value: Int) = prefs.commit { putInt(key, value) }
-    override fun putLong(key: String?, value: Long) = prefs.commit { putLong(key, value) }
-    override fun putFloat(key: String?, value: Float) = prefs.commit { putFloat(key, value) }
-    override fun putBoolean(key: String?, value: Boolean) = prefs.commit { putBoolean(key, value) }
+    override fun putString(key: String, value: String?) = prefs.commit(key) { putString(key, value) }
+    override fun putStringSet(key: String, values: Set<String?>?) = prefs.commit(key) { putStringSet(key, values) }
+    override fun putInt(key: String, value: Int) = prefs.commit(key) { putInt(key, value) }
+    override fun putLong(key: String, value: Long) = prefs.commit(key) { putLong(key, value) }
+    override fun putFloat(key: String, value: Float) = prefs.commit(key) { putFloat(key, value) }
+    override fun putBoolean(key: String, value: Boolean) = prefs.commit(key) { putBoolean(key, value) }
 
-    override fun getString(key: String?, defValue: String?) = prefs.getString(key, defValue)
-    override fun getStringSet(key: String?, defValues: Set<String?>?) = prefs.getStringSet(key, defValues)
-    override fun getInt(key: String?, defValue: Int) = prefs.getInt(key, defValue)
-    override fun getLong(key: String?, defValue: Long) = prefs.getLong(key, defValue)
-    override fun getFloat(key: String?, defValue: Float) = prefs.getFloat(key, defValue)
-    override fun getBoolean(key: String?, defValue: Boolean) = prefs.getBoolean(key, defValue)
+    override fun getString(key: String, defValue: String?) = prefs.getString(key, defValue)
+    override fun getStringSet(key: String, defValues: Set<String?>?) = prefs.getStringSet(key, defValues)
+    override fun getInt(key: String, defValue: Int) = prefs.getInt(key, defValue)
+    override fun getLong(key: String, defValue: Long) = prefs.getLong(key, defValue)
+    override fun getFloat(key: String, defValue: Float) = prefs.getFloat(key, defValue)
+    override fun getBoolean(key: String, defValue: Boolean) = prefs.getBoolean(key, defValue)
 }

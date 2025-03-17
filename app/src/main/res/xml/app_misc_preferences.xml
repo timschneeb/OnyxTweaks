@@ -9,7 +9,9 @@
             android:key="@string/key_misc_open_stock_settings"
             android:title="@string/misc_open_stock_settings"
             android:summary="@string/misc_open_stock_settings_summary"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false">
+            <intent android:action="android.settings.SETTINGS" />
+        </Preference>
     </PreferenceCategory>
 
     <PreferenceCategory

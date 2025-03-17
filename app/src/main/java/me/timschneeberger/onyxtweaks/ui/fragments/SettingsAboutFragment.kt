@@ -8,7 +8,6 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @PreferenceGroup(PreferenceGroups.ABOUT)
 class SettingsAboutFragment : SettingsBaseFragment() {
-
     private val version by lazy { findPreference<Preference>(getString(R.string.key_credits_version)) }
     private val buildInfo by lazy { findPreference<Preference>(getString(R.string.key_credits_build_info)) }
 

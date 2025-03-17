@@ -11,16 +11,18 @@ import androidx.core.view.isVisible
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.github.kyuubiran.ezxhelper.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
+import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.receiver.OnModEventReceived
 import me.timschneeberger.onyxtweaks.ui.fragments.SettingsFragment
 import me.timschneeberger.onyxtweaks.ui.utils.getViewsByType
-import me.timschneeberger.onyxtweaks.utils.DumpTools
 import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.utils.restartLauncher
 import me.timschneeberger.onyxtweaks.utils.restartSystemUi
@@ -29,6 +31,8 @@ import me.timschneeberger.onyxtweaks.utils.restartZygote
 class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private lateinit var binding: ActivitySettingsBinding
+    private val modifiedPackages = mutableSetOf<String>()
+
     override var modEventReceiver: BroadcastReceiver? = null
 
     @Suppress("DEPRECATION")
@@ -85,6 +89,13 @@ class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
         binding.settingsToolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         binding.scrollUp.setOnClickListener(::onScrollButtonClicked)
         binding.scrollDown.setOnClickListener(::onScrollButtonClicked)
+        binding.statusBar.setOnClickListener { onPackageRestartConfirmed() }
+        binding.statusClose.setOnClickListener {
+            modifiedPackages.clear()
+            updateStatusPanel()
+        }
+
+        updateStatusPanel()
     }
 
     override fun onDestroy() {
@@ -99,8 +110,6 @@ class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
         }
 
         supportFragmentManager.findFragmentById(R.id.settings)?.let {
-
-            DumpTools.dumpIDs(it.requireView())
             it.requireView()
                 .cast<ViewGroup>()
                 ?.getViewsByType(RecyclerView::class)
@@ -163,7 +172,14 @@ class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
     }
 
     override fun onHookLoaded(packageName: String) {
+        modifiedPackages.remove(packageName)
+        updateStatusPanel()
+    }
 
+    fun requestPackageRestart(packageName: String) {
+        Log.i("Marking package $packageName as modified")
+        modifiedPackages.add(packageName)
+        updateStatusPanel()
     }
 
     private fun setBottomBarVisibility(isVisible: Boolean) {
@@ -171,9 +187,43 @@ class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
         binding.bottomAppBar.isVisible = isVisible
     }
 
+    private fun onPackageRestartConfirmed() {
+        when {
+            modifiedPackages.contains(ZYGOTE_MARKER) -> restartZygote()
+            else -> {
+                if (modifiedPackages.contains(SYSTEM_UI_PACKAGE))
+                    restartSystemUi()
+                if (modifiedPackages.contains(LAUNCHER_PACKAGE))
+                    restartLauncher()
+            }
+        }
+    }
+
+    private fun updateStatusPanel() {
+        val text = when {
+            modifiedPackages.contains(ZYGOTE_MARKER) -> getString(R.string.status_needs_zygote_reset)
+            modifiedPackages.containsAll(setOf(SYSTEM_UI_PACKAGE, LAUNCHER_PACKAGE)) -> getString(R.string.status_needs_system_ui_launcher_restart)
+            modifiedPackages.contains(SYSTEM_UI_PACKAGE) -> getString(R.string.status_needs_system_ui_restart)
+            modifiedPackages.contains(LAUNCHER_PACKAGE) -> getString(R.string.status_needs_launcher_restart)
+            modifiedPackages.isNotEmpty() -> {
+                Log.e("Unknown package(s) in modifiedPackages: ${modifiedPackages.joinToString()}")
+                modifiedPackages.clear()
+                null
+            }
+            else -> null
+        }
+
+        modifiedPackages.isNotEmpty().let {
+            binding.statusDivider.isVisible = it
+            binding.statusBar.isVisible = it
+            binding.statusText.text = text
+        }
+    }
+
     companion object {
         private const val PERSIST_TITLE = "title"
         private const val PERSIST_SUBTITLE = "subtitle"
+
+        const val ZYGOTE_MARKER = "zygote"
     }
 }
-

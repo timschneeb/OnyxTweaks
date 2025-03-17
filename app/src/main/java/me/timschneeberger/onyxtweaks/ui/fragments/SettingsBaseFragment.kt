@@ -9,6 +9,7 @@ import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.transition.MaterialSharedAxis
 import me.timschneeberger.onyxtweaks.OnyxTweakApp
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.showAlert
 import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.utils.WorldReadableDataStore
@@ -19,10 +20,15 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
     protected val app
         get() = activity?.application as? OnyxTweakApp?
 
+    protected val settingsActivity
+        get() = activity as? SettingsActivity?
+
     protected val group by lazy {
         this::class.findAnnotations(PreferenceGroup::class).firstOrNull()?.group
             ?: throw IllegalStateException("No PreferenceGroup annotation found on ${this::class.simpleName}")
     }
+
+    private val dataStore: WorldReadableDataStore by lazy { WorldReadableDataStore(requireContext(), group) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +51,22 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
 
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         try {
-            preferenceManager.preferenceDataStore = WorldReadableDataStore(requireContext(), group)
+            preferenceManager.preferenceDataStore = dataStore
         }
         catch (e: SecurityException) {
             Log.e(e)
             requireContext().showAlert(R.string.xsp_init_failed, R.string.xsp_init_failed_summary)
         }
         setPreferencesFromResource(group.xmlRes, rootKey)
-
         onConfigurePreferences()
+
+        dataStore.onDataStoreModified = ::onPreferenceChanged
     }
+
+    open fun onPreferenceChanged(key: String) {}
+
+    protected fun requestPackageRestart(packageName: String) =
+        settingsActivity?.requestPackageRestart(packageName)
 
     open fun onConfigurePreferences() {}
 }
