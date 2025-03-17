@@ -8,7 +8,9 @@ import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.ModManager
+import me.timschneeberger.onyxtweaks.utils.CustomLogger
 
 
 // TODO: EAC activity based settings
@@ -17,6 +19,7 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
     private var modManager: ModManager = ModManager()
 
     override fun handleInitPackageResources(param: InitPackageResourcesParam) {
+        ensureLoggerInitialized()
         modManager.handleInitPackageResources(param)
     }
 
@@ -24,20 +27,32 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
         // Only initialize using the first package for this process.
         // This is a workaround for the fact that the hook is called multiple times when an app is
         // running other packages within their process. (Example: com.google.android.webview)
+        ensureLoggerInitialized()
         if (loadPackageParam.isFirstApplication) {
             EzXHelper.initHandleLoadPackage(loadPackageParam)
-            EzXHelper.setLogTag("OnyxTweaks/${loadPackageParam.packageName}")
-            Log.dx("Initializing mod packs for: ${loadPackageParam.packageName}")
+            EzXHelper.setLogTag("OT/${simplifyPackageName(loadPackageParam.packageName)}")
+            Log.dx("Initializing mod packs")
         } else {
-            val host = if(EzXHelper.isHostPackageNameInited) EzXHelper.hostPackageName else "<uninitialized>"
-            Log.dx("Existing instance of $host also used for: ${loadPackageParam.packageName}")
+            Log.dx("Existing instance of also used for: ${loadPackageParam.packageName}")
         }
 
         modManager.handleLoadPackage(loadPackageParam)
     }
 
     override fun initZygote(startupParam: StartupParam) {
+        ensureLoggerInitialized()
         EzXHelper.initZygote(startupParam)
         modManager.initZygote(startupParam)
+    }
+
+    private fun ensureLoggerInitialized() {
+        if(Log.currentLogger != CustomLogger)
+            Log.currentLogger = CustomLogger
+    }
+
+    private fun simplifyPackageName(packageName: String) = when (packageName) {
+        BuildConfig.APPLICATION_ID -> "OnyxTweaks"
+        SYSTEM_UI_PACKAGE -> "SystemUI"
+        else -> packageName
     }
 }

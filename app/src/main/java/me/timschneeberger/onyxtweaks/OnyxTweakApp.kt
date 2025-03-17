@@ -2,6 +2,8 @@ package me.timschneeberger.onyxtweaks
 
 import android.app.Application
 import com.github.kyuubiran.ezxhelper.EzXHelper
+import com.github.kyuubiran.ezxhelper.Log
+import me.timschneeberger.onyxtweaks.utils.CustomLogger
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 
 class OnyxTweakApp : Application() {
@@ -10,8 +12,11 @@ class OnyxTweakApp : Application() {
         super.onCreate()
         instance = this
 
+        Log.currentLogger = CustomLogger
         EzXHelper.setLogTag("OnyxTweaksMgr")
         HiddenApiBypass.addHiddenApiExemptions("");
+
+        Log.d("OnyxTweaksApp initialized")
     }
 
     fun get(): OnyxTweakApp? {
