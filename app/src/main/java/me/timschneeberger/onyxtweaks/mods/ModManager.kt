@@ -4,9 +4,9 @@ import android.app.Instrumentation
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createBeforeHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
@@ -20,13 +20,13 @@ class ModManager {
 
         val onContextReady = fun (context: Context) {
             if (context.packageName != EzXHelper.hostPackageName)
-                XposedBridge.log("Context package name does not match host package name! Context not updated")
+                Log.dx("Context package name does not match host package name! Context not updated. (${context.packageName} != ${EzXHelper.hostPackageName})")
             else
                 EzXHelper.initAppContext(context, addPath = true)
 
             getPacksForPackage(lpParam.packageName)
                 .forEach {
-                    XposedBridge.log("Initializing mod pack: ${it::class.java.simpleName}")
+                    Log.dx("Initializing mod pack: ${it::class.java.simpleName}")
                     runSafely { it.handleLoadPackage(lpParam) }
                 }
         }
@@ -41,7 +41,7 @@ class ModManager {
                             .firstOrNull { it is Context }
                             ?.let { return@createBeforeHook onContextReady(it as Context) }
 
-                        XposedBridge.log("No context found in PhoneWindowManager constructor!")
+                        Log.ex("No context found in PhoneWindowManager constructor!")
                     }
                 }
         else {
@@ -53,7 +53,7 @@ class ModManager {
                             .firstOrNull { it is Context }
                             ?.let { return@createBeforeHook onContextReady(it as Context) }
 
-                        XposedBridge.log("No context found in newApplication!")
+                        Log.ex("No context found in newApplication!")
                     }
                 }
         }

@@ -5,20 +5,20 @@ import android.view.View
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.HookFactory
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import java.lang.ref.WeakReference
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -42,7 +42,7 @@ class AddLauncherSettingsMenu : ModPack() {
 
                         listenerCls.javaClass.getDeclaredMethod("onLaunchSettings").invoke(listenerCls)
                     } catch (e: Exception) {
-                        XposedBridge.log(e)
+                        Log.ex("Error invoking onLaunchSettings", e)
                     }
                 }
 

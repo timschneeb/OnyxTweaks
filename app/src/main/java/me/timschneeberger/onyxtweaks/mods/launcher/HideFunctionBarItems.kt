@@ -2,18 +2,18 @@ package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.ClassHelper.Companion.classHelper
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class HideFunctionBarItems : ModPack() {
@@ -32,7 +32,7 @@ class HideFunctionBarItems : ModPack() {
             .let { it as? Boolean == true }
             .also {
                 if (!it) {
-                    XposedBridge.log("Critical: HideFunctionBarItems: Invalid function item for container: $item")
+                    Log.ex("Critical: HideFunctionBarItems: Invalid function item for container: $item")
                 }
             }
 
@@ -68,7 +68,7 @@ class HideFunctionBarItems : ModPack() {
 
     private fun createFunctionItem(category: FunctionItem): Any? {
         if (!verifyContainerFunctionItem(category.name)) {
-            XposedBridge.log("C/HideFunctionBarItems: Invalid function item for container: $category")
+            Log.ex("C/HideFunctionBarItems: Invalid function item for container: $category")
             return null
         }
 

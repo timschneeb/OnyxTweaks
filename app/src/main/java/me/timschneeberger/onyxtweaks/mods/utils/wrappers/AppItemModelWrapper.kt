@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.mods.wrappers
+package me.timschneeberger.onyxtweaks.mods.utils.wrappers
 
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName

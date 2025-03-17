@@ -1,18 +1,18 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.cast
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class DisableAppFilter : ModPack() {
@@ -44,7 +44,7 @@ class DisableAppFilter : ModPack() {
                         if(showFiles)
                             filter.remove("com.android.documentsui")
 
-                        XposedBridge.log("FILTER LIST: ${filter.joinToString()}")
+                        Log.dx("Modified launcher app filter list: ${filter.joinToString()}")
                         return@replace filter
                     }
                 }

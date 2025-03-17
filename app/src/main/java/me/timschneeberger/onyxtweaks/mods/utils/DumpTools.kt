@@ -26,7 +26,7 @@ object DumpTools {
 
         val clsName = method.declaringClass.simpleName;
         val isVoid = method.returnType == Void.TYPE
-        Log.i("$tag [$clsName] ${method.name}$args => ${if (isVoid) "<void>" else param.result}")
+        Log.ix("$tag [$clsName] ${method.name}$args => ${if (isVoid) "<void>" else param.result}")
     }
 
     fun printClassCalls(
@@ -63,6 +63,6 @@ object DumpTools {
             name = v.resources.getResourceName(v.id)
         }
 
-        Log.i("\t".repeat(level) + "id " + name + " type " + v.javaClass.getName())
+        Log.ix("\t".repeat(level) + "id " + name + " type " + v.javaClass.getName())
     }
 }

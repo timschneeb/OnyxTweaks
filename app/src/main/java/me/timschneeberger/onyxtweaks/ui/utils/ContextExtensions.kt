@@ -24,7 +24,6 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInfoCompat
 
-
 object ContextExtensions {
     fun Context.restartLauncher() {
         toast(R.string.toast_launcher_restarting)

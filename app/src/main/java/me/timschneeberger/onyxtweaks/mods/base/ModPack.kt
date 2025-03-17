@@ -2,7 +2,7 @@ package me.timschneeberger.onyxtweaks.mods.base
 
 import android.os.Bundle
 import com.github.kyuubiran.ezxhelper.EzXHelper
-import de.robv.android.xposed.XposedBridge
+import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.receiver.ModEventReceiver
@@ -30,7 +30,7 @@ abstract class ModPack {
      *            or null if all preferences were changed during initialization
      */
     open fun onPreferencesChanged(key: String?) {
-        XposedBridge.log(EzXHelper.hostPackageName + ": Preference changed: $key")
+        Log.dx("Preference changed: $key")
     }
 
     /**

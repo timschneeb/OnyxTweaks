@@ -1,7 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods.utils
 
 import com.github.kyuubiran.ezxhelper.Log
-import de.robv.android.xposed.XposedBridge
 import java.lang.reflect.Array
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -15,7 +14,7 @@ fun Any?.renderToXLog(prefix: String? = null, multiline: Boolean = true, maxDept
     renderToString(multiline, maxDepth)
         .lines()
         .forEach { line ->
-            XposedBridge.log(
+            Log.ex(
                 if (prefix.isNullOrBlank()) line else "$prefix: $line"
             )
         }

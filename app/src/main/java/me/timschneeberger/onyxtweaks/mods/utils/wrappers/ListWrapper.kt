@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.mods.wrappers
+package me.timschneeberger.onyxtweaks.mods.utils.wrappers
 
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import kotlin.reflect.KClass

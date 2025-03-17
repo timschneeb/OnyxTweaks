@@ -7,8 +7,8 @@ import android.content.res.Resources
 import androidx.annotation.StringRes
 import androidx.annotation.XmlRes
 import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
+import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.XSharedPreferences
-import de.robv.android.xposed.XposedBridge
 import me.timschneeberger.onyxtweaks.BuildConfig
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.ui.preferences.WorldReadableDataStore
@@ -35,16 +35,16 @@ class XPreferences(group: PreferenceGroups) : BasePreferences(group) {
 
     override val prefs: SharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, group.prefName).also { it ->
         if(!it.file.exists())
-            XposedBridge.log("INFO: '${group.prefName}' not yet created. Using defaults.")
+            Log.ix("'${group.prefName}' not yet created. Using defaults.")
         else if (!it.file.canRead())
-            XposedBridge.log("CRITICAL: Preferences file '${group.prefName}' not readable")
+            Log.ex("CRITICAL: Preferences file '${group.prefName}' not readable")
 
         try {
             @Suppress("DEPRECATION")
             it.registerOnSharedPreferenceChangeListener(this)
         }
         catch (e: UnsupportedOperationException) {
-            XposedBridge.log(e)
+            Log.wx("Failed to register XPreference change listener", e)
         }
     }
 }
@@ -104,7 +104,6 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
             else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
         }.also {
             // CrashlyticsImpl.setCustomKey("${namespace}_$key", it.toString())
-            XposedBridge.log("=====> GET $key = $it")
         }
     }
 

@@ -13,10 +13,10 @@ import androidx.core.content.res.ResourcesCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
@@ -159,7 +159,7 @@ class AddUserSwitcherToQs : ModPack() {
         true
     }
     catch (ex: Exception) {
-        XposedBridge.log(ex)
+        Log.wx("Failed to show user switch dialog, falling back to system settings", ex)
         false
     }
 
@@ -175,7 +175,7 @@ class AddUserSwitcherToQs : ModPack() {
             }.let(appContext::startActivity)
         }
         catch (ex: Exception) {
-            XposedBridge.log(ex)
+            Log.ex("Failed to launch user settings", ex)
 
             Toast.makeText(
                 appContext,

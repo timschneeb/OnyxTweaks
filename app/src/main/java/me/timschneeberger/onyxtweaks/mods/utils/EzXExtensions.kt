@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
@@ -21,7 +22,7 @@ fun getClass(className: String): Class<*> {
         XposedHelpers.findClass(className, EzXHelper.classLoader)
     }
     catch (e: ClassNotFoundException) {
-        XposedBridge.log("[${EzXHelper.appContext.packageName}] Class not found: $className")
+        Log.ex("Class not found: $className")
         throw e
     }
 }
@@ -43,7 +44,7 @@ fun MethodFinder.firstByName(name: String) = filterByName(name).first()
 fun Resources.getResourceIdByName(name: String, type: String, packageName: String? = null) =
     getIdentifier(name, type, packageName ?: EzXHelper.hostPackageName).let { drawableId ->
         if (drawableId == 0) {
-            XposedBridge.log("Resource $type/$name not found in $packageName")
+            Log.ex("Resource $type/$name not found in $packageName")
             null
         }
         else {
@@ -71,7 +72,7 @@ fun XC_MethodHook.MethodHookParam.invokeOriginalMethod(): Any? {
         XposedBridge.invokeOriginalMethod(this.method, this.thisObject, this.args)
     }
     catch (e: Exception) {
-        XposedBridge.log("Error calling original method: ${e.message}")
+        Log.ex("Error calling original method: ${e.message}")
         null
     }
 }
@@ -81,7 +82,7 @@ fun runSafely(block: () -> Unit) {
         block()
     }
     catch (e: Exception) {
-        XposedBridge.log(e)
+        Log.ex(e)
     }
 }
 

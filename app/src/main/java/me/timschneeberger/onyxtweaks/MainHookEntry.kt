@@ -1,11 +1,11 @@
 package me.timschneeberger.onyxtweaks
 
 import com.github.kyuubiran.ezxhelper.EzXHelper
+import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.IXposedHookInitPackageResources
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.mods.ModManager
@@ -25,12 +25,12 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
         // This is a workaround for the fact that the hook is called multiple times when an app is
         // running other packages within their process. (Example: com.google.android.webview)
         if (loadPackageParam.isFirstApplication) {
-            XposedBridge.log("Initializing mod packs for: ${loadPackageParam.packageName}")
+            Log.dx("Initializing mod packs for: ${loadPackageParam.packageName}")
             EzXHelper.initHandleLoadPackage(loadPackageParam)
             EzXHelper.setLogTag(loadPackageParam.packageName)
         } else {
             val host = if(EzXHelper.isHostPackageNameInited) EzXHelper.hostPackageName else "<uninitialized>"
-            XposedBridge.log("Existing instance of $host also used for: ${loadPackageParam.packageName}")
+            Log.dx("Existing instance of $host also used for: ${loadPackageParam.packageName}")
         }
 
         modManager.handleLoadPackage(loadPackageParam)

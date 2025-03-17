@@ -14,22 +14,22 @@ import androidx.core.content.ContextCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableWallpaper : ModPack(), IEarlyZygoteHook {
@@ -78,7 +78,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
                     object : BroadcastReceiver() {
                         override fun onReceive(context: Context, intent: Intent) {
                             setWallpaper()
-                            XposedBridge.log("Received broadcast: ${intent.action}")
+                            Log.dx("Received broadcast: ${intent.action}")
                         }
                     },
                     IntentFilter().apply {

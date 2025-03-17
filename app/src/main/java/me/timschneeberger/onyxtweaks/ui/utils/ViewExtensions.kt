@@ -12,7 +12,7 @@ import kotlin.reflect.cast
 fun View.setBackgroundFromAttribute(@AttrRes attrRes: Int) {
     val a = TypedValue()
     context.theme.resolveAttribute(attrRes, a, true)
-    if (SdkCheck.isQ && a.isColorType) {
+    if (SdkCheck.is10 && a.isColorType) {
         setBackgroundColor(a.data)
     } else {
         background = ResourcesCompat.getDrawable(context.resources, a.resourceId, context.theme)

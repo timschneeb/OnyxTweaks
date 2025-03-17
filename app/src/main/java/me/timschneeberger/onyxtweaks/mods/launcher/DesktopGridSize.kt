@@ -2,19 +2,19 @@ package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createBeforeHook
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.receiver.ModEvents
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.receiver.ModEvents
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class DesktopGridSize : ModPack() {
@@ -24,7 +24,7 @@ class DesktopGridSize : ModPack() {
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         if (preferences.get<Boolean>(R.string.key_launcher_reinit_flag)) {
-            XposedBridge.log("Launcher reinit flag is set")
+            Log.ix("Launcher reinit flag is set")
             hookInitializationFlag()
         }
 
@@ -83,7 +83,7 @@ class DesktopGridSize : ModPack() {
                 .firstByName("setAppInit")
                 .createBeforeHook { param ->
                     if(param.args[0] == true) {
-                        XposedBridge.log("Launcher initialization finished. Sending broadcast")
+                        Log.ix("Launcher initialization finished. Sending broadcast")
                         sendBroadcast(ModEvents.LAUNCHER_REINITIALIZED)
                         isInitializing = false
                     }
