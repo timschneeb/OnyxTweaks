@@ -19,7 +19,9 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
         desktopReInit?.setOnPreferenceClickListener {
             requireContext().showYesNoAlert(
                 R.string.launcher_desktop_reinit_confirm_title,
-                R.string.launcher_desktop_reinit_confirm_message
+                R.string.launcher_desktop_reinit_confirm_message,
+                R.string.continue_action,
+                R.string.cancel
             ) {
                 if (it) {
                     // Raise flag to reinitialize the launcher

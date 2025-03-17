@@ -5,6 +5,7 @@
     <!-- Common -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="cancel">Cancel</string>
     <string name="value_not_set">Not set</string>
     <string name="close">Close</string>
     <string name="continue_action">Continue</string>
