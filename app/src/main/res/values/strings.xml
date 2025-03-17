@@ -15,6 +15,8 @@
     <string name="toast_launcher_restarting">Restarting launcher…</string>
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
     <string name="toast_zygote_restarting">Soft-rebooting device…</string>
+    <string name="error_no_root_access">No root access</string>
+    <string name="error_no_root_access_message">Root access is required for this action. Please open the Magisk manager app and grant root access to the app.</string>
 
     <!-- Status panel -->
     <string name="status_needs_zygote_reset">Soft-reboot required to apply changes. Tap on this message to reboot now.</string>

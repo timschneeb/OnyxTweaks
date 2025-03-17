@@ -37,12 +37,25 @@ object ContextExtensions {
 
     fun Context.restartZygote() {
         toast(R.string.toast_zygote_restarting)
-        Shell.cmd("kill $(pidof zygote)").submit()
-        Shell.cmd("kill $(pidof zygote64)").submit()
+        runAsRoot("kill $(pidof zygote)", "kill $(pidof zygote64)")
     }
 
-    private fun restartPackageSilently(pkgName: String) {
-        Shell.cmd(String.format("killall %s", pkgName)).exec()
+    private fun Context.runAsRoot(vararg commands: String) {
+        Shell.getShell().let { shell ->
+            if (!shell.isRoot) {
+                showAlert(
+                    getString(R.string.error_no_root_access),
+                    getString(R.string.error_no_root_access_message),
+                )
+                return
+            }
+
+            shell.newJob().add(*commands).exec()
+        }
+    }
+
+    private fun Context.restartPackageSilently(pkgName: String) {
+        runAsRoot("killall $pkgName")
     }
 
     fun Context.sendLocalBroadcast(intent: Intent) {

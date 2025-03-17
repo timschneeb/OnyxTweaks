@@ -18,7 +18,7 @@ android {
         minSdk = 28
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getGitSha()}\"")
@@ -94,9 +94,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
-
     implementation("com.google.android.material:material:1.12.0")
-    implementation("com.crossbowffs.remotepreferences:remotepreferences:0.8")
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
     implementation("com.github.topjohnwu.libsu:core:6.0.0")
     implementation("org.lsposed.hiddenapibypass:hiddenapibypass:6.1")

@@ -68,7 +68,7 @@ class HideFunctionBarItems : ModPack() {
 
     private fun createFunctionItem(category: FunctionItem): Any? {
         if (!verifyContainerFunctionItem(category.name)) {
-            Log.ex("C/HideFunctionBarItems: Invalid function item for container: $category")
+            Log.ex("Invalid function item for container: $category")
             return null
         }
 

@@ -25,9 +25,9 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
         // This is a workaround for the fact that the hook is called multiple times when an app is
         // running other packages within their process. (Example: com.google.android.webview)
         if (loadPackageParam.isFirstApplication) {
-            Log.dx("Initializing mod packs for: ${loadPackageParam.packageName}")
             EzXHelper.initHandleLoadPackage(loadPackageParam)
-            EzXHelper.setLogTag(loadPackageParam.packageName)
+            EzXHelper.setLogTag("OnyxTweaks/${loadPackageParam.packageName}")
+            Log.dx("Initializing mod packs for: ${loadPackageParam.packageName}")
         } else {
             val host = if(EzXHelper.isHostPackageNameInited) EzXHelper.hostPackageName else "<uninitialized>"
             Log.dx("Existing instance of $host also used for: ${loadPackageParam.packageName}")
