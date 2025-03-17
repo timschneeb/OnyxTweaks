@@ -16,6 +16,8 @@
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
 
     <!-- Global menu -->
+    <string name="menu_scroll_up">Scroll up</string>
+    <string name="menu_scroll_down">Scroll down</string>
     <string name="menu_restart_launcher">Restart Onyx launcher</string>
     <string name="menu_restart_system_ui">Restart system UI</string>
     <string name="menu_restart_zygote">Soft-reboot device</string>

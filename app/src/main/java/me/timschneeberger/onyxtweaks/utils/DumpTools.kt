@@ -3,9 +3,9 @@ package me.timschneeberger.onyxtweaks.utils
 import android.view.View
 import android.view.ViewGroup
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
-import de.robv.android.xposed.XposedBridge
 import java.lang.reflect.Method
 
 @Suppress("unused")
@@ -26,7 +26,7 @@ object DumpTools {
 
         val clsName = method.declaringClass.simpleName;
         val isVoid = method.returnType == Void.TYPE
-        XposedBridge.log("$tag [$clsName] ${method.name}$args => ${if (isVoid) "<void>" else param.result}")
+        Log.i("$tag [$clsName] ${method.name}$args => ${if (isVoid) "<void>" else param.result}")
     }
 
     fun printClassCalls(
@@ -63,6 +63,6 @@ object DumpTools {
             name = v.resources.getResourceName(v.id)
         }
 
-        XposedBridge.log("\t".repeat(level) + "id " + name + " type " + v.javaClass.getName())
+        Log.i("\t".repeat(level) + "id " + name + " type " + v.javaClass.getName())
     }
 }

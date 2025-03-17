@@ -2,19 +2,21 @@
     <style name="AppTheme" parent="AppTheme.Monochrome">
         <item name="android:navigationBarColor">@color/colorOnPrimary</item>
         <item name="android:statusBarColor">@color/colorOnPrimary</item>
-
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLightStatusBar">true</item>
 
         <item name="android:divider">@drawable/shape_divider</item>
-
         <item name="cardCornerRadius">@dimen/corner_radius</item>
 
+        <!-- Disable ripples; may cause side-effects -->
+        <item name="colorControlHighlight">@android:color/transparent</item>
+
+        <!-- Style overrides -->
         <item name="materialSwitchStyle">@style/AppTheme.Widget.Switch</item>
         <item name="actionOverflowMenuStyle">@style/AppTheme.PopupMenu.Overflow</item>
+        <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
         <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
-        <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
     </style>
 

@@ -169,12 +169,17 @@ private fun renderObject(
 
 private fun getFields(clazz: Class<*>): List<Field> {
     val fields = mutableListOf<Field>()
-    var currentClass: Class<*>? = clazz
-    while (currentClass != null && currentClass != Any::class.java) {
-        currentClass.declaredFields
-            .filter { !Modifier.isStatic(it.modifiers) }
-            .let(fields::addAll)
-        currentClass = currentClass.superclass
+    try {
+        var currentClass: Class<*>? = clazz
+        while (currentClass != null && currentClass != Any::class.java) {
+            currentClass.declaredFields
+                .filter { !Modifier.isStatic(it.modifiers) }
+                .let(fields::addAll)
+            currentClass = currentClass.superclass
+        }
+    }
+    catch (e: Exception) {
+        Log.e("Error getting fields for class ${clazz.simpleName}: $e")
     }
     return fields
 }
