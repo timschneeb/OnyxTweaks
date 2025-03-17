@@ -1,6 +1,7 @@
 package me.timschneeberger.onyxtweaks.ui.fragments
 
 import androidx.preference.EditTextPreference
+import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
@@ -18,6 +19,8 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
     private val desktopRows by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_row_count)) }
     private val desktopColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_column_count)) }
     private val desktopDockColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_dock_column_count)) }
+    private val barHiddenItems by lazy { findPreference<MultiSelectListPreference>(getString(R.string.key_launcher_bar_hidden_items)) }
+    private val settingsAddedShortcuts by lazy { findPreference<MultiSelectListPreference>(getString(R.string.key_launcher_settings_added_shortcuts)) }
 
     override fun onConfigurePreferences() {
         desktopReInit?.setOnPreferenceClickListener {
@@ -40,6 +43,9 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
         desktopRows?.configureAsNumberInput(2, 16, R.plurals.unit_rows)
         desktopColumns?.configureAsNumberInput(2, 16, R.plurals.unit_columns)
         desktopDockColumns?.configureAsNumberInput(1, 16, R.plurals.unit_columns)
+
+        barHiddenItems?.configureAsMultiSelectInput()
+        settingsAddedShortcuts?.configureAsMultiSelectInput()
     }
 
     override fun onPreferenceChanged(key: String) {

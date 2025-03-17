@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.PluralsRes
 import androidx.preference.EditTextPreference
+import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.github.kyuubiran.ezxhelper.Log
@@ -69,6 +70,12 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
         dataStore.onDataStoreModified = ::onPreferenceChanged
     }
 
+    open fun onConfigurePreferences() {}
+    open fun onPreferenceChanged(key: String) {}
+
+    protected fun requestPackageRestart(packageName: String) =
+        settingsActivity?.requestPackageRestart(packageName)
+
     protected fun EditTextPreference.configureAsNumberInput(min: Int, max: Int, @PluralsRes unitRes: Int) {
         summaryProvider = Preference.SummaryProvider<EditTextPreference> { preference ->
             val value = preference.text?.toIntOrNull()
@@ -99,10 +106,14 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
         }
     }
 
-    open fun onPreferenceChanged(key: String) {}
-
-    protected fun requestPackageRestart(packageName: String) =
-        settingsActivity?.requestPackageRestart(packageName)
-
-    open fun onConfigurePreferences() {}
+    protected fun MultiSelectListPreference.configureAsMultiSelectInput() {
+        summaryProvider = Preference.SummaryProvider<MultiSelectListPreference> { preference ->
+            val values = preference.values
+            val entryValues = preference.entryValues
+            val selectedEntries = preference.entries.filterIndexed {
+                    index, _ -> entryValues.contains(values.elementAt(index))
+            }
+            selectedEntries.joinToString()
+        }
+    }
 }

@@ -100,7 +100,6 @@
             android:title="@string/launcher_desktop_column_count"
             app:iconSpaceReserved="false" />
 
-
         <EditTextPreference
             android:key="@string/key_launcher_desktop_dock_column_count"
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
@@ -142,10 +141,8 @@
             android:title="@string/launcher_bar_hidden_items"
             android:entries="@array/function_bar_items"
             android:entryValues="@array/function_bar_items_values"
-            app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false"/>
     </PreferenceCategory>
-
 
     <PreferenceCategory
         app:title="@string/launcher_settings_onyx"
@@ -157,7 +154,6 @@
             android:title="@string/launcher_settings_added_shortcuts"
             android:entries="@array/settings_categories"
             android:entryValues="@array/settings_categories_values"
-            app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false"/>
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
@@ -168,7 +164,6 @@
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
-
 
     <PreferenceCategory
         app:title="@string/launcher_store"
