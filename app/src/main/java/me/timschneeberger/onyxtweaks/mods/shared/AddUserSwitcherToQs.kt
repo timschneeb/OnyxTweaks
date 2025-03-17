@@ -23,14 +23,14 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.getDimensionPxByName
+import me.timschneeberger.onyxtweaks.mods.utils.getDrawableByName
+import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
-import me.timschneeberger.onyxtweaks.utils.dpToPx
-import me.timschneeberger.onyxtweaks.utils.firstByName
-import me.timschneeberger.onyxtweaks.utils.getClass
-import me.timschneeberger.onyxtweaks.utils.getDimensionPxByName
-import me.timschneeberger.onyxtweaks.utils.getDrawableByName
-import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
 
 @TargetPackages(SYSTEM_UI_PACKAGE, SYSTEM_FRAMEWORK_PACKAGE)
 class AddUserSwitcherToQs : ModPack() {

@@ -7,7 +7,7 @@ import me.timschneeberger.onyxtweaks.R
 
 
 open class IconPreference(
-    mContext: Context, val attrs: AttributeSet?,
+    mContext: Context, attrs: AttributeSet?,
     defStyleAttr: Int, defStyleRes: Int,
 ) : Preference(mContext, attrs, defStyleAttr, defStyleRes) {
 

@@ -22,11 +22,11 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.receiver.OnModEventReceived
 import me.timschneeberger.onyxtweaks.ui.fragments.SettingsFragment
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSystemUi
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
 import me.timschneeberger.onyxtweaks.ui.utils.getViewsByType
 import me.timschneeberger.onyxtweaks.utils.cast
-import me.timschneeberger.onyxtweaks.utils.restartLauncher
-import me.timschneeberger.onyxtweaks.utils.restartSystemUi
-import me.timschneeberger.onyxtweaks.utils.restartZygote
 
 class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

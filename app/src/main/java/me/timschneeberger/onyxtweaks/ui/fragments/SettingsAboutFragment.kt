@@ -3,7 +3,7 @@ package me.timschneeberger.onyxtweaks.ui.fragments
 import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.BuildConfig
 import me.timschneeberger.onyxtweaks.R
-import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
+import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @PreferenceGroup(PreferenceGroups.ABOUT)

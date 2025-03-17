@@ -16,9 +16,9 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
-import me.timschneeberger.onyxtweaks.utils.firstByName
-import me.timschneeberger.onyxtweaks.utils.getClass
-import me.timschneeberger.onyxtweaks.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {

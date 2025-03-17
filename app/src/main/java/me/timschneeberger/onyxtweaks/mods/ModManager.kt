@@ -12,7 +12,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.utils.runSafely
+import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import kotlin.reflect.KClass
 
 class ModManager {

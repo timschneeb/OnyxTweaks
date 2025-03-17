@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.wrappers
+package me.timschneeberger.onyxtweaks.mods.wrappers
 
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 

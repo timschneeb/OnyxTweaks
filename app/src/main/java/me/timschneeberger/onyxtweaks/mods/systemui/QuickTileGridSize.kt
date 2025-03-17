@@ -8,8 +8,8 @@ import me.timschneeberger.onyxtweaks.mods.Constants
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.utils.firstByName
-import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE)
 class QuickTileGridSize : ModPack() {

@@ -10,15 +10,15 @@ import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.XposedBridge
-import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.utils.dpToPx
-import me.timschneeberger.onyxtweaks.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import java.lang.ref.WeakReference
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -35,14 +35,12 @@ class AddLauncherSettingsMenu : ModPack() {
                 .mapNotNull(WeakReference<Any?>::get)
                 .forEach { instance: Any? ->
                     try {
-                        val dovCls = XposedHelpers.findClass(
-                            "com.onyx.common.applications.view.DesktopOptionView",
-                            instance!!.javaClass.classLoader
-                        )
-                        val listener = dovCls.getDeclaredMethod("getDesktopOptionViewListener")
+                        val listenerCls = getClass("com.onyx.common.applications.view.DesktopOptionView")
+                            .methodFinder()
+                            .firstByName("getDesktopOptionViewListener")
                             .invoke(instance)
 
-                        listener.javaClass.getDeclaredMethod("onLaunchSettings").invoke(listener)
+                        listenerCls.javaClass.getDeclaredMethod("onLaunchSettings").invoke(listenerCls)
                     } catch (e: Exception) {
                         XposedBridge.log(e)
                     }

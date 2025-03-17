@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="iconTint" format="color" />
-
     <declare-styleable name="IconPreference">
         <attr name="iconTint" />
-    </declare-styleable>
-
-    <declare-styleable name="MaterialSeekbarPreference">
-        <attr name="seekBarIncrement" />
-        <attr name="showSeekBarValue" />
-        <attr name="updatesContinuously" />
-        <attr name="seekBarStyle" format="reference" />
-        <attr name="minValue" format="float" />
-        <attr name="maxValue" format="float" />
-        <attr name="unit" format="string" />
-        <attr name="precision" format="integer" />
-        <attr name="labelMinWidth" format="dimension" />
-    </declare-styleable>
-
-    <declare-styleable name="DropDownPreference">
-        <attr name="isStatic" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="Card">
-        <attr name="titleText" format="string" />
-        <attr name="bodyText" format="string" />
-        <attr name="closeButtonVisible" format="boolean" />
-        <attr name="buttonText" format="string" />
-        <attr name="buttonEnabled" format="boolean" />
-        <attr name="checkboxVisible" format="boolean" />
-        <attr name="iconSrc" format="reference" />
-        <attr name="iconTint" />
-        <attr name="iconCentered" format="boolean" />
-        <attr name="cardBackground" format="color" />
-        <attr name="cardMargin" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="NumberInputBox">

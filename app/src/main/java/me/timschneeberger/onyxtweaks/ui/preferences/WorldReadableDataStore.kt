@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.ui.utils
+package me.timschneeberger.onyxtweaks.ui.preferences
 
 import android.annotation.SuppressLint
 import android.content.Context

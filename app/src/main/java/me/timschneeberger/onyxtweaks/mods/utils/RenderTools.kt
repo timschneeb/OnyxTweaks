@@ -1,7 +1,8 @@
-package me.timschneeberger.onyxtweaks.utils
+package me.timschneeberger.onyxtweaks.mods.utils
 
 import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.XposedBridge
+import java.lang.reflect.Array
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 import java.util.IdentityHashMap
@@ -114,7 +115,7 @@ private fun renderArray(
     indentLevel: Int,
     maxDepth: Int
 ): String {
-    val length = java.lang.reflect.Array.getLength(array)
+    val length = Array.getLength(array)
     return if (multiline) {
         val indent = getIndent(indentLevel)
         val elementIndent = getIndent(indentLevel + 1)
@@ -123,11 +124,11 @@ private fun renderArray(
             separator = ",\n$elementIndent",
             postfix = "\n$indent]"
         ) { i ->
-            renderInternal(java.lang.reflect.Array.get(array, i), visited, true, indentLevel + 1, maxDepth)
+            renderInternal(Array.get(array, i), visited, true, indentLevel + 1, maxDepth)
         }
     } else {
         (0 until length).joinToString(prefix = "[", postfix = "]") { i ->
-            renderInternal(java.lang.reflect.Array.get(array, i), visited, false, 0, maxDepth)
+            renderInternal(Array.get(array, i), visited, false, 0, maxDepth)
         }
     }
 }

@@ -4,11 +4,11 @@ import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity.Companion.ZYGOTE_MARKER
+import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.showYesNoAlert
-import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.Preferences
-import me.timschneeberger.onyxtweaks.utils.restartLauncher
 
 
 @PreferenceGroup(PreferenceGroups.LAUNCHER)

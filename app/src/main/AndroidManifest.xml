@@ -38,13 +38,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".utils.RemotePrefProvider"
-            android:authorities="me.timschneeberger.onyxtweaks"
-            android:directBootAware="true"
-            android:exported="true"
-            tools:ignore="ExportedContentProvider" />
-
         <meta-data
             android:name="xposedmodule"
             android:value="true" />
@@ -58,5 +51,4 @@
             android:name="xposedscope"
             android:resource="@array/scope" />
     </application>
-
 </manifest>

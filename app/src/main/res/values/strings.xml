@@ -14,6 +14,7 @@
     <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
     <string name="toast_launcher_restarting">Restarting launcher…</string>
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
+    <string name="toast_zygote_restarting">Soft-rebooting device…</string>
 
     <!-- Status panel -->
     <string name="status_needs_zygote_reset">Soft-reboot required to apply changes. Tap on this message to reboot now.</string>

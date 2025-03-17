@@ -11,10 +11,10 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.receiver.ModEvents
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.utils.firstByName
-import me.timschneeberger.onyxtweaks.utils.getClass
-import me.timschneeberger.onyxtweaks.utils.invokeOriginalMethod
-import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class DesktopGridSize : ModPack() {

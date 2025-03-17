@@ -1,6 +1,6 @@
 package me.timschneeberger.onyxtweaks.ui.fragments
 
-import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
+import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 

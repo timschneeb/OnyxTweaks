@@ -11,8 +11,8 @@ import me.timschneeberger.onyxtweaks.OnyxTweakApp
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.showAlert
-import me.timschneeberger.onyxtweaks.ui.utils.PreferenceGroup
-import me.timschneeberger.onyxtweaks.ui.utils.WorldReadableDataStore
+import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
+import me.timschneeberger.onyxtweaks.ui.preferences.WorldReadableDataStore
 import me.timschneeberger.onyxtweaks.ui.utils.setBackgroundFromAttribute
 import kotlin.reflect.full.findAnnotations
 

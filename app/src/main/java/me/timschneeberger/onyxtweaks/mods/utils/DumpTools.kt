@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.utils
+package me.timschneeberger.onyxtweaks.mods.utils
 
 import android.view.View
 import android.view.ViewGroup

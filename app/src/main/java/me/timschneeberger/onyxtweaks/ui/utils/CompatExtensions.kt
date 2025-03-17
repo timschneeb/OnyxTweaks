@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import me.timschneeberger.onyxtweaks.utils.sdkAbove
 import java.io.Serializable
 
@@ -16,14 +15,6 @@ object CompatExtensions {
             this.getSerializable(key, T::class.java)
         }.below {
             this.getSerializable(key) as? T
-        }
-    }
-
-    inline fun <reified T : Parcelable> Bundle.getParcelableAs(key: String): T? {
-        return sdkAbove(Build.VERSION_CODES.TIRAMISU) {
-            this.getParcelable(key, T::class.java)
-        }.below {
-            this.getParcelable(key)
         }
     }
 

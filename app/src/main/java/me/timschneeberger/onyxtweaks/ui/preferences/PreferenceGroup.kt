@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.ui.utils
+package me.timschneeberger.onyxtweaks.ui.preferences
 
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 

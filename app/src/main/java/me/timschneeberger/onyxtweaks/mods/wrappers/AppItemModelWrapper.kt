@@ -1,7 +1,7 @@
-package me.timschneeberger.onyxtweaks.wrappers
+package me.timschneeberger.onyxtweaks.mods.wrappers
 
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import me.timschneeberger.onyxtweaks.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 
 // Source type: com.onyx.common.applications.model.AppItemModel (com.onyx)
 class AppItemModelWrapper(item: Any) : ObjectWrapper(item) {

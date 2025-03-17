@@ -1,4 +1,4 @@
-package me.timschneeberger.onyxtweaks.utils
+package me.timschneeberger.onyxtweaks.mods.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,31 +10,18 @@ import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.ObjectHelper
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
-import com.github.kyuubiran.ezxhelper.finders.ClassFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Method
 
-fun ClassFinder.Static.of(className: String): ClassFinder? {
-    return try {
-        of(Class.forName(className, false, EzXHelper.safeClassLoader))
-    }
-    catch (e: ClassNotFoundException) {
-        XposedBridge.log("Class not found: $className")
-        null
-    }
-}
-
 fun getClass(className: String): Class<*> {
     return try {
         XposedHelpers.findClass(className, EzXHelper.classLoader)
-        // Class.forName(className, false, EzXHelper.classLoader)
     }
     catch (e: ClassNotFoundException) {
         XposedBridge.log("[${EzXHelper.appContext.packageName}] Class not found: $className")
-
         throw e
     }
 }

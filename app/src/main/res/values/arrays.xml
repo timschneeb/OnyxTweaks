@@ -49,11 +49,11 @@
         <item>spacer</item>
     </string-array>
 
-    <string-array name="qs_settings_button_actions">
+    <string-array name="qs_settings_button_actions" translatable="false">
         <item>@string/qs_header_settings_button_action_onyx_settings</item>
         <item>@string/qs_header_settings_button_action_stock_settings</item>
     </string-array>
-    <string-array name="qs_settings_button_actions_values">
+    <string-array name="qs_settings_button_actions_values" translatable="false">
         <item>onyx_settings</item>
         <item>stock_settings</item>
     </string-array>

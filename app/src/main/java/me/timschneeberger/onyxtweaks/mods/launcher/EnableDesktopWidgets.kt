@@ -14,9 +14,9 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.utils.castNonNull
-import me.timschneeberger.onyxtweaks.utils.firstByName
-import me.timschneeberger.onyxtweaks.utils.getClass
-import me.timschneeberger.onyxtweaks.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import java.lang.reflect.Modifier
 
 @TargetPackages(LAUNCHER_PACKAGE)

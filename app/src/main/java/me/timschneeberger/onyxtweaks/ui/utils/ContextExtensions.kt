@@ -17,12 +17,35 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.topjohnwu.superuser.Shell
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.DialogTextinputBinding
+import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInfoCompat
 
 
 object ContextExtensions {
+    fun Context.restartLauncher() {
+        toast(R.string.toast_launcher_restarting)
+        restartPackageSilently(LAUNCHER_PACKAGE)
+    }
+
+    fun Context.restartSystemUi() {
+        toast(R.string.toast_system_ui_restarting)
+        restartPackageSilently(SYSTEM_UI_PACKAGE)
+    }
+
+    fun Context.restartZygote() {
+        toast(R.string.toast_zygote_restarting)
+        Shell.cmd("kill $(pidof zygote)").submit()
+        Shell.cmd("kill $(pidof zygote64)").submit()
+    }
+
+    private fun restartPackageSilently(pkgName: String) {
+        Shell.cmd(String.format("killall %s", pkgName)).exec()
+    }
+
     fun Context.sendLocalBroadcast(intent: Intent) {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
@@ -214,7 +237,7 @@ object ContextExtensions {
     fun Context.getAppName(packageName: String): CharSequence? {
         return try {
             packageManager.getApplicationInfoCompat(packageName, 0)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }?.let {
             packageManager.getApplicationLabel(it)
@@ -224,7 +247,7 @@ object ContextExtensions {
     fun Context.getAppIcon(packageName: String): Drawable? {
         return try {
             packageManager.getApplicationIcon(packageName)
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             null
         }
     }

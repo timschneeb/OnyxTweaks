@@ -11,7 +11,7 @@ import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import me.timschneeberger.onyxtweaks.BuildConfig
 import me.timschneeberger.onyxtweaks.R
-import me.timschneeberger.onyxtweaks.ui.utils.WorldReadableDataStore
+import me.timschneeberger.onyxtweaks.ui.preferences.WorldReadableDataStore
 import kotlin.reflect.KClass
 
 enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
