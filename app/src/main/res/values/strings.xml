@@ -16,10 +16,10 @@
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
 
     <!-- Status panel -->
-    <string name="status_needs_zygote_reset">Soft-reboot required to apply changes. Tap here to reboot now.</string>
-    <string name="status_needs_system_ui_restart">SystemUI restart required to apply changes. Tap here to reload now.</string>
-    <string name="status_needs_launcher_restart">Launcher restart required to apply changes. Tap here to reload now.</string>
-    <string name="status_needs_system_ui_launcher_restart">SystemUI and launcher restart required to apply changes. Tap here to reload now.</string>
+    <string name="status_needs_zygote_reset">Soft-reboot required to apply changes. Tap on this message to reboot now.</string>
+    <string name="status_needs_system_ui_restart">SystemUI restart required to apply changes. Tap on this message to reload now.</string>
+    <string name="status_needs_launcher_restart">Launcher restart required to apply changes. Tap on this message to reload now.</string>
+    <string name="status_needs_system_ui_launcher_restart">SystemUI and launcher restart required to apply changes. Tap on this message to reload now.</string>
 
     <!-- Global menu -->
     <string name="menu_scroll_up">Scroll up</string>

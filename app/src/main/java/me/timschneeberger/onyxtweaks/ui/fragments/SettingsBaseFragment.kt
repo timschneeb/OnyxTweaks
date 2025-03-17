@@ -28,8 +28,6 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
             ?: throw IllegalStateException("No PreferenceGroup annotation found on ${this::class.simpleName}")
     }
 
-    private val dataStore: WorldReadableDataStore by lazy { WorldReadableDataStore(requireContext(), group) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,13 +48,17 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
     }
 
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        var dataStore: WorldReadableDataStore
         try {
-            preferenceManager.preferenceDataStore = dataStore
+            dataStore = WorldReadableDataStore(requireContext(), group)
         }
         catch (e: SecurityException) {
             Log.e(e)
             requireContext().showAlert(R.string.xsp_init_failed, R.string.xsp_init_failed_summary)
+            // Init without world readable access to prevent immediate crash in non-LSPosed environments
+            dataStore = WorldReadableDataStore(requireContext(), group, 0)
         }
+        preferenceManager.preferenceDataStore = dataStore
         setPreferencesFromResource(group.xmlRes, rootKey)
         onConfigurePreferences()
 

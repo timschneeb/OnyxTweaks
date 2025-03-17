@@ -10,12 +10,21 @@ import me.timschneeberger.onyxtweaks.utils.cast
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 import java.io.File
 
-class WorldReadableDataStore(private val context: Context, private val group: PreferenceGroups) : PreferenceDataStore(), SharedPreferences.OnSharedPreferenceChangeListener {
+class WorldReadableDataStore(
+    private val context: Context,
+    private val group: PreferenceGroups,
+    // Only used for testing in non-LSPosed environments
+    overrideMode: Int? = null
+) : PreferenceDataStore(), SharedPreferences.OnSharedPreferenceChangeListener {
+
     var onDataStoreModified: ((key: String) -> Unit)? = null
 
     @Suppress("DEPRECATION")
     @SuppressLint("WorldReadableFiles")
-    val prefs: SharedPreferences = context.getSharedPreferences(group.prefName, Context.MODE_WORLD_READABLE).also { preferences ->
+    val prefs: SharedPreferences = context.getSharedPreferences(
+        group.prefName,
+        overrideMode ?: Context.MODE_WORLD_READABLE
+    ).also { preferences ->
         preferences.registerOnSharedPreferenceChangeListener(this)
     }
 

@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="false">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/settingsToolbar"
@@ -35,46 +36,43 @@
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?colorErrorContainer"
             android:orientation="horizontal"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="4dp"
-            app:layout_constraintHeight="50dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            app:layout_constraintBottom_toTopOf="@id/statusDivider"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="?colorErrorContainer">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+           <TextView
                 android:id="@+id/statusText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:textColor="?colorOnErrorContainer"
                 tools:text="SystemUI restart required to apply changes.\nTap here to reload now." />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <ImageButton
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/statusClose"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:contentDescription="@android:string/cancel"
-                android:paddingStart="15dp"
-                android:paddingEnd="0dp"
-                android:gravity="end"
                 android:layout_gravity="end"
                 android:background="@null"
-                android:src="@drawable/ic_baseline_close_24dp" />
+                android:contentDescription="@android:string/cancel"
+                android:gravity="end"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:src="@drawable/ic_baseline_close_24dp"
+                app:tint="?colorOnErrorContainer" />
         </LinearLayout>
 
         <View
             android:id="@+id/statusDivider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintHeight="wrap_content_constrained"
+            app:layout_constraintHeight="@dimen/border_width"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/settings"
             app:layout_constraintTop_toBottomOf="@id/statusBar"
@@ -85,16 +83,15 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintHeight_default="spread"
             app:layout_constraintBottom_toTopOf="@id/bottomDivider"
             app:layout_constraintTop_toBottomOf="@id/statusDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <View
             android:id="@+id/bottomDivider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintHeight_max="@dimen/border_width"
+            android:layout_height="@dimen/border_width"
             app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
             app:layout_constraintTop_toBottomOf="@id/settings"
             android:background="@drawable/shape_divider" />
@@ -106,7 +103,8 @@
             app:buttonGravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bottomDivider"
-            tools:ignore="BottomAppBar">
+            tools:ignore="BottomAppBar"
+            tools:layout_editor_absoluteX="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,17 +115,16 @@
                     android:id="@+id/scrollButtonGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:checkedButton="@null"
-                    >
+                    app:checkedButton="@null">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/scrollUp"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:iconPadding="-6dp"
                         app:icon="@drawable/ic_baseline_keyboard_arrow_up_24dp"
-                        app:iconGravity="textStart" />
+                        app:iconGravity="textStart"
+                        app:iconPadding="-6dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/scrollDown"
@@ -135,9 +132,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        app:iconPadding="-6dp"
                         app:icon="@drawable/ic_baseline_keyboard_arrow_down_24dp"
-                        app:iconGravity="textEnd" />
+                        app:iconGravity="textEnd"
+                        app:iconPadding="-6dp" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </LinearLayout>
