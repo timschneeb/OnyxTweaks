@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.ui.activities
 
+import android.content.BroadcastReceiver
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
+import me.timschneeberger.onyxtweaks.receiver.OnModEventReceived
 import me.timschneeberger.onyxtweaks.ui.fragments.SettingsFragment
 import me.timschneeberger.onyxtweaks.ui.utils.getViewsByType
 import me.timschneeberger.onyxtweaks.utils.DumpTools
@@ -24,12 +26,16 @@ import me.timschneeberger.onyxtweaks.utils.restartLauncher
 import me.timschneeberger.onyxtweaks.utils.restartSystemUi
 import me.timschneeberger.onyxtweaks.utils.restartZygote
 
-class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private lateinit var binding: ActivitySettingsBinding
+    override var modEventReceiver: BroadcastReceiver? = null
 
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        registerModEventReceiver()
 
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -79,6 +85,11 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         binding.settingsToolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         binding.scrollUp.setOnClickListener(::onScrollButtonClicked)
         binding.scrollDown.setOnClickListener(::onScrollButtonClicked)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterModEventReceiver()
     }
 
     private fun onScrollButtonClicked(view: View) {
@@ -149,6 +160,10 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }
 
         return true
+    }
+
+    override fun onHookLoaded(packageName: String) {
+
     }
 
     private fun setBottomBarVisibility(isVisible: Boolean) {

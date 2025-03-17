@@ -1,7 +1,10 @@
 package me.timschneeberger.onyxtweaks.ui.utils
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.text.Editable
@@ -12,6 +15,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.DialogTextinputBinding
@@ -19,6 +23,18 @@ import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInf
 
 
 object ContextExtensions {
+    fun Context.sendLocalBroadcast(intent: Intent) {
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+    }
+
+    fun Context.registerLocalReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) {
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter)
+    }
+
+    fun Context.unregisterLocalReceiver(broadcastReceiver: BroadcastReceiver) {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+    }
+
     fun Context.showAlert(@StringRes title: Int, @StringRes message: Int, callback: (() -> Unit)? = null) {
         showAlert(getString(title), getString(message), callback)
     }

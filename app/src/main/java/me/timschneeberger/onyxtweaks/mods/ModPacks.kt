@@ -11,10 +11,10 @@ import me.timschneeberger.onyxtweaks.mods.launcher.EnableDock
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableKeyboardSettings
 import me.timschneeberger.onyxtweaks.mods.launcher.HideFunctionBarItems
 import me.timschneeberger.onyxtweaks.mods.launcher.HideTopBorder
+import me.timschneeberger.onyxtweaks.mods.launcher.LauncherLifecycleHook
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowChineseBookStore
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
-import me.timschneeberger.onyxtweaks.mods.systemui.QuickTileGridSize
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
 import me.timschneeberger.onyxtweaks.mods.systemui.AddGrayscaleModeQsTile
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
@@ -23,9 +23,11 @@ import me.timschneeberger.onyxtweaks.mods.systemui.CustomizeRecents
 import me.timschneeberger.onyxtweaks.mods.systemui.EnableHeadsUpNotifications
 import me.timschneeberger.onyxtweaks.mods.systemui.HideNotificationIconBorders
 import me.timschneeberger.onyxtweaks.mods.systemui.MoveNotificationHeaderToFooter
+import me.timschneeberger.onyxtweaks.mods.systemui.QuickTileGridSize
 import me.timschneeberger.onyxtweaks.mods.systemui.SetMaxNotificationIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowAdditionalStatusIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowWifiActivityIndicators
+import me.timschneeberger.onyxtweaks.mods.systemui.SystemUiLifecycleHook
 import me.timschneeberger.onyxtweaks.mods.systemui.UseNotificationIconColors
 
 object ModPacks {
@@ -62,5 +64,9 @@ object ModPacks {
         ShowAdditionalStatusIcons::class,
         ShowWifiActivityIndicators::class,
         UseNotificationIconColors::class,
+
+        // Lifecycle hooks
+        LauncherLifecycleHook::class,
+        SystemUiLifecycleHook::class
     )
 }
