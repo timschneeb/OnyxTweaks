@@ -58,7 +58,6 @@
             android:defaultValue="@integer/default_qs_grid_row_count"
             android:dependency="@string/key_qs_grid_custom_size"
             android:title="@string/qs_grid_row_count"
-            android:summary="@string/qs_grid_row_count_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
@@ -66,7 +65,6 @@
             android:defaultValue="@integer/default_qs_grid_column_count"
             android:dependency="@string/key_qs_grid_custom_size"
             android:title="@string/qs_grid_column_count"
-            android:summary="@string/qs_grid_column_count_summary"
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference

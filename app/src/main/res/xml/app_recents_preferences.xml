@@ -17,7 +17,6 @@
             android:defaultValue="@integer/default_recents_grid_row_count_portrait"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_row_count_portrait"
-            android:summary="@string/recents_grid_row_count_portrait_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
@@ -25,7 +24,6 @@
             android:defaultValue="@integer/default_recents_grid_column_count_portrait"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_column_count_portrait"
-            android:summary="@string/recents_grid_column_count_portrait_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
@@ -33,7 +31,6 @@
             android:defaultValue="@integer/default_recents_grid_row_count_landscape"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_row_count_landscape"
-            android:summary="@string/recents_grid_row_count_landscape_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
@@ -41,7 +38,6 @@
             android:defaultValue="@integer/default_recents_grid_column_count_landscape"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_column_count_landscape"
-            android:summary="@string/recents_grid_column_count_landscape_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
@@ -49,7 +45,6 @@
             android:defaultValue="@integer/default_recents_grid_spacing"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_spacing"
-            android:summary="@string/recents_grid_spacing_summary"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>

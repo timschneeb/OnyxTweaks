@@ -25,6 +25,10 @@
     <string name="status_needs_launcher_restart">Launcher restart required to apply changes. Tap on this message to reload now.</string>
     <string name="status_needs_system_ui_launcher_restart">SystemUI and launcher restart required to apply changes. Tap on this message to reload now.</string>
 
+    <!-- Input validation -->
+    <string name="error_invalid_input">Invalid input</string>
+    <string name="error_invalid_number_message">Please enter a number between %1$d and %2$d.</string>
+
     <!-- Global menu -->
     <string name="menu_scroll_up">Scroll up</string>
     <string name="menu_scroll_down">Scroll down</string>
@@ -85,11 +89,8 @@
     <string name="launcher_desktop_grid_custom_size">Customize desktop grid size</string>
     <string name="launcher_desktop_grid_custom_size_summary">Enable custom row/column counts for the desktop grid</string>
     <string name="launcher_desktop_row_count">Desktop row count</string>
-    <string name="launcher_desktop_row_count_summary">Set the number of rows on the desktop</string>
     <string name="launcher_desktop_column_count">Desktop column count</string>
-    <string name="launcher_desktop_column_count_summary">Set the number of columns on the desktop</string>
     <string name="launcher_desktop_dock_column_count">Dock column count</string>
-    <string name="launcher_desktop_dock_column_count_summary">Set the number of columns in the dock</string>
     <string name="launcher_desktop_reinit">Re-initialize desktop</string>
     <string name="launcher_desktop_reinit_summary">Remove all widgets and folders, and relocate all apps. Use this if you encounter issues with the desktop after changing row/column sizes.</string>
     <string name="launcher_desktop_reinit_confirm_title">Reset desktop items?</string>
@@ -137,7 +138,6 @@
     <string name="status_bar_status_icons_show_wifi_activity">Show wi-fi activity indicators</string>
     <string name="status_bar_status_icons_show_wifi_activity_summary">Display arrow indicators for wi-fi activity in the status bar</string>
     <string name="status_bar_status_icons_max_notification_icons">Maximum visible notification icons</string>
-    <string name="status_bar_status_icons_max_notification_icons_summary">Set the maximum number of notification icons that can be displayed in the status bar</string>
     <string name="status_bar_status_icons_remove_borders">Remove notification icon borders</string>
     <string name="status_bar_status_icons_remove_borders_summary">Disable the square borders around notification icons in the status bar</string>
 
@@ -157,9 +157,7 @@
     <string name="qs_grid_custom_size">Customize QS grid size</string>
     <string name="qs_grid_custom_size_summary">Enable custom row/column counts for the quick settings grid</string>
     <string name="qs_grid_row_count">QS grid row count</string>
-    <string name="qs_grid_row_count_summary">Set the number of rows for the quick settings grid</string>
     <string name="qs_grid_column_count">QS grid column count</string>
-    <string name="qs_grid_column_count_summary">Set the number of columns for the quick settings grid</string>
     <string name="qs_grid_no_min_tile_count">Remove minimum tile count restriction</string>
     <string name="qs_grid_no_min_tile_count_summary">Allow the quick settings grid to contain less than 6 tiles</string>
     <string name="qs_grid_show_bw_tile">Show black/white-mode tile</string>
@@ -170,15 +168,10 @@
     <string name="recents_grid_custom_size">Customize recents grid size</string>
     <string name="recents_grid_custom_size_summary">Enable custom row/column counts for the grid</string>
     <string name="recents_grid_row_count_portrait">Recents grid row count (Portrait)</string>
-    <string name="recents_grid_row_count_portrait_summary">Set the number of rows of the recents grid in portrait mode</string>
     <string name="recents_grid_column_count_portrait">Recents grid column count (Portrait)</string>
-    <string name="recents_grid_column_count_portrait_summary">Set the number of columns of the recents grid in portrait mode</string>
     <string name="recents_grid_row_count_landscape">Recents grid row count (Landscape)</string>
-    <string name="recents_grid_row_count_landscape_summary">Set the number of rows of the recents grid in landscape mode</string>
     <string name="recents_grid_column_count_landscape">Recents grid column count (Landscape)</string>
-    <string name="recents_grid_column_count_landscape_summary">Set the number of columns of the recents grid in landscape mode</string>
     <string name="recents_grid_spacing">Recents grid spacing</string>
-    <string name="recents_grid_spacing_summary">Set the spacing between the grid items</string>
     <string name="recents_style">Style</string>
     <string name="recents_use_stock_header">Use stock Android recents header</string>
     <string name="recents_use_stock_header_summary"><![CDATA[Use the stock Android recents header instead of the Onyx Boox header. Supports tap & hold to show app info. (Tablets only)]]></string>

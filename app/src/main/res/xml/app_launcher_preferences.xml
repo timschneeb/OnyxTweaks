@@ -91,7 +91,6 @@
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
             android:defaultValue="@integer/default_launcher_desktop_row_count"
             android:title="@string/launcher_desktop_row_count"
-            android:summary="@string/launcher_desktop_row_count_summary"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
@@ -99,15 +98,14 @@
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
             android:defaultValue="@integer/default_launcher_desktop_column_count"
             android:title="@string/launcher_desktop_column_count"
-            android:summary="@string/launcher_desktop_column_count_summary"
             app:iconSpaceReserved="false" />
+
 
         <EditTextPreference
             android:key="@string/key_launcher_desktop_dock_column_count"
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
             android:defaultValue="@integer/default_launcher_desktop_dock_column_count"
             android:title="@string/launcher_desktop_dock_column_count"
-            android:summary="@string/launcher_desktop_dock_column_count_summary"
             app:iconSpaceReserved="false" />
 
         <Preference
@@ -135,6 +133,7 @@
             android:title="@string/launcher_bar_item_alignment"
             android:entries="@array/function_bar_item_alignments"
             android:entryValues="@array/function_bar_item_alignments_values"
+            app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false" />
 
         <MultiSelectListPreference

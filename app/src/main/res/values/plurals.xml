@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- %1$d are placeholders. Do not translate them. -->
+    <plurals name="unit_pixels">
+        <item quantity="other">%1$dpx</item>
+    </plurals>
+
+    <plurals name="unit_rows">
+        <item quantity="one">%1$d row</item>
+        <item quantity="other">%1$d rows</item>
+    </plurals>
+
+    <plurals name="unit_columns">
+        <item quantity="one">%1$d column</item>
+        <item quantity="other">%1$d columns</item>
+    </plurals>
+
+    <plurals name="unit_icons">
+        <item quantity="one">%1$d icon</item>
+        <item quantity="other">%1$d icons</item>
+    </plurals>
+</resources>

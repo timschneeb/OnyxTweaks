@@ -1,19 +1,23 @@
 package me.timschneeberger.onyxtweaks.ui.fragments
 
 import android.os.Bundle
+import android.text.method.DigitsKeyListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.PluralsRes
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.transition.MaterialSharedAxis
 import me.timschneeberger.onyxtweaks.OnyxTweakApp
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
-import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.showAlert
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.preferences.WorldReadableDataStore
 import me.timschneeberger.onyxtweaks.ui.utils.setBackgroundFromAttribute
+import me.timschneeberger.onyxtweaks.ui.utils.showAlert
 import kotlin.reflect.full.findAnnotations
 
 abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
@@ -63,6 +67,36 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
         onConfigurePreferences()
 
         dataStore.onDataStoreModified = ::onPreferenceChanged
+    }
+
+    protected fun EditTextPreference.configureAsNumberInput(min: Int, max: Int, @PluralsRes unitRes: Int) {
+        summaryProvider = Preference.SummaryProvider<EditTextPreference> { preference ->
+            val value = preference.text?.toIntOrNull()
+            when {
+                value == null -> getString(R.string.value_not_set)
+                else -> context.resources.getQuantityString(unitRes, value, value)
+            }
+        }
+
+        dialogTitle = "$title ($min ~ ${context.resources.getQuantityString(unitRes, max, max)})"
+
+        setOnBindEditTextListener { editText ->
+            editText.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+            editText.setKeyListener(DigitsKeyListener.getInstance("0123456789"))
+        }
+
+        onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            val value = newValue.toString().toIntOrNull()
+            if (value == null || value < min || value > max) {
+                requireContext().showAlert(
+                    getString(R.string.error_invalid_input),
+                    getString(R.string.error_invalid_number_message, min, max)
+                )
+                false
+            } else {
+                true
+            }
+        }
     }
 
     open fun onPreferenceChanged(key: String) {}
