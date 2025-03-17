@@ -36,7 +36,7 @@
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorErrorContainer"
+            android:background="?colorError"
             android:orientation="horizontal"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
@@ -51,7 +51,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:textColor="?colorOnErrorContainer"
+                android:textColor="?colorOnError"
                 tools:text="SystemUI restart required to apply changes.\nTap here to reload now." />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -65,7 +65,7 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="0dp"
                 android:src="@drawable/ic_baseline_close_24dp"
-                app:tint="?colorOnErrorContainer" />
+                app:tint="?colorOnError" />
         </LinearLayout>
 
         <View
