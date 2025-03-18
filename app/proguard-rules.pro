@@ -4,7 +4,7 @@
 -allowaccessmodification
 -overloadaggressively
 
--keepclassmembernames class *
+-keepclassmembernames class me.timschneeberger.onyxtweaks.*
 
 -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
     public static void checkNotNull(java.lang.Object);
