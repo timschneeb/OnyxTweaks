@@ -16,6 +16,8 @@ import me.timschneeberger.onyxtweaks.utils.CustomLogger
 // TODO: EAC activity based settings
 // TODO: MMKV editor
 // TODO: Hide app labels
+// TODO: catch and report: NoSuchElementException: Sequence is empty
+// TODO: catch and report: exceptions in hook callbacks
 
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {
     private var modManager: ModManager = ModManager()
