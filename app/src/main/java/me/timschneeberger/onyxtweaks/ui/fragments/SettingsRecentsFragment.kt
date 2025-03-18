@@ -19,7 +19,7 @@ class SettingsRecentsFragment : SettingsBaseFragment() {
         gridColumnsPortrait?.configureAsNumberInput(1, 16, R.plurals.unit_columns)
         gridRowsLandscape?.configureAsNumberInput(1, 16, R.plurals.unit_rows)
         gridColumnsLandscape?.configureAsNumberInput(1, 16, R.plurals.unit_columns)
-        gridSpacing?.configureAsNumberInput(0, 300, R.plurals.unit_pixels)
+        gridSpacing?.configureAsNumberInput(0, 100, R.plurals.unit_pixels)
     }
 
     override fun onPreferenceChanged(key: String) {
