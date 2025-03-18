@@ -49,6 +49,17 @@
         <item>spacer</item>
     </string-array>
 
+    <string-array name="desktop_toolbar_state" translatable="false">
+        <item>@string/launcher_desktop_toolbar_state_default</item>
+        <item>@string/launcher_desktop_toolbar_state_invisible</item>
+        <item>@string/launcher_desktop_toolbar_state_visible</item>
+    </string-array>
+    <string-array name="desktop_toolbar_state_values" translatable="false">
+        <item>default</item>
+        <item>invisible</item>
+        <item>visible</item>
+    </string-array>
+
     <string-array name="qs_settings_button_actions" translatable="false">
         <item>@string/qs_header_settings_button_action_onyx_settings</item>
         <item>@string/qs_header_settings_button_action_stock_settings</item>

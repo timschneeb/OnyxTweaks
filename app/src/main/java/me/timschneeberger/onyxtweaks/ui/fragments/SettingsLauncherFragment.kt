@@ -12,6 +12,7 @@ import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.showYesNoAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.Preferences
+import me.timschneeberger.onyxtweaks.utils.cast
 
 
 @PreferenceGroup(PreferenceGroups.LAUNCHER)
@@ -42,8 +43,26 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
             true
         }
 
-        // TODO show warning when hiding app tab
-        // TODO add hint about widget mode removing toolbar
+        barHiddenItems?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref, newValue ->
+            // Check if the user is trying to hide the apps item
+            if (newValue is Set<*> && pref is MultiSelectListPreference &&
+                newValue.contains("apps;home_apps") && !pref.values.contains("apps;home_apps")) {
+                // If so, display a warning and discard the change for now
+                requireContext().showYesNoAlert(
+                    R.string.launcher_bar_hidden_items_remove_apps_warning,
+                    R.string.launcher_bar_hidden_items_remove_apps_warning_message,
+                    R.string.continue_action,
+                    R.string.cancel
+                ) {
+                    if (it) {
+                        // User confirmed, allow the change
+                        barHiddenItems?.values = newValue.cast<Set<String>>()
+                    }
+                }
+                return@OnPreferenceChangeListener false
+            }
+            true
+        }
 
         desktopDock?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             // Allow enabling the dock without warning

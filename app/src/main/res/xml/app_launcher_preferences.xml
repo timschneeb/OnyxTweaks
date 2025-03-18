@@ -44,6 +44,15 @@
             android:summary="@string/launcher_desktop_wallpaper_summary"
             app:iconSpaceReserved="false" />
 
+        <ListPreference
+            android:key="@string/key_launcher_desktop_toolbar_state"
+            android:defaultValue="@string/default_launcher_desktop_toolbar_state"
+            android:title="@string/launcher_desktop_toolbar_state"
+            android:entries="@array/desktop_toolbar_state"
+            android:entryValues="@array/desktop_toolbar_state_values"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_widgets_advanced"
             android:defaultValue="@bool/default_launcher_desktop_widgets_advanced"
@@ -108,12 +117,15 @@
             app:iconSpaceReserved="false" />
 
         <Preference
+            android:icon="@drawable/ic_twotone_info_24dp"
+            android:selectable="false"
+            android:summary="@string/launcher_desktop_grid_downsize_notice" />
+
+        <Preference
             android:key="@string/key_launcher_desktop_reinit"
             android:title="@string/launcher_desktop_reinit"
             android:summary="@string/launcher_desktop_reinit_summary"
             app:iconSpaceReserved="false" />
-
-        <!-- TODO add info card about downsizing -->
     </PreferenceCategory>
 
     <PreferenceCategory

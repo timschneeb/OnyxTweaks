@@ -12,6 +12,7 @@ import me.timschneeberger.onyxtweaks.mods.launcher.EnableKeyboardSettings
 import me.timschneeberger.onyxtweaks.mods.launcher.HideFunctionBarItems
 import me.timschneeberger.onyxtweaks.mods.launcher.HideTopBorder
 import me.timschneeberger.onyxtweaks.mods.launcher.LauncherLifecycleHook
+import me.timschneeberger.onyxtweaks.mods.launcher.ShowAppsToolbar
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowChineseBookStore
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
@@ -44,6 +45,7 @@ object ModPacks {
         EnableKeyboardSettings::class,
         HideFunctionBarItems::class,
         HideTopBorder::class,
+        ShowAppsToolbar::class,
         ShowChineseBookStore::class,
 
         // Shared

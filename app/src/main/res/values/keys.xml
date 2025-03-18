@@ -13,6 +13,7 @@
     <string name="key_launcher_app_show_file_mgr" translatable="false">launcher_app_show_file_mgr</string>
     <string name="key_launcher_app_show_all" translatable="false">launcher_app_show_all</string>
     <string name="key_launcher_desktop_widgets_advanced" translatable="false">launcher_desktop_widgets_advanced</string>
+    <string name="key_launcher_desktop_toolbar_state" translatable="false">launcher_desktop_toolbar_state</string>
     <string name="key_launcher_desktop_wallpaper" translatable="false">launcher_desktop_wallpaper</string>
     <string name="key_launcher_desktop_show_dock" translatable="false">launcher_desktop_show_dock</string>
     <string name="key_launcher_desktop_show_settings" translatable="false">launcher_desktop_show_settings</string>

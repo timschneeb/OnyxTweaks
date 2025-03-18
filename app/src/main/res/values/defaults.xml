@@ -9,6 +9,7 @@
     <bool name="default_launcher_app_show_all" translatable="false">false</bool>
     <bool name="default_launcher_desktop_widgets_advanced" translatable="false">false</bool>
     <bool name="default_launcher_desktop_wallpaper" translatable="false">false</bool>
+    <string name="default_launcher_desktop_toolbar_state" translatable="false">default</string>
     <bool name="default_launcher_desktop_show_dock" translatable="false">true</bool>
     <bool name="default_launcher_desktop_show_settings" translatable="false">true</bool>
     <bool name="default_launcher_desktop_hide_top_border" translatable="false">false</bool>

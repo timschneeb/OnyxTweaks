@@ -77,6 +77,10 @@
     <string name="launcher_desktop">Desktop</string>
     <string name="launcher_desktop_wallpaper">Enable system-wide wallpaper support</string>
     <string name="launcher_desktop_wallpaper_summary">Allow setting wallpapers, even in 3rd party launchers</string>
+    <string name="launcher_desktop_toolbar_state">Toolbar visibility above the app grid</string>
+    <string name="launcher_desktop_toolbar_state_default">Default state</string>
+    <string name="launcher_desktop_toolbar_state_invisible">Invisible</string>
+    <string name="launcher_desktop_toolbar_state_visible">Visible</string>
     <string name="launcher_desktop_widgets_advanced"><![CDATA[Enable widget support & advanced features]]></string>
     <string name="launcher_desktop_widgets_advanced_summary">Allow adding widgets to the desktop by long-pressing. Removes the toolbar in the app drawer</string>
     <string name="launcher_desktop_show_dock">Enable app dock</string>
@@ -93,6 +97,7 @@
     <string name="launcher_desktop_row_count">Desktop row count</string>
     <string name="launcher_desktop_column_count">Desktop column count</string>
     <string name="launcher_desktop_dock_column_count">Dock column count</string>
+    <string name="launcher_desktop_grid_downsize_notice">Important: When shrinking the grid, some apps may become invisible because they may be located out-of-bounds after the change.\nIf you experience this issue, use the option below to reset the desktop icons.</string>
     <string name="launcher_desktop_reinit">Re-initialize desktop</string>
     <string name="launcher_desktop_reinit_summary">Remove all widgets and folders, and relocate all apps. Use this if you encounter issues with the desktop after changing row/column sizes.</string>
     <string name="launcher_desktop_reinit_confirm_title">Reset desktop items?</string>
@@ -112,6 +117,8 @@
     <string name="launcher_bar_hidden_item_storage">Storage</string>
     <string name="launcher_bar_hidden_item_apps">Apps</string>
     <string name="launcher_bar_hidden_item_settings">Settings</string>
+    <string name="launcher_bar_hidden_items_remove_apps_warning">Are you sure?</string>
+    <string name="launcher_bar_hidden_items_remove_apps_warning_message">You have requested to hide the apps tab in the launcher.\nThis may soft-lock you, if you don\'t have any other method set up to re-open this app to undo the change later.\n\nDo you want to continue anyway?</string>
     <string name="launcher_settings_onyx">Settings</string>
     <string name="launcher_settings_added_shortcuts">Additional Onyx settings shortcuts</string>
     <string name="launcher_setting_cat_freeze_manager">App freeze manager</string>

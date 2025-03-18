@@ -14,7 +14,6 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 class UseNotificationIconColors : ModPack() {
     override val group = PreferenceGroups.STATUS_BAR
 
-    // TODO verify this later
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
             .firstByName("isFixNotificationIconColor")
