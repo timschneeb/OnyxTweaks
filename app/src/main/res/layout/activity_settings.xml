@@ -36,14 +36,21 @@
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorError"
+            android:background="@drawable/shape_status_background"
             android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
+            android:paddingHorizontal="@dimen/status_bar_padding"
+            android:paddingVertical="@dimen/status_bar_padding"
             app:layout_constraintBottom_toTopOf="@id/statusDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_twotone_error_24dp"
+                android:layout_marginEnd="16dp"/>
 
            <TextView
                 android:id="@+id/statusText"
@@ -51,7 +58,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:textColor="?colorOnError"
+                android:textColor="?colorPrimary"
+                android:textSize="16sp"
                 tools:text="SystemUI restart required to apply changes.\nTap here to reload now." />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -65,7 +73,7 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="0dp"
                 android:src="@drawable/ic_baseline_close_24dp"
-                app:tint="?colorOnError" />
+                app:tint="?colorPrimary" />
         </LinearLayout>
 
         <View

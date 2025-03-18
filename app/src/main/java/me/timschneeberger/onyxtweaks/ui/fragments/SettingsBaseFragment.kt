@@ -108,12 +108,9 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
 
     protected fun MultiSelectListPreference.configureAsMultiSelectInput() {
         summaryProvider = Preference.SummaryProvider<MultiSelectListPreference> { preference ->
-            val values = preference.values
-            val entryValues = preference.entryValues
-            val selectedEntries = preference.entries.filterIndexed {
-                    index, _ -> entryValues.contains(values.elementAt(index))
+            preference.values.count().let { count ->
+                context.resources.getQuantityString(R.plurals.items_selected, count, count)
             }
-            selectedEntries.joinToString()
         }
     }
 }

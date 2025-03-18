@@ -19,4 +19,9 @@
         <item quantity="one">%1$d icon</item>
         <item quantity="other">%1$d icons</item>
     </plurals>
+
+    <plurals name="items_selected">
+        <item quantity="one">%1$d item selected</item>
+        <item quantity="other">%1$d items selected</item>
+    </plurals>
 </resources>

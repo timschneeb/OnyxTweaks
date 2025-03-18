@@ -131,10 +131,14 @@ class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.item_restart_launcher -> {
             restartLauncher()
+            modifiedPackages.remove(LAUNCHER_PACKAGE)
+            updateStatusPanel()
             true
         }
         R.id.item_restart_system_ui -> {
             restartSystemUi()
+            modifiedPackages.remove(SYSTEM_UI_PACKAGE)
+            updateStatusPanel()
             true
         }
         R.id.item_restart_zygote -> {
@@ -197,6 +201,8 @@ class SettingsActivity() : AppCompatActivity(), OnModEventReceived,
                     restartLauncher()
             }
         }
+        modifiedPackages.clear()
+        updateStatusPanel()
     }
 
     private fun updateStatusPanel() {

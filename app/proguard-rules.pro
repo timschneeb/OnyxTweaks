@@ -1,4 +1,4 @@
--keep class me.timschneeberger.onyxtweaks.MainHook
+-keep class me.timschneeberger.onyxtweaks.MainHookEntry
 
 -repackageclasses
 -allowaccessmodification
