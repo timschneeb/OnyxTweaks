@@ -13,7 +13,7 @@
     <string name="no_activity_found">No app found to handle action</string>
     <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
     <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
-    <string name="toast_launcher_restarting">Restarting launcher…</string>
+    <string name="toast_launcher_restarting">Launcher restarted</string>
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
     <string name="toast_zygote_restarting">Soft-rebooting device…</string>
     <string name="error_no_root_access">No root access</string>
@@ -127,8 +127,8 @@
     <!-- Status bar -->
     <string name="status_bar_notifications">Notifications</string>
     <string name="status_bar_notifications_heads_up">Re-enable heads-up notifications</string>
-    <string name="status_bar_notifications_heads_up_summary">Display incoming notifications as a floating popup</string>
-    <string name="status_bar_notifications_enable_icon_colors">Re-enable notification icon colors in the expanded status bar</string>
+    <string name="status_bar_notifications_heads_up_summary">Display high-priority notifications as floating popups</string>
+    <string name="status_bar_notifications_enable_icon_colors">Re-enable notification icon colors in the expanded status bar (not all apps provide icon colors however)</string>
     <string name="status_bar_notifications_enable_icon_colors_summary">Use the app icon colors instead of monochrome icons in the expanded status bar</string>
     <string name="status_bar_notifications_move_header_to_bottom">Move the header of the extended status bar to the bottom</string>
     <string name="status_bar_notifications_move_header_to_bottom_summary">Clock, date, and clear all button will be displayed at the bottom of the notification panel</string>
