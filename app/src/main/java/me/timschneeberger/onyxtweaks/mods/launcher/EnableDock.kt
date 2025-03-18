@@ -8,10 +8,10 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.applyObjectHelper
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableDock : ModPack() {
@@ -23,7 +23,7 @@ class EnableDock : ModPack() {
 
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
-                .firstByNameOrLog("getHotSeatApps")
+                .firstByName("getHotSeatApps")
                 .createHook {
                     replace { param ->
                         // Return a list with one app

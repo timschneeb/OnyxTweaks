@@ -24,7 +24,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.getDimensionPxByName
 import me.timschneeberger.onyxtweaks.mods.utils.getDrawableByName
@@ -62,11 +62,11 @@ class AddUserSwitcherToQs : ModPack() {
 
     private fun handleLoadSystemUi() {
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
-            .firstByNameOrLog("isShowUserSwitch")
+            .firstByName("isShowUserSwitch")
             .replaceWithConstant(true)
 
         MethodFinder.fromClass("com.android.systemui.qs.QSPanel")
-            .firstByNameOrLog("initTabletTitleBar")
+            .firstByName("initTabletTitleBar")
             .createAfterHook { param ->
                 // Obtain settings button and its context
                 val settingsViewGroup = param.thisObject
@@ -130,12 +130,12 @@ class AddUserSwitcherToQs : ModPack() {
     private fun showUserSwitchDialog(hostLayout: ViewGroup) = try {
         val factory = getClass("com.android.systemui.SystemUIFactory")
             .methodFinder()
-            .firstByNameOrLog("getInstance")
+            .firstByName("getInstance")
             .invoke(null)
 
         val sysUiComp = factory::class.java
             .methodFinder()
-            .firstByNameOrLog("getSysUIComponent")
+            .firstByName("getSysUIComponent")
             .invoke(factory)
 
         // Retrieve UserSwitchDialogController instance to show dialog
@@ -146,13 +146,13 @@ class AddUserSwitcherToQs : ModPack() {
 
                 provider::class.java
                     .methodFinder()
-                    .firstByNameOrLog("get")
+                    .firstByName("get")
                     .invoke(provider)
             }
             .also { ctrl ->
                 ctrl::class.java
                     .methodFinder()
-                    .firstByNameOrLog("showDialog")
+                    .firstByName("showDialog")
                     .invoke(ctrl, hostLayout)
             }
 

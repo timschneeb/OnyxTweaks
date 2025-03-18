@@ -38,25 +38,8 @@ inline fun <T> T.applyObjectHelper(block: ObjectHelper.() -> Unit): T {
     return this
 }
 
-fun MethodFinder.firstOrLog(): Method {
-    return firstOrNull().let {
-        if (it == null) {
-            Log.ex("Method not found")
-            throw NoSuchMethodException("Method not found")
-        }
-        it
-    }
-}
-
-fun MethodFinder.firstByNameOrLog(name: String): Method {
-    return filterByName(name)
-        .firstOrNull().let {
-            if (it == null) {
-                Log.ex("Method $name not found")
-                throw NoSuchMethodException("Method $name not found")
-            }
-            it
-        }
+fun MethodFinder.firstByName(name: String): Method {
+    return filterByName(name).first()
 }
 
 @SuppressLint("DiscouragedApi")

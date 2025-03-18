@@ -11,7 +11,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -29,7 +29,7 @@ class AddSettingCategories : ModPack() {
             return
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
-            .firstByNameOrLog("getSettingCategory")
+            .firstByName("getSettingCategory")
             .createAfterHook { param ->
                 val categoryCls = getClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory")
                 categoryCls
@@ -49,7 +49,7 @@ class AddSettingCategories : ModPack() {
                     .also {
                         categoryCls
                             .methodFinder()
-                            .firstByNameOrLog("setItemList")
+                            .firstByName("setItemList")
                             .invoke(param.result, it)
                     }
             }

@@ -1,7 +1,7 @@
 package me.timschneeberger.onyxtweaks.mods.utils.wrappers
 
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 
 // Source type: com.onyx.common.applications.model.AppItemModel (com.onyx)
 class AppItemModelWrapper(item: Any) : ObjectWrapper(item) {
@@ -24,6 +24,6 @@ class AppItemModelWrapper(item: Any) : ObjectWrapper(item) {
     fun save(): Any? = item::class.java
         .methodFinder()
         .filterByParamCount(0)
-        .firstByNameOrLog("save")
+        .firstByName("save")
         .invoke(item)
 }

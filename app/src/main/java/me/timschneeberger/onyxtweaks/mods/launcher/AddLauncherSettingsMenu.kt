@@ -16,7 +16,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import java.lang.ref.WeakReference
@@ -37,7 +37,7 @@ class AddLauncherSettingsMenu : ModPack() {
                     try {
                         val listenerCls = getClass("com.onyx.common.applications.view.DesktopOptionView")
                             .methodFinder()
-                            .firstByNameOrLog("getDesktopOptionViewListener")
+                            .firstByName("getDesktopOptionViewListener")
                             .invoke(instance)
 
                         listenerCls.javaClass.getDeclaredMethod("onLaunchSettings").invoke(listenerCls)

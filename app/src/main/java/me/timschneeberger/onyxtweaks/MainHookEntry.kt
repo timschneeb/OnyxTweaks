@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks
 
+import com.github.kyuubiran.ezxhelper.Config
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.IXposedHookInitPackageResources
@@ -28,10 +29,12 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
     }
 
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
+        ensureLoggerInitialized()
+        Config.enableFinderExceptionMessage = true
+
         // Only initialize using the first package for this process.
         // This is a workaround for the fact that the hook is called multiple times when an app is
         // running other packages within their process. (Example: com.google.android.webview)
-        ensureLoggerInitialized()
         if (loadPackageParam.isFirstApplication) {
             EzXHelper.initHandleLoadPackage(loadPackageParam)
             EzXHelper.setLogTag("OT/${simplifyPackageName(loadPackageParam.packageName)}")

@@ -8,7 +8,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE)
@@ -20,7 +20,7 @@ class QuickTileGridSize : ModPack() {
             return
 
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
-            .firstByNameOrLog("getQSNumColumns")
+            .firstByName("getQSNumColumns")
             .replaceWithConstant(4)
     }
 

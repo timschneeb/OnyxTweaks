@@ -8,7 +8,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 
 @TargetPackages(SYSTEM_UI_PACKAGE, SYSTEM_FRAMEWORK_PACKAGE)
@@ -21,12 +21,12 @@ class RemoveRegalModeRestriction : ModPack() {
 
         if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE) {
             MethodFinder.fromClass("android.onyx.optimization.data.v2.EACRefreshConfig")
-                .firstByNameOrLog("isSupportRegal")
+                .firstByName("isSupportRegal")
                 .replaceWithConstant(true)
         }
         else if (lpParam.packageName == SYSTEM_UI_PACKAGE) {
             MethodFinder.fromClass("com.android.systemui.settings.EInkCenterController")
-                .firstByNameOrLog("currentTopComponentSupportRegal")
+                .firstByName("currentTopComponentSupportRegal")
                 .replaceWithConstant(true)
         }
     }

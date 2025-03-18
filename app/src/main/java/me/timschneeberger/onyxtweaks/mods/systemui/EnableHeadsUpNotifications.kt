@@ -6,10 +6,10 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class EnableHeadsUpNotifications : ModPack() {
@@ -20,11 +20,11 @@ class EnableHeadsUpNotifications : ModPack() {
 
         getClass("android.onyx.systemui.SystemUIConfig").apply {
             methodFinder()
-                .firstByNameOrLog("isDisableNotificationListenForHeadsUp")
+                .firstByName("isDisableNotificationListenForHeadsUp")
                 .replaceWithConstant(!enable)
 
             methodFinder()
-                .firstByNameOrLog("isDisableHeadsUpPinnedNotification")
+                .firstByName("isDisableHeadsUpPinnedNotification")
                 .replaceWithConstant(!enable)
         }
     }
