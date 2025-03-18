@@ -31,7 +31,7 @@ class AddSettingCategories : ModPack() {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByNameOrLog("getSettingCategory")
             .createAfterHook { param ->
-                val categoryCls = getClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory");
+                val categoryCls = getClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory")
                 categoryCls
                     .getMethod("getItemList")
                     .invoke(param.result)

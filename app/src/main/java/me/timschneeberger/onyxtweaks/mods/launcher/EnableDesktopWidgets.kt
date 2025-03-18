@@ -120,7 +120,7 @@ class EnableDesktopWidgets : ModPack() {
                 param.result.cast<String>().takeIf {
                     it.isNullOrEmpty() || it.trim() == "[]" || it.trim() == "{}"
                 }?.let {
-                    param.result = null;
+                    param.result = null
                 }
             }
 

@@ -14,7 +14,7 @@ class OnyxTweakApp : Application() {
 
         Log.currentLogger = CustomLogger
         EzXHelper.setLogTag("OnyxTweaksMgr")
-        HiddenApiBypass.addHiddenApiExemptions("");
+        HiddenApiBypass.addHiddenApiExemptions("")
 
         Log.d("OnyxTweaksApp initialized")
     }

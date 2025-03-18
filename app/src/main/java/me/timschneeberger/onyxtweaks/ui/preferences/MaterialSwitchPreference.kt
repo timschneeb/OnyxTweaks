@@ -7,33 +7,14 @@ import me.timschneeberger.onyxtweaks.R
 
 
 class MaterialSwitchPreference : SwitchPreferenceCompat {
+    @Suppress("unused")
+    @JvmOverloads
     constructor(
         context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int
-    ) : super(context, attrs, defStyleAttr
-    ) {
-        init()
-    }
-
-    constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = androidx.preference.R.attr.switchPreferenceCompatStyle,
+        defStyleRes: Int = 0
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init()
-    }
-
-    constructor(context: Context) : super(context) {
-        init()
-    }
-
-    private fun init() {
         widgetLayoutResource = R.layout.preference_materialswitch
     }
 }

@@ -21,7 +21,7 @@ class AppItemModelWrapper(item: Any) : ObjectWrapper(item) {
         get() = get("id") ?: -1
         set(value) = set("id", value)
 
-    fun save() = item::class.java
+    fun save(): Any? = item::class.java
         .methodFinder()
         .filterByParamCount(0)
         .firstByNameOrLog("save")

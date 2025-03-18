@@ -9,6 +9,7 @@ import me.timschneeberger.onyxtweaks.databinding.PreferenceAppiconBinding
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.getAppName
 
 class AppIconPreference : Preference {
+    @Suppress("unused")
     @JvmOverloads
     constructor(
         context: Context,

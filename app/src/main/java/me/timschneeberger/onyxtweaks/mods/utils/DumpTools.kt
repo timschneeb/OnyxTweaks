@@ -24,7 +24,7 @@ object DumpTools {
             append(")")
         }.toString()
 
-        val clsName = method.declaringClass.simpleName;
+        val clsName = method.declaringClass.simpleName
         val isVoid = method.returnType == Void.TYPE
         Log.ix("$tag [$clsName] ${method.name}$args => ${if (isVoid) "<void>" else param.result}")
     }

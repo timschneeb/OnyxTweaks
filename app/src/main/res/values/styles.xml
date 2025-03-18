@@ -14,7 +14,6 @@
         <!-- Style overrides -->
         <item name="materialSwitchStyle">@style/AppTheme.Widget.Switch</item>
         <item name="actionOverflowMenuStyle">@style/AppTheme.PopupMenu.Overflow</item>
-        <item name="materialCardViewStyle">@style/AppTheme.CardView</item>
         <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
@@ -54,12 +53,6 @@
         <item name="android:layout_marginStart">4dp</item>
         <item name="android:paddingHorizontal">0dp</item>
     </style>
-
-    <style name="AppTheme.Overlay.ItemShape" parent="ShapeAppearance.M3.Sys.Shape.Corner.Full">
-        <item name="cornerRadius">@dimen/corner_radius</item>
-    </style>
-
-    <style name="AppTheme.CardView" parent="Widget.Material3.CardView.Elevated" />
 
     <!-- Custom popup menus w/ border and no elevation -->
     <style name="AppTheme.PopupMenu.Overflow" parent="@style/Widget.Material3.PopupMenu.Overflow">

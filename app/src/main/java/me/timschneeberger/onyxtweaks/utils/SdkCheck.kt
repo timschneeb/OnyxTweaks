@@ -16,8 +16,7 @@ inline fun <T> sdkAbove(sdk: Int, onSuccessful: () -> T): SdkCheckElseBranch<T> 
 }
 
 object SdkCheck {
-    private val sdk: Int
-        get() = Build.VERSION.SDK_INT
+    private val sdk = Build.VERSION.SDK_INT
 
     @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
     val is9: Boolean get() = sdk >= Build.VERSION_CODES.P

@@ -1,7 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
@@ -22,19 +21,6 @@ class HideFunctionBarItems : ModPack() {
             .map { it.split(";") }
             .map { FunctionItem(it[0], it[1]) }
 
-    private fun verifyContainerFunctionItem(item: String): Boolean =
-        getClass("com.onyx.reader.main.model.FunctionConfig\$Function")
-            .methodFinder()
-            .filterStatic()
-            .firstByNameOrLog("isValid")
-            .invoke(null, item)
-            .let { it as? Boolean == true }
-            .also {
-                if (!it) {
-                    Log.ex("Critical: HideFunctionBarItems: Invalid function item for container: $item")
-                }
-            }
-
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
@@ -44,7 +30,7 @@ class HideFunctionBarItems : ModPack() {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByNameOrLog("getFunctionConfig")
             .createAfterHook { param ->
-                val categoryCls = getClass("com.onyx.reader.main.model.FunctionConfig");
+                val categoryCls = getClass("com.onyx.reader.main.model.FunctionConfig")
                 categoryCls
                     .getMethod("getItemList")
                     .invoke(param.result)

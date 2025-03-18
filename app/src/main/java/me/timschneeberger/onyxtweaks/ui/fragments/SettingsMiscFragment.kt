@@ -5,8 +5,4 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 
 @PreferenceGroup(PreferenceGroups.MISC)
-class SettingsMiscFragment : SettingsBaseFragment() {
-    override fun onConfigurePreferences() {
-
-    }
-}
+class SettingsMiscFragment : SettingsBaseFragment()

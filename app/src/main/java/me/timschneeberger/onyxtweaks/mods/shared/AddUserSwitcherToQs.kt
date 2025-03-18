@@ -112,7 +112,7 @@ class AddUserSwitcherToQs : ModPack() {
                             setImageDrawable(
                                 ResourcesCompat.getDrawable(
                                     EzXHelper.moduleRes,
-                                    R.drawable.ic_account,
+                                    R.drawable.ic_thin_account_24dp,
                                     null
                                 )
                             )

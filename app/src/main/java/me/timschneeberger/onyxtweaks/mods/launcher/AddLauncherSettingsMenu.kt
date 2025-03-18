@@ -59,7 +59,7 @@ class AddLauncherSettingsMenu : ModPack() {
             return
         }
 
-        val desktopOptViewCls = getClass("com.onyx.common.applications.view.DesktopOptionView");
+        val desktopOptViewCls = getClass("com.onyx.common.applications.view.DesktopOptionView")
         val fastAdapterClickListenerCls = getClass("com.mikepenz.fastadapter.listeners.OnClickListener")
         val onClickMtd = desktopOptViewCls.methodFinder()
             .filterByParamTypes(fastAdapterClickListenerCls)

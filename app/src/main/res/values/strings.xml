@@ -7,9 +7,7 @@
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="value_not_set">Not set</string>
-    <string name="close">Close</string>
     <string name="continue_action">Continue</string>
-    <string name="never_show_warning_again">Never show this warning again</string>
     <string name="no_activity_found">No app found to handle action</string>
     <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
     <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
@@ -30,8 +28,6 @@
     <string name="error_invalid_number_message">Please enter a number between %1$d and %2$d.</string>
 
     <!-- Global menu -->
-    <string name="menu_scroll_up">Scroll up</string>
-    <string name="menu_scroll_down">Scroll down</string>
     <string name="menu_restart_launcher">Restart Onyx launcher</string>
     <string name="menu_restart_system_ui">Restart system UI</string>
     <string name="menu_restart_zygote">Soft-reboot device</string>
@@ -60,10 +56,6 @@
     <string name="misc_settings_summary">Crash reports, other actions</string>
     <string name="about_settings">About</string>
     <string name="about_settings_summary">Credits, support, updates</string>
-
-    <!-- Number box view -->
-    <string name="number_box_decrement">Decrement</string>
-    <string name="number_box_increment">Increment</string>
 
     <!-- Launcher -->
     <string name="launcher_apps">Apps</string>
