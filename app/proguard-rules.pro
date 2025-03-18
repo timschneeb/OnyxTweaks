@@ -4,6 +4,8 @@
 -allowaccessmodification
 -overloadaggressively
 
+-keepclassmembernames
+
 -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
     public static void checkNotNull(java.lang.Object);
     public static void checkNotNull(java.lang.Object, java.lang.String);
