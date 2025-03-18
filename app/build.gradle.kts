@@ -60,11 +60,13 @@ android {
                     "config"
                 )
         }
+        /*
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles("proguard-rules.pro")
         }
+        */
     }
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_17)
