@@ -4,7 +4,7 @@
 -allowaccessmodification
 -overloadaggressively
 
--keepclassmembernames
+-keepclassmembernames class *
 
 -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
     public static void checkNotNull(java.lang.Object);
