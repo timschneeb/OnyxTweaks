@@ -8,7 +8,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -28,7 +28,7 @@ class DisableAppFilter : ModPack() {
         // Note: added icons will persist after turning off this mod
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
-                .firstByName("getAppsFilter")
+                .firstByNameOrLog("getAppsFilter")
                 .createHook {
                     replace { param ->
                         val filter = param

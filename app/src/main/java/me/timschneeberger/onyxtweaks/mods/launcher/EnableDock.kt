@@ -10,7 +10,7 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.applyObjectHelper
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -23,7 +23,7 @@ class EnableDock : ModPack() {
 
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
-                .firstByName("getHotSeatApps")
+                .firstByNameOrLog("getHotSeatApps")
                 .createHook {
                     replace { param ->
                         // Return a list with one app

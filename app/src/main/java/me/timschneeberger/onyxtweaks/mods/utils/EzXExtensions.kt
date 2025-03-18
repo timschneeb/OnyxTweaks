@@ -38,7 +38,26 @@ inline fun <T> T.applyObjectHelper(block: ObjectHelper.() -> Unit): T {
     return this
 }
 
-fun MethodFinder.firstByName(name: String) = filterByName(name).first()
+fun MethodFinder.firstOrLog(): Method {
+    return firstOrNull().let {
+        if (it == null) {
+            Log.ex("Method not found")
+            throw NoSuchMethodException("Method not found")
+        }
+        it
+    }
+}
+
+fun MethodFinder.firstByNameOrLog(name: String): Method {
+    return filterByName(name)
+        .firstOrNull().let {
+            if (it == null) {
+                Log.ex("Method $name not found")
+                throw NoSuchMethodException("Method $name not found")
+            }
+            it
+        }
+}
 
 @SuppressLint("DiscouragedApi")
 fun Resources.getResourceIdByName(name: String, type: String, packageName: String? = null) =
@@ -72,7 +91,7 @@ fun XC_MethodHook.MethodHookParam.invokeOriginalMethod(): Any? {
         XposedBridge.invokeOriginalMethod(this.method, this.thisObject, this.args)
     }
     catch (e: Exception) {
-        Log.ex("Error calling original method: ${e.message}")
+        Log.ex("Error calling original method '${method.name}': ${e.message}")
         null
     }
 }

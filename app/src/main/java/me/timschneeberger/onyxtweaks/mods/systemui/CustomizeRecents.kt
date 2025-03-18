@@ -12,7 +12,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.inflateLayoutByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -27,14 +27,14 @@ class CustomizeRecents : ModPack() {
         if (preferences.get<Boolean>(R.string.key_recents_grid_custom_size)) {
             getClass("com.android.systemui.recents.OnyxRecentsActivity").apply {
                 methodFinder()
-                    .firstByName("getRow")
+                    .firstByNameOrLog("getRow")
                     .replaceSizeByOrientation(
                         preferences.getStringAsInt(R.string.key_recents_grid_row_count_portrait),
                         preferences.getStringAsInt(R.string.key_recents_grid_row_count_landscape)
                     )
 
                 methodFinder()
-                    .firstByName("getColumn")
+                    .firstByNameOrLog("getColumn")
                     .replaceSizeByOrientation(
                         preferences.getStringAsInt(R.string.key_recents_grid_column_count_portrait),
                         preferences.getStringAsInt(R.string.key_recents_grid_column_count_landscape)
@@ -44,7 +44,7 @@ class CustomizeRecents : ModPack() {
 
         if (preferences.get<Boolean>(R.string.key_recents_use_stock_header)) {
             MethodFinder.fromClass("com.android.systemui.recents.OnyxRecentsActivity\$TabletManagerAdapter")
-                .firstByName("onPageCreateViewHolder")
+                .firstByNameOrLog("onPageCreateViewHolder")
                 .createHook {
                     replace { param ->
                         val view = param.args[0].castNonNull<ViewGroup>().let { root ->
@@ -82,7 +82,7 @@ class CustomizeRecents : ModPack() {
             replace { param ->
                 return@replace param.thisObject.javaClass
                     .methodFinder()
-                    .firstByName("isPortrait")
+                    .firstByNameOrLog("isPortrait")
                     .invoke(param.thisObject)
                     .castNonNull<Boolean>()
                     .let { portrait -> if (portrait) portraitValue else landscapeValue }

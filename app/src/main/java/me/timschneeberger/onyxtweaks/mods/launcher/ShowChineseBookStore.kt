@@ -7,7 +7,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -19,11 +19,11 @@ class ShowChineseBookStore : ModPack() {
             return
 
         MethodFinder.fromClass("com.onyx.common.common.manager.BookshopManager")
-            .firstByName("isShowShopSelectUI")
+            .firstByNameOrLog("isShowShopSelectUI")
             .replaceWithConstant(true)
 
         MethodFinder.fromClass("com.onyx.android.sdk.data.cluster.ClusterFeatures")
-            .firstByName("supportChinaBookShops")
+            .firstByNameOrLog("supportChinaBookShops")
             .replaceWithConstant(true)
     }
 }

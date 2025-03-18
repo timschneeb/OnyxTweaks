@@ -25,7 +25,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
@@ -40,11 +40,11 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
             return
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
-            .firstByName("isWallpaperFeatureEnabled")
+            .firstByNameOrLog("isWallpaperFeatureEnabled")
             .replaceWithConstant(true)
 
         MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
-            .firstByName("getUserAppConfig")
+            .firstByNameOrLog("getUserAppConfig")
             .createAfterHook { param ->
                 val config = param.invokeOriginalMethod()
                 config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
@@ -91,7 +91,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
 
 
         MethodFinder.fromClass("com.onyx.common.applications.action.DesktopOptionProcessImpl")
-            .firstByName("onWallpaperSelection")
+            .firstByNameOrLog("onWallpaperSelection")
             .createHook {
                 replace {
                     Intent().apply {

@@ -9,7 +9,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
@@ -36,28 +36,28 @@ class DesktopGridSize : ModPack() {
 
         getClass("com.onyx.common.applications.model.AppSettings").apply {
             methodFinder()
-                .firstByName("getDesktopFixCol")
+                .firstByNameOrLog("getDesktopFixCol")
                 .replaceWithConstant(columns)
             methodFinder()
-                .firstByName("getDesktopFixRow")
+                .firstByNameOrLog("getDesktopFixRow")
                 .replaceWithConstant(rows)
 
             methodFinder()
-                .firstByName("calDesktopColumnCount")
+                .firstByNameOrLog("calDesktopColumnCount")
                 .replaceWithConstant(columns)
             methodFinder()
-                .firstByName("calDesktopRowCount")
+                .firstByNameOrLog("calDesktopRowCount")
                 .replaceWithConstant(rows)
 
             methodFinder()
-                .firstByName("getDesktopColumnCount")
+                .firstByNameOrLog("getDesktopColumnCount")
                 .replaceWithConstant(columns)
             methodFinder()
-                .firstByName("getDesktopRowCount")
+                .firstByNameOrLog("getDesktopRowCount")
                 .replaceWithConstant(rows)
 
             methodFinder()
-                .firstByName("getDockColumnCount")
+                .firstByNameOrLog("getDockColumnCount")
                 .replaceWithConstant(
                     preferences.getStringAsInt(R.string.key_launcher_desktop_dock_column_count)
                 )
@@ -67,7 +67,7 @@ class DesktopGridSize : ModPack() {
     private fun hookInitializationFlag() {
         getClass("com.onyx.common.applications.model.AppSettings").apply {
             methodFinder()
-                .firstByName("isAppInit")
+                .firstByNameOrLog("isAppInit")
                 .createHook {
                     replace { param ->
                         if (isInitializing) {
@@ -80,7 +80,7 @@ class DesktopGridSize : ModPack() {
 
             methodFinder()
                 .filterByParamTypes(Boolean::class.java)
-                .firstByName("setAppInit")
+                .firstByNameOrLog("setAppInit")
                 .createBeforeHook { param ->
                     if(param.args[0] == true) {
                         Log.ix("Launcher initialization finished. Sending broadcast")

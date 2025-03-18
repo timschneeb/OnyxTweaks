@@ -14,7 +14,7 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.utils.castNonNull
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import java.lang.reflect.Modifier
@@ -29,11 +29,11 @@ class EnableDesktopWidgets : ModPack() {
 
         getClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
-                .firstByName("isEnableDesktopWidget")
+                .firstByNameOrLog("isEnableDesktopWidget")
                 .replaceWithConstant(true)
 
             methodFinder()
-                .firstByName("getFilterWidgets")
+                .firstByNameOrLog("getFilterWidgets")
                 .replaceWithConstant(emptyList<String>())
 
             methodFinder()
@@ -63,7 +63,7 @@ class EnableDesktopWidgets : ModPack() {
                     val widgets = ArrayList<Any?>()
                     val installedWidgets =
                         MethodFinder.fromClass("com.onyx.common.applications.appwidget.utils.AppWidgetUtils")
-                            .firstByName("getInstalledWidgets")
+                            .firstByNameOrLog("getInstalledWidgets")
                             .invoke(null)
                             .castNonNull<List<AppWidgetProviderInfo>>()
 
@@ -82,12 +82,12 @@ class EnableDesktopWidgets : ModPack() {
 
                         val widgetMap = MethodFinder.fromClass("com.onyx.common.applications.appwidget.model.AppWidgetBundle")
                             .filterStatic()
-                            .firstByName("getInstance")
+                            .firstByNameOrLog("getInstance")
                             .invoke(null)
                             .run {
                                 // Retrieve widgets map from AppWidgetBundle
                                 MethodFinder.fromClass(this::class)
-                                    .firstByName("getWidgets")
+                                    .firstByNameOrLog("getWidgets")
                                     .invoke(this)
                                     .castNonNull<LinkedHashMap<*,*>>()
                             }
@@ -100,7 +100,7 @@ class EnableDesktopWidgets : ModPack() {
                             .filter { entry -> entry.value == provider }
                             .forEach { entry ->
                                 MethodFinder.fromClass(viewModel::class)
-                                    .firstByName("setAppWidgetId")
+                                    .firstByNameOrLog("setAppWidgetId")
                                     .invoke(
                                         viewModel,
                                         entry.key
@@ -115,7 +115,7 @@ class EnableDesktopWidgets : ModPack() {
 
         // Force re-initialization if the widget page is empty
         MethodFinder.fromClass("com.onyx.common.applications.appwidget.utils.AppWidgetUtils")
-            .firstByName("getSecondaryScreenWidgetsJsonFromMMKV")
+            .firstByNameOrLog("getSecondaryScreenWidgetsJsonFromMMKV")
             .createAfterHook { param ->
                 param.result.cast<String>().takeIf {
                     it.isNullOrEmpty() || it.trim() == "[]" || it.trim() == "{}"
@@ -127,12 +127,12 @@ class EnableDesktopWidgets : ModPack() {
 
         // Add provider name to widget label to distinguish between widgets with the same label
         MethodFinder.fromClass("com.onyx.common.applications.appwidget.model.AppWidgetSettingsItemLayoutModel")
-            .firstByName("getLabel")
+            .firstByNameOrLog("getLabel")
             .createAfterHook { param ->
                 val label = param.result.castNonNull<String>()
                 param.thisObject.javaClass
                     .methodFinder()
-                    .firstByName("getInfo")
+                    .firstByNameOrLog("getInfo")
                     .invoke(param.thisObject)
                     .castNonNull<AppWidgetProviderInfo>()
                     .takeIf { info -> info.provider.packageName.contains("com.onyx") }

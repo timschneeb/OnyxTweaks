@@ -10,7 +10,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class HideNotificationIconBorders : ModPack() {
@@ -21,7 +21,7 @@ class HideNotificationIconBorders : ModPack() {
             return
 
         MethodFinder.fromClass("com.android.systemui.statusbar.StatusBarIconView")
-            .firstByName("setNotification")
+            .firstByNameOrLog("setNotification")
             .createAfterHook { param ->
                 param.thisObject
                     .objectHelper()
@@ -29,7 +29,7 @@ class HideNotificationIconBorders : ModPack() {
             }
 
         MethodFinder.fromClass("com.android.systemui.statusbar.phone.NotificationIconAreaController")
-            .firstByName("resetIconConfig")
+            .firstByNameOrLog("resetIconConfig")
             .createHook {
                 // Bypass method
                 replace { it.args.first() }

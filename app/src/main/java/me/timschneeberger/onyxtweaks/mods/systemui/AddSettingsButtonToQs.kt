@@ -14,7 +14,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ISystemUiActivityStarter
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -31,7 +31,7 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
         getClass("com.android.systemui.qs.QSPanel").apply {
             // Set the settings button to visible
             methodFinder()
-                .firstByName("initTabletTitleBar")
+                .firstByNameOrLog("initTabletTitleBar")
                 .createAfterHook { param ->
                     param.thisObject
                         .objectHelper()
@@ -42,7 +42,7 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
 
             // Override action
             methodFinder()
-                .firstByName("startOnyxSettings")
+                .firstByNameOrLog("startOnyxSettings")
                 .createHook {
                     replace { param ->
                         val value = preferences.get<String>(R.string.key_qs_header_settings_button_action)

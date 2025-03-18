@@ -10,7 +10,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.firstByNameOrLog
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
@@ -26,7 +26,7 @@ class HideFunctionBarItems : ModPack() {
         getClass("com.onyx.reader.main.model.FunctionConfig\$Function")
             .methodFinder()
             .filterStatic()
-            .firstByName("isValid")
+            .firstByNameOrLog("isValid")
             .invoke(null, item)
             .let { it as? Boolean == true }
             .also {
@@ -42,7 +42,7 @@ class HideFunctionBarItems : ModPack() {
             return
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
-            .firstByName("getFunctionConfig")
+            .firstByNameOrLog("getFunctionConfig")
             .createAfterHook { param ->
                 val categoryCls = getClass("com.onyx.reader.main.model.FunctionConfig");
                 categoryCls
@@ -57,7 +57,7 @@ class HideFunctionBarItems : ModPack() {
                     .also {
                         categoryCls
                             .methodFinder()
-                            .firstByName("setItemList")
+                            .firstByNameOrLog("setItemList")
                             .invoke(param.result, it)
 
                     }
