@@ -16,6 +16,7 @@ import me.timschneeberger.onyxtweaks.mods.launcher.ShowChineseBookStore
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
+import me.timschneeberger.onyxtweaks.mods.shared.UseNotificationIconColors
 import me.timschneeberger.onyxtweaks.mods.systemui.AddGrayscaleModeQsTile
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
 import me.timschneeberger.onyxtweaks.mods.systemui.CompactQsPanel
@@ -28,7 +29,6 @@ import me.timschneeberger.onyxtweaks.mods.systemui.SetMaxNotificationIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowAdditionalStatusIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowWifiActivityIndicators
 import me.timschneeberger.onyxtweaks.mods.systemui.SystemUiLifecycleHook
-import me.timschneeberger.onyxtweaks.mods.systemui.UseNotificationIconColors
 
 object ModPacks {
     val available = arrayOf(
@@ -48,9 +48,9 @@ object ModPacks {
 
         // Shared
         AddUserSwitcherToQs::class,
-        RemoveRegalModeRestriction::class,
         EnableWallpaper::class,
-        QuickTileGridSize::class,
+        RemoveRegalModeRestriction::class,
+        UseNotificationIconColors::class,
 
         // SystemUI
         AddGrayscaleModeQsTile::class,
@@ -58,12 +58,12 @@ object ModPacks {
         CompactQsPanel::class,
         CustomizeRecents::class,
         EnableHeadsUpNotifications::class,
-        MoveNotificationHeaderToFooter::class,
         HideNotificationIconBorders::class,
+        MoveNotificationHeaderToFooter::class,
+        QuickTileGridSize::class,
         SetMaxNotificationIcons::class,
         ShowAdditionalStatusIcons::class,
         ShowWifiActivityIndicators::class,
-        UseNotificationIconColors::class,
 
         // Lifecycle hooks
         LauncherLifecycleHook::class,

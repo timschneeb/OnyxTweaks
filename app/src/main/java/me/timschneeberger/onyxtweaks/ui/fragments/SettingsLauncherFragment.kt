@@ -42,6 +42,9 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
             true
         }
 
+        // TODO show warning when hiding app tab
+        // TODO add hint about widget mode removing toolbar
+
         desktopDock?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             // Allow enabling the dock without warning
             if (newValue == true)
