@@ -48,10 +48,10 @@
 
     <!-- Recents -->
     <bool name="default_recents_grid_custom_size" translatable="false">false</bool>
-    <string name="default_recents_grid_row_count_portrait" translatable="false">4</string>
+    <string name="default_recents_grid_row_count_portrait" translatable="false">3</string>
     <string name="default_recents_grid_column_count_portrait" translatable="false">3</string>
     <string name="default_recents_grid_row_count_landscape" translatable="false">3</string>
-    <string name="default_recents_grid_column_count_landscape" translatable="false">4</string>
+    <string name="default_recents_grid_column_count_landscape" translatable="false">3</string>
     <string name="default_recents_grid_spacing" translatable="false">30</string>
     <bool name="default_recents_use_stock_header" translatable="false">false</bool>
 
