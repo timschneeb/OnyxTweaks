@@ -3,7 +3,7 @@
     <solid android:color="@color/colorOnPrimary" />
     <stroke
         android:width="@dimen/border_width"
-        android:color="@color/dialog_border" />
+        android:color="@color/popup_border" />
     <padding
         android:left="@dimen/menu_padding"
         android:top="@dimen/menu_padding"

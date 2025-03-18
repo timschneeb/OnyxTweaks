@@ -2,6 +2,7 @@
 <resources>
     <color name="divider_default">@color/md_black_1000_20</color>
     <color name="dialog_border">@color/colorOnSecondaryContainer</color>
+    <color name="popup_border">@color/colorOnSurfaceVariant</color>
 
     <color name="colorPrimary">#000000</color>
     <color name="colorOnPrimary">#FFFFFF</color>

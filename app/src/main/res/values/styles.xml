@@ -64,9 +64,7 @@
     <!-- Custom popup menus w/ border and no elevation -->
     <style name="AppTheme.PopupMenu.Overflow" parent="@style/Widget.Material3.PopupMenu.Overflow">
         <item name="android:popupBackground">@drawable/shape_menu_background</item>
-        <item name="android:divider">@drawable/shape_divider</item>
-        <item name="android:dividerHeight">2dp</item>
-        <item name="cornerRadius">8dp</item>
+        <item name="cornerRadius">@dimen/corner_radius</item>
     </style>
 
     <!-- Preference theme w/ custom divider -->
