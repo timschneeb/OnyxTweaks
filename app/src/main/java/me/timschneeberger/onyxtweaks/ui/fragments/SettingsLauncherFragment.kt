@@ -57,7 +57,7 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
             ) {
                 if (it) {
                     // User confirmed, allow the change
-                    desktopDock?.isChecked = true
+                    desktopDock?.isChecked = false
                 }
             }
 
