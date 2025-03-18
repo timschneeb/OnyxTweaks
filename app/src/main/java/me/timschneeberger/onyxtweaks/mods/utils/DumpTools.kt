@@ -2,7 +2,6 @@ package me.timschneeberger.onyxtweaks.mods.utils
 
 import android.view.View
 import android.view.ViewGroup
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
@@ -37,7 +36,7 @@ object DumpTools {
         MethodFinder.fromClass(cls)
             .filter { excludeMethods.isEmpty() || !excludeMethods.contains(name) }
             .forEach { method ->
-                method.createAfterHook { param ->
+                method.createAfterHookCatching { param ->
                     printCall(param, tag)
                 }
             }
@@ -59,7 +58,7 @@ object DumpTools {
     private fun dumpID(v: View, level: Int) {
         var name: String? = "**"
 
-        runSafelySilent {
+        runCatching {
             name = v.resources.getResourceName(v.id)
         }
 

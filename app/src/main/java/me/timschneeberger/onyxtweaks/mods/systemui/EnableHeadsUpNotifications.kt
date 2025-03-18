@@ -7,7 +7,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
@@ -18,7 +18,7 @@ class EnableHeadsUpNotifications : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         val enable = preferences.get<Boolean>(R.string.key_status_bar_notifications_heads_up)
 
-        getClass("android.onyx.systemui.SystemUIConfig").apply {
+        findClass("android.onyx.systemui.SystemUIConfig").apply {
             methodFinder()
                 .firstByName("isDisableNotificationListenForHeadsUp")
                 .replaceWithConstant(!enable)

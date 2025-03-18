@@ -15,17 +15,40 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
+import java.lang.reflect.Constructor
 import java.lang.reflect.Method
 
-fun getClass(className: String): Class<*> {
+fun findClass(className: String): Class<*> {
     return try {
-        XposedHelpers.findClass(className, EzXHelper.classLoader)
+        if (!EzXHelper.isClassLoaderInited) {
+            Log.wx("ClassLoader not yet ready, using system class loader")
+        }
+
+        XposedHelpers.findClass(className, EzXHelper.safeClassLoader)
     }
     catch (e: ClassNotFoundException) {
         Log.ex("Class not found: $className")
         throw e
     }
 }
+
+fun Method.createBeforeHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
+    createHook { before { it.runSafely(block) } }
+
+fun Method.createAfterHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
+    createHook { after { it.runSafely(block) } }
+
+fun Method.createReplaceHookCatching(block: (XC_MethodHook.MethodHookParam) -> Any?) =
+    createHook { replace { it.runSafely(block) } }
+
+fun <T> Constructor<T>.createBeforeHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
+    createHook { before { it.runSafely(block) } }
+
+fun <T> Constructor<T>.createAfterHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
+    createHook { after { it.runSafely(block) } }
+
+fun <T> Constructor<T>.createReplaceHookCatching(block: (XC_MethodHook.MethodHookParam) -> Any?) =
+    createHook { replace { it.runSafely(block) } }
 
 fun <T> Method.replaceWithConstant(value: T?) {
     createHook {
@@ -79,18 +102,11 @@ fun XC_MethodHook.MethodHookParam.invokeOriginalMethod(): Any? {
     }
 }
 
-fun runSafely(block: () -> Unit) {
+fun <T,TRet> T.runSafely(block: T.() -> TRet) {
     try {
         block()
     }
     catch (e: Exception) {
         Log.ex(e)
     }
-}
-
-fun runSafelySilent(block: () -> Unit) {
-    try {
-        block()
-    }
-    catch (_: Exception) { }
 }

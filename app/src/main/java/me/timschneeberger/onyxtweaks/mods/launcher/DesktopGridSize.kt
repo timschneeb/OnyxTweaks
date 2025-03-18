@@ -1,7 +1,5 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createBeforeHook
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -9,8 +7,10 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
+import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.receiver.ModEvents
@@ -34,7 +34,7 @@ class DesktopGridSize : ModPack() {
         val columns = preferences.getStringAsInt(R.string.key_launcher_desktop_column_count)
         val rows = preferences.getStringAsInt(R.string.key_launcher_desktop_row_count)
 
-        getClass("com.onyx.common.applications.model.AppSettings").apply {
+        findClass("com.onyx.common.applications.model.AppSettings").apply {
             methodFinder()
                 .firstByName("getDesktopFixCol")
                 .replaceWithConstant(columns)
@@ -65,23 +65,17 @@ class DesktopGridSize : ModPack() {
     }
 
     private fun hookInitializationFlag() {
-        getClass("com.onyx.common.applications.model.AppSettings").apply {
+        findClass("com.onyx.common.applications.model.AppSettings").apply {
             methodFinder()
                 .firstByName("isAppInit")
-                .createHook {
-                    replace { param ->
-                        if (isInitializing) {
-                            return@replace false
-                        }
-
-                        return@replace param.invokeOriginalMethod()
-                    }
+                .createReplaceHookCatching { param ->
+                    if (isInitializing) false else param.invokeOriginalMethod()
                 }
 
             methodFinder()
                 .filterByParamTypes(Boolean::class.java)
                 .firstByName("setAppInit")
-                .createBeforeHook { param ->
+                .createBeforeHookCatching { param ->
                     if(param.args[0] == true) {
                         Log.ix("Launcher initialization finished. Sending broadcast")
                         sendBroadcast(ModEvents.LAUNCHER_REINITIALIZED)

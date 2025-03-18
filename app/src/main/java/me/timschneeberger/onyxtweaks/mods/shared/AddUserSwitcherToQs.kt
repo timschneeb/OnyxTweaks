@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
@@ -23,9 +22,10 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.getDimensionPxByName
 import me.timschneeberger.onyxtweaks.mods.utils.getDrawableByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
@@ -47,7 +47,7 @@ class AddUserSwitcherToQs : ModPack() {
     }
 
     private fun handleLoadFramework() {
-        getClass("android.os.UserManager").apply {
+        findClass("android.os.UserManager").apply {
             methodFinder()
                 .filterByName("isUserSwitcherEnabled")
                 .first()
@@ -67,7 +67,7 @@ class AddUserSwitcherToQs : ModPack() {
 
         MethodFinder.fromClass("com.android.systemui.qs.QSPanel")
             .firstByName("initTabletTitleBar")
-            .createAfterHook { param ->
+            .createAfterHookCatching { param ->
                 // Obtain settings button and its context
                 val settingsViewGroup = param.thisObject
                     .objectHelper()
@@ -128,7 +128,7 @@ class AddUserSwitcherToQs : ModPack() {
     }
 
     private fun showUserSwitchDialog(hostLayout: ViewGroup) = try {
-        val factory = getClass("com.android.systemui.SystemUIFactory")
+        val factory = findClass("com.android.systemui.SystemUIFactory")
             .methodFinder()
             .firstByName("getInstance")
             .invoke(null)

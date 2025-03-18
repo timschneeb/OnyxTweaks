@@ -1,7 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
 import com.github.kyuubiran.ezxhelper.ClassHelper.Companion.classHelper
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
@@ -10,9 +9,10 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.getClass
+import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddSettingCategories : ModPack() {
@@ -30,8 +30,8 @@ class AddSettingCategories : ModPack() {
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("getSettingCategory")
-            .createAfterHook { param ->
-                val categoryCls = getClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory")
+            .createAfterHookCatching { param ->
+                val categoryCls = findClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory")
                 categoryCls
                     .getMethod("getItemList")
                     .invoke(param.result)
@@ -56,7 +56,7 @@ class AddSettingCategories : ModPack() {
     }
 
     private fun createSettingsEntry(category: SettingCategory): Any {
-        return getClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory\$ConfigItem")
+        return findClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory\$ConfigItem")
             .classHelper()
             .newInstance()
             .apply {

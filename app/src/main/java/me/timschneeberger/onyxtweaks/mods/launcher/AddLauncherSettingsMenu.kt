@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.View
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.HookFactory
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
@@ -15,9 +14,10 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
+import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import java.lang.ref.WeakReference
 import java.lang.reflect.InvocationHandler
@@ -35,7 +35,7 @@ class AddLauncherSettingsMenu : ModPack() {
                 .mapNotNull(WeakReference<Any?>::get)
                 .forEach { instance: Any? ->
                     try {
-                        val listenerCls = getClass("com.onyx.common.applications.view.DesktopOptionView")
+                        val listenerCls = findClass("com.onyx.common.applications.view.DesktopOptionView")
                             .methodFinder()
                             .firstByName("getDesktopOptionViewListener")
                             .invoke(instance)
@@ -59,8 +59,8 @@ class AddLauncherSettingsMenu : ModPack() {
             return
         }
 
-        val desktopOptViewCls = getClass("com.onyx.common.applications.view.DesktopOptionView")
-        val fastAdapterClickListenerCls = getClass("com.mikepenz.fastadapter.listeners.OnClickListener")
+        val desktopOptViewCls = findClass("com.onyx.common.applications.view.DesktopOptionView")
+        val fastAdapterClickListenerCls = findClass("com.mikepenz.fastadapter.listeners.OnClickListener")
         val onClickMtd = desktopOptViewCls.methodFinder()
             .filterByParamTypes(fastAdapterClickListenerCls)
             .filterVoidReturnType()
@@ -78,8 +78,8 @@ class AddLauncherSettingsMenu : ModPack() {
             SettingsClickHandler(dovInstances)
         )
 
-        onClickMtd.createAfterHook { param ->
-            val fastAdapterCls = getClass("com.mikepenz.fastadapter.commons.adapters.FastItemAdapter")
+        onClickMtd.createAfterHookCatching { param ->
+            val fastAdapterCls = findClass("com.mikepenz.fastadapter.commons.adapters.FastItemAdapter")
             val arrayFastAdapter = java.lang.reflect.Array.newInstance(fastAdapterCls, 0).javaClass
 
             desktopOptViewCls.fieldFinder()

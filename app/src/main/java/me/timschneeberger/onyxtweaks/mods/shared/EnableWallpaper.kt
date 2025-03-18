@@ -12,8 +12,6 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder
@@ -25,6 +23,8 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
+import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
@@ -45,7 +45,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
 
         MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
             .firstByName("getUserAppConfig")
-            .createAfterHook { param ->
+            .createAfterHookCatching { param ->
                 val config = param.invokeOriginalMethod()
                 config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
                 param.result = config
@@ -55,7 +55,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
         ConstructorFinder.fromClass("com.onyx.common.applications.view.Workspace")
             .filterByParamTypes(Context::class.java, AttributeSet::class.java)
             .first()
-            .createAfterHook { param ->
+            .createAfterHookCatching { param ->
                 fun setWallpaper() {
                     runSafely {
                         MethodFinder.fromClass(View::class)
@@ -92,15 +92,13 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
 
         MethodFinder.fromClass("com.onyx.common.applications.action.DesktopOptionProcessImpl")
             .firstByName("onWallpaperSelection")
-            .createHook {
-                replace {
-                    Intent().apply {
-                        action = "android.intent.action.MAIN"
-                        setClassName("com.android.settings", "com.android.settings.Settings\$UserSettingsActivity")
-                        setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    }.let(appContext::startActivity)
-                    null
-                }
+            .createReplaceHookCatching {
+                Intent().apply {
+                    action = "android.intent.action.MAIN"
+                    setClassName("com.android.settings", "com.android.settings.Settings\$UserSettingsActivity")
+                    setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.let(appContext::startActivity)
+                null
             }
     }
 

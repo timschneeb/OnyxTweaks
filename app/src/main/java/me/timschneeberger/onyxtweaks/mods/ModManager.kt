@@ -3,7 +3,6 @@ package me.timschneeberger.onyxtweaks.mods
 import android.app.Instrumentation
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.EzXHelper
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createBeforeHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
@@ -12,6 +11,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
+import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import kotlin.reflect.KClass
 
@@ -25,9 +25,9 @@ class ModManager {
                 EzXHelper.initAppContext(context, addPath = true)
 
             getPacksForPackage(lpParam.packageName)
-                .forEach {
-                    Log.dx("Initializing mod pack: ${it::class.java.simpleName}")
-                    runSafely { it.handleLoadPackage(lpParam) }
+                .forEach { pack ->
+                    Log.dx("Initializing mod pack: ${pack::class.java.simpleName}")
+                    runSafely { pack.handleLoadPackage(lpParam) }
                 }
         }
 
@@ -36,10 +36,10 @@ class ModManager {
                 .filterNonAbstract()
                 .filterByName("init")
                 .forEach { constructor ->
-                    constructor.createBeforeHook { param ->
+                    constructor.createBeforeHookCatching hook@ { param ->
                         param.args
                             .firstOrNull { it is Context }
-                            ?.let { return@createBeforeHook onContextReady(it as Context) }
+                            ?.let { return@hook onContextReady(it as Context) }
 
                         Log.ex("No context found in PhoneWindowManager constructor!")
                     }
@@ -48,10 +48,10 @@ class ModManager {
             MethodFinder.fromClass(Instrumentation::class.java)
                 .filterByName("newApplication")
                 .forEach { constructor ->
-                    constructor.createBeforeHook { param ->
+                    constructor.createBeforeHookCatching hook@ { param ->
                         param.args
                             .firstOrNull { it is Context }
-                            ?.let { return@createBeforeHook onContextReady(it as Context) }
+                            ?.let { return@hook onContextReady(it as Context) }
 
                         Log.ex("No context found in newApplication!")
                     }
