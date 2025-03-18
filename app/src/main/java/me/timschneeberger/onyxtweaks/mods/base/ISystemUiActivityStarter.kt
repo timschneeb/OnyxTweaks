@@ -13,7 +13,7 @@ interface ISystemUiActivityStarter {
             .invoke(null, getClass("com.android.systemui.plugins.ActivityStarter"))
 
     fun startActivityDismissingKeyguard(intent: Intent, flags: Int = 0) {
-        with(getActivityStarter()) {
+        getActivityStarter().run {
             javaClass
                 .methodFinder()
                 .filterByParamTypes(Intent::class.java, Int::class.javaPrimitiveType)

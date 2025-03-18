@@ -48,7 +48,6 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
                         val value = preferences.get<String>(R.string.key_qs_header_settings_button_action)
                         when (value) {
                             "onyx_settings" -> param.invokeOriginalMethod()
-                            // TODO stock settings not getting called
                             "stock_settings" -> startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))
                             else -> Log.ex("Unknown QS settings action '$value'")
                         }
