@@ -9,8 +9,8 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.applyObjectHelper
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -27,7 +27,7 @@ class EnableDock : ModPack() {
                 .createReplaceHookCatching { param ->
                     // Return a list with one app
                     // This will initialize an empty dock. If the list were empty, the dock would not be shown.
-                    listOf(
+                    return@createReplaceHookCatching listOf(
                         ConstructorFinder.fromClass("com.onyx.android.sdk.data.AppDataInfo")
                             .filterByParamCount(0)
                             .first()

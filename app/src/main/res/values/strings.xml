@@ -73,6 +73,8 @@
     <string name="launcher_desktop_toolbar_state_default">Default state</string>
     <string name="launcher_desktop_toolbar_state_invisible">Invisible</string>
     <string name="launcher_desktop_toolbar_state_visible">Visible</string>
+    <string name="launcher_desktop_hide_labels">Hide app labels</string>
+    <string name="launcher_desktop_hide_labels_summary">Remove all application labels and save space on the desktop</string>
     <string name="launcher_desktop_widgets_advanced"><![CDATA[Enable widget support & advanced features]]></string>
     <string name="launcher_desktop_widgets_advanced_summary">Allow adding widgets to the desktop by long-pressing. Removes the toolbar in the app drawer</string>
     <string name="launcher_desktop_show_dock">Enable app dock</string>

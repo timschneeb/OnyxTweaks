@@ -54,6 +54,13 @@
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_launcher_desktop_hide_labels"
+            android:defaultValue="@string/default_launcher_desktop_toolbar_state"
+            android:title="@string/launcher_desktop_hide_labels"
+            android:summary="@string/launcher_desktop_hide_labels_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_widgets_advanced"
             android:defaultValue="@bool/default_launcher_desktop_widgets_advanced"
             android:title="@string/launcher_desktop_widgets_advanced"

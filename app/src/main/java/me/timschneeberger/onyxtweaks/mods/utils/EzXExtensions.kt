@@ -17,6 +17,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Constructor
 import java.lang.reflect.Method
+import kotlin.reflect.typeOf
 
 fun findClass(className: String): Class<*> {
     return try {
@@ -102,11 +103,19 @@ fun XC_MethodHook.MethodHookParam.invokeOriginalMethod(): Any? {
     }
 }
 
-fun <T,TRet> T.runSafely(block: T.() -> TRet) {
+inline fun <T,reified TRet> T.runSafely(block: T.() -> TRet): TRet {
     try {
-        block()
+        return block()
     }
     catch (e: Exception) {
         Log.ex(e)
+
+        // Throw if a return type is expected
+        if (TRet::class != typeOf<Unit>()) {
+            throw e
+        }
     }
+
+    // If no return type is expected, return null
+    return null as TRet
 }

@@ -9,6 +9,7 @@ import me.timschneeberger.onyxtweaks.mods.launcher.DisableAppFilter
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableDesktopWidgets
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableDock
 import me.timschneeberger.onyxtweaks.mods.launcher.EnableKeyboardSettings
+import me.timschneeberger.onyxtweaks.mods.launcher.HideAppLabels
 import me.timschneeberger.onyxtweaks.mods.launcher.HideFunctionBarItems
 import me.timschneeberger.onyxtweaks.mods.launcher.HideTopBorder
 import me.timschneeberger.onyxtweaks.mods.launcher.LauncherLifecycleHook
@@ -43,6 +44,7 @@ object ModPacks {
         EnableDesktopWidgets::class,
         EnableDock::class,
         EnableKeyboardSettings::class,
+        HideAppLabels::class,
         HideFunctionBarItems::class,
         HideTopBorder::class,
         ShowAppsToolbar::class,
