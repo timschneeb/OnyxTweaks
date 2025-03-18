@@ -16,46 +16,46 @@ import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import kotlin.reflect.KClass
 
 class ModManager {
-    fun handleLoadPackage(lpParam: LoadPackageParam) {
-
-        val onContextReady = fun (context: Context) {
-            if (context.packageName != EzXHelper.hostPackageName)
-                Log.dx("Context package name does not match host package name! Context not updated. (${context.packageName} != ${EzXHelper.hostPackageName})")
-            else
-                EzXHelper.initAppContext(context, addPath = true)
-
-            getPacksForPackage(lpParam.packageName)
-                .forEach { pack ->
-                    Log.dx("Initializing mod pack: ${pack::class.java.simpleName}")
-                    runSafely { pack.handleLoadPackage(lpParam) }
+    fun initZygote(param: IXposedHookZygoteInit.StartupParam) {
+        synchronized(this) {
+            ModPacks.available
+                .filter { it.java.interfaces.contains(IEarlyZygoteHook::class.java) }
+                .map(::ensurePackInitialized)
+                .map { it as IEarlyZygoteHook }
+                .forEach { mod ->
+                    param.runSafely(mod::handleZygoteInit)
                 }
         }
+    }
 
-        if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE)
-            MethodFinder.fromClass("com.android.server.policy.PhoneWindowManager")
-                .filterNonAbstract()
-                .filterByName("init")
-                .forEach { constructor ->
-                    constructor.createBeforeHookCatching hook@ { param ->
-                        param.args
-                            .firstOrNull { it is Context }
-                            ?.let { return@hook onContextReady(it as Context) }
+    fun handleLoadPackage(lpParam: LoadPackageParam) {
+        runSafely {
+            if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE)
+                MethodFinder.fromClass("com.android.server.policy.PhoneWindowManager")
+                    .filterNonAbstract()
+                    .filterByName("init")
+                    .forEach { constructor ->
+                        constructor.createBeforeHookCatching hook@ { param ->
+                            param.args
+                                .firstOrNull { it is Context }
+                                ?.let { return@hook onContextReady(it as Context, lpParam) }
 
-                        Log.ex("No context found in PhoneWindowManager constructor!")
+                            Log.ex("No context found in PhoneWindowManager constructor!")
+                        }
                     }
-                }
-        else {
-            MethodFinder.fromClass(Instrumentation::class.java)
-                .filterByName("newApplication")
-                .forEach { constructor ->
-                    constructor.createBeforeHookCatching hook@ { param ->
-                        param.args
-                            .firstOrNull { it is Context }
-                            ?.let { return@hook onContextReady(it as Context) }
+            else {
+                MethodFinder.fromClass(Instrumentation::class.java)
+                    .filterByName("newApplication")
+                    .forEach { constructor ->
+                        constructor.createBeforeHookCatching hook@ { param ->
+                            param.args
+                                .firstOrNull { it is Context }
+                                ?.let { return@hook onContextReady(it as Context, lpParam) }
 
-                        Log.ex("No context found in newApplication!")
+                            Log.ex("No context found in newApplication!")
+                        }
                     }
-                }
+            }
         }
     }
 
@@ -65,16 +65,17 @@ class ModManager {
         }
     }
 
-    fun initZygote(param: IXposedHookZygoteInit.StartupParam) {
-        synchronized(this) {
-            ModPacks.available
-                .filter { it.java.interfaces.contains(IEarlyZygoteHook::class.java) }
-                .map(::ensurePackInitialized)
-                .map { it as IEarlyZygoteHook }
-                .forEach { mod ->
-                    runSafely { mod.handleZygoteInit(param) }
-                }
-        }
+    private fun onContextReady(context: Context, param: LoadPackageParam) {
+        if (context.packageName != EzXHelper.hostPackageName)
+            Log.dx("Context package name does not match host package name! Context not updated. (${context.packageName} != ${EzXHelper.hostPackageName})")
+        else
+            EzXHelper.initAppContext(context, addPath = true)
+
+        getPacksForPackage(param.packageName)
+            .forEach { pack ->
+                Log.dx("Initializing mod pack: ${pack::class.java.simpleName}")
+                param.runSafely(pack::handleLoadPackage)
+            }
     }
 
     private fun getPacksForPackage(packageName: String): List<ModPack> {
