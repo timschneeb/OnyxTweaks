@@ -14,35 +14,35 @@
 
         <EditTextPreference
             android:key="@string/key_recents_grid_row_count_portrait"
-            android:defaultValue="@integer/default_recents_grid_row_count_portrait"
+            android:defaultValue="@string/default_recents_grid_row_count_portrait"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_row_count_portrait"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_recents_grid_column_count_portrait"
-            android:defaultValue="@integer/default_recents_grid_column_count_portrait"
+            android:defaultValue="@string/default_recents_grid_column_count_portrait"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_column_count_portrait"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_recents_grid_row_count_landscape"
-            android:defaultValue="@integer/default_recents_grid_row_count_landscape"
+            android:defaultValue="@string/default_recents_grid_row_count_landscape"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_row_count_landscape"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_recents_grid_column_count_landscape"
-            android:defaultValue="@integer/default_recents_grid_column_count_landscape"
+            android:defaultValue="@string/default_recents_grid_column_count_landscape"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_column_count_landscape"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_recents_grid_spacing"
-            android:defaultValue="@integer/default_recents_grid_spacing"
+            android:defaultValue="@string/default_recents_grid_spacing"
             android:dependency="@string/key_recents_grid_custom_size"
             android:title="@string/recents_grid_spacing"
             app:iconSpaceReserved="false" />

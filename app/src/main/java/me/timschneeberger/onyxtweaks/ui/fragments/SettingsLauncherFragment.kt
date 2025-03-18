@@ -6,6 +6,7 @@ import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity.Companion.ZYGOTE_MARKER
+import me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.showYesNoAlert
@@ -16,6 +17,7 @@ import me.timschneeberger.onyxtweaks.utils.Preferences
 @PreferenceGroup(PreferenceGroups.LAUNCHER)
 class SettingsLauncherFragment : SettingsBaseFragment() {
     private val desktopReInit by lazy { findPreference<Preference>(getString(R.string.key_launcher_desktop_reinit)) }
+    private val desktopDock by lazy { findPreference<MaterialSwitchPreference>(getString(R.string.key_launcher_desktop_show_dock)) }
     private val desktopRows by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_row_count)) }
     private val desktopColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_column_count)) }
     private val desktopDockColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_dock_column_count)) }
@@ -38,6 +40,28 @@ class SettingsLauncherFragment : SettingsBaseFragment() {
                 }
             }
             true
+        }
+
+        desktopDock?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            // Allow enabling the dock without warning
+            if (newValue == true)
+                return@OnPreferenceChangeListener true
+
+            // Otherwise display a warning and discard the change for now
+
+            requireContext().showYesNoAlert(
+                R.string.launcher_desktop_dock_remove_warning,
+                R.string.launcher_desktop_dock_remove_warning_message,
+                R.string.continue_action,
+                R.string.cancel
+            ) {
+                if (it) {
+                    // User confirmed, allow the change
+                    desktopDock?.isChecked = true
+                }
+            }
+
+            false
         }
 
         desktopRows?.configureAsNumberInput(2, 16, R.plurals.unit_rows)

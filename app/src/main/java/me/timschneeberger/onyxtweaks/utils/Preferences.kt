@@ -82,6 +82,11 @@ abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.
         }
     }
 
+    fun getStringAsInt(@StringRes nameRes: Int, default: Int = 0): Int {
+        return get(nameRes, default.toString(), String::class).toIntOrNull()
+            ?: getDefault(nameRes, String::class).toInt()
+    }
+
     /**
      * @remarks This function takes a StringRes pointing to a preference key.
      *          There MUST be a default value with the same key name in defaults.xml,

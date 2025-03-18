@@ -55,7 +55,7 @@
 
         <EditTextPreference
             android:key="@string/key_status_bar_status_icons_max_notification_icons"
-            android:defaultValue="@integer/default_status_bar_status_icons_max_notification_icons"
+            android:defaultValue="@string/default_status_bar_status_icons_max_notification_icons"
             android:title="@string/status_bar_status_icons_max_notification_icons"
             app:iconSpaceReserved="false" />
 

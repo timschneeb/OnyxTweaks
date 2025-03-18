@@ -55,14 +55,14 @@
 
         <EditTextPreference
             android:key="@string/key_qs_grid_row_count"
-            android:defaultValue="@integer/default_qs_grid_row_count"
+            android:defaultValue="@string/default_qs_grid_row_count"
             android:dependency="@string/key_qs_grid_custom_size"
             android:title="@string/qs_grid_row_count"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_qs_grid_column_count"
-            android:defaultValue="@integer/default_qs_grid_column_count"
+            android:defaultValue="@string/default_qs_grid_column_count"
             android:dependency="@string/key_qs_grid_custom_size"
             android:title="@string/qs_grid_column_count"
             app:iconSpaceReserved="false" />

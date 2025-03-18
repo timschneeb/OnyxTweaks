@@ -12,11 +12,11 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import me.timschneeberger.onyxtweaks.utils.castNonNull
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getClass
 import me.timschneeberger.onyxtweaks.mods.utils.inflateLayoutByName
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.castNonNull
 import java.lang.reflect.Method
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
@@ -29,15 +29,15 @@ class CustomizeRecents : ModPack() {
                 methodFinder()
                     .firstByName("getRow")
                     .replaceSizeByOrientation(
-                        preferences.get<Int>(R.string.key_recents_grid_row_count_portrait),
-                        preferences.get<Int>(R.string.key_recents_grid_row_count_landscape)
+                        preferences.getStringAsInt(R.string.key_recents_grid_row_count_portrait),
+                        preferences.getStringAsInt(R.string.key_recents_grid_row_count_landscape)
                     )
 
                 methodFinder()
                     .firstByName("getColumn")
                     .replaceSizeByOrientation(
-                        preferences.get<Int>(R.string.key_recents_grid_column_count_portrait),
-                        preferences.get<Int>(R.string.key_recents_grid_column_count_landscape)
+                        preferences.getStringAsInt(R.string.key_recents_grid_column_count_portrait),
+                        preferences.getStringAsInt(R.string.key_recents_grid_column_count_landscape)
                     )
             }
         }
@@ -72,7 +72,7 @@ class CustomizeRecents : ModPack() {
             SYSTEM_UI_PACKAGE,
             "integer",
             "onyx_recent_item_space_count",
-            preferences.get<Int>(R.string.key_recents_grid_spacing)
+            preferences.getStringAsInt(R.string.key_recents_grid_spacing)
         )
     }
 

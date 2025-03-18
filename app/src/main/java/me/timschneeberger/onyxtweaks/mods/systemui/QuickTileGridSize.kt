@@ -32,14 +32,14 @@ class QuickTileGridSize : ModPack() {
             Constants.SYSTEM_UI_PACKAGE,
             "integer",
             "quick_settings_max_columns",
-            preferences.get<Int>(R.string.key_qs_grid_column_count)
+            preferences.getStringAsInt(R.string.key_qs_grid_column_count)
         )
 
         param.res.setReplacement(
             Constants.SYSTEM_UI_PACKAGE,
             "integer",
             "quick_settings_min_rows",
-            preferences.get<Int>(R.string.key_qs_grid_row_count)
+            preferences.getStringAsInt(R.string.key_qs_grid_row_count)
         )
 
         if (preferences.get<Boolean>(R.string.key_qs_grid_no_min_tile_count)) {

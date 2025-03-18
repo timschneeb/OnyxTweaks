@@ -16,7 +16,7 @@ class SetMaxNotificationIcons : ModPack() {
             SYSTEM_UI_PACKAGE,
             "integer",
             "onyx_notification_container_max_icons",
-            preferences.get<Int>(R.string.key_status_bar_status_icons_max_notification_icons)
+            preferences.getStringAsInt(R.string.key_status_bar_status_icons_max_notification_icons)
         )
     }
 }

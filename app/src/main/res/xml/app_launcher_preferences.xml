@@ -89,21 +89,21 @@
         <EditTextPreference
             android:key="@string/key_launcher_desktop_row_count"
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
-            android:defaultValue="@integer/default_launcher_desktop_row_count"
+            android:defaultValue="@string/default_launcher_desktop_row_count"
             android:title="@string/launcher_desktop_row_count"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_launcher_desktop_column_count"
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
-            android:defaultValue="@integer/default_launcher_desktop_column_count"
+            android:defaultValue="@string/default_launcher_desktop_column_count"
             android:title="@string/launcher_desktop_column_count"
             app:iconSpaceReserved="false" />
 
         <EditTextPreference
             android:key="@string/key_launcher_desktop_dock_column_count"
             android:dependency="@string/key_launcher_desktop_grid_custom_size"
-            android:defaultValue="@integer/default_launcher_desktop_dock_column_count"
+            android:defaultValue="@string/default_launcher_desktop_dock_column_count"
             android:title="@string/launcher_desktop_dock_column_count"
             app:iconSpaceReserved="false" />
 

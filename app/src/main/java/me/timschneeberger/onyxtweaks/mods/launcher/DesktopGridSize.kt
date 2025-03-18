@@ -31,8 +31,8 @@ class DesktopGridSize : ModPack() {
         if (!preferences.get<Boolean>(R.string.key_launcher_desktop_grid_custom_size))
             return
 
-        val columns = preferences.get<Int>(R.string.key_launcher_desktop_column_count)
-        val rows = preferences.get<Int>(R.string.key_launcher_desktop_row_count)
+        val columns = preferences.getStringAsInt(R.string.key_launcher_desktop_column_count)
+        val rows = preferences.getStringAsInt(R.string.key_launcher_desktop_row_count)
 
         getClass("com.onyx.common.applications.model.AppSettings").apply {
             methodFinder()
@@ -59,7 +59,7 @@ class DesktopGridSize : ModPack() {
             methodFinder()
                 .firstByName("getDockColumnCount")
                 .replaceWithConstant(
-                    preferences.get<Int>(R.string.key_launcher_desktop_dock_column_count)
+                    preferences.getStringAsInt(R.string.key_launcher_desktop_dock_column_count)
                 )
         }
     }

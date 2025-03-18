@@ -9,13 +9,13 @@
     <bool name="default_launcher_app_show_all" translatable="false">false</bool>
     <bool name="default_launcher_desktop_widgets_advanced" translatable="false">false</bool>
     <bool name="default_launcher_desktop_wallpaper" translatable="false">false</bool>
-    <bool name="default_launcher_desktop_show_dock" translatable="false">false</bool>
-    <bool name="default_launcher_desktop_show_settings" translatable="false">false</bool>
+    <bool name="default_launcher_desktop_show_dock" translatable="false">true</bool>
+    <bool name="default_launcher_desktop_show_settings" translatable="false">true</bool>
     <bool name="default_launcher_desktop_hide_top_border" translatable="false">false</bool>
     <bool name="default_launcher_desktop_grid_custom_size" translatable="false">false</bool>
-    <integer name="default_launcher_desktop_row_count" translatable="false">4</integer>
-    <integer name="default_launcher_desktop_column_count" translatable="false">4</integer>
-    <integer name="default_launcher_desktop_dock_column_count" translatable="false">6</integer>
+    <string name="default_launcher_desktop_row_count" translatable="false">4</string>
+    <string name="default_launcher_desktop_column_count" translatable="false">4</string>
+    <string name="default_launcher_desktop_dock_column_count" translatable="false">6</string>
     <bool name="default_launcher_bar_show_position_setting" translatable="false">false</bool>
     <string name="default_launcher_bar_item_alignment" translatable="false">default</string>
     <string-array name="default_launcher_bar_hidden_items" translatable="false">
@@ -32,7 +32,7 @@
     <bool name="default_status_bar_status_icons_show_refresh_mode" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_touch_mode" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_wifi_activity" translatable="false">true</bool>
-    <integer name="default_status_bar_status_icons_max_notification_icons" translatable="false">5</integer>
+    <string name="default_status_bar_status_icons_max_notification_icons" translatable="false">5</string>
     <bool name="default_status_bar_status_icons_remove_borders" translatable="false">false</bool>
 
     <!-- Quick settings -->
@@ -41,18 +41,18 @@
     <bool name="default_qs_header_show_user_switcher" translatable="false">false</bool>
     <bool name="default_qs_panel_compact" translatable="false">false</bool>
     <bool name="default_qs_grid_custom_size" translatable="false">false</bool>
-    <integer name="default_qs_grid_row_count" translatable="false">4</integer>
-    <integer name="default_qs_grid_column_count" translatable="false">2</integer>
+    <string name="default_qs_grid_row_count" translatable="false">4</string>
+    <string name="default_qs_grid_column_count" translatable="false">2</string>
     <bool name="default_qs_grid_no_min_tile_count" translatable="false">false</bool>
     <bool name="default_qs_grid_show_bw_tile" translatable="false">false</bool>
 
     <!-- Recents -->
     <bool name="default_recents_grid_custom_size" translatable="false">false</bool>
-    <integer name="default_recents_grid_row_count_portrait" translatable="false">4</integer>
-    <integer name="default_recents_grid_column_count_portrait" translatable="false">3</integer>
-    <integer name="default_recents_grid_row_count_landscape" translatable="false">3</integer>
-    <integer name="default_recents_grid_column_count_landscape" translatable="false">4</integer>
-    <integer name="default_recents_grid_spacing" translatable="false">30</integer>
+    <string name="default_recents_grid_row_count_portrait" translatable="false">4</string>
+    <string name="default_recents_grid_column_count_portrait" translatable="false">3</string>
+    <string name="default_recents_grid_row_count_landscape" translatable="false">3</string>
+    <string name="default_recents_grid_column_count_landscape" translatable="false">4</string>
+    <string name="default_recents_grid_spacing" translatable="false">30</string>
     <bool name="default_recents_use_stock_header" translatable="false">false</bool>
 
     <!-- eInk optimizations -->
