@@ -1,6 +1,7 @@
 package me.timschneeberger.onyxtweaks.mods.base
 
 import android.content.Intent
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
@@ -13,12 +14,12 @@ interface ISystemUiActivityStarter {
             .invoke(null, getClass("com.android.systemui.plugins.ActivityStarter"))
 
     fun startActivityDismissingKeyguard(intent: Intent, flags: Int = 0) {
-        getActivityStarter().run {
-            javaClass
+        getActivityStarter()?.let {
+            it.javaClass
                 .methodFinder()
                 .filterByParamTypes(Intent::class.java, Int::class.javaPrimitiveType)
                 .firstByName("postStartActivityDismissingKeyguard")
-                .invoke(this, intent, flags)
-        }
+                .invoke(it, intent, flags)
+        } ?: Log.w("ActivityStarter not found")
     }
 }
