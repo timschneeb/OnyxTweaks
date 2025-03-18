@@ -15,7 +15,7 @@ import me.timschneeberger.onyxtweaks.utils.CustomLogger
 
 // TODO: EAC activity based settings
 // TODO: MMKV editor
-// TODO: Show toolbar in widget mode
+// TODO: Hide app labels
 
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {
     private var modManager: ModManager = ModManager()
