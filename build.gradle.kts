@@ -8,11 +8,8 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:8.8.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.8")
     }
 }
-
-apply(plugin = "io.gitlab.arturbosch.detekt")
 
 allprojects {
     repositories {

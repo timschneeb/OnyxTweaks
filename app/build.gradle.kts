@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("io.gitlab.arturbosch.detekt")
 }
 
 val releaseStoreFile: String? by rootProject
@@ -82,11 +81,7 @@ android {
         abortOnError = false
         disable += "NonConstantResourceId"
     }
-
-    detekt {
-        config.setFrom("../config/detekt/detekt.yml")
-    }
-
+    
     buildFeatures {
         buildConfig = true
         viewBinding = true
