@@ -9,7 +9,7 @@ import java.lang.reflect.Method
 
 @Suppress("unused")
 object DumpTools {
-    fun printCall(param: MethodHookParam, tag: String) {
+    fun printCall(param: MethodHookParam, tag: String = "TRACE") {
         val method = param.method as Method
 
         val args = StringBuilder("(").apply {
@@ -30,7 +30,7 @@ object DumpTools {
 
     fun printClassCalls(
         cls: Class<*>,
-        tag: String,
+        tag: String = "TRACE",
         excludeMethods: List<String> = ArrayList()
     ) {
         MethodFinder.fromClass(cls)

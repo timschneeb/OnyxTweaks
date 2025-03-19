@@ -100,6 +100,8 @@ dependencies {
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
     implementation("com.github.topjohnwu.libsu:core:6.0.0")
     implementation("org.lsposed.hiddenapibypass:hiddenapibypass:6.1")
+    implementation("com.github.ChickenHook:RestrictionBypass:2.2")
+
 
     compileOnly("de.robv.android.xposed:api:82")
 }
