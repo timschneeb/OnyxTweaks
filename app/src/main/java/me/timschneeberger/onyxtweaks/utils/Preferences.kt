@@ -22,14 +22,15 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
     RECENTS(R.xml.app_recents_preferences, "app_recents_preferences"),
     EINK(R.xml.app_eink_opt_preferences, "app_eink_opt_preferences"),
     MISC(R.xml.app_misc_preferences, "app_misc_preferences"),
-    ABOUT(R.xml.app_about_preferences, "app_about_preferences")
+    ABOUT(R.xml.app_about_preferences, "app_about_preferences"),
+    NONE(R.xml.app_empty_preferences, "")
 }
 
 /**
  * @remarks This class is used to access preferences with read-only without an app context using XSharedPreferences.
  *          Only for use in hooked apps.
  */
-class XPreferences(group: PreferenceGroups) : BasePreferences(group) {
+class XPreferences(group: PreferenceGroups) : BasePreferences() {
     override val isReadOnly = true
     override val resources get() = moduleRes
 
@@ -53,7 +54,7 @@ class XPreferences(group: PreferenceGroups) : BasePreferences(group) {
  * @remarks This class is used to access preferences with read-write capabilities using SharedPreferences.
  *          Do not use in hooked apps.
  */
-class Preferences(private val context: Context, group: PreferenceGroups) : BasePreferences(group) {
+class Preferences(private val context: Context, group: PreferenceGroups) : BasePreferences() {
     private val dataStore = WorldReadableDataStore(context, group).also {
         it.prefs.registerOnSharedPreferenceChangeListener(this)
     }
@@ -63,7 +64,7 @@ class Preferences(private val context: Context, group: PreferenceGroups) : BaseP
     override val prefs: SharedPreferences = dataStore.prefs
 }
 
-abstract class BasePreferences(val group: PreferenceGroups) : SharedPreferences.OnSharedPreferenceChangeListener {
+abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeListener {
     var onPreferencesChanged: ((String?) -> Unit)? = null
 
     private val defaultCache: HashMap<String, Any> = hashMapOf()

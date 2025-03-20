@@ -3,11 +3,12 @@ package me.timschneeberger.onyxtweaks.ui.fragments
 import androidx.preference.EditTextPreference
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
+import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @PreferenceGroup(PreferenceGroups.QS)
-class SettingsQsFragment : SettingsBaseFragment() {
+class SettingsQsFragment : SettingsBaseFragment<SettingsActivity>() {
     private val gridRows by lazy { findPreference<EditTextPreference>(getString(R.string.key_qs_grid_row_count)) }
     private val gridColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_qs_grid_column_count)) }
 

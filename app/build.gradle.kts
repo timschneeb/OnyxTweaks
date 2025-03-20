@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("dev.rikka.tools.refine") version "4.4.0"
 }
 
 val releaseStoreFile: String? by rootProject
@@ -85,6 +86,7 @@ android {
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        aidl = true
     }
 }
 
@@ -96,12 +98,18 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+
     implementation("com.google.android.material:material:1.12.0")
+    implementation("com.tencent:mmkv:2.1.0")
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
     implementation("com.github.topjohnwu.libsu:core:6.0.0")
+    implementation("com.github.topjohnwu.libsu:service:6.0.0")
     implementation("org.lsposed.hiddenapibypass:hiddenapibypass:6.1")
     implementation("com.github.ChickenHook:RestrictionBypass:2.2")
-
+    implementation("dev.rikka.tools.refine:runtime:4.4.0")
+    compileOnly(project(":hidden-api"))
 
     compileOnly("de.robv.android.xposed:api:82")
 }

@@ -97,3 +97,23 @@ fun Context.showInputAlert(
         .create()
         .show()
 }
+
+fun Context.showSingleChoiceAlert(
+    @StringRes title: Int,
+    choices: Array<CharSequence>,
+    checkedIndex: Int,
+    callback: ((Int?) -> Unit)
+) {
+    MaterialAlertDialogBuilder(this)
+        .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
+        .setTitle(getString(title))
+        .setSingleChoiceItems(choices, checkedIndex) { dialog, i ->
+            dialog.dismiss()
+            callback.invoke(i)
+        }
+        .setNegativeButton(getString(android.R.string.cancel)) { _, _ ->
+            callback.invoke(null)
+        }
+        .create()
+        .show()
+}

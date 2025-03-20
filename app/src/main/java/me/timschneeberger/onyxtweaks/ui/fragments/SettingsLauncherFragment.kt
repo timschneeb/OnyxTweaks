@@ -5,7 +5,8 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
-import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity.Companion.ZYGOTE_MARKER
+import me.timschneeberger.onyxtweaks.ui.activities.BasePreferenceActivity.Companion.ZYGOTE_MARKER
+import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
@@ -16,7 +17,7 @@ import me.timschneeberger.onyxtweaks.utils.cast
 
 
 @PreferenceGroup(PreferenceGroups.LAUNCHER)
-class SettingsLauncherFragment : SettingsBaseFragment() {
+class SettingsLauncherFragment : SettingsBaseFragment<SettingsActivity>() {
     private val desktopReInit by lazy { findPreference<Preference>(getString(R.string.key_launcher_desktop_reinit)) }
     private val desktopDock by lazy { findPreference<MaterialSwitchPreference>(getString(R.string.key_launcher_desktop_show_dock)) }
     private val desktopRows by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_row_count)) }

@@ -12,6 +12,8 @@ object CustomLogger : Logger() {
     }
 
     override fun d(msg: String, thr: Throwable?) {
+
+        Log.d(logTag, msg.decorate(), thr)
         if (logLevelFilter > INFO) return
         Log.d(logTag, msg.decorate(), thr)
     }

@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
         app:title="@string/launcher_settings"
@@ -34,6 +35,14 @@
         app:icon="@drawable/ic_twotone_brush_24dp"
         app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsEinkFragment"
         app:allowDividerBelow="true" />
+
+    <Preference
+        android:key="@string/key_mmkv_editor"
+        app:title="@string/mmkv_editor"
+        app:summary="@string/mmkv_editor_summary"
+        app:icon="@drawable/ic_twotone_build_circle_24dp"
+        app:allowDividerBelow="true">
+    </Preference>
 
     <Preference
         app:title="@string/misc_settings"

@@ -14,19 +14,21 @@ import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.transition.MaterialSharedAxis
 import me.timschneeberger.onyxtweaks.OnyxTweakApp
 import me.timschneeberger.onyxtweaks.R
-import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
+import me.timschneeberger.onyxtweaks.ui.activities.BasePreferenceActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.preferences.WorldReadableDataStore
 import me.timschneeberger.onyxtweaks.ui.utils.setBackgroundFromAttribute
 import me.timschneeberger.onyxtweaks.ui.utils.showAlert
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import kotlin.reflect.full.findAnnotations
 
-abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
+abstract class SettingsBaseFragment<T> : PreferenceFragmentCompat() where T : BasePreferenceActivity {
     protected val app
         get() = activity?.application as? OnyxTweakApp?
 
-    protected val settingsActivity
-        get() = activity as? SettingsActivity?
+    @Suppress("UNCHECKED_CAST")
+    protected val parentActivity
+        get() = activity as T?
 
     protected val group by lazy {
         this::class.findAnnotations(PreferenceGroup::class).firstOrNull()?.group
@@ -53,28 +55,32 @@ abstract class SettingsBaseFragment : PreferenceFragmentCompat() {
     }
 
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        var dataStore: WorldReadableDataStore
-        try {
-            dataStore = WorldReadableDataStore(requireContext(), group)
+        // Don't set up saving/loading when no group is specified
+        var dataStore: WorldReadableDataStore? = null
+        if (group != PreferenceGroups.NONE) {
+            try {
+                dataStore = WorldReadableDataStore(requireContext(), group)
+            }
+            catch (e: SecurityException) {
+                Log.e(e)
+                requireContext().showAlert(R.string.xsp_init_failed, R.string.xsp_init_failed_summary)
+                // Init without world readable access to prevent immediate crash in non-LSPosed environments
+                dataStore = WorldReadableDataStore(requireContext(), group, 0)
+            }
+            preferenceManager.preferenceDataStore = dataStore
         }
-        catch (e: SecurityException) {
-            Log.e(e)
-            requireContext().showAlert(R.string.xsp_init_failed, R.string.xsp_init_failed_summary)
-            // Init without world readable access to prevent immediate crash in non-LSPosed environments
-            dataStore = WorldReadableDataStore(requireContext(), group, 0)
-        }
-        preferenceManager.preferenceDataStore = dataStore
+
         setPreferencesFromResource(group.xmlRes, rootKey)
         onConfigurePreferences()
 
-        dataStore.onDataStoreModified = ::onPreferenceChanged
+        dataStore?.onDataStoreModified = ::onPreferenceChanged
     }
 
     open fun onConfigurePreferences() {}
     open fun onPreferenceChanged(key: String) {}
 
     protected fun requestPackageRestart(packageName: String) =
-        settingsActivity?.requestPackageRestart(packageName)
+        parentActivity?.requestPackageRestart(packageName)
 
     protected fun EditTextPreference.configureAsNumberInput(min: Int, max: Int, @PluralsRes unitRes: Int) {
         summaryProvider = Preference.SummaryProvider<EditTextPreference> { preference ->

@@ -25,3 +25,11 @@ inline fun <reified T> Any?.castNonNull(): T {
 
     return cast<T>()!!
 }
+
+fun String?.ellipsize(i: Int): String? {
+    return if (this != null && this.length > i) {
+        this.substring(0, i) + Typography.ellipsis
+    } else {
+        this
+    }
+}

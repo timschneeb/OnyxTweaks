@@ -14,7 +14,7 @@ import me.timschneeberger.onyxtweaks.mods.ModManager
 import me.timschneeberger.onyxtweaks.utils.CustomLogger
 
 
-// TODO: EAC activity based settings
+// TODO: set refresh mode based on activity
 // TODO: MMKV editor
 
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {
