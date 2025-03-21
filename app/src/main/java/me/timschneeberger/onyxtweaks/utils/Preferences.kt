@@ -23,7 +23,10 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
     EINK(R.xml.app_eink_opt_preferences, "app_eink_opt_preferences"),
     MISC(R.xml.app_misc_preferences, "app_misc_preferences"),
     ABOUT(R.xml.app_about_preferences, "app_about_preferences"),
-    NONE(R.xml.app_empty_preferences, "")
+    NONE(R.xml.app_empty_preferences, ""),
+
+    // Without preferences fragments
+    TEXT_EDITOR(0, "app_text_editor"),
 }
 
 /**

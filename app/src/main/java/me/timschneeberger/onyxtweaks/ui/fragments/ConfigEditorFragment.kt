@@ -6,13 +6,13 @@ import androidx.preference.PreferenceCategory
 import com.github.kyuubiran.ezxhelper.Log
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.ui.activities.ConfigEditorActivity
+import me.timschneeberger.onyxtweaks.ui.activities.TextEditorActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.DeletablePreference
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.services.MMKVAccessService.Companion.SYSTEM_HANDLE
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putString
-import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putStringSet
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.resolveValue
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.tryResolveType
 import me.timschneeberger.onyxtweaks.ui.utils.showAlert
@@ -113,7 +113,7 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                                 if(key == null)
                                     return@showInputAlert
 
-                                onAddOrEdit(key, edit = false) { newValue ->
+                                onAddOrEdit(key, edit = false) { _ ->
                                     refreshList()
                                 }
                             }
@@ -219,6 +219,19 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             return
 
         Log.i("Editing key '$key' as type ${type.name::class.simpleName}. Current value: $currentValue (isNull: ${currentValue == null})")
+
+        if(type.typeClass == String::class) {
+            parentActivity?.textEditorLauncher?.launch(
+                TextEditorActivity.createIntent(
+                    requireContext(),
+                    type.editorMode ?: MMKVUtils.EditorMode.PLAIN_TEXT,
+                    handle!!,
+                    key,
+                    currentValue?.toString() ?: "",
+                )
+            )
+            return
+        }
 
         requireContext().showInputAlert(
             layoutInflater,

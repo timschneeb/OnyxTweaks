@@ -121,7 +121,8 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
     }
 
     private fun navigateToEditor(pkg: String, mmapId: CharSequence) {
-        requireContext().killPackage(pkg)
+        if(pkg != "com.onyx.kime") // Don't kill the keyboard; users wouldn't be able to edit
+            requireContext().killPackage(pkg)
 
         val handle = parentActivity?.mmkvService?.open(pkg, mmapId.toString())
         if (handle == null) {

@@ -103,7 +103,7 @@ abstract class SettingsBaseFragment<T> : PreferenceFragmentCompat() where T : Ba
             if (value == null || value < min || value > max) {
                 requireContext().showAlert(
                     getString(R.string.error_invalid_input),
-                    getString(R.string.error_invalid_number_message, min, max)
+                    getString(R.string.error_invalid_number_out_of_range, min, max)
                 )
                 false
             } else {

@@ -41,10 +41,17 @@
         <activity
             android:name=".ui.activities.ConfigEditorActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.SettingsActivity" />
+        </activity>
+
+        <activity android:name=".ui.activities.TextEditorActivity"
+            android:exported="true"
+            android:label="@string/title_activity_editor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.ConfigEditorActivity" />
         </activity>
 
         <meta-data

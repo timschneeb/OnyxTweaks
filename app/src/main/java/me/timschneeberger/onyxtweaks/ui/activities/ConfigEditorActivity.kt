@@ -6,6 +6,7 @@ import android.content.ServiceConnection
 import android.onyx.optimization.SystemMMKV
 import android.os.IBinder
 import android.os.RemoteException
+import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kyuubiran.ezxhelper.Log
 import com.onyx.internal.mmkv.MMKV
 import com.topjohnwu.superuser.Shell
@@ -16,6 +17,10 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.utils.renderToLog
 import me.timschneeberger.onyxtweaks.ui.fragments.ConfigListFragment
 import me.timschneeberger.onyxtweaks.ui.services.MMKVAccessService
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.toast
+import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putString
+import me.timschneeberger.onyxtweaks.utils.ellipsize
+import java.io.File
 import kotlin.reflect.KClass
 
 class ConfigEditorActivity : BasePreferenceActivity() {
@@ -28,6 +33,35 @@ class ConfigEditorActivity : BasePreferenceActivity() {
     private var aidlConn: AIDLConnection? = null
     var mmkvService: IMMKVAccessService? = null
         private set
+
+    val textEditorLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val tmpFile = result.data?.getStringExtra(TextEditorActivity.EXTRA_TARGET_FILE)
+            val key = result.data?.getStringExtra(TextEditorActivity.EXTRA_KEY)
+            val handle = result.data?.getStringExtra(TextEditorActivity.EXTRA_HANDLE)
+
+            if (result.resultCode == RESULT_OK && tmpFile != null && key != null) {
+                File(tmpFile).run {
+                    readText().let { text ->
+                        try {
+                            mmkvService?.putString(handle, key, text)
+                            mmkvService?.sync(handle)
+                            Log.d("Wrote value to $handle: $key = ${text.ellipsize(100)}")
+                        } catch (e: RemoteException) {
+                            Log.e("Remote service threw an exception", e)
+                            toast("Failed to write value")
+                        }
+                    }
+                }
+            }
+
+            // Remove temporary file
+            if (tmpFile != null) {
+                File(tmpFile).run {
+                    if(exists()) delete()
+                }
+            }
+        }
 
     override fun onResume() {
         // Launch service if not already running
@@ -60,7 +94,7 @@ class ConfigEditorActivity : BasePreferenceActivity() {
                     return
                 }
 
-               // service.findDataStoresForPackage(LAUNCHER_PACKAGE).renderToLog("DS")
+                // service.findDataStoresForPackage(LAUNCHER_PACKAGE).renderToLog("DS")
 
                 //service.allKeys(handle).renderToLog("Test")
 

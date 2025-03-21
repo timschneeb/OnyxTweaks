@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/text_save"
+        android:icon="@drawable/ic_twotone_save_24dp"
+        android:title="@string/editor_save"
+        app:showAsAction="always"
+        android:orderInCategory="0" />
+
+    <item
+        android:id="@+id/text_undo"
+        android:icon="@drawable/ic_baseline_undo_24dp"
+        android:title="@string/editor_undo"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/text_redo"
+        android:icon="@drawable/ic_baseline_redo_24dp"
+        android:title="@string/editor_redo"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/findMenu"
+        android:icon="@drawable/ic_twotone_find_in_page_24dp"
+        android:orderInCategory="4"
+        android:title="@string/editor_find_and_replace" />
+
+    <item
+        android:id="@+id/fontSize"
+        android:icon="@drawable/ic_baseline_format_size_24dp"
+        android:orderInCategory="5"
+        android:title="@string/editor_text_size" />
+</menu>
