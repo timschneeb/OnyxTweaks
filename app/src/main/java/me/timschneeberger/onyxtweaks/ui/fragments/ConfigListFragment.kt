@@ -28,7 +28,7 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
         "com.onyx.kreader",
         "com.onyx.aiassistant",
         "com.onyx.appmarket",
-        // TODO maybe just get all packages starting with com.onyx
+        "com.onyx.android.note"
     )
 
     override fun onConfigurePreferences() {

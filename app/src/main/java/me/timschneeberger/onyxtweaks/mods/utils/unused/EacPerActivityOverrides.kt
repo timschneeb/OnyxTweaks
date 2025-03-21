@@ -56,7 +56,6 @@ class EacPerActivityOverrides : ModPack() {
                 .filterByParamTypes(String::class.java)
                 .firstByName("obtainActivityConfig")
                 .createAfterHookCatching hook@ { param ->
-                    // TODO add extension for parameter getting & checking
                     val clsName = param.args[0]
                     findActivityConfigByExactName(param.thisObject, clsName as? String)?.let { config ->
                         param.result = config
