@@ -5,9 +5,9 @@ interface IMMKVAccessService {
     String[] findDataStoresForPackage(String packageName);
 
     String open(String packageName, String mmapId); // returns handle
+    String openSystem(); // returns handle
     void close(String handle);
 
-    int guessType(String handle, String key, String value);
     int getValueActualSize(String handle, String key);
     boolean contains(String handle, String key);
     void remove(String handle, String key);

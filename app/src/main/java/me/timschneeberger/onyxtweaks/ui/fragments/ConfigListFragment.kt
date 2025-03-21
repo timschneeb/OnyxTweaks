@@ -8,6 +8,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.activities.ConfigEditorActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInfoCompat
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.killPackage
 import me.timschneeberger.onyxtweaks.ui.utils.showAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showSingleChoiceAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -39,19 +40,13 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
             root.addPreference(
                 Preference(requireContext()).apply {
-                    setIcon(R.drawable.ic_twotone_info_24dp)
-                    summary =
-                        "The system config usually can be viewed and edited without root access. All other private data stores require root access."
-                    isIconSpaceReserved = false
-                    isSelectable = false
-                }
-            )
-
-            root.addPreference(
-                Preference(requireContext()).apply {
                     title = "System config"
                     summary = "Global data store at /onyxconfig/mmkv"
                     isIconSpaceReserved = false
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        navigateToSystemEditor()
+                        true
+                    }
                 }
             )
 
@@ -105,7 +100,29 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
         }
     }
 
+    private fun navigateToSystemEditor() {
+        val service = parentActivity?.mmkvService
+        if (service == null) {
+            requireContext().showAlert("Service unavailable", "The root service is not yet initialized. Please try again in a moment. Also make sure that root access has been granted and restart the app, if it was not granted before.")
+            return
+        }
+
+        val handle = service.openSystem()
+        if (handle == null) {
+            requireContext().showAlert("Failed to open system config", "The system config at '/onyxconfig/mmkv/onyx_config' could not be opened. Check if the path exists and ensure root access has been granted.")
+            return
+        }
+
+        parentActivity?.navigateToFragment(
+            ConfigEditorFragment.newInstance(handle, "android"),
+            "onyx_config",
+            "System config"
+        )
+    }
+
     private fun navigateToEditor(pkg: String, mmapId: CharSequence) {
+        requireContext().killPackage(pkg)
+
         val handle = parentActivity?.mmkvService?.open(pkg, mmapId.toString())
         if (handle == null) {
             requireContext().showAlert("Failed to open data store", "The data store could not be opened. Make sure that root access has been granted and restart the app.")
@@ -113,7 +130,7 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
         }
 
         parentActivity?.navigateToFragment(
-            ConfigEditorFragment.newInstance(handle),
+            ConfigEditorFragment.newInstance(handle, pkg),
             mmapId.toString(),
             pkg
         )

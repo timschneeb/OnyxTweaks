@@ -16,14 +16,20 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInfoCompat
 
 object ContextExtensions {
+    fun Context.killPackage(pkgName: String) {
+        toast(getString(R.string.toast_killing_process, pkgName))
+        killPackageSilently(pkgName)
+    }
+
+
     fun Context.restartLauncher() {
         toast(R.string.toast_launcher_restarting)
-        restartPackageSilently(LAUNCHER_PACKAGE)
+        killPackageSilently(LAUNCHER_PACKAGE)
     }
 
     fun Context.restartSystemUi() {
         toast(R.string.toast_system_ui_restarting)
-        restartPackageSilently(SYSTEM_UI_PACKAGE)
+        killPackageSilently(SYSTEM_UI_PACKAGE)
     }
 
     fun Context.restartZygote() {
@@ -45,7 +51,7 @@ object ContextExtensions {
         }
     }
 
-    private fun Context.restartPackageSilently(pkgName: String) = runAsRoot("killall $pkgName")
+    private fun Context.killPackageSilently(pkgName: String) = runAsRoot("killall $pkgName")
 
     val Context.localBroadcastManager get() = LocalBroadcastManager.getInstance(this)
 
@@ -58,6 +64,9 @@ object ContextExtensions {
         localBroadcastManager.unregisterReceiver(broadcastReceiver)
 
     fun Context.toast(@StringRes message: Int, long: Boolean = true) = Toast.makeText(this, getString(message),
+        if(long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()
+
+    fun Context.toast(message: String, long: Boolean = true) = Toast.makeText(this, message,
         if(long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()
 
     fun Context.getAppName(): String = applicationInfo.loadLabel(packageManager).toString()

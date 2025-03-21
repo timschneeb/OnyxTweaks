@@ -41,6 +41,20 @@ class MMKVAccessService : RootService {
                 ?: arrayOf()
         }
 
+        override fun openSystem(): String? {
+            Log.d("Initializing system_config MMKV")
+
+            val path = "/onyxconfig/mmkv/"
+            if(!File(path).exists()) {
+                Log.e("System MMKV path inaccessible")
+                return null
+            }
+
+            mmkvMap[SYSTEM_HANDLE] = MMKV.nameSpace(path).mmkvWithID("onyx_config", MMKV.MULTI_PROCESS_MODE)
+            return SYSTEM_HANDLE
+        }
+
+
         override fun open(packageName: String, mmapId: String): String? {
             Log.d("Initializing MMKV for package $packageName with mmapId $mmapId")
 
@@ -60,14 +74,6 @@ class MMKVAccessService : RootService {
         override fun close(handle: String) {
             mmkvMap[handle]?.close()
             mmkvMap.remove(handle)
-        }
-
-        override fun guessType(
-            handle: String?,
-            key: String?,
-            value: String?
-        ): Int {
-            TODO("Not yet implemented")
         }
 
         override fun getValueActualSize(handle: String, key: String?) = mmkvMap[handle]!!.getValueActualSize(key)
@@ -160,6 +166,10 @@ class MMKVAccessService : RootService {
     override fun onUnbind(intent: Intent): Boolean {
         Log.d("MMKVAccessService unbound")
         return true
+    }
+
+    companion object {
+        const val SYSTEM_HANDLE = "onyx_config"
     }
 }
 

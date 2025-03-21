@@ -103,10 +103,22 @@ fun Context.showSingleChoiceAlert(
     choices: Array<CharSequence>,
     checkedIndex: Int,
     callback: ((Int?) -> Unit)
+) = showSingleChoiceAlert(
+    getString(title),
+    choices,
+    checkedIndex,
+    callback
+)
+
+fun Context.showSingleChoiceAlert(
+    title: String,
+    choices: Array<CharSequence>,
+    checkedIndex: Int,
+    callback: ((Int?) -> Unit)
 ) {
     MaterialAlertDialogBuilder(this)
         .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
-        .setTitle(getString(title))
+        .setTitle(title)
         .setSingleChoiceItems(choices, checkedIndex) { dialog, i ->
             dialog.dismiss()
             callback.invoke(i)
