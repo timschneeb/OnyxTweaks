@@ -1,84 +1,92 @@
 package me.timschneeberger.onyxtweaks.ui.utils
 
+import android.os.Parcel
 import me.timschneeberger.onyxtweaks.IMMKVAccessService
+import me.timschneeberger.onyxtweaks.ui.services.marshallToPipe
 import me.timschneeberger.onyxtweaks.ui.services.unmarshallFromPipe
 import kotlin.reflect.KClass
 
 object MMKVUtils {
-    val knownTypes = mapOf<String, KClass<*>>(
+    val knownTypes = mapOf<String, KnownTypes>(
         /* ==== System config @ /onyxconfig/mmkv ==== */
 
         // OnyxSystemConfig
-        "eac_system_version" to Int::class,
-        "appFreezeAdditionalList" to Set::class,
-        "appFreezeWhiteList" to Set::class,
-        "bootCompletedBlackSet" to Set::class,
-        "detectedTopPackageSet" to Set::class,
-        "dpiNeedFullRelaunchPkgSet" to Set::class,
-        "grantPermissionUriAuthorityPackages" to Set::class,
-        "grantPermissionUriAuthority" to Set::class,
-        "hiddenAPIThirdPartyAppWhitelist" to Set::class,
-        "ignoreCastDevicesPackages" to Set::class,
-        "maintainPrevPkgRefreshPkgSet" to Set::class,
-        "presetEACWhiteList" to Set::class,
-        "restrictedInstallPackageSet" to Set::class,
-        "showForegroundNotificationPackages" to Set::class,
-        "supportForceStopAppSet" to Set::class,
-        "supportMultiInstencePackages" to Set::class,
+        "eac_system_version" to KnownTypes.INT,
+        "appFreezeAdditionalList" to KnownTypes.STRING_SET,
+        "appFreezeWhiteList" to KnownTypes.STRING_SET,
+        "bootCompletedBlackSet" to KnownTypes.STRING_SET,
+        "detectedTopPackageSet" to KnownTypes.STRING_SET,
+        "dpiNeedFullRelaunchPkgSet" to KnownTypes.STRING_SET,
+        "grantPermissionUriAuthorityPackages" to KnownTypes.STRING_SET,
+        "grantPermissionUriAuthority" to KnownTypes.STRING_SET,
+        "hiddenAPIThirdPartyAppWhitelist" to KnownTypes.STRING_SET,
+        "ignoreCastDevicesPackages" to KnownTypes.STRING_SET,
+        "maintainPrevPkgRefreshPkgSet" to KnownTypes.STRING_SET,
+        "presetEACWhiteList" to KnownTypes.STRING_SET,
+        "restrictedInstallPackageSet" to KnownTypes.STRING_SET,
+        "showForegroundNotificationPackages" to KnownTypes.STRING_SET,
+        "supportForceStopAppSet" to KnownTypes.STRING_SET,
+        "supportMultiInstencePackages" to KnownTypes.STRING_SET,
 
         // KeyboardDeviceConfig
-        "keyboard_device_version" to Int::class,
-        "keyboard_default_device_version" to Int::class,
+        "keyboard_device_version" to KnownTypes.INT,
+        "keyboard_default_device_version" to KnownTypes.INT,
 
         // EACAppConfig
-        "eac_default_app_config" to String::class, // JSON EACAppConfig object
+        "eac_default_app_config" to KnownTypes.STRING_JSON, // JSON EACAppConfig object
 
         // EACDeviceConfig
-        "eac_app_pkg_set" to Set::class, // String set of package names
-        "eac_device_json_version" to Int::class,
+        "eac_app_pkg_set" to KnownTypes.STRING_SET, // String set of package names
+        "eac_device_json_version" to KnownTypes.INT,
 
         // EACDeviceExtraConfig
-        "allow_child_mode_apps" to Set::class, // String set of package names
-        "allowUseRegalModePkgSet" to Set::class, // String set of package names
-        "customOOMAdjPkgSet" to Set::class, // String set of package names
-        "eac_extra_config_enable" to Boolean::class,
-        "eac_extra_gc_after_scrolling" to Boolean::class,
-        "eac_extra_gc_after_scrolling_delay_time" to Int::class,
-        "eac_extra_refresh_mode" to Int::class,
-        "eac_extra_turbo" to Int::class,
-        "gc_after_scrolling_refresh_mode" to Int::class,
-        "pre_grant_premission_pkg" to Set::class, // String set of package names
+        "allow_child_mode_apps" to KnownTypes.STRING_SET, // String set of package names
+        "allowUseRegalModePkgSet" to KnownTypes.STRING_SET, // String set of package names
+        "customOOMAdjPkgSet" to KnownTypes.STRING_SET, // String set of package names
+        "eac_extra_config_enable" to KnownTypes.BOOLEAN,
+        "eac_extra_gc_after_scrolling" to KnownTypes.BOOLEAN,
+        "eac_extra_gc_after_scrolling_delay_time" to KnownTypes.INT,
+        "eac_extra_refresh_mode" to KnownTypes.INT,
+        "eac_extra_turbo" to KnownTypes.INT,
+        "gc_after_scrolling_refresh_mode" to KnownTypes.INT,
+        "pre_grant_premission_pkg" to KnownTypes.STRING_SET, // String set of package names
 
         // NotificationConfig
-        "notification_version" to Int::class,
-        "notification_pkg_black_list" to Set::class, // String set of package names
-        "notification_pkg_white_list" to Set::class, // String set of package names
+        "notification_version" to KnownTypes.INT,
+        "notification_pkg_black_list" to KnownTypes.STRING_SET, // String set of package names
+        "notification_pkg_white_list" to KnownTypes.STRING_SET, // String set of package names
 
         // GesturesConfig (SystemUI)
-        "gesture_config" to String::class, // JSON GesturesConfig object
+        "gesture_config" to KnownTypes.STRING_JSON, // JSON GesturesConfig object
 
         // From the keyboard app?
-        "forceComputeImeBoundsSystemComponents" to Set::class // String set of pkg/component names
+        "forceComputeImeBoundsSystemComponents" to KnownTypes.STRING_SET // String set of pkg/component names
     )
 
-    val knownTypesForPrefixes = mapOf<String, KClass<*>>(
+    val knownTypesForPrefixes = mapOf<String, KnownTypes>(
         /* ==== System config @ /onyxconfig/mmkv ==== */
 
         // KeyboardMapping
-        "keymapping_" to String::class, // JSON KeyboardMapping object for a specific device name
+        "keymapping_" to KnownTypes.STRING_JSON, // JSON KeyboardMapping object for a specific device name
 
         // EACAppConfig
-        "eac_app_" to Set::class,  // JSON EACAppConfig object for a specific package
+        "eac_app_" to KnownTypes.STRING_JSON,  // JSON EACAppConfig object for a specific package
     )
 
-    val supportedTypes = mapOf(
-        String::class to "String",
-        Set::class to "String set",
-        Int::class to "32-bit integer (int)",
-        Long::class to "64-bit integer (long)",
-        Float::class to "Floating point number",
-        Boolean::class to "Boolean (true/false)"
-    )
+    enum class EditorMode {
+        PLAIN_TEXT,
+        JSON,
+    }
+
+    enum class KnownTypes(val typeClass: KClass<*>, val editorMode: EditorMode?, val description: String) {
+        STRING(String::class, EditorMode.PLAIN_TEXT, "String"),
+        STRING_JSON(String::class, EditorMode.JSON, "String (JSON formatted)"),
+        STRING_SET(Set::class, null, "String list"),
+        INT(Int::class, null, "32-bit integer (int)"),
+        LONG(Long::class, null, "64-bit integer (long)"),
+        FLOAT(Float::class, null, "Floating point number"),
+        BOOLEAN(Boolean::class, null, "Boolean (true or false)")
+    }
 
     fun IMMKVAccessService.getString(handle: String?, key: String): String? {
         getLargeString(handle, key).also { fd ->
@@ -101,12 +109,28 @@ object MMKVUtils {
         }
     }
 
+    fun IMMKVAccessService.putString(handle: String?, key: String, value: String) {
+        Parcel.obtain().apply {
+            writeString(value)
+        }.run {
+            marshallToPipe().also { putLargeString(handle, key, it) }
+        }
+    }
+
+    fun IMMKVAccessService.putStringSet(handle: String?, key: String, values: List<String>) {
+        Parcel.obtain().apply {
+            writeStringList(values)
+        }.run {
+            marshallToPipe().also { putLargeStringSet(handle, key, it) }
+        }
+    }
+
     fun isKnownType(key: String): Boolean {
         return knownTypes.containsKey(key) || knownTypesForPrefixes.keys.any { key.startsWith(it) }
     }
 
-    fun IMMKVAccessService.resolveValue(handle: String?, key: String, truncate: Boolean, type: KClass<*>? = null): Any? {
-        val type = type ?:
+    fun IMMKVAccessService.resolveValue(handle: String?, key: String, truncate: Boolean, type: KnownTypes? = null): Any? {
+        val type = type?.typeClass ?:
             knownTypes[key]
             ?: knownTypesForPrefixes.entries.find { key.startsWith(it.key) }?.value
             ?: tryResolveType(handle, key)

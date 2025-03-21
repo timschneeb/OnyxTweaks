@@ -11,6 +11,8 @@ import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.services.MMKVAccessService.Companion.SYSTEM_HANDLE
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils
+import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putString
+import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putStringSet
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.resolveValue
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.tryResolveType
 import me.timschneeberger.onyxtweaks.ui.utils.showAlert
@@ -18,7 +20,6 @@ import me.timschneeberger.onyxtweaks.ui.utils.showInputAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showSingleChoiceAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showYesNoAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
-import kotlin.reflect.KClass
 
 
 @PreferenceGroup(PreferenceGroups.NONE)
@@ -191,49 +192,49 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             return
 
         val hasKnownType = MMKVUtils.isKnownType(key)
-        val type = service.tryResolveType(handle, key)
-        val typeName = MMKVUtils.supportedTypes
-            .entries.find { it.key == type }.let { it?.value }
+        val guessedType = service.tryResolveType(handle, key)
+        val knownType = MMKVUtils.KnownTypes
+            .entries.find { it.typeClass == guessedType }
 
         val currentValue by lazy {
-            if (edit)
-                service.resolveValue(handle, key, false, type)
+            if (edit && knownType != null)
+                service.resolveValue(handle, key, false, knownType)
             else
                 null
         }
 
-        if(hasKnownType && type != null) {
-            editItemAs(key, type, currentValue, onEdited)
+        if(hasKnownType && knownType != null) {
+            editItemAs(key, knownType, currentValue, onEdited)
         }
         else {
-            promptForType(type, typeName, edit) { chosenType ->
+            promptForType(knownType, edit) { chosenType ->
                 editItemAs(key, chosenType, currentValue, onEdited)
             }
         }
     }
 
-    fun editItemAs(key: String, type: KClass<*>, currentValue: Any?, onEdited: ((newValue: Any?) -> Unit)) {
+    fun editItemAs(key: String, type: MMKVUtils.KnownTypes, currentValue: Any?, onEdited: ((newValue: Any?) -> Unit)) {
         val service = parentActivity?.mmkvService
         if(handle == null || service == null)
             return
 
-        Log.i("Editing key '$key' as type ${type.simpleName}. Current value: $currentValue (isNull: ${currentValue == null})")
+        Log.i("Editing key '$key' as type ${type.name::class.simpleName}. Current value: $currentValue (isNull: ${currentValue == null})")
 
         requireContext().showInputAlert(
             layoutInflater,
-            "Edit key '$key' as ${MMKVUtils.supportedTypes[type]}",
+            "Edit key '$key' as ${type.description}",
             "New value",
             currentValue?.toString() ?: "",
-            type == Int::class || type == Long::class || type == Float::class,
+            type.typeClass == Int::class || type.typeClass == Long::class || type.typeClass == Float::class,
             null
         ) { newValue ->
             if(newValue == null)
                 return@showInputAlert
 
             try {
-                when (type) {
-                    // TODO string & stringset editor
-                    String::class -> throw UnsupportedOperationException() // service.putString(handle, key, newValue.toString())
+                when (type.typeClass) {
+                    // TODO string & stringset editor w/ JSON support
+                    String::class -> service.putString(handle, key, newValue.toString()) // service.putString(handle, key, newValue.toString())
                     Set::class -> throw UnsupportedOperationException() //service.putLongStringSet(handle, key, newValue.())
                     Int::class -> service.putInt(handle, key, newValue.toInt())
                     Long::class -> service.putLong(handle, key, newValue.toLong())
@@ -247,7 +248,7 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                 Log.e(e)
                 requireContext().showAlert(
                     "Failed to save value",
-                    "Invalid number format for type '${MMKVUtils.supportedTypes[type]}': $newValue"
+                    "Invalid number format for type '${type.description}': $newValue"
                 )
             }
             catch (e: Exception) {
@@ -260,17 +261,15 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
         }
     }
 
-    fun promptForType(guessedType: KClass<*>?, guessedTypeName: String?, edit: Boolean, onTypeSelected: ((KClass<*>) -> Unit)) {
-        val availableTypes = MMKVUtils.supportedTypes.values.let {
+    fun promptForType(guessedType: MMKVUtils.KnownTypes?, edit: Boolean, onTypeSelected: ((MMKVUtils.KnownTypes) -> Unit)) {
+        val availableTypes = MMKVUtils.KnownTypes.entries.map {it.description}.let {
             if (guessedType == null)
                 it
             else
-                it + arrayOf("Auto-detect ($guessedTypeName)")
+                it + arrayOf("Auto-detect (${guessedType.description})")
         }
             .map { it as CharSequence }
             .toTypedArray()
-
-        Log.e(availableTypes.joinToString())
 
         requireContext().showSingleChoiceAlert(
             title = if(edit) "Unknown data type, choose manually" else "Select data type for new key",
@@ -280,8 +279,8 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             if(idx != null && idx >= 0 && idx < availableTypes.size) {
                 // We add an additional item
                 val chosenType =
-                    if(idx < MMKVUtils.supportedTypes.size)
-                        MMKVUtils.supportedTypes.keys.elementAt(idx) as KClass<*>
+                    if(idx < MMKVUtils.KnownTypes.entries.size)
+                        MMKVUtils.KnownTypes.entries.elementAt(idx)
                     else
                         guessedType!!
 
