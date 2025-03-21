@@ -227,7 +227,7 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                     type.editorMode ?: MMKVUtils.EditorMode.PLAIN_TEXT,
                     handle!!,
                     key,
-                    currentValue?.toString() ?: "",
+                    currentValue?.toString() ?: "New value",
                 )
             )
             return
