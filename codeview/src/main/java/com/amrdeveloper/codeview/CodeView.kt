@@ -102,7 +102,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     private var enablePairCompleteCenterCursor = false
     private val mPairCompleteMap: MutableMap<Char, Char> = HashMap()
     private val mUpdateHandler = Handler(Looper.getMainLooper())
-    private lateinit var mAutoCompleteTokenizer: Tokenizer
     private val mErrorHashSet: SortedMap<Int, Int> = TreeMap()
     private val mSyntaxPatternMap: MutableMap<Pattern, Int> = LinkedHashMap()
 
@@ -123,8 +122,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     }
 
     private fun initEditorView() {
-        mAutoCompleteTokenizer = KeywordTokenizer()
-        setTokenizer(mAutoCompleteTokenizer)
         setHorizontallyScrolling(false)
         filters = arrayOf(mInputFilter)
         addTextChangedListener(mEditorTextWatcher)
@@ -518,14 +515,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
         return PATTERN_TRAILING_WHITE_SPACE
             .matcher(text)
             .replaceAll("")
-    }
-
-    /**
-     * Replace the current Auto Complete default tokenizer by custom one
-     * @param tokenizer The new custom Tokenizer
-     */
-    fun setAutoCompleteTokenizer(tokenizer: Tokenizer) {
-        mAutoCompleteTokenizer = tokenizer
     }
 
     /**
