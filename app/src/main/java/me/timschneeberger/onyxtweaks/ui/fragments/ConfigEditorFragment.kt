@@ -6,6 +6,7 @@ import androidx.preference.PreferenceCategory
 import com.github.kyuubiran.ezxhelper.Log
 import me.timschneeberger.onyxtweaks.IMMKVAccessService
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.activities.ConfigEditorActivity
 import me.timschneeberger.onyxtweaks.ui.activities.TextEditorActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.DeletablePreference
@@ -133,12 +134,15 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             kvRootPreference = root
 
             if (handle != SYSTEM_HANDLE) {
+                var info = "Note: All processes of '$pkg' were automatically killed to prevent file access conflicts and ensure that your changes take effect properly."
+                if (pkg == LAUNCHER_PACKAGE) {
+                    info += "\nIf the launcher is only showing a white screen after killing its process, go into 'recents' and clear all active apps."
+                }
+
                 root.addPreference(
                     Preference(requireContext()).apply {
                         setIcon(R.drawable.ic_twotone_info_24dp)
-                        summary =
-                            "Note: All processes of '$pkg' were automatically killed to prevent file access conflicts and ensure that your changes take effect properly."
-                        isIconSpaceReserved = false
+                        summary = info
                         isSelectable = false
                     }
                 )
