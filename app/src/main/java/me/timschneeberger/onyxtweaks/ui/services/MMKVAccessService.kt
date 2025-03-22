@@ -140,7 +140,9 @@ class MMKVAccessService : RootService {
 
         override fun putLargeStringSet(handle: String, key: String?, valueFd: ParcelFileDescriptor?) {
             valueFd?.unmarshallFromPipe()?.let {
-                mmkvMap[handle]!!.putString(key, it.readString())
+                val list = mutableListOf<String>()
+                it.readStringList(list)
+                mmkvMap[handle]!!.putStringSet(key, list.toSet())
                 it.recycle()
             }
         }

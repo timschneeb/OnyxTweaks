@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import com.github.kyuubiran.ezxhelper.Log
+import me.timschneeberger.onyxtweaks.IMMKVAccessService
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.ui.activities.ConfigEditorActivity
 import me.timschneeberger.onyxtweaks.ui.activities.TextEditorActivity
@@ -12,7 +13,6 @@ import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.services.MMKVAccessService.Companion.SYSTEM_HANDLE
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils
-import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putString
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.resolveType
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.resolveValue
 import me.timschneeberger.onyxtweaks.ui.utils.showAlert
@@ -26,6 +26,7 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
     private var handle: String? = null
     private var pkg: String? = null
+    private var kvRootPreference: PreferenceCategory? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         handle = requireArguments().getString(ARG_HANDLE)
@@ -129,6 +130,7 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             isIconSpaceReserved = false
         }.let { root ->
             preferenceScreen.addPreference(root)
+            kvRootPreference = root
 
             if (handle != SYSTEM_HANDLE) {
                 root.addPreference(
@@ -148,10 +150,10 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
             service.allKeys(handle)
                 .apply { sort() }
-                .also { strings -> Log.i("Keys: ${strings.joinToString()}") }
                 .forEach { key ->
                     root.addPreference(
                         DeletablePreference(requireContext()).apply {
+                            setKey(key)
                             title = key
                             summary = service.resolveValue(handle, key, true)?.toString()
                             isIconSpaceReserved = false
@@ -217,19 +219,30 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
         Log.i("Editing key '$key' as type ${type.name::class.simpleName}. Current value: $currentValue (isNull: ${currentValue == null})")
 
-        if(type.typeClass == String::class) {
+        // Check if full-screen editor is required
+        if(type.editorMode != null) {
+            var initialValue = currentValue?.toString() ?: "New value"
+            if(currentValue is List<*>) {
+                initialValue = currentValue.joinToString("\n")
+            }
+
             parentActivity?.textEditorLauncher?.launch(
                 TextEditorActivity.createIntent(
                     requireContext(),
-                    type.editorMode ?: MMKVUtils.EditorMode.PLAIN_TEXT,
+                    type.editorMode,
                     handle!!,
                     key,
-                    currentValue?.toString() ?: "New value",
+                    initialValue,
                 )
             )
             return
         }
 
+        // Otherwise use simple input dialog
+        service.promptSimpleInput(key, type, currentValue, onEdited)
+    }
+
+    private fun IMMKVAccessService.promptSimpleInput(key: String, type: MMKVUtils.KnownTypes, currentValue: Any?, onEdited: ((newValue: Any?) -> Unit)) {
         requireContext().showInputAlert(
             layoutInflater,
             "Edit key '$key' as ${type.description}",
@@ -243,15 +256,12 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
             try {
                 when (type.typeClass) {
-                    // TODO string & stringset editor w/ JSON support
-                    String::class -> service.putString(handle, key, newValue.toString()) // service.putString(handle, key, newValue.toString())
-                    Set::class -> throw UnsupportedOperationException() //service.putLongStringSet(handle, key, newValue.())
-                    Int::class -> service.putInt(handle, key, newValue.toInt())
-                    Long::class -> service.putLong(handle, key, newValue.toLong())
-                    Float::class -> service.putFloat(handle, key, newValue.toFloat())
-                    Boolean::class -> service.putBoolean(handle, key, newValue.toBoolean())
+                    Int::class -> this.putInt(handle, key, newValue.toInt())
+                    Long::class -> this.putLong(handle, key, newValue.toLong())
+                    Float::class -> this.putFloat(handle, key, newValue.toFloat())
+                    Boolean::class -> this.putBoolean(handle, key, newValue.toBoolean())
                 }
-                service.sync(handle)
+                this.sync(handle)
                 onEdited.invoke(newValue)
             }
             catch (e: NumberFormatException) {
@@ -297,6 +307,10 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                 onTypeSelected.invoke(chosenType)
             }
         }
+    }
+
+    fun refreshByKey(key: String, newValuePreview: String) {
+        kvRootPreference?.findPreference<Preference>(key)?.summary = newValuePreview
     }
 
     companion object {

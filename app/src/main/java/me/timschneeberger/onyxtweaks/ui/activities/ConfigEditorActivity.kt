@@ -15,10 +15,13 @@ import me.timschneeberger.onyxtweaks.IMMKVAccessService
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.utils.renderToLog
+import me.timschneeberger.onyxtweaks.ui.fragments.ConfigEditorFragment
 import me.timschneeberger.onyxtweaks.ui.fragments.ConfigListFragment
 import me.timschneeberger.onyxtweaks.ui.services.MMKVAccessService
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.toast
+import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putString
+import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putStringSet
 import me.timschneeberger.onyxtweaks.utils.ellipsize
 import java.io.File
 import kotlin.reflect.KClass
@@ -39,13 +42,29 @@ class ConfigEditorActivity : BasePreferenceActivity() {
             val tmpFile = result.data?.getStringExtra(TextEditorActivity.EXTRA_TARGET_FILE)
             val key = result.data?.getStringExtra(TextEditorActivity.EXTRA_KEY)
             val handle = result.data?.getStringExtra(TextEditorActivity.EXTRA_HANDLE)
+            val mode = result.data?.getStringExtra(TextEditorActivity.EXTRA_MODE)?.let {
+                MMKVUtils.EditorMode.valueOf(it)
+            }
 
-            if (result.resultCode == RESULT_OK && tmpFile != null && key != null) {
+            if (result.resultCode == RESULT_OK && tmpFile != null && key != null && mode != null) {
                 File(tmpFile).run {
                     readText().let { text ->
                         try {
-                            mmkvService?.putString(handle, key, text)
+                            var previewString: String
+                            if(mode == MMKVUtils.EditorMode.LIST) {
+                                previewString = text.ellipsize(200)?.split("\n")?.joinToString() ?: "null"
+                                mmkvService?.putStringSet(handle, key, text.split("\n").toList())
+                            } else {
+                                previewString = text.ellipsize(200) ?: "null"
+                                mmkvService?.putString(handle, key, text)
+                            }
                             mmkvService?.sync(handle)
+
+                            val currentFragment = supportFragmentManager.findFragmentById(R.id.settings)
+                            if(currentFragment is ConfigEditorFragment) {
+                                currentFragment.refreshByKey(key, previewString)
+                            }
+
                             Log.d("Wrote value to $handle: $key = ${text.ellipsize(100)}")
                         } catch (e: RemoteException) {
                             Log.e("Remote service threw an exception", e)

@@ -76,12 +76,13 @@ object MMKVUtils {
     enum class EditorMode {
         PLAIN_TEXT,
         JSON,
+        LIST
     }
 
     enum class KnownTypes(val typeClass: KClass<*>, val editorMode: EditorMode?, val description: String) {
         STRING(String::class, EditorMode.PLAIN_TEXT, "String"),
         STRING_JSON(String::class, EditorMode.JSON, "String (JSON formatted)"),
-        STRING_SET(Set::class, null, "String list"),
+        STRING_SET(Set::class, EditorMode.LIST, "String list"),
         INT(Int::class, null, "32-bit integer (int)"),
         LONG(Long::class, null, "64-bit integer (long)"),
         FLOAT(Float::class, null, "Floating point number"),

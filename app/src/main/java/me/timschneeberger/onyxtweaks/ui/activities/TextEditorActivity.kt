@@ -115,6 +115,7 @@ class TextEditorActivity : AppCompatActivity() {
     private fun setOkResult() {
         setResult(RESULT_OK, Intent().apply {
             putExtra(EXTRA_TARGET_FILE, path)
+            putExtra(EXTRA_MODE, mode.name)
             putExtra(EXTRA_KEY, key)
             putExtra(EXTRA_HANDLE, handle)
         })
@@ -149,6 +150,10 @@ class TextEditorActivity : AppCompatActivity() {
                 Log.e(e, "Failed to parse JSON content")
                 codeView.setText(content)
             }
+        }
+        else if (mode == MMKVUtils.EditorMode.LIST) {
+            toast("String list: enter each item on a separate line")
+            codeView.setText(content)
         }
         else {
             codeView.setText(content)

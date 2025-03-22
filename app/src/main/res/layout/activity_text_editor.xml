@@ -37,21 +37,11 @@
 
             <com.amrdeveloper.codeview.CodeView
                 android:id="@+id/codeView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollHorizontally="false"
                 android:gravity="top|start"
                 android:textDirection="firstStrong" />
-
-            <!--<HorizontalScrollView
-                android:fillViewport="true"
-                android:id="@+id/codeViewHorizScroller"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
-
-            </HorizontalScrollView>-->
-
         </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
