@@ -13,8 +13,8 @@ import me.timschneeberger.onyxtweaks.ui.services.MMKVAccessService.Companion.SYS
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.putString
+import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.resolveType
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.resolveValue
-import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils.tryResolveType
 import me.timschneeberger.onyxtweaks.ui.utils.showAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showInputAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showSingleChoiceAlert
@@ -192,22 +192,19 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             return
 
         val hasKnownType = MMKVUtils.isKnownType(key)
-        val guessedType = service.tryResolveType(handle, key)
-        val knownType = MMKVUtils.KnownTypes
-            .entries.find { it.typeClass == guessedType }
-
+        val resolvedType = service.resolveType(handle, key)
         val currentValue by lazy {
-            if (edit && knownType != null)
-                service.resolveValue(handle, key, false, knownType)
+            if (edit && resolvedType != null)
+                service.resolveValue(handle, key, false, resolvedType)
             else
                 null
         }
 
-        if(hasKnownType && knownType != null) {
-            editItemAs(key, knownType, currentValue, onEdited)
+        if(hasKnownType && resolvedType != null) {
+            editItemAs(key, resolvedType, currentValue, onEdited)
         }
         else {
-            promptForType(knownType, edit) { chosenType ->
+            promptForType(resolvedType, edit) { chosenType ->
                 editItemAs(key, chosenType, currentValue, onEdited)
             }
         }

@@ -109,6 +109,7 @@ dependencies {
     implementation("org.lsposed.hiddenapibypass:hiddenapibypass:6.1")
     implementation("com.github.ChickenHook:RestrictionBypass:2.2")
     implementation("dev.rikka.tools.refine:runtime:4.4.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
 
     implementation(project(":codeview"))
 

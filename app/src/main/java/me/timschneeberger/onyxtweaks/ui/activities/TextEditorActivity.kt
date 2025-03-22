@@ -18,6 +18,7 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.amrdeveloper.codeview.CodeView
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import me.timschneeberger.onyxtweaks.R
@@ -25,7 +26,6 @@ import me.timschneeberger.onyxtweaks.databinding.ActivityTextEditorBinding
 import me.timschneeberger.onyxtweaks.databinding.DialogEditorSearchReplaceBinding
 import me.timschneeberger.onyxtweaks.ui.editor.plugin.SourcePositionListener
 import me.timschneeberger.onyxtweaks.ui.editor.plugin.UndoRedoManager
-import me.timschneeberger.onyxtweaks.ui.editor.syntax.JsonLanguage
 import me.timschneeberger.onyxtweaks.ui.editor.widget.SymbolInputView
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.toast
 import me.timschneeberger.onyxtweaks.ui.utils.MMKVUtils
@@ -81,7 +81,10 @@ class TextEditorActivity : AppCompatActivity() {
         path = extraTarget
         handle = extraHandle
         intent.getStringExtra(EXTRA_KEY)?.let { key = it }
-        intent.getStringExtra(EXTRA_MODE)?.let { mode = MMKVUtils.EditorMode.valueOf(it) }
+        intent.getStringExtra(EXTRA_MODE)?.let {
+            Log.e("MODE dec: $it")
+            mode = MMKVUtils.EditorMode.valueOf(it)
+        }
         load()
 
         onBackPressedDispatcher.addCallback(this /* lifecycle owner */, object : OnBackPressedCallback(true) {
@@ -94,12 +97,11 @@ class TextEditorActivity : AppCompatActivity() {
                         R.string.editor_discard
                     ) {
                         if(it) {
-                            save()
-                            setOkResult()
+                            saveAndClose(false)
                         } else {
                             setResult(RESULT_CANCELED)
+                            finish()
                         }
-                        finish()
                         return@showYesNoAlert
                     }
                 }
@@ -137,21 +139,70 @@ class TextEditorActivity : AppCompatActivity() {
 
         updateName()
 
-        codeView.setText(content)
+        if (mode == MMKVUtils.EditorMode.JSON) {
+            try {
+                Log.d("Parsing JSON content")
+                val mapper = ObjectMapper()
+                val json = mapper.readValue(content, Object::class.java)
+                codeView.setText(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json))
+            } catch (e: Exception) {
+                Log.e(e, "Failed to parse JSON content")
+                codeView.setText(content)
+            }
+        }
+        else {
+            codeView.setText(content)
+        }
+
         codeView.reHighlightSyntax()
         undoRedoManager.clearHistory()
         isDirty = false
     }
 
-    private fun save() {
+    private fun saveAndClose(force: Boolean) {
+        if(!save(force))
+            return
+        setOkResult()
+        finish()
+    }
+
+    private fun save(force: Boolean): Boolean {
         try {
-            File(path).writeText(codeView.text.toString())
+            if (mode == MMKVUtils.EditorMode.JSON) {
+                val formatted = try {
+                    val mapper = ObjectMapper()
+                    val json = mapper.readValue(codeView.text.toString(), Object::class.java)
+                    val compact = mapper.writeValueAsString(json)
+                    compact
+                }
+                catch (e: Exception) {
+                    if (!force) {
+                        showYesNoAlert(
+                            "Invalid JSON",
+                            "The JSON content is invalid. Do you want to save it anyway?\n\nReason: ${e.message}",
+                            "Save",
+                            "Cancel"
+                        ) {
+                            if (it) {
+                                saveAndClose(true)
+                            }
+                        }
+                        return false
+                    }
+                    codeView.text.toString()
+                }
+
+                File(path).writeText(formatted)
+            } else {
+                File(path).writeText(codeView.text.toString())
+            }
             isDirty = false
         } catch(e: Exception) {
             Log.e(e, "Failed to write file: $path")
             toast(getString(R.string.editor_open_fail))
             finish()
         }
+        return true
     }
 
     @SuppressLint("SetTextI18n")
@@ -215,23 +266,6 @@ class TextEditorActivity : AppCompatActivity() {
         codeView.enablePairComplete(true)
         codeView.enablePairCompleteCenterCursor(false)
 
-        configLanguage()
-    }
-
-    private fun configLanguage() {
-        // Setup the language
-        if (mode == MMKVUtils.EditorMode.JSON) {
-            val language = JsonLanguage(this, codeView)
-            codeView.setIndentationStarts(language.indentationStarts)
-            codeView.setIndentationEnds(language.indentationEnds)
-        }
-        else {
-            codeView.resetSyntaxPatternList()
-            codeView.resetHighlighter()
-            codeView.setIndentationStarts(null)
-            codeView.setIndentationEnds(null)
-        }
-
         codeView.setTextColor(getColor(android.R.color.black))
         codeView.setBackgroundColor(getColor(android.R.color.white))
     }
@@ -277,9 +311,7 @@ class TextEditorActivity : AppCompatActivity() {
                     toast(getString(R.string.editor_cannot_redo))
             }
             R.id.text_save -> {
-                save()
-                setOkResult()
-                finish()
+                saveAndClose(false)
             }
             R.id.fontSize -> changeFontSize()
         }
@@ -358,6 +390,7 @@ class TextEditorActivity : AppCompatActivity() {
                 val outputFile = File.createTempFile("editor_${key.take(5)}", null, context.cacheDir);
                 outputFile.writeText(content)
                 putExtra(EXTRA_TARGET_FILE, outputFile.absolutePath)
+                Log.e("MODE: ${mode.name}")
                 putExtra(EXTRA_MODE, mode.name)
                 putExtra(EXTRA_KEY, key)
                 putExtra(EXTRA_HANDLE, handle)

@@ -130,12 +130,9 @@ object MMKVUtils {
     }
 
     fun IMMKVAccessService.resolveValue(handle: String?, key: String, truncate: Boolean, type: KnownTypes? = null): Any? {
-        val type = type?.typeClass ?:
-            knownTypes[key]
-            ?: knownTypesForPrefixes.entries.find { key.startsWith(it.key) }?.value
-            ?: tryResolveType(handle, key)
+        val resolvedType = type ?: resolveType(handle, key)
 
-        return when (type) {
+        return when (resolvedType?.typeClass) {
             String::class -> if (!truncate) getString(handle, key) else getTruncatedString(handle, key, 200)
             Set::class -> if (!truncate) getStringSet(handle, key) else getTruncatedStringSet(handle, key, 200)
             Int::class -> getInt(handle, key)
@@ -146,19 +143,25 @@ object MMKVUtils {
         }
     }
 
-    fun IMMKVAccessService.tryResolveType(handle: String?, key: String): KClass<*>? {
+    fun IMMKVAccessService.resolveType(handle: String?, key: String): KnownTypes? {
+        return knownTypes[key]
+            ?: knownTypesForPrefixes.entries.find { key.startsWith(it.key) }?.value
+            ?: tryGuessType(handle, key)
+    }
+
+    fun IMMKVAccessService.tryGuessType(handle: String?, key: String): KnownTypes? {
         val size = getValueActualSize(handle, key)
         val strVal by lazy { getTruncatedString(handle, key, 2000) }
 
         return when {
             size == 0 -> null // empty; unknown type
-            size <= 4 -> Int::class // warning: could also be a float or boolean
-            size <= 8 -> Long::class // warning: could also be a double
+            size <= 4 -> KnownTypes.INT // warning: could also be a float or boolean
+            size <= 8 -> KnownTypes.LONG // warning: could also be a double
             // If it's String-like with control characters, it's likely a set because each
             // string entry has a int32 length field which would may be parsed as non-printable chars
-            strVal?.any { ch -> ch.isISOControl() } == true -> Set::class
+            strVal?.any { ch -> ch.isISOControl() } == true -> KnownTypes.STRING_SET
             // Otherwise, it's likely a string
-            else -> String::class
+            else -> KnownTypes.STRING
         }
     }
 }
