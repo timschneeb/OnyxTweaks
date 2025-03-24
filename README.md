@@ -114,6 +114,8 @@ Then enable Zygisk in Magisk Manager and install the [LSPosed Magisk module](htt
 
 See [releases](https://github.com/timschneeb/OnyxTweaks) for downloads.
 
+This module is also published in the LSPosed module repository and can be downloaded within LSPosed Manager.
+
 <!--TODO
 This app is available for free on Google Play: [https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks)
 
