@@ -57,7 +57,7 @@
     <string name="mmkv_editor">System config editor</string>
     <string name="mmkv_editor_summary"><![CDATA[View & edit MMKV configuration files]]></string>
     <string name="misc_settings">Miscellaneous</string>
-    <string name="misc_settings_summary">Crash reports, other actions</string>
+    <string name="misc_settings_summary">Other actions</string>
     <string name="about_settings">About</string>
     <string name="about_settings_summary">Credits, support, updates</string>
 
