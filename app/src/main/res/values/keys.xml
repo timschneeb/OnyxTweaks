@@ -69,7 +69,6 @@
 
     <!-- Misc -->
     <string name="key_misc_open_stock_settings" translatable="false">misc_open_stock_settings</string>
-    <string name="key_misc_privacy_share_crash_reports" translatable="false">share_misc_crash_reports</string>
 
     <!-- Editor -->
     <string name="key_editor_font_size">editor_font_size</string>

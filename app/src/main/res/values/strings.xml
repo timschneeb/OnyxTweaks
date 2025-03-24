@@ -195,9 +195,6 @@
     <string name="misc_mmkv_editor">MMKV editor</string>
     <string name="misc_mmkv_always_auto_detect_unknown_types">Always auto-detect unknown value types, if possible</string>
     <string name="misc_mmkv_always_auto_detect_unknown_types_summary">Instead of a showing type selection dialog for unknown types, always auto-detect the value type (may be inaccurate)</string>
-    <string name="misc_privacy">Privacy</string>
-    <string name="misc_privacy_share_crash_reports">Share anonymous crash reports</string>
-    <string name="misc_privacy_share_crash_reports_summary">Helps the developer to fix crashes and incompatibilities on other Onyx Boox devices</string>
 
     <!-- MMKV config -->
     <string name="mmkv_select_mmkv_source">Select MMKV source</string>

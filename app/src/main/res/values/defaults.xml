@@ -62,7 +62,6 @@
 
     <!-- Misc -->
     <bool name="default_misc_mmkv_always_auto_detect_unknown_types" translatable="false">false</bool>
-    <bool name="default_misc_privacy_share_crash_reports" translatable="false">true</bool>
 
     <!-- Editor -->
     <integer name="default_editor_font_size">14</integer>
