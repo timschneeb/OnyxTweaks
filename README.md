@@ -98,10 +98,14 @@ Panel
 
 The app also includes an editor for the MMKV file format. It is used in Onyx apps and by the system to store configuration data.
 
-This component works without Xposed but requires root.
+This component works without Xposed but requires root access.
 
 ## Downloads
 
+To use this module, you must first root your device using Magisk. See the [mobileread.com](https://mobileread.com) forum for guides.
+Then enable Zygisk in Magisk Manager and install the [LSPosed Magisk module](https://github.com/JingMatrix/LSPosed/releases).
+
+See [releases](https://github.com/timschneeb/OnyxTweaks) for downloads.
 
 <!--TODO
 This app is available for free on Google Play: [https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks)
