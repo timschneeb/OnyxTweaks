@@ -52,10 +52,20 @@
         app:allowDividerBelow="true" />
 
     <Preference
+        app:title="@string/donate"
+        app:summary="@string/donate_summary"
+        app:icon="@drawable/ic_twotone_favorite_24dp"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://ko-fi.com/thepbone" />
+    </Preference>
+    <Preference
         app:title="@string/about_settings"
         app:summary="@string/about_settings_summary"
         app:icon="@drawable/ic_twotone_help_24dp"
-        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsAboutFragment"
-        app:allowDividerAbove="true" />
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsAboutFragment" />
 
 </PreferenceScreen>
