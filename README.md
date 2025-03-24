@@ -1,0 +1,120 @@
+<h1 align="center">
+  <img alt="Icon" width="75" src="https://github.com/timschneeb/OnyxTweaks/blob/main/fastlane/metadata/android/en-US/images/icon.png?raw=true">
+  <br>
+  OnyxTweaks
+  <br>
+</h1>
+<h4 align="center">Xposed module for modding the Onyx Boox Go Color 7 (Android 12) and similar devices</h4>
+<p align="center">
+  <!-- TODO <a href="https://play.google.com/store/apps/details?id=me.timschneeberger.rootlessjamesdsp&utm_source=github&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+  	<img alt="Google play release" src="https://img.shields.io/github/v/release/ThePBone/RootlessJamesDSP?label=google%20play">
+  </a>
+  <a href="https://f-droid.org/packages/me.timschneeberger.rootlessjamesdsp/">
+  	<img alt="F-Droid release" src="https://img.shields.io/f-droid/v/me.timschneeberger.rootlessjamesdsp">
+  </a>-->
+  <a href="https://github.com/timschneeb/OnyxTweaks/blob/master/LICENSE">
+      <img alt="License" src="https://img.shields.io/github/license/timschneeb/OnyxTweaks">
+  </a>
+
+
+</p>
+<p align="center">
+  <a href="#compatibility">Compatibility</a> •
+  <a href="#features">Features</a> •
+  <a href="#downloads">Downloads</a> •
+  <a href="#screenshots">Screenshots</a>
+</p>
+
+
+<p align="center">
+   <img alt="Screenshot" width="250" src="img/screenshot1.png">
+   <img alt="Screenshot" width="250" src="img/screenshot7.png">
+</p>
+
+## Compatibility
+This Xposed module was primarily designed for my Go Color 7 running the Beta 4.0 firmware with Android 12. 
+I cannot guarantee full compatibility with other Boox models, especially if they do not run the 4.0 beta firmware.
+
+## Features
+
+This module unlocks several features only available on high-end devices with larger screens than my Go Color 7. It also adds various other mods to the SystemUI, Android Framework, and Onyx Launcher.
+
+### Onyx Launcher
+
+Widgets
+* Unlock widget support on all devices
+* Unlock smart assistant (dedicated launcher page for widgets); also allows non-Onyx widgets to be added
+
+Desktop
+* Unlock the app dock on all devices
+* Wallpaper support
+* Customize dock & desktop grid size
+* Show hidden apps (Android stock settings, stock file manager, etc.)
+* Hide app labels
+
+Function bar
+* Hide function bar items (Shop, Library, etc...)
+* Change function bar item alignment & position
+
+Onyx settings
+* Show physical keyboard/mouse settings section on all devices
+* Add additional shortcuts to App settings, app freeze manager, screensaver, and app usage statistics
+
+### Status Bar
+
+Notifications
+* Enable heads-up notifications
+* Set maximum visible notification icons
+* Remove notification icon borders
+* ...and minor notification panel changes
+
+Status icons
+* Show current e-Ink refresh mode as a status icon
+* Show current touch/stylus mode as a status icon
+* Hide wi-fi activity indicators (arrows)
+
+### Quick settings
+
+Header
+* Show user switcher button
+* Show the settings button, and optionally redirect to Android's stock settings
+
+Panel
+* Compact panel style (top right only, instead of using the full-screen height)
+* Customize QS grid size
+* Remove minimum tile count restriction
+* Show B/W mode tile on all devices
+
+### Recents
+
+* Customize grid size & spacing
+* Restore stock Android item header styles
+
+### e-Ink Center
+
+* Allow regal mode everywhere, for example in certain system apps 
+
+### MMKV system config editor
+
+The app also includes an editor for the MMKV file format. It is used in Onyx apps and by the system to store configuration data.
+
+This component works without Xposed but requires root.
+
+## Downloads
+
+
+<!--TODO
+This app is available for free on Google Play: [https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks)
+
+Also available on F-Droid: https://f-droid.org/packages/me.timschneeberger.onyxtweaks/
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/me.timschneeberger.onyxtweaks/)
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+    alt="Get it on Google Play"
+    height="80">](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks&utm_source=github&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+-->
+
+## Screenshots
+
