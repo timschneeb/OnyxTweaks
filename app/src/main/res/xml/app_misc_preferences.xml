@@ -15,6 +15,18 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/misc_mmkv_editor"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_misc_mmkv_always_auto_detect_unknown_types"
+            android:defaultValue="@bool/default_misc_mmkv_always_auto_detect_unknown_types"
+            android:title="@string/misc_mmkv_always_auto_detect_unknown_types"
+            android:summary="@string/misc_mmkv_always_auto_detect_unknown_types_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/misc_privacy"
         app:iconSpaceReserved="false">
 

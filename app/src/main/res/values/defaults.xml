@@ -61,6 +61,7 @@
     <bool name="default_eink_center_always_show_regal_mode" translatable="false">false</bool>
 
     <!-- Misc -->
+    <bool name="default_misc_mmkv_always_auto_detect_unknown_types" translatable="false">false</bool>
     <bool name="default_misc_privacy_share_crash_reports" translatable="false">true</bool>
 
     <!-- Editor -->

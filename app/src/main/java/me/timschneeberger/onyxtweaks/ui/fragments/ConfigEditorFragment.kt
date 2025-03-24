@@ -21,6 +21,7 @@ import me.timschneeberger.onyxtweaks.ui.utils.showInputAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showSingleChoiceAlert
 import me.timschneeberger.onyxtweaks.ui.utils.showYesNoAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Preferences
 
 
 @PreferenceGroup(PreferenceGroups.NONE)
@@ -213,7 +214,9 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                 null
         }
 
-        if(hasKnownType && resolvedType != null) {
+        val alwaysAutoDetect = Preferences(requireContext(), PreferenceGroups.MISC)
+            .get<Boolean>(R.string.key_misc_mmkv_always_auto_detect_unknown_types)
+        if((hasKnownType || alwaysAutoDetect) && resolvedType != null) {
             editItemAs(key, resolvedType, currentValue, onEdited)
         }
         else {

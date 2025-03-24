@@ -110,6 +110,7 @@ object MMKVUtils {
             "normal_user_config_screen_off_value" to KnownTypes.INT,
             "onyx_cert_info_cache_key" to KnownTypes.STRING,
             "onyx_current_home_tab_key" to KnownTypes.STRING, // FunctionConfig.Function enum
+            "settings_more_display_function_bar_icon_only_key" to KnownTypes.BOOLEAN,
             "settings_more_display_function_bar_right_display_key" to KnownTypes.BOOLEAN,
             "show_paste_local_file_to_netdisk_guid" to KnownTypes.BOOLEAN,
             "preinstall_filter_shortcuts" to KnownTypes.STRING_JSON, // JSON string list
@@ -117,6 +118,8 @@ object MMKVUtils {
             "key_secondary_screen_widgets" to KnownTypes.STRING_JSON, // Map<Integer, String>
             "key_quick_launcher_functions" to KnownTypes.STRING_JSON, // List<QuickLauncherModel>
             "key_bilibili_comic_tutorial_status" to KnownTypes.INT,
+            "global_search_history_key" to KnownTypes.STRING_JSON, // JSON string list
+            "file_adapter_type" to KnownTypes.INT,
 
             // Account
             "ONYX_ACCOUNT_AREA_CODE_KEY" to KnownTypes.STRING,
