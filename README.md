@@ -27,8 +27,12 @@
 
 
 <p align="center">
-   <img alt="Screenshot" width="250" src="img/screenshot1.png">
-   <img alt="Screenshot" width="250" src="img/screenshot7.png">
+   <img alt="Screenshot" width="250" src="screenshots/orig_launcher.png">
+   <img alt="Screenshot" width="250" src="screenshots/mod_launcher.png">
+</p>
+<p align="center">
+   <img alt="Screenshot" width="250" src="screenshots/orig_qs.png">
+   <img alt="Screenshot" width="250" src="screenshots/mod_qs.png">
 </p>
 
 ## Compatibility
