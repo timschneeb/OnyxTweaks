@@ -6,11 +6,11 @@
 </h1>
 <h4 align="center">Xposed module for modding the Onyx Boox Go Color 7 (Android 12) and similar devices</h4>
 <p align="center">
-  <!-- TODO <a href="https://play.google.com/store/apps/details?id=me.timschneeberger.rootlessjamesdsp&utm_source=github&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-  	<img alt="Google play release" src="https://img.shields.io/github/v/release/ThePBone/RootlessJamesDSP?label=google%20play">
+  <a href="https://github.com/timschneeb/OnyxTweaks/releases">
+  	<img alt="Release" src="https://img.shields.io/github/v/release/timschneeb/OnyxTweaks">
   </a>
-  <a href="https://f-droid.org/packages/me.timschneeberger.rootlessjamesdsp/">
-  	<img alt="F-Droid release" src="https://img.shields.io/f-droid/v/me.timschneeberger.rootlessjamesdsp">
+  <!--<a href="https://f-droid.org/packages/me.timschneeberger.onyxtweaks/">
+  	<img alt="F-Droid release" src="https://img.shields.io/f-droid/v/me.timschneeberger.onyxtweaks">
   </a>-->
   <a href="https://github.com/timschneeb/OnyxTweaks/blob/master/LICENSE">
       <img alt="License" src="https://img.shields.io/github/license/timschneeb/OnyxTweaks">
@@ -21,8 +21,7 @@
 <p align="center">
   <a href="#compatibility">Compatibility</a> •
   <a href="#features">Features</a> •
-  <a href="#downloads">Downloads</a> •
-  <a href="#screenshots">Screenshots</a>
+  <a href="#downloads">Downloads</a>
 </p>
 
 
@@ -34,6 +33,10 @@
    <img alt="Screenshot" width="250" src="screenshots/orig_qs.png">
    <img alt="Screenshot" width="250" src="screenshots/mod_qs.png">
 </p>
+<p align="center">
+  Before vs. after
+</p>
+
 
 ## Compatibility
 This Xposed module was primarily designed for my Go Color 7 running the Beta 4.0 firmware with Android 12. 
@@ -123,6 +126,3 @@ Also available on F-Droid: https://f-droid.org/packages/me.timschneeberger.onyxt
     alt="Get it on Google Play"
     height="80">](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks&utm_source=github&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 -->
-
-## Screenshots
-
