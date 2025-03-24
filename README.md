@@ -21,7 +21,8 @@
 <p align="center">
   <a href="#compatibility">Compatibility</a> •
   <a href="#features">Features</a> •
-  <a href="#downloads">Downloads</a>
+  <a href="#downloads">Downloads</a> •
+  <a href="#screenshots">Screenshots</a>
 </p>
 
 
@@ -115,6 +116,16 @@ Then enable Zygisk in Magisk Manager and install the [LSPosed Magisk module](htt
 See [releases](https://github.com/timschneeb/OnyxTweaks) for downloads.
 
 This module is also published in the LSPosed module repository and can be downloaded within LSPosed Manager.
+
+## Screenshots
+
+
+<p align="center">
+   <img alt="Screenshot" width="400" src="screenshots/1.png">
+   <img alt="Screenshot" width="400" src="screenshots/2.png">
+   <img alt="Screenshot" width="400" src="screenshots/3.png">
+   <img alt="Screenshot" width="400" src="screenshots/4.png">
+</p>
 
 <!--TODO
 This app is available for free on Google Play: [https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks)
