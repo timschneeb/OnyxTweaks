@@ -154,6 +154,13 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
             service.allKeys(handle)
                 .apply { sort() }
+                .also {
+                    it.forEach { string ->
+                        // TODO remove this
+                        if(!MMKVUtils.isKnownType(string))
+                            Log.e("Unknown key type: $string ")
+                    }
+                }
                 .forEach { key ->
                     root.addPreference(
                         DeletablePreference(requireContext()).apply {
