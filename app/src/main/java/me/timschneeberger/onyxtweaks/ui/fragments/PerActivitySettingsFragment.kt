@@ -20,9 +20,9 @@ import me.timschneeberger.onyxtweaks.ui.model.ActivityItemViewModel
 import me.timschneeberger.onyxtweaks.ui.model.ActivityRule
 import me.timschneeberger.onyxtweaks.ui.model.AppInfo
 import me.timschneeberger.onyxtweaks.ui.model.AppItemViewModel
-import me.timschneeberger.onyxtweaks.ui.model.ItemViewModel
 import me.timschneeberger.onyxtweaks.ui.preferences.DeletablePreference
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.toast
 import me.timschneeberger.onyxtweaks.ui.utils.showSingleChoiceAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
@@ -158,22 +158,22 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
     }
 
     private fun onAppSelected(appInfo: AppInfo) {
-        Log.e("Selected app: ${appInfo.appName}, ${appInfo.packageName}")
-
-        val rules = readRules().toMutableList()
-        rules.add(ActivityRule.fromApp(appInfo.packageName, appInfo.appName))
-        saveRules(rules)
-
-        refreshList()
+        addRule(ActivityRule.fromApp(appInfo.packageName, appInfo.appName))
     }
 
     private fun onActivitySelected(activityInfo: ActivityInfo) {
-        Log.e("Selected activity: ${activityInfo.activityClass}, ${activityInfo.activityName}")
+        addRule(ActivityRule.fromActivityInfo(requireContext(), activityInfo))
+    }
 
+    private fun addRule(rule: ActivityRule) {
         val rules = readRules().toMutableList()
-        rules.add(ActivityRule.fromActivityInfo(requireContext(), activityInfo))
-        saveRules(rules)
+        if(rules.any { it.packageName == rule.packageName && it.activityClass == rule.activityClass }) {
+            requireContext().toast("Entry already exists")
+            return
+        }
 
+        rules.add(rule)
+        saveRules(rules)
         refreshList()
     }
 
