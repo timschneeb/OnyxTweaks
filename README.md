@@ -45,7 +45,7 @@ I cannot guarantee full compatibility with other Boox models, especially if they
 
 ## Features
 
-This module unlocks several features only available on high-end devices with larger screens than my Go Color 7. It also adds various other mods to the SystemUI, Android Framework, and Onyx Launcher.
+This module unlocks several features that are only available on high-end devices with screens larger than my Go Color 7. It also adds other mods to the SystemUI, Android Framework, and Onyx Launcher.
 
 ### Onyx Launcher
 
@@ -98,9 +98,11 @@ Panel
 * Customize grid size & spacing
 * Restore stock Android item header styles
 
-### e-Ink Center
+### e-Ink optimizations
 
-* Allow regal mode everywhere, for example in certain system apps 
+* Allow regal mode everywhere, for example, in certain system apps
+* Assign different refresh modes to each activity within an app
+   * For example, you could set it up to switch to Regal mode when an app has its reader activity open, while using fast mode for the book selection screens, which might feature lots of scrolling elements.
 
 ### MMKV system config editor
 
