@@ -55,13 +55,13 @@ Widgets
 
 Desktop
 * Unlock the app dock on all devices
-* Wallpaper support
+* Wallpaper support (including in 3rd-party launchers)
 * Customize dock & desktop grid size
 * Show hidden apps (Android stock settings, stock file manager, etc.)
 * Hide app labels
 
 Function bar
-* Hide function bar items (Shop, Library, etc...)
+* Hide function bar items (Shop, Library, etc)
 * Change function bar item alignment & position
 
 Onyx settings
