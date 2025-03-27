@@ -102,7 +102,7 @@ Panel
 
 * Allow regal mode everywhere, for example, in certain system apps
 * Assign different refresh modes to each activity within an app
-   * For example, you could set it up to switch to Regal mode when an app has its reader activity open, while using fast mode for the book selection screens, which might feature lots of scrolling elements.
+   * For example, you could set it up to switch to Regal mode when an app has its reader activity open and use fast mode for the book library screens, which might feature lots of scrolling elements & lists.
 
 ### MMKV system config editor
 
