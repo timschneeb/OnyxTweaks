@@ -65,4 +65,7 @@
 
     <!-- Editor -->
     <integer name="default_editor_font_size">14</integer>
+
+    <!-- Per-activity settings -->
+    <string name="default_per_activity_settings" translatable="false">[]</string>
 </resources>

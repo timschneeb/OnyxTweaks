@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dev.rikka.tools.refine") version "4.4.0"
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 val releaseStoreFile: String? by rootProject
@@ -96,10 +97,12 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.tencent:mmkv:2.1.0")
@@ -110,6 +113,8 @@ dependencies {
     implementation("com.github.ChickenHook:RestrictionBypass:2.2")
     implementation("dev.rikka.tools.refine:runtime:4.4.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
+
+    implementation("com.onyx.android.sdk:onyxsdk-device:1.2.30")
 
     implementation(project(":codeview"))
 

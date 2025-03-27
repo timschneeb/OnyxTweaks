@@ -69,8 +69,11 @@
 
     <!-- Misc -->
     <string name="key_misc_open_stock_settings" translatable="false">misc_open_stock_settings</string>
+    <string name="key_misc_mmkv_always_auto_detect_unknown_types">misc_mmkv_always_auto_detect_unknown_types</string>
 
     <!-- Editor -->
     <string name="key_editor_font_size">editor_font_size</string>
 
+    <!-- Per-activity settings -->
+    <string name="key_per_activity_settings">per_activity_settings</string>
 </resources>

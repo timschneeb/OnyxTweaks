@@ -25,8 +25,9 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
     ABOUT(R.xml.app_about_preferences, "app_about_preferences"),
     NONE(R.xml.app_empty_preferences, ""),
 
-    // Without preferences fragments
-    TEXT_EDITOR(0, "app_text_editor"),
+    // Without directly attached preference fragments
+    TEXT_EDITOR(R.xml.app_empty_preferences, "app_text_editor"),
+    PER_ACTIVITY_SETTINGS(R.xml.app_empty_preferences, "app_per_activity_settings"),
 }
 
 /**
@@ -38,7 +39,10 @@ class XPreferences(group: PreferenceGroups) : BasePreferences() {
     override val resources get() = moduleRes
 
     override val prefs: SharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, group.prefName).also { it ->
-        if(!it.file.exists())
+        if (group == PreferenceGroups.NONE)
+            return@also
+
+        if (!it.file.exists())
             Log.ix("'${group.prefName}' not yet created. Using defaults.")
         else if (!it.file.canRead())
             Log.ex("CRITICAL: Preferences file '${group.prefName}' not readable")

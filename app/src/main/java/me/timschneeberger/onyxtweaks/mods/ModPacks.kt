@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods
 
+import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
 import me.timschneeberger.onyxtweaks.mods.launcher.AddFunctionBarSpacer
 import me.timschneeberger.onyxtweaks.mods.launcher.AddLauncherSettingsMenu
 import me.timschneeberger.onyxtweaks.mods.launcher.AddSettingCategories
@@ -34,6 +35,9 @@ import me.timschneeberger.onyxtweaks.mods.systemui.SystemUiLifecycleHook
 
 object ModPacks {
     val available = arrayOf(
+        // Global
+        PerActivityRefreshModes::class,
+
         // Launcher
         AddFunctionBarSpacer::class,
         AddLauncherSettingsMenu::class,

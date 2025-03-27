@@ -13,8 +13,6 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.ModManager
 import me.timschneeberger.onyxtweaks.utils.CustomLogger
 
-// TODO: set refresh mode based on activity
-
 class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXposedHookLoadPackage {
     private var modManager: ModManager = ModManager()
 

@@ -11,4 +11,15 @@
             android:summary="@string/eink_center_always_show_regal_mode_summary"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/eink_rules"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:title="@string/eink_per_activity_refresh_mode"
+            app:summary="@string/eink_per_activity_refresh_mode_summary"
+            app:iconSpaceReserved="false"
+            app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.PerActivitySettingsFragment" />
+    </PreferenceCategory>
 </PreferenceScreen>

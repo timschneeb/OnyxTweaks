@@ -1,6 +1,7 @@
-package me.timschneeberger.onyxtweaks.mods.utils.wrappers
+package me.timschneeberger.onyxtweaks.mods.utils.unused
 
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.wrappers.ObjectWrapper
 
 class OnyxSystemConfigWrapper(
     item: Any

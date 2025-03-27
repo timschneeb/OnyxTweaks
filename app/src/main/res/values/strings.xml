@@ -189,6 +189,9 @@
     <string name="eink_center">e-Ink Center</string>
     <string name="eink_center_always_show_regal_mode">Always show regal mode</string>
     <string name="eink_center_always_show_regal_mode_summary">Allow any app to be used in regal mode, even in system apps</string>
+    <string name="eink_rules">Custom rules</string>
+    <string name="eink_per_activity_refresh_mode">Per-activity refresh mode</string>
+    <string name="eink_per_activity_refresh_mode_summary">Custom refresh mode rules for specific app activities</string>
 
     <!-- Miscellaneous -->
     <string name="misc_shortcuts">Shortcuts</string>
@@ -220,5 +223,8 @@
     <string name="editor_cannot_undo">Nothing to undo.</string>
     <string name="editor_cannot_redo">Nothing to redo.</string>
     <string name="editor_text_size">Text size</string>
-    <string name="key_misc_mmkv_always_auto_detect_unknown_types">misc_mmkv_always_auto_detect_unknown_types</string>
+
+    <!-- App list -->
+    <string name="app_list_loading">Loading apps…</string>
+    <string name="app_list_search">Search</string>
 </resources>

@@ -18,6 +18,7 @@ allprojects {
         mavenCentral()
         maven(url = "https://api.xposed.info/")
         maven(url = "https://jitpack.io")
+        maven(url = "https://repo.boox.com/repository/maven-public/")
     }
 }
 

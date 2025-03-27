@@ -8,6 +8,7 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
@@ -81,7 +82,7 @@ class ModManager {
     private fun getPacksForPackage(packageName: String): List<ModPack> {
         synchronized(this) {
             runningMods
-                .filter { it.targetPackages.contains(packageName) }
+                .filter { it.targetPackages.contains(GLOBAL) || it.targetPackages.contains(packageName) }
                 .let {
                     if(it.isNotEmpty()) {
                         return it
@@ -89,7 +90,7 @@ class ModManager {
                 }
 
             return ModPacks.available
-                .filter { ModPack.getTargetPackages(it).contains(packageName) }
+                .filter { ModPack.getTargetPackages(it).let { pkgs -> pkgs.contains(GLOBAL) || pkgs.contains(packageName) } }
                 .map(::ensurePackInitialized)
         }
     }

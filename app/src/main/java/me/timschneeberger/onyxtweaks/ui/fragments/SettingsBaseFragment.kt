@@ -35,6 +35,9 @@ abstract class SettingsBaseFragment<T> : PreferenceFragmentCompat() where T : Ba
             ?: throw IllegalStateException("No PreferenceGroup annotation found on ${this::class.simpleName}")
     }
 
+    protected val dataStore: WorldReadableDataStore
+        get() = preferenceManager.preferenceDataStore as WorldReadableDataStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
