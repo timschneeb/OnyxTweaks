@@ -227,8 +227,8 @@ class TextEditorActivity : AppCompatActivity() {
         // Add input view
         binding.symbolInput.bindEditor(codeView)
         binding.symbolInput.addSymbols(
-            arrayOf("TAB", "(", ")", "[", "]", ",", ".", ";", "?", ":", "+", "-", "*", "/", "@", "\""),
-            arrayOf("\t",  "(", ")", "[", "]", ",", ".", ";", "?", ":", "+", "-", "*", "/", "@", "\"")
+            arrayOf("TAB", "(", ")", "{", "}", "[", "]", ",", ".", ";", "?", ":", "+", "-", "*", "/", "@", "\""),
+            arrayOf("\t",  "(", ")", "{", "}", ",", ".", ";", "?", ":", "+", "-", "*", "/", "@", "\"")
         )
         binding.symbolInput.forEachButton(object: SymbolInputView.ButtonConsumer {
             override fun accept(btn: Button) {
