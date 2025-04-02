@@ -13,6 +13,7 @@ class AddGrayscaleModeQsTile : ModPack() {
     override val group = PreferenceGroups.QS
 
     @SuppressLint("DiscouragedApi")
+    // TODO: use onPreferenceChanged if possible
     override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {
         if (!preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
             return

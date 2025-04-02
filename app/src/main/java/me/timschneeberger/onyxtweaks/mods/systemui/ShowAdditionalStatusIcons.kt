@@ -14,6 +14,7 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 class ShowAdditionalStatusIcons : ModPack() {
     override val group = PreferenceGroups.STATUS_BAR
 
+    // TODO: use onPreferenceChanged if possible
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.android.systemui.statusbar.phone.StatusBarIconControllerImpl")
             .firstByName("setIconVisibility")
