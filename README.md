@@ -1,3 +1,4 @@
+<!--suppress CheckImageSize, HtmlDeprecatedAttribute, HtmlUnknownAnchorTarget -->
 <h1 align="center">
   <img alt="Icon" width="75" src="https://github.com/timschneeb/OnyxTweaks/blob/main/fastlane/metadata/android/en-US/images/icon.png?raw=true">
   <br>
