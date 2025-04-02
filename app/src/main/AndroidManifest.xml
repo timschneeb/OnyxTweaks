@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <receiver
-            android:name=".receiver.ModEventReceiver"
+            android:name=".bridge.ExportedModEventReceiver"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver">

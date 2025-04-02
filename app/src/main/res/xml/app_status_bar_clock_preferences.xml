@@ -1,0 +1,88 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/status_bar_clock"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="@string/default_status_bar_clock_position"
+            android:entries="@array/status_bar_clock_position"
+            android:entryValues="@array/status_bar_clock_position_values"
+            android:key="@string/key_status_bar_clock_position"
+            android:title="@string/status_bar_clock_position"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:defaultValue="@string/default_status_bar_clock_am_pm_style"
+            android:entries="@array/status_bar_clock_am_pm_style"
+            android:entryValues="@array/status_bar_clock_am_pm_style_values"
+            android:key="@string/key_status_bar_clock_am_pm_style"
+            android:title="@string/status_bar_clock_am_pm_style"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/status_bar_date"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="@string/default_status_bar_day_week"
+            android:entries="@array/status_bar_day_week"
+            android:entryValues="@array/status_bar_day_week_values"
+            android:key="@string/key_status_bar_day_week"
+            android:title="@string/status_bar_date_day_of_week_options"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/status_bar_date_advanced"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/key_status_bar_date_custom_string_documentation"
+            android:title="@string/status_bar_date_custom_string_documentation"
+            android:summary="@string/status_bar_date_custom_string_documentation_summary"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_status_bar_date_custom_date_before"
+            android:key="@string/key_status_bar_date_custom_date_before"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/status_bar_date_custom_date_before"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:defaultValue="@bool/default_status_bar_date_small_before"
+            android:key="@string/key_status_bar_date_small_before"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/status_bar_date_small"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_status_bar_date_custom_date_after"
+            android:key="@string/key_status_bar_date_custom_date_after"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/status_bar_date_custom_date_after"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:defaultValue="@bool/default_status_bar_date_small_after"
+            android:key="@string/key_status_bar_date_small_after"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/status_bar_date_small"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

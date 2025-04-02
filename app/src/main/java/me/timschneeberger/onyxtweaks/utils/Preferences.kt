@@ -18,6 +18,7 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
     ROOT(R.xml.app_preferences, "app_preferences"),
     LAUNCHER(R.xml.app_launcher_preferences, "app_launcher_preferences"),
     STATUS_BAR(R.xml.app_status_bar_preferences, "app_status_bar_preferences"),
+    STATUS_BAR_CLOCK(R.xml.app_status_bar_clock_preferences, "app_status_bar_clock_preferences"),
     QS(R.xml.app_qs_preferences, "app_qs_preferences"),
     RECENTS(R.xml.app_recents_preferences, "app_recents_preferences"),
     EINK(R.xml.app_eink_opt_preferences, "app_eink_opt_preferences"),

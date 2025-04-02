@@ -60,6 +60,43 @@
         <item>visible</item>
     </string-array>
 
+    <string-array name="status_bar_clock_position">
+        <item>@string/status_bar_clock_default</item>
+        <item>@string/status_bar_clock_center</item>
+        <item>@string/status_bar_clock_right</item>
+    </string-array>
+    <string-array name="status_bar_clock_position_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="status_bar_clock_am_pm_style">
+        <item>@string/status_bar_clock_am_pm_default</item>
+        <item>@string/status_bar_clock_am_pm_normal</item>
+        <item>@string/status_bar_clock_am_pm_small</item>
+    </string-array>
+    <string-array name="status_bar_clock_am_pm_style_values">
+        <item>2</item>
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="status_bar_day_week">
+        <item>@string/status_bar_date_default</item>
+        <item>@string/status_bar_date_before</item>
+        <item>@string/status_bar_date_before_small</item>
+        <item>@string/status_bar_date_after</item>
+        <item>@string/status_bar_date_after_small</item>
+    </string-array>
+    <string-array name="status_bar_day_week_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <string-array name="qs_settings_button_actions" translatable="false">
         <item>@string/qs_header_settings_button_action_onyx_settings</item>
         <item>@string/qs_header_settings_button_action_stock_settings</item>

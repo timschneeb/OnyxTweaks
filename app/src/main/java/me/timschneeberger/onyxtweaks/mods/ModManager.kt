@@ -8,6 +8,7 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import me.timschneeberger.onyxtweaks.bridge.registerModEventReceiver
 import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
@@ -75,6 +76,7 @@ class ModManager {
         getPacksForPackage(param.packageName)
             .forEach { pack ->
                 Log.dx("Initializing mod pack: ${pack::class.java.simpleName}")
+                context.registerModEventReceiver(pack)
                 param.runSafely(pack::handleLoadPackage)
             }
     }

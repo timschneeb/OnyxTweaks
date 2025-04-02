@@ -1,6 +1,13 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        app:title="@string/status_bar_clock_settings"
+        app:summary="@string/status_bar_clock_settings_summary"
+        app:icon="@drawable/ic_twotone_access_time_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsStatusBarClockFragment"
+        app:allowDividerBelow="true" />
+
     <PreferenceCategory
         app:title="@string/status_bar_notifications"
         app:iconSpaceReserved="false">

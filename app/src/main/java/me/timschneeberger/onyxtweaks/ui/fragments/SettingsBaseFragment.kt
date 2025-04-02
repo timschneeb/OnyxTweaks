@@ -5,6 +5,7 @@ import android.text.method.DigitsKeyListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.PluralsRes
 import androidx.preference.EditTextPreference
 import androidx.preference.MultiSelectListPreference
@@ -14,6 +15,8 @@ import com.github.kyuubiran.ezxhelper.Log
 import com.google.android.material.transition.MaterialSharedAxis
 import me.timschneeberger.onyxtweaks.OnyxTweakApp
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver.Companion.sendEvent
+import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.ui.activities.BasePreferenceActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.preferences.WorldReadableDataStore
@@ -79,8 +82,15 @@ abstract class SettingsBaseFragment<T> : PreferenceFragmentCompat() where T : Ba
         dataStore?.onDataStoreModified = ::onPreferenceChanged
     }
 
-    open fun onConfigurePreferences() {}
-    open fun onPreferenceChanged(key: String) {}
+    protected open fun onConfigurePreferences() {}
+
+    @CallSuper
+    protected open fun onPreferenceChanged(key: String) {
+        requireContext().sendEvent(ModEvents.PREFERENCE_CHANGED, this::class, Bundle().apply {
+            putString(ModEvents.ARG_PREF_GROUP, group.name)
+            putString(ModEvents.ARG_PREF_KEY, key)
+        })
+    }
 
     protected fun requestPackageRestart(packageName: String) =
         parentActivity?.requestPackageRestart(packageName)

@@ -5,33 +5,40 @@ import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
-import me.timschneeberger.onyxtweaks.receiver.ModEventReceiver
-import me.timschneeberger.onyxtweaks.receiver.ModEvents
+import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver
+import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver.Companion.createEventIntent
+import me.timschneeberger.onyxtweaks.bridge.ModEvents
+import me.timschneeberger.onyxtweaks.bridge.OnModEventReceived
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.XPreferences
 import kotlin.reflect.KClass
 
-abstract class ModPack {
+abstract class ModPack : OnModEventReceived {
     abstract val group: PreferenceGroups
 
     val targetPackages by lazy { getTargetPackages(this::class) }
-    val preferences by lazy { XPreferences(group).also {
-        it.onPreferencesChanged = ::onPreferencesChanged
-    }}
+    val preferences by lazy { XPreferences(group) }
 
-    fun sendBroadcast(event: ModEvents, extras: Bundle? = null) {
-        EzXHelper.appContext.sendBroadcast(ModEventReceiver.createIntent(event, extras))
+    override var modEventReceiver: ModEventReceiver? = null
+
+    fun sendEvent(event: ModEvents, extras: Bundle? = null) {
+        EzXHelper.appContext.sendBroadcast(createEventIntent(event, extras))
+    }
+
+    final override fun onPreferenceGroupChanged(group: PreferenceGroups, key: String?) {
+        if (group == this.group) {
+            onPreferencesChanged(key)
+            key?.let { Log.dx("Preference changed: $it") }
+        }
     }
 
     /**
      * Called when a preference is changed.
      *
      * @param key the key of the preference that was changed
-     *            or null if all preferences were changed during initialization
+     *            or null if all or multiple preferences were changed
      */
-    open fun onPreferencesChanged(key: String?) {
-        Log.dx("Preference changed: $key")
-    }
+    open fun onPreferencesChanged(key: String?) {}
 
     /**
      * Handle the loading of a package.

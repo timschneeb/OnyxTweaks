@@ -179,7 +179,7 @@ private fun getFields(clazz: Class<*>): List<Field> {
         }
     }
     catch (e: Exception) {
-        Log.e("Error getting fields for class ${clazz.simpleName}: $e")
+        Log.ex("Error getting fields for class ${clazz.simpleName}: $e")
     }
     return fields
 }

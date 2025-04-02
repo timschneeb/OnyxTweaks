@@ -129,6 +129,10 @@ This module is also published in the LSPosed module repository and can be downlo
    <img alt="Screenshot" width="400" src="screenshots/4.png">
 </p>
 
+## Acknowledgements
+
+* Status bar clock related mods were adapted from: [PixelXpert](https://github.com/siavash79/PixelXpert/) by [siavash79](https://github.com/siavash79/)
+
 <!--TODO
 This app is available for free on Google Play: [https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks](https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks)
 

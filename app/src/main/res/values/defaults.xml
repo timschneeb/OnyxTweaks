@@ -31,6 +31,13 @@
     <bool name="default_status_bar_notifications_heads_up" translatable="false">false</bool>
     <bool name="default_status_bar_notifications_enable_icon_colors" translatable="false">false</bool>
     <bool name="default_status_bar_notifications_move_header_to_bottom" translatable="false">false</bool>
+    <bool name="default_status_bar_date_small_before" translatable="false">false</bool>
+    <bool name="default_status_bar_date_small_after" translatable="false">false</bool>
+    <string name="default_status_bar_clock_position" translatable="false">0</string>
+    <string name="default_status_bar_clock_am_pm_style" translatable="false">2</string>
+    <string name="default_status_bar_day_week" translatable="false">0</string>
+    <string name="default_status_bar_date_custom_date_before" translatable="false" />
+    <string name="default_status_bar_date_custom_date_after" translatable="false" />
     <bool name="default_status_bar_status_icons_show_refresh_mode" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_touch_mode" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_wifi_activity" translatable="false">true</bool>
@@ -64,7 +71,7 @@
     <bool name="default_misc_mmkv_always_auto_detect_unknown_types" translatable="false">false</bool>
 
     <!-- Editor -->
-    <integer name="default_editor_font_size">14</integer>
+    <integer name="default_editor_font_size" translatable="false">14</integer>
 
     <!-- Per-activity settings -->
     <string name="default_per_activity_settings" translatable="false">[]</string>

@@ -1,6 +1,5 @@
 package me.timschneeberger.onyxtweaks.ui.activities
 
-import android.content.BroadcastReceiver
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -19,10 +18,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver
+import me.timschneeberger.onyxtweaks.bridge.OnModEventReceived
+import me.timschneeberger.onyxtweaks.bridge.registerModEventReceiver
+import me.timschneeberger.onyxtweaks.bridge.unregisterModEventReceiver
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
-import me.timschneeberger.onyxtweaks.receiver.OnModEventReceived
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSystemUi
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
@@ -35,7 +37,7 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
     private lateinit var binding: ActivitySettingsBinding
     private val modifiedPackages = mutableSetOf<String>()
 
-    override var modEventReceiver: BroadcastReceiver? = null
+    override var modEventReceiver: ModEventReceiver? = null
 
     abstract fun createRootFragment(): Fragment
     @get:StringRes
@@ -48,7 +50,7 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        registerModEventReceiver()
+        registerModEventReceiver(this)
 
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -110,7 +112,7 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterModEventReceiver()
+        unregisterModEventReceiver(this)
     }
 
     private fun onScrollButtonClicked(view: View) {
@@ -192,6 +194,10 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
     override fun onHookLoaded(packageName: String) {
         modifiedPackages.remove(packageName)
         updateStatusPanel()
+    }
+
+    override fun onRestartRequested(packageName: String) {
+        requestPackageRestart(packageName)
     }
 
     fun requestPackageRestart(packageName: String) {

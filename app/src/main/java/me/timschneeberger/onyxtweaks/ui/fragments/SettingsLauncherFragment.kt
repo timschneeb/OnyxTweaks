@@ -96,6 +96,7 @@ class SettingsLauncherFragment : SettingsBaseFragment<SettingsActivity>() {
     }
 
     override fun onPreferenceChanged(key: String) {
+        super.onPreferenceChanged(key)
         requestPackageRestart(
             when (key) {
                 getString(R.string.key_launcher_desktop_wallpaper) -> ZYGOTE_MARKER

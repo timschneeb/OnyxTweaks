@@ -1,14 +1,10 @@
 package me.timschneeberger.onyxtweaks.ui.utils
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.topjohnwu.superuser.Shell
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
@@ -52,16 +48,6 @@ object ContextExtensions {
     }
 
     private fun Context.killPackageSilently(pkgName: String) = runAsRoot("killall $pkgName")
-
-    val Context.localBroadcastManager get() = LocalBroadcastManager.getInstance(this)
-
-    fun Context.sendLocalBroadcast(intent: Intent) = localBroadcastManager.sendBroadcast(intent)
-
-    fun Context.registerLocalReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) =
-        localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter)
-
-    fun Context.unregisterLocalReceiver(broadcastReceiver: BroadcastReceiver) =
-        localBroadcastManager.unregisterReceiver(broadcastReceiver)
 
     fun Context.toast(@StringRes message: Int, long: Boolean = true) = Toast.makeText(this, getString(message),
         if(long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()

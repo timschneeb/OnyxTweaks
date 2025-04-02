@@ -31,6 +31,7 @@ import me.timschneeberger.onyxtweaks.mods.systemui.QuickTileGridSize
 import me.timschneeberger.onyxtweaks.mods.systemui.SetMaxNotificationIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowAdditionalStatusIcons
 import me.timschneeberger.onyxtweaks.mods.systemui.ShowWifiActivityIndicators
+import me.timschneeberger.onyxtweaks.mods.systemui.StatusBarClock
 import me.timschneeberger.onyxtweaks.mods.systemui.SystemUiLifecycleHook
 
 object ModPacks {
@@ -72,6 +73,7 @@ object ModPacks {
         SetMaxNotificationIcons::class,
         ShowAdditionalStatusIcons::class,
         ShowWifiActivityIndicators::class,
+        StatusBarClock::class,
 
         // Lifecycle hooks
         LauncherLifecycleHook::class,

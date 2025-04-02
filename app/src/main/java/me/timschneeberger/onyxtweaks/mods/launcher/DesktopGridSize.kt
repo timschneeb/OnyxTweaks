@@ -13,7 +13,7 @@ import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
-import me.timschneeberger.onyxtweaks.receiver.ModEvents
+import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -78,7 +78,7 @@ class DesktopGridSize : ModPack() {
                 .createBeforeHookCatching { param ->
                     if(param.args[0] == true) {
                         Log.ix("Launcher initialization finished. Sending broadcast")
-                        sendBroadcast(ModEvents.LAUNCHER_REINITIALIZED)
+                        sendEvent(ModEvents.LAUNCHER_REINITIALIZED)
                         isInitializing = false
                     }
                 }

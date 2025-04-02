@@ -6,7 +6,7 @@
     <string name="key_credits_google_play" translatable="false">credits_google_play</string>
 
     <!-- Static -->
-    <string name="key_mmkv_editor">mmkv_editor</string>
+    <string name="key_mmkv_editor" translatable="false">mmkv_editor</string>
 
     <!-- Internal -->
     <string name="key_launcher_reinit_flag" translatable="false">launcher_reinit_flag</string>
@@ -38,6 +38,14 @@
     <string name="key_status_bar_notifications_heads_up" translatable="false">status_bar_notifications_heads_up</string>
     <string name="key_status_bar_notifications_enable_icon_colors" translatable="false">status_bar_notifications_enable_icon_colors</string>
     <string name="key_status_bar_notifications_move_header_to_bottom" translatable="false">status_bar_notifications_move_header_to_bottom</string>
+    <string name="key_status_bar_clock_position" translatable="false">status_bar_clock_position</string>
+    <string name="key_status_bar_clock_am_pm_style" translatable="false">status_bar_clock_am_pm_style</string>
+    <string name="key_status_bar_day_week" translatable="false">status_bar_day_week</string>
+    <string name="key_status_bar_date_custom_string_documentation">status_bar_date_custom_string_documentation</string>
+    <string name="key_status_bar_date_small_after" translatable="false">status_bar_date_small_after</string>
+    <string name="key_status_bar_date_small_before" translatable="false">status_bar_date_small_before</string>
+    <string name="key_status_bar_date_custom_date_after" translatable="false">status_bar_date_custom_date_after</string>
+    <string name="key_status_bar_date_custom_date_before" translatable="false">status_bar_date_custom_date_before</string>
     <string name="key_status_bar_status_icons_show_refresh_mode" translatable="false">status_bar_status_icons_show_refresh_mode</string>
     <string name="key_status_bar_status_icons_show_touch_mode" translatable="false">status_bar_status_icons_show_touch_mode</string>
     <string name="key_status_bar_status_icons_show_wifi_activity" translatable="false">status_bar_status_icons_show_wifi_activity</string>
@@ -69,11 +77,11 @@
 
     <!-- Misc -->
     <string name="key_misc_open_stock_settings" translatable="false">misc_open_stock_settings</string>
-    <string name="key_misc_mmkv_always_auto_detect_unknown_types">misc_mmkv_always_auto_detect_unknown_types</string>
+    <string name="key_misc_mmkv_always_auto_detect_unknown_types" translatable="false">misc_mmkv_always_auto_detect_unknown_types</string>
 
     <!-- Editor -->
-    <string name="key_editor_font_size">editor_font_size</string>
+    <string name="key_editor_font_size" translatable="false">editor_font_size</string>
 
     <!-- Per-activity settings -->
-    <string name="key_per_activity_settings">per_activity_settings</string>
+    <string name="key_per_activity_settings" translatable="false">per_activity_settings</string>
 </resources>

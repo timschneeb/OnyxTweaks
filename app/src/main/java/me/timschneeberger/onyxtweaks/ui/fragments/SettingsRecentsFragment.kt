@@ -24,6 +24,7 @@ class SettingsRecentsFragment : SettingsBaseFragment<SettingsActivity>() {
     }
 
     override fun onPreferenceChanged(key: String) {
+        super.onPreferenceChanged(key)
         requestPackageRestart(SYSTEM_UI_PACKAGE)
     }
 }

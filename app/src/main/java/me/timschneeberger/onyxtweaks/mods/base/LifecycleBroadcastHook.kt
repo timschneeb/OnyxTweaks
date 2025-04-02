@@ -1,16 +1,20 @@
 package me.timschneeberger.onyxtweaks.mods.base
 
 import android.os.Bundle
-import me.timschneeberger.onyxtweaks.receiver.ModEvents
+import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.timschneeberger.onyxtweaks.bridge.ModEvents
+import me.timschneeberger.onyxtweaks.bridge.ModEvents.Companion.ARG_PACKAGE
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 abstract class LifecycleBroadcastHook : ModPack() {
-    fun broadcastOnHook(packageName: String) {
-        sendBroadcast(ModEvents.HOOK_LOADED, Bundle().apply {
-            putString(ARG_PACKAGE, packageName)
-        })
-    }
+    override val group = PreferenceGroups.MISC
 
-    companion object {
-        const val ARG_PACKAGE = "package"
+    final override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (!targetPackages.contains(lpParam.packageName))
+            return
+
+        sendEvent(ModEvents.HOOK_LOADED, Bundle().apply {
+            putString(ARG_PACKAGE, lpParam.packageName)
+        })
     }
 }
