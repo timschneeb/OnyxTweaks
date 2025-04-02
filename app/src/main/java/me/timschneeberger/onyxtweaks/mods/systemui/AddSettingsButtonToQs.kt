@@ -43,8 +43,8 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
             // Override action
             methodFinder()
                 .firstByName("startOnyxSettings")
-                .createReplaceHookCatching{ param ->
-                    val value = preferences.get<String>(R.string.key_qs_header_settings_button_action) // TODO disable restart requirement
+                .createReplaceHookCatching { param ->
+                    val value = preferences.get<String>(R.string.key_qs_header_settings_button_action)
                     when (value) {
                         "onyx_settings" -> param.invokeOriginalMethod()
                         "stock_settings" -> startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))

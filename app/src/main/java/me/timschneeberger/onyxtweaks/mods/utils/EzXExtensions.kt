@@ -57,6 +57,16 @@ fun <T> Method.replaceWithConstant(value: T?) {
     }
 }
 
+inline fun <reified T> Method.replaceCatchingWithExpression(crossinline block: () -> T) {
+    createHook {
+        replace { _ ->
+            runSafely {
+                block()
+            }
+        }
+    }
+}
+
 inline fun <T> T.applyObjectHelper(block: ObjectHelper.() -> Unit): T {
     this?.objectHelper(block)
     return this

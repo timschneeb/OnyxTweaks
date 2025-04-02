@@ -14,7 +14,6 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 class MoveNotificationHeaderToFooter : ModPack() {
     override val group = PreferenceGroups.STATUS_BAR
 
-    // TODO: use onPreferenceChanged if possible
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         // Note: may cause minor visual issues
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")

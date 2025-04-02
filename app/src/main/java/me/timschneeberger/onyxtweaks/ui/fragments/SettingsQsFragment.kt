@@ -19,6 +19,8 @@ class SettingsQsFragment : SettingsBaseFragment<SettingsActivity>() {
 
     override fun onPreferenceChanged(key: String) {
         super.onPreferenceChanged(key)
-        requestPackageRestart(SYSTEM_UI_PACKAGE)
+
+        if (key != getString(R.string.key_qs_header_settings_button_action))
+            requestPackageRestart(SYSTEM_UI_PACKAGE)
     }
 }

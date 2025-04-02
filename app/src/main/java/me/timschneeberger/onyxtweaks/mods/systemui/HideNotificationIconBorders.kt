@@ -16,7 +16,6 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 class HideNotificationIconBorders : ModPack() {
     override val group = PreferenceGroups.STATUS_BAR
 
-    // TODO: use onPreferenceChanged if possible
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         if (!preferences.get<Boolean>(R.string.key_status_bar_status_icons_remove_borders))
             return
