@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Internal -->
-    <bool name="default_launcher_reinit_flag" translatable="false">false</bool>
+    <bool name="default_launcher_reinit_flag" translatable="false" tools:ignore="UnusedResources">false</bool>
 
     <!-- Launcher -->
     <bool name="default_launcher_app_show_settings" translatable="false">false</bool>
@@ -71,8 +71,8 @@
     <bool name="default_misc_mmkv_always_auto_detect_unknown_types" translatable="false">false</bool>
 
     <!-- Editor -->
-    <integer name="default_editor_font_size" translatable="false">14</integer>
+    <integer name="default_editor_font_size" translatable="false" tools:ignore="UnusedResources">14</integer>
 
     <!-- Per-activity settings -->
-    <string name="default_per_activity_settings" translatable="false">[]</string>
+    <string name="default_per_activity_settings" translatable="false" tools:ignore="UnusedResources">[]</string>
 </resources>

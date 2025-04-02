@@ -29,7 +29,7 @@
 
     <!-- Input validation -->
     <string name="error_invalid_input">Invalid input</string>
-    <string name="error_invalid_number_out_of_range">Please enter a number between %1$d and %2$d.</string>
+    <string name="error_invalid_number_out_of_range" tools:ignore="PluralsCandidate">Please enter a number between %1$d and %2$d.</string>
     <string name="error_invalid_number_format">Wrong number format</string>
 
     <!-- Global menu -->
@@ -42,8 +42,6 @@
     <string name="credits_app">Developed by</string>
     <string name="credits_project_page">Visit project website on GitHub</string>
     <string name="credits_project_page_summary">Report issues, keep yourself updated, and read the source code</string>
-    <string name="credits_project_play_page">Visit OnyxTweaks on Google Play</string>
-    <string name="credits_project_play_page_summary">Check for new updates</string>
     <string name="credits_version">Application version</string>
     <string name="credits_build_info">Build info</string>
 
