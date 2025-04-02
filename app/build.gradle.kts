@@ -92,6 +92,7 @@ android {
 }
 
 dependencies {
+    // AndroidX
     implementation("androidx.annotation:annotation-jvm:1.9.1")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -99,25 +100,34 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 
+    // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 
+    // UI
     implementation("com.google.android.material:material:1.12.0")
+
+    // Serialization
     implementation("com.tencent:mmkv:2.1.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+
+    // Xposed/Root utilities
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
     implementation("com.github.topjohnwu.libsu:core:6.0.0")
     implementation("com.github.topjohnwu.libsu:service:6.0.0")
     implementation("org.lsposed.hiddenapibypass:hiddenapibypass:6.1")
     implementation("com.github.ChickenHook:RestrictionBypass:2.2")
     implementation("dev.rikka.tools.refine:runtime:4.4.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
 
+    // Onyx SDK
     implementation("com.onyx.android.sdk:onyxsdk-device:1.2.30")
 
+    // Local sub-modules
     implementation(project(":codeview"))
 
+    // API references
     compileOnly(project(":hidden-api"))
     compileOnly("de.robv.android.xposed:api:82")
 }

@@ -10,7 +10,6 @@
     <string name="on">On</string>
     <string name="value_not_set">Not set</string>
     <string name="continue_action">Continue</string>
-    <string name="no_activity_found">No app found to handle action</string>
     <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
     <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
     <string name="toast_launcher_restarting">Launcher restarted</string>
@@ -151,7 +150,6 @@
     <string name="status_bar_date">Date options</string>
     <string name="status_bar_clock_position">Clock position</string>
     <string name="status_bar_clock_am_pm_style">AM/PM style</string>
-    <string name="status_bar_date_date_cat">Date options</string>
     <string name="status_bar_date_day_of_week_options">Show day of week with clock</string>
     <string name="status_bar_date_advanced">Advanced (overrides date options)</string>
     <string name="status_bar_date_custom_string_documentation">View string format documentation</string>
@@ -163,8 +161,8 @@
     <string name="status_bar_clock_center">Center</string>
     <string name="status_bar_clock_right">Right</string>
     <string name="status_bar_clock_am_pm_default">Hide (Default)</string>
-    <string name="status_bar_clock_am_pm_normal">100% size of the clock</string>
-    <string name="status_bar_clock_am_pm_small">70% size of the clock</string>
+    <string name="status_bar_clock_am_pm_normal">100%% size of the clock</string>
+    <string name="status_bar_clock_am_pm_small">70%% size of the clock</string>
     <string name="status_bar_date_default">Hide (Default)</string>
     <string name="status_bar_date_before">Before clock</string>
     <string name="status_bar_date_before_small">Before clock (small)</string>

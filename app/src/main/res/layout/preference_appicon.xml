@@ -12,7 +12,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="24dp"
+        tools:ignore="UseCompoundDrawables,UselessParent">
         <ImageView
             android:id="@+id/preference_appicon"
             android:layout_width="64dp"

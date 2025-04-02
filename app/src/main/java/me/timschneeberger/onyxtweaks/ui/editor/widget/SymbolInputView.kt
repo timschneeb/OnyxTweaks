@@ -1,6 +1,5 @@
 package me.timschneeberger.onyxtweaks.ui.editor.widget
 
-import android.R
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -55,7 +54,7 @@ class SymbolInputView : LinearLayout {
     fun addSymbols(display: Array<String?>, insertText: Array<String?>) {
         val count = display.size.coerceAtLeast(insertText.size)
         for (i in 0 until count) {
-            val btn = Button(context, null, R.attr.buttonStyleSmall)
+            val btn = Button(context, null, android.R.attr.buttonStyleSmall)
             btn.text = display[i]
             btn.background = ColorDrawable(Color.TRANSPARENT)
             addView(btn, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))

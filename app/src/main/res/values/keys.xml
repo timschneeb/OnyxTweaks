@@ -3,7 +3,6 @@
     <!-- About (static) -->
     <string name="key_credits_version" translatable="false">credits_version</string>
     <string name="key_credits_build_info" translatable="false">credits_build_info</string>
-    <string name="key_credits_google_play" translatable="false">credits_google_play</string>
 
     <!-- Static -->
     <string name="key_mmkv_editor" translatable="false">mmkv_editor</string>

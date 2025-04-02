@@ -55,7 +55,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_hide_labels"
-            android:defaultValue="@string/default_launcher_desktop_toolbar_state"
+            android:defaultValue="@bool/default_launcher_desktop_hide_labels"
             android:title="@string/launcher_desktop_hide_labels"
             android:summary="@string/launcher_desktop_hide_labels_summary"
             app:iconSpaceReserved="false" />
@@ -97,7 +97,7 @@
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_launcher_desktop_grid_custom_size"
-            android:defaultValue="@bool/default_launcher_desktop_hide_top_border"
+            android:defaultValue="@bool/default_launcher_desktop_grid_custom_size"
             android:title="@string/launcher_desktop_grid_custom_size"
             android:summary="@string/launcher_desktop_grid_custom_size_summary"
             app:iconSpaceReserved="false" />
