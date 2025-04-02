@@ -59,7 +59,7 @@ object ContextExtensions {
 
     fun Context.getAppName(packageName: String): CharSequence? {
         return try {
-            packageManager.getApplicationInfoCompat(packageName, 0)
+            packageManager.getApplicationInfoCompat(packageName)
         } catch (_: Exception) {
             null
         }?.let {

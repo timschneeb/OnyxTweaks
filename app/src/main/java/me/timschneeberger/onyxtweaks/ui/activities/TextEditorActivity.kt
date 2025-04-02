@@ -246,10 +246,7 @@ class TextEditorActivity : AppCompatActivity() {
         codeView.setEnableHighlightCurrentLine(true)
         codeView.setHighlightCurrentLineColor(ContextCompat.getColor(this, R.color.colorInverseOnSurface))
 
-        // Setup Auto indenting feature
         codeView.setTabLength(4)
-        codeView.setEnableAutoIndentation(false)
-
         codeView.setTabWidth(4)
 
         codeView.addTextChangedListener(object : TextWatcher {

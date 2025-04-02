@@ -72,6 +72,7 @@ class Preferences(private val context: Context, group: PreferenceGroups) : BaseP
     override val prefs: SharedPreferences = dataStore.prefs
 }
 
+@Suppress("unused")
 abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeListener {
     var onPreferencesChanged: ((String?) -> Unit)? = null
 
@@ -116,13 +117,11 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
             Float::class -> prefs.getFloat(key, defValue as Float) as T
             Set::class -> prefs.getStringSet(key, defValue as Set<String>) as T
             else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
-        }.also {
-            // CrashlyticsImpl.setCustomKey("${namespace}_$key", it.toString())
         }
     }
 
     inline fun <reified T : Any> get(@StringRes nameRes: Int): T {
-        return get<T>(nameRes, null, T::class)
+        return get<T>(nameRes, type = T::class)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -187,7 +186,6 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
 
         val key = resources.getString(nameRes)
         val edit = prefs.edit()
-        // CrashlyticsImpl.setCustomKey("${namespace}_$key", value.toString())
 
         when(type) {
             Boolean::class -> edit.putBoolean(key, value as Boolean)

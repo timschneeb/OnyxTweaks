@@ -7,7 +7,6 @@ import android.os.IBinder
 import android.os.RemoteException
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kyuubiran.ezxhelper.Log
-import com.tencent.mmkv.MMKV
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ipc.RootService
 import me.timschneeberger.onyxtweaks.IMMKVAccessService

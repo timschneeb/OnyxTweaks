@@ -52,7 +52,7 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
             onyxApps.mapNotNull { pkg ->
                 val appInfo = try {
-                    requireContext().packageManager.getApplicationInfoCompat(pkg, 0)
+                    requireContext().packageManager.getApplicationInfoCompat(pkg)
                 } catch (_: PackageManager.NameNotFoundException) {
                     return@mapNotNull null
                 }

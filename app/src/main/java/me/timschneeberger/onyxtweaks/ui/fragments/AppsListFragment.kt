@@ -30,7 +30,7 @@ class AppsListFragment() : BaseListFragment<AppInfo, AppsListAdapter>() {
 
     override suspend fun createList(): List<AppInfo> {
         return withContext(Dispatchers.IO) {
-            requireContext().packageManager.getInstalledApplicationsCompat(0)
+            requireContext().packageManager.getInstalledApplicationsCompat()
                 .filterNot { (it.flags and ApplicationInfo.FLAG_INSTALLED) == 0 }
                 .mapIndexed { idx, it ->
                     if (idx % 5 == 0) yield()

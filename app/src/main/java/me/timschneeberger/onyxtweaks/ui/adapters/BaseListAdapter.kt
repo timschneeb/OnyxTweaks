@@ -14,9 +14,9 @@ abstract class BaseListAdapter<T>: RecyclerView.Adapter<BaseListAdapter<T>.ViewH
 
         init { rootView.setOnClickListener(this) }
 
-        protected val titleView = rootView.findViewById<TextView>(android.R.id.title)
-        protected val summaryView = rootView.findViewById<TextView>(android.R.id.summary)
-        protected val iconView = rootView.findViewById<ImageView>(android.R.id.icon)
+        protected val titleView: TextView = rootView.findViewById<TextView>(android.R.id.title)
+        protected val summaryView: TextView = rootView.findViewById<TextView>(android.R.id.summary)
+        protected val iconView: ImageView = rootView.findViewById<ImageView>(android.R.id.icon)
 
         abstract var data: T?
 
