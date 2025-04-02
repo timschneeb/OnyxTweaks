@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="scope">
+        <!-- System components -->
         <item>android</item>
         <item>com.android.systemui</item>
         <item>com.onyx</item>
+        <!-- User apps -->
+        <item>com.onyx.dict</item>
+        <item>com.onyx.kime</item>
+        <item>com.onyx.mail</item>
+        <item>com.onyx.android.ksync</item>
+        <item>com.onyx.easytransfer</item>
+        <item>com.onyx.floatingbutton</item>
+        <item>com.onyx.gallery</item>
+        <item>com.onyx.kreader</item>
+        <item>com.onyx.aiassistant</item>
+        <item>com.onyx.appmarket</item>
+        <item>com.onyx.android.note</item>
     </string-array>
 
     <string-array name="settings_categories" translatable="false">
