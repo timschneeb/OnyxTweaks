@@ -28,7 +28,7 @@
             android:data="https://github.com/timschneeb/OnyxTweaks" />
     </Preference>
 
-    <Preference
+    <!--<Preference
         android:key="@string/key_credits_google_play"
         android:title="@string/credits_project_play_page"
         android:summary="@string/credits_project_play_page_summary"
@@ -36,7 +36,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:data="https://play.google.com/store/apps/details?id=me.timschneeberger.onyxtweaks" />
-    </Preference>
+    </Preference>-->
 
     <PreferenceCategory
         app:title="@string/credits"
