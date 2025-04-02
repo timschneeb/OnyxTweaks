@@ -16,7 +16,7 @@ import me.timschneeberger.onyxtweaks.utils.CustomLogger
 import me.timschneeberger.onyxtweaks.utils.ellipsize
 import java.io.File
 
-class MMKVAccessService : RootService {
+class MMKVAccessService : RootService() {
     var mmkvMap: HashMap<String, MMKV> = HashMap()
 
     init {
