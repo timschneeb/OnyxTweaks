@@ -79,7 +79,7 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                             return@OnPreferenceClickListener false
                         }
 
-                        if (ids.count() == 1) {
+                        if (ids.size == 1) {
                             navigateToEditor(pkg, ids.first())
                             return@OnPreferenceClickListener true
                         }

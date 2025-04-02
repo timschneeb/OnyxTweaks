@@ -19,7 +19,7 @@ import java.io.File
 class MMKVAccessService : RootService {
     var mmkvMap: HashMap<String, MMKV> = HashMap()
 
-    constructor() {
+    init {
         Log.currentLogger = CustomLogger
         EzXHelper.setLogTag("OT/MMKVAccessService")
     }

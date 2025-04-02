@@ -52,10 +52,6 @@ class UndoRedoManager(private val textView: TextView) {
         textView.removeTextChangedListener(textChangeWatcher)
     }
 
-    fun setMaxHistorySize(maxSize: Int) {
-        editHistory.setMaxHistorySize(maxSize)
-    }
-
     fun clearHistory() {
         editHistory.clear()
     }

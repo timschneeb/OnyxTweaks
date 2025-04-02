@@ -1,8 +1,6 @@
 package me.timschneeberger.onyxtweaks.ui.utils
 
 import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.topjohnwu.superuser.Shell
@@ -64,14 +62,6 @@ object ContextExtensions {
             null
         }?.let {
             packageManager.getApplicationLabel(it)
-        }
-    }
-
-    fun Context.getAppIcon(packageName: String): Drawable? {
-        return try {
-            packageManager.getApplicationIcon(packageName)
-        } catch (_: PackageManager.NameNotFoundException) {
-            null
         }
     }
 }

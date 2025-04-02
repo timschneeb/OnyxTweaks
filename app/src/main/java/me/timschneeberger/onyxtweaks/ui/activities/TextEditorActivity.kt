@@ -293,6 +293,7 @@ class TextEditorActivity : AppCompatActivity() {
         })
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     @SuppressLint("RestrictedApi")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_editor, menu)

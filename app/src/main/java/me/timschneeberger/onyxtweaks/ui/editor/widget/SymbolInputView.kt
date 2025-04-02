@@ -6,25 +6,17 @@ import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import com.amrdeveloper.codeview.CodeView
 
 class SymbolInputView : LinearLayout {
     private var editor: CodeView? = null
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
+    @JvmOverloads
     constructor(
         context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0,
+        defStyleRes: Int = 0
     ) : super(context, attrs, defStyleAttr, defStyleRes)
 
     init {
@@ -33,16 +25,6 @@ class SymbolInputView : LinearLayout {
 
     fun bindEditor(editor: CodeView?) {
         this.editor = editor
-    }
-
-    fun setTextColor(@ColorRes resId: Int) {
-        for (i in 0 until childCount) {
-            (getChildAt(i) as Button).setTextColor(ContextCompat.getColor(context,resId))
-        }
-    }
-
-    fun removeSymbols() {
-        removeAllViews()
     }
 
     /**

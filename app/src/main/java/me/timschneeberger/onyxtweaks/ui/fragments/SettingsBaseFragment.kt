@@ -127,7 +127,7 @@ abstract class SettingsBaseFragment<T> : PreferenceFragmentCompat() where T : Ba
 
     protected fun MultiSelectListPreference.configureAsMultiSelectInput() {
         summaryProvider = Preference.SummaryProvider<MultiSelectListPreference> { preference ->
-            preference.values.count().let { count ->
+            preference.values.size.let { count ->
                 context.resources.getQuantityString(R.plurals.items_selected, count, count)
             }
         }

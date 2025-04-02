@@ -1,7 +1,6 @@
 package me.timschneeberger.onyxtweaks.ui.utils
 
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,14 +14,6 @@ object CompatExtensions {
             this.getSerializable(key, T::class.java)
         }.below {
             this.getSerializable(key) as? T
-        }
-    }
-
-    fun PackageManager.getPackageInfoCompat(packageName: String, flags: Int = 0): PackageInfo {
-        return sdkAbove(Build.VERSION_CODES.TIRAMISU) {
-            getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags.toLong()))
-        }.below {
-            getPackageInfo(packageName, flags)
         }
     }
 
