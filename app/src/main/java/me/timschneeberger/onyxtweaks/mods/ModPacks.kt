@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods
 
+import android.os.Build
 import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
 import me.timschneeberger.onyxtweaks.mods.launcher.AddFunctionBarSpacer
 import me.timschneeberger.onyxtweaks.mods.launcher.AddLauncherSettingsMenu
@@ -35,6 +36,9 @@ import me.timschneeberger.onyxtweaks.mods.systemui.StatusBarClock
 import me.timschneeberger.onyxtweaks.mods.systemui.SystemUiLifecycleHook
 
 object ModPacks {
+    val testedModels = arrayOf("GoColor7")
+    val testedAndroidVersions = arrayOf(Build.VERSION_CODES.S_V2)
+
     val available = arrayOf(
         // Global
         PerActivityRefreshModes::class,

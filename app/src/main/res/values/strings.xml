@@ -25,6 +25,8 @@
     <string name="status_needs_system_ui_restart">SystemUI restart required to apply changes. Tap on this message to reload now.</string>
     <string name="status_needs_launcher_restart">Launcher restart required to apply changes. Tap on this message to reload now.</string>
     <string name="status_needs_system_ui_launcher_restart">SystemUI and launcher restart required to apply changes. Tap on this message to reload now.</string>
+    <string name="compat_model_not_tested">This app was only tested on the Go Color 7 and may not work fully on other models.</string>
+    <string name="compat_android_version_not_tested">This app was only tested on Android 12L and may not work fully on other versions.</string>
 
     <!-- Input validation -->
     <string name="error_invalid_input">Invalid input</string>

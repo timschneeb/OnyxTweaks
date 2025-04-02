@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.ui.activities
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -25,6 +26,7 @@ import me.timschneeberger.onyxtweaks.bridge.unregisterModEventReceiver
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.ModPacks
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSystemUi
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
@@ -58,7 +60,8 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
 
         if (savedInstanceState == null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(rootIsSubActivity)
-            setBottomBarVisibility(rootIsSubActivity)
+            updateBottomBarState(rootIsSubActivity)
+            updateCompatibilityStatusBarState(!rootIsSubActivity)
 
             supportFragmentManager
                 .beginTransaction()
@@ -75,8 +78,10 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
             supportActionBar?.apply {
                 title = savedInstanceState.getString(PERSIST_TITLE)
                 subtitle = savedInstanceState.getString(PERSIST_SUBTITLE)
+                val isRoot = isRoot || !rootIsSubActivity
                 setDisplayHomeAsUpEnabled(!isRoot || rootIsSubActivity)
-                setBottomBarVisibility(!isRoot || rootIsSubActivity)
+                updateBottomBarState(!isRoot || rootIsSubActivity)
+                updateCompatibilityStatusBarState(isRoot && !rootIsSubActivity)
             }
         }
 
@@ -84,7 +89,8 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
             val isRoot = supportFragmentManager.backStackEntryCount == 0
             supportActionBar?.apply {
                 setDisplayHomeAsUpEnabled(!isRoot || rootIsSubActivity)
-                setBottomBarVisibility(!isRoot || rootIsSubActivity)
+                updateBottomBarState(!isRoot || rootIsSubActivity)
+                updateCompatibilityStatusBarState(isRoot && !rootIsSubActivity)
 
                 if (isRoot) {
                     title = getString(rootTitleRes)
@@ -206,9 +212,20 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
         updateStatusPanel()
     }
 
-    private fun setBottomBarVisibility(isVisible: Boolean) {
+    private fun updateBottomBarState(isVisible: Boolean) {
         binding.bottomDivider.isVisible = isVisible
         binding.bottomAppBar.isVisible = isVisible
+    }
+
+    private fun updateCompatibilityStatusBarState(isVisible: Boolean) {
+        val message = when {
+            !ModPacks.testedModels.contains(Build.MODEL) -> getString(R.string.compat_model_not_tested)
+            !ModPacks.testedAndroidVersions.contains(Build.VERSION.SDK_INT) -> getString(R.string.compat_android_version_not_tested)
+            else -> null
+        }
+
+        binding.bottomStatusBar.isVisible = isVisible && !message.isNullOrEmpty()
+        binding.bottomStatusText.text = message
     }
 
     private fun onPackageRestartConfirmed() {

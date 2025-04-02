@@ -100,9 +100,42 @@
             android:id="@+id/bottomDivider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/border_width"
-            app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
+            app:layout_constraintBottom_toTopOf="@id/bottomStatusBar"
             app:layout_constraintTop_toBottomOf="@id/settings"
             android:background="@drawable/shape_divider" />
+
+        <LinearLayout
+            android:id="@+id/bottomStatusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_status_background"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/status_bar_padding"
+            android:paddingVertical="@dimen/status_bar_padding"
+            app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottomDivider">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_twotone_warning_24dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/bottomStatusText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="?colorPrimary"
+                android:textSize="16sp"
+                tools:text="@string/compat_model_not_tested" />
+        </LinearLayout>
+
+
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
@@ -110,7 +143,7 @@
             android:layout_height="65dp"
             app:buttonGravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bottomDivider"
+            app:layout_constraintTop_toBottomOf="@id/bottomStatusBar"
             tools:ignore="BottomAppBar"
             tools:layout_editor_absoluteX="0dp">
 
