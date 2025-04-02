@@ -13,8 +13,17 @@ class SettingsAboutFragment : SettingsBaseFragment<SettingsActivity>() {
     private val buildInfo by lazy { findPreference<Preference>(getString(R.string.key_credits_build_info)) }
 
     override fun onConfigurePreferences() {
-        val type = if(BuildConfig.DEBUG) "Debug" else "Release"
+        val type = getString(
+            if (BuildConfig.DEBUG) R.string.credits_debug_build
+            else R.string.credits_release_build
+        )
+
         version?.summary = BuildConfig.VERSION_NAME
-        buildInfo?.summary = "$type build @${BuildConfig.COMMIT_SHA} (compiled at ${BuildConfig.BUILD_TIME})"
+        buildInfo?.summary = getString(
+            R.string.credits_build_info_summary,
+            type,
+            BuildConfig.COMMIT_SHA,
+            BuildConfig.BUILD_TIME
+        )
     }
 }

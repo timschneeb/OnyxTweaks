@@ -43,25 +43,24 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
     override fun onConfigurePreferences() {
         PreferenceCategory(requireContext()).apply {
-            title = "Special actions"
+            title = getString(R.string.mmkv_editor_special_actions)
             isIconSpaceReserved = false
         }.let { root ->
             preferenceScreen.addPreference(root)
-
 
             if (handle == SYSTEM_HANDLE) {
                 root.addPreference(
                     Preference(requireContext()).apply {
                         setIcon(R.drawable.ic_twotone_info_24dp)
-                        summary = "IMPORTANT: After making changes, you should reboot before leaving this app. Otherwise, other system components may not pick up the changes and override them with the previous state."
+                        summary = getString(R.string.mmkv_editor_system_reboot_hint)
                         isSelectable = false
                     }
                 )
 
                 root.addPreference(
                     Preference(requireContext()).apply {
-                        title = "Apply & soft-reboot device"
-                        summary = "Apply changes by syncing the MMKV data store and soft-rebooting the device"
+                        title = getString(R.string.mmkv_editor_system_reboot)
+                        summary = getString(R.string.mmkv_editor_system_reboot_summary)
                         isIconSpaceReserved = false
                         onPreferenceClickListener = Preference.OnPreferenceClickListener {
                             parentActivity?.restartZygote()
@@ -72,15 +71,15 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
                 root.addPreference(
                     Preference(requireContext()).apply {
-                        title = "Remove all app-specific EAC configuration keys"
-                        summary = "Clear keys related to app-specific e-Ink optimization settings"
+                        title = getString(R.string.mmkv_editor_remove_eac_keys)
+                        summary = getString(R.string.mmkv_editor_remove_eac_keys_summary)
                         isIconSpaceReserved = false
                         onPreferenceClickListener = Preference.OnPreferenceClickListener {
                             requireContext().showYesNoAlert(
-                                "Remove all app-specific EAC configuration keys",
-                                "This will remove all keys containing a package name and starting with 'eac_app_' from the MMKV data store. This action cannot be undone.\nThe device will reinitialize all entries with the value stored in 'eac_default_app_config'.\n\nIMPORTANT: Reboot your device after performing this action, otherwise the changes will not be applied properly.",
-                                getString(R.string.continue_action),
-                                getString(R.string.cancel)
+                                R.string.mmkv_editor_remove_eac_keys,
+                                R.string.mmkv_editor_remove_eac_keys_confirm,
+                                R.string.continue_action,
+                                R.string.cancel
                             ) { confirmed ->
                                 val service = parentActivity?.mmkvService
                                 if(confirmed && service != null) {
@@ -98,46 +97,44 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                     }
                 )
             }
-            else {
-                root.addPreference(
-                    Preference(requireContext()).apply {
-                        title = "Add new key-value pair"
-                        summary = "Insert a new key-value pair into the MMKV data store"
-                        isIconSpaceReserved = false
-                        onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                            requireContext().showInputAlert(
-                                layoutInflater,
-                                "Enter key name",
-                                "Key name",
-                                "",
-                                false,
-                                null
-                            ) { key ->
-                                if(key == null)
-                                    return@showInputAlert
 
-                                onAddOrEdit(key, edit = false) { _ ->
-                                    refreshList()
-                                }
+            root.addPreference(
+                Preference(requireContext()).apply {
+                    title = getString(R.string.mmkv_editor_add)
+                    summary = getString(R.string.mmkv_editor_add_summary)
+                    isIconSpaceReserved = false
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        requireContext().showInputAlert(
+                            layoutInflater,
+                            getString(R.string.mmkv_editor_add_dialog),
+                            getString(R.string.mmkv_editor_add_dialog_key_hint),
+                            "",
+                            false,
+                            null
+                        ) { key ->
+                            if(key == null)
+                                return@showInputAlert
+
+                            onAddOrEdit(key, edit = false) { _ ->
+                                refreshList()
                             }
-                            true
                         }
+                        true
                     }
-                )
-            }
+                })
         }
 
         PreferenceCategory(requireContext()).apply {
-            title = "Key-value pairs"
+            title = getString(R.string.mmkv_editor_kv_pairs)
             isIconSpaceReserved = false
         }.let { root ->
             preferenceScreen.addPreference(root)
             kvRootPreference = root
 
             if (handle != SYSTEM_HANDLE) {
-                var info = "Note: All processes of '$pkg' were automatically killed to prevent file access conflicts and ensure that your changes take effect properly."
+                var info = getString(R.string.mmkv_editor_process_killed_hint, pkg)
                 if (pkg == LAUNCHER_PACKAGE) {
-                    info += "\nIf the launcher is only showing a white screen after killing its process, go into 'recents' and clear all active apps."
+                    info += getString(R.string.mmkv_editor_launcher_killed_hint)
                 }
 
                 root.addPreference(
@@ -170,8 +167,8 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                             }
                             onDeleteClicked = { pref ->
                                 requireContext().showYesNoAlert(
-                                    "Delete key '$key'",
-                                    "This will permanently delete the key '$key' from the MMKV data store. This action cannot be undone.",
+                                    getString(R.string.mmkv_editor_delete, key),
+                                    getString(R.string.mmkv_editor_delete_key_message, key),
                                     getString(R.string.continue_action),
                                     getString(R.string.cancel)
                                 ) { confirmed ->
@@ -228,7 +225,7 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
         // Check if full-screen editor is required
         if(type.editorMode != null) {
-            var initialValue = currentValue?.toString() ?: "New value"
+            var initialValue = currentValue?.toString() ?: requireContext().getString(R.string.mmkv_editor_new_value)
             if(currentValue is List<*>) {
                 initialValue = currentValue.joinToString("\n")
             }
@@ -252,8 +249,8 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
     private fun IMMKVAccessService.promptSimpleInput(key: String, type: MMKVUtils.KnownTypes, currentValue: Any?, onEdited: ((newValue: Any?) -> Unit)) {
         requireContext().showInputAlert(
             layoutInflater,
-            "Edit key '$key' as ${type.description}",
-            "New value",
+            getString(R.string.mmkv_editor_edit_simple_title, key, type.description),
+            getString(R.string.mmkv_editor_new_value),
             currentValue?.toString() ?: "",
             type.typeClass == Int::class || type.typeClass == Long::class || type.typeClass == Float::class,
             null
@@ -274,15 +271,19 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             catch (e: NumberFormatException) {
                 Log.e(e)
                 requireContext().showAlert(
-                    "Failed to save value",
-                    "Invalid number format for type '${type.description}': $newValue"
+                    getString(R.string.mmkv_editor_edit_failed),
+                    getString(
+                        R.string.mmkv_editor_edit_failed_invalid_format,
+                        type.description,
+                        newValue
+                    )
                 )
             }
             catch (e: Exception) {
                 Log.e(e)
                 requireContext().showAlert(
-                    "Failed to save value",
-                    "Reason:\n$e"
+                    getString(R.string.mmkv_editor_edit_failed),
+                    getString(R.string.mmkv_editor_edit_failed_exception_message, e)
                 )
             }
         }
@@ -293,13 +294,18 @@ class ConfigEditorFragment : SettingsBaseFragment<ConfigEditorActivity>() {
             if (guessedType == null)
                 it
             else
-                it + arrayOf("Auto-detect (${guessedType.description})")
+                it + arrayOf(
+                    getString(
+                        R.string.mmkv_editor_type_auto_detect,
+                        guessedType.description
+                    ))
         }
             .map { it as CharSequence }
             .toTypedArray()
 
         requireContext().showSingleChoiceAlert(
-            title = if(edit) "Unknown data type, choose manually" else "Select data type for new key",
+            title = if(edit) requireContext().getString(R.string.mmkv_editor_type_dialog_title)
+            else requireContext().getString(R.string.mmkv_editor_new_type_dialog_title),
             choices = availableTypes,
             checkedIndex = -1
         ) { idx ->

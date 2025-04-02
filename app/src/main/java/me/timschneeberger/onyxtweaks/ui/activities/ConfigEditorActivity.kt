@@ -64,7 +64,7 @@ class ConfigEditorActivity : BasePreferenceActivity() {
                             Log.d("Wrote value to $handle: $key = ${text.ellipsize(100)}")
                         } catch (e: RemoteException) {
                             Log.e("Remote service threw an exception", e)
-                            toast("Failed to write value")
+                            toast(getString(R.string.editor_save_failed))
                         }
                     }
                 }

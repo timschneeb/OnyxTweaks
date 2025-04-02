@@ -33,15 +33,15 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
     override fun onConfigurePreferences() {
         PreferenceCategory(requireContext()).apply {
-            title = "Select data store"
+            title = getString(R.string.mmkv_list_select_data_store)
             isIconSpaceReserved = false
         }.let { root ->
             preferenceScreen.addPreference(root)
 
             root.addPreference(
                 Preference(requireContext()).apply {
-                    title = "System config"
-                    summary = "Global data store at /onyxconfig/mmkv"
+                    title = getString(R.string.mmkv_list_system_config)
+                    summary = getString(R.string.mmkv_list_system_config_summary)
                     isIconSpaceReserved = false
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         navigateToSystemEditor()
@@ -59,7 +59,8 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
                 Preference(requireContext()).apply {
                     title = appInfo.loadLabel(requireContext().packageManager).toString()
-                    summary = "Private data store at /data/data/${appInfo.packageName}/files/mmkv"
+                    summary =
+                        getString(R.string.mmkv_list_private_config_summary, appInfo.packageName)
                     isIconSpaceReserved = false
                     onPreferenceClickListener = Preference.OnPreferenceClickListener { pref ->
                         val ids = parentActivity
@@ -70,12 +71,12 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                             ?.toTypedArray()
 
                         if (ids == null) {
-                            requireContext().showAlert("Service unavailable", "The root service is not yet initialized. Make sure that root access has been granted and restart the app.")
+                            requireContext().showAlert(R.string.mmkv_list_service_unavailable, R.string.mmkv_list_service_unavailable_message)
                             return@OnPreferenceClickListener false
                         }
 
                         if (ids.isEmpty()) {
-                            requireContext().showAlert("No config files", "No MMKV data stores found for this package.")
+                            requireContext().showAlert(R.string.mmkv_list_no_config, R.string.mmkv_list_no_config_message)
                             return@OnPreferenceClickListener false
                         }
 
@@ -103,20 +104,20 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
     private fun navigateToSystemEditor() {
         val service = parentActivity?.mmkvService
         if (service == null) {
-            requireContext().showAlert("Service unavailable", "The root service is not yet initialized. Please try again in a moment. Also make sure that root access has been granted and restart the app, if it was not granted before.")
+            requireContext().showAlert(R.string.mmkv_list_service_unavailable, R.string.mmkv_list_service_unavailable_message)
             return
         }
 
         val handle = service.openSystem()
         if (handle == null) {
-            requireContext().showAlert("Failed to open system config", "The system config at '/onyxconfig/mmkv/onyx_config' could not be opened. Check if the path exists and ensure root access has been granted.")
+            requireContext().showAlert(R.string.mmkv_list_open_failed_system, R.string.mmkv_list_open_failed_system_message)
             return
         }
 
         parentActivity?.navigateToFragment(
             ConfigEditorFragment.newInstance(handle, "android"),
             "onyx_config",
-            "System config"
+            getString(R.string.mmkv_list_system_config)
         )
     }
 
@@ -126,7 +127,7 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
 
         val handle = parentActivity?.mmkvService?.open(pkg, mmapId.toString())
         if (handle == null) {
-            requireContext().showAlert("Failed to open data store", "The data store could not be opened. Make sure that root access has been granted and restart the app.")
+            requireContext().showAlert(R.string.mmkv_list_load_failed, R.string.mmkv_list_load_failed_message)
             return
         }
 

@@ -50,7 +50,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
 
     override fun onConfigurePreferences() {
         PreferenceCategory(requireContext()).apply {
-            title = "Actions"
+            title = getString(R.string.per_activity_settings_actions)
             isIconSpaceReserved = false
         }.let { root ->
             preferenceScreen.addPreference(root)
@@ -58,7 +58,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
             root.addPreference(
                 Preference(requireContext()).apply {
                     setIcon(R.drawable.ic_twotone_error_24dp)
-                    summary = "IMPORTANT: For this feature to work, you must manually enable this module for all apps you want to change the refresh mode for. This can be done in the module settings of your Xposed Manager."
+                    summary = getString(R.string.per_activity_settings_scope_hint)
                     isIconSpaceReserved = false
                 }
             )
@@ -66,8 +66,8 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
             root.addPreference(
                 Preference(requireContext()).apply {
                     setIcon(R.drawable.ic_baseline_open_in_new_24dp)
-                    title = "Open LSPosed permission settings"
-                    summary = "Enable this Xposed module for all apps you want to change the refresh mode for"
+                    title = getString(R.string.per_activity_settings_lsposed_scopes)
+                    summary = getString(R.string.per_activity_settings_lsposed_scopes_summary)
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         Shell.getShell { shell ->
                             shell.newJob().add(
@@ -83,8 +83,8 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
             root.addPreference(
                 Preference(requireContext()).apply {
                     setIcon(R.drawable.ic_twotone_add_circle_24dp)
-                    title = "Add new app"
-                    summary = "Add a new rule to change the refresh mode for a specific app"
+                    title = getString(R.string.per_activity_settings_add_app)
+                    summary = getString(R.string.per_activity_settings_add_app_summary)
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         showAppSelector()
                         true
@@ -104,8 +104,8 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
                 root.addPreference(
                     Preference(requireContext()).apply {
                         setIcon(R.drawable.ic_twotone_library_add_24dp)
-                        title = "Add new activity rule"
-                        summary = "Add a new rule to change the refresh mode for a specific activity"
+                        title = getString(R.string.per_activity_settings_add_activity)
+                        summary = getString(R.string.per_activity_settings_add_activity_summary)
                         onPreferenceClickListener = Preference.OnPreferenceClickListener {
                             activityListFragment = ActivityListFragment(rules.first().packageName)
                             showActivitySelector()
@@ -120,11 +120,17 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
                             if (rule.activityClass == null)
                                 setIcon(R.drawable.ic_twotone_more_horiz_24)
 
-                            title = rule.activityClass ?: "All activities"
-                            summary = "Mode: ${rule.updateMode}"
+                            title = rule.activityClass ?: getString(R.string.per_activity_settings_scope_all_activities)
+                            summary = getString(
+                                R.string.per_activity_settings_activity_mode_summary,
+                                rule.updateMode
+                            )
                             onPreferenceClickListener = Preference.OnPreferenceClickListener {
                                 requireContext().showSingleChoiceAlert(
-                                    "Refresh mode for ${rule.activityName ?: "all other activities"}",
+                                    getString(
+                                        R.string.per_activity_settings_change_mode_title,
+                                        rule.activityName ?: getString(R.string.per_activity_settings_change_mode_title_other_items)
+                                    ),
                                     PerActivityRefreshModes.UpdateOption
                                         .entries
                                         .map { it.name as CharSequence }
@@ -168,7 +174,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
     private fun addRule(rule: ActivityRule) {
         val rules = readRules().toMutableList()
         if(rules.any { it.packageName == rule.packageName && it.activityClass == rule.activityClass }) {
-            requireContext().toast("Entry already exists")
+            requireContext().toast(getString(R.string.entry_already_exists))
             return
         }
 

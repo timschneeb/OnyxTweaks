@@ -82,7 +82,6 @@ class TextEditorActivity : AppCompatActivity() {
         handle = extraHandle
         intent.getStringExtra(EXTRA_KEY)?.let { key = it }
         intent.getStringExtra(EXTRA_MODE)?.let {
-            Log.e("MODE dec: $it")
             mode = MMKVUtils.EditorMode.valueOf(it)
         }
         load()
@@ -152,7 +151,7 @@ class TextEditorActivity : AppCompatActivity() {
             }
         }
         else if (mode == MMKVUtils.EditorMode.LIST) {
-            toast("String list: enter each item on a separate line")
+            toast(getString(R.string.editor_string_list_hint))
             codeView.setText(content)
         }
         else {
@@ -183,10 +182,10 @@ class TextEditorActivity : AppCompatActivity() {
                 catch (e: Exception) {
                     if (!force) {
                         showYesNoAlert(
-                            "Invalid JSON",
-                            "The JSON content is invalid. Do you want to save it anyway?\n\nReason: ${e.message}",
-                            "Save",
-                            "Cancel"
+                            getString(R.string.editor_invalid_json),
+                            getString(R.string.editor_invalid_json_message, e.message),
+                            getString(R.string.save),
+                            getString(R.string.cancel)
                         ) {
                             if (it) {
                                 saveAndClose(true)
@@ -397,7 +396,6 @@ class TextEditorActivity : AppCompatActivity() {
                 val outputFile = File.createTempFile("editor_${key.take(5)}", null, context.cacheDir)
                 outputFile.writeText(content)
                 putExtra(EXTRA_TARGET_FILE, outputFile.absolutePath)
-                Log.e("MODE: ${mode.name}")
                 putExtra(EXTRA_MODE, mode.name)
                 putExtra(EXTRA_KEY, key)
                 putExtra(EXTRA_HANDLE, handle)
