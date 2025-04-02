@@ -392,7 +392,7 @@ class TextEditorActivity : AppCompatActivity() {
 
         fun createIntent(context: Context, mode: MMKVUtils.EditorMode, handle: String, key: String, content: String): Intent {
             return Intent(context, TextEditorActivity::class.java).apply {
-                val outputFile = File.createTempFile("editor_${key.take(5)}", null, context.cacheDir);
+                val outputFile = File.createTempFile("editor_${key.take(5)}", null, context.cacheDir)
                 outputFile.writeText(content)
                 putExtra(EXTRA_TARGET_FILE, outputFile.absolutePath)
                 Log.e("MODE: ${mode.name}")
