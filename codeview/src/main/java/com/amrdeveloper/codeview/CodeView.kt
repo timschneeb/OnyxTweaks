@@ -24,7 +24,6 @@
 package com.amrdeveloper.codeview
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -47,8 +46,6 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
-import java.util.SortedMap
-import java.util.TreeMap
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.abs
@@ -66,8 +63,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     private var mUpdateDelayTime = 500
     private var modified = true
     private var highlightWhileTextChanging = true
-    private var hasErrors = false
-    private var mRemoveErrorsWhenTextChanged = true
 
     // Line number options
     private var lineNumberRect = Rect()
@@ -92,17 +87,11 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     private var currentMatchedToken: CharacterStyle? = null
     private val matchedTokens: MutableList<Token> = ArrayList()
 
-    // Auto complete and Suggestions
-    private var maxNumberOfSuggestions = Int.MAX_VALUE
-    private var autoCompleteItemHeightInDp =
-        (50 * Resources.getSystem().displayMetrics.density).toInt()
-
     // Auto pair complete
     private var enablePairComplete = false
     private var enablePairCompleteCenterCursor = false
     private val mPairCompleteMap: MutableMap<Char, Char> = HashMap()
     private val mUpdateHandler = Handler(Looper.getMainLooper())
-    private val mErrorHashSet: SortedMap<Int, Int> = TreeMap()
     private val mSyntaxPatternMap: MutableMap<Pattern, Int> = LinkedHashMap()
 
     constructor(context: Context) : super(context) {
@@ -123,7 +112,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
 
     private fun initEditorView() {
         setHorizontallyScrolling(false)
-        filters = arrayOf(mInputFilter)
         addTextChangedListener(mEditorTextWatcher)
         setOnKeyListener(mOnKeyListener)
         lineNumberPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -241,22 +229,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
         }
     }
 
-    private fun highlightErrorLines(editable: Editable) {
-        if (mErrorHashSet.isEmpty()) return
-        val maxErrorLineValue = mErrorHashSet.lastKey()
-        var lineNumber = 1
-        val matcher = PATTERN_LINE.matcher(editable)
-        while (matcher.find()) {
-            if (mErrorHashSet.containsKey(lineNumber)) {
-                mErrorHashSet[lineNumber]?.let {
-                    createBackgroundColorSpan(editable, matcher, it)
-                }
-            }
-            lineNumber += 1
-            if (lineNumber > maxErrorLineValue) break
-        }
-    }
-
     private fun createForegroundColorSpan(
         editable: Editable,
         matcher: Matcher,
@@ -281,19 +253,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
         )
     }
 
-    private fun createBackgroundColorSpan(
-        editable: Editable,
-        start: Int,
-        end: Int,
-        @ColorInt color: Int
-    ) {
-        editable.setSpan(
-            BackgroundColorSpan(color),
-            start, end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-    }
-
     private fun highlightMatchingToken(token: Token) {
         currentMatchedToken = BackgroundColorSpan(matchingColor)
         editableText.setSpan(
@@ -312,7 +271,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
         if (editable.isEmpty()) return editable
         try {
             clearSpans(editable)
-            highlightErrorLines(editable)
             highlightSyntax(editable)
         } catch (e: IllegalStateException) {
             e.printStackTrace()
@@ -333,7 +291,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     fun setTextHighlighted(text: CharSequence?) {
         if (text.isNullOrEmpty()) return
         cancelHighlighterRender()
-        removeAllErrorLines()
         modified = false
         setText(highlight(SpannableStringBuilder(text)))
         modified = true
@@ -400,46 +357,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     }
 
     /**
-     * Setup the syntax of your data as a map of patterns with their colors
-     * @param syntaxPatterns Map of Patterns and Colors
-     */
-    fun setSyntaxPatternsMap(syntaxPatterns: Map<Pattern, Int>?) {
-        if (mSyntaxPatternMap.isNotEmpty()) mSyntaxPatternMap.clear()
-        mSyntaxPatternMap.putAll(syntaxPatterns!!)
-    }
-
-    /**
-     * Add Single syntax as a Pattern with one Color
-     * @param pattern Syntax feature pattern
-     * @param color Colors used when highlighting the pattern
-     */
-    fun addSyntaxPattern(pattern: Pattern, @ColorInt color: Int) {
-        mSyntaxPatternMap[pattern] = color
-    }
-
-    /**
-     * Remove one pattern from the Syntax patterns
-     * @param pattern Pattern object to remove it
-     */
-    fun removeSyntaxPattern(pattern: Pattern) {
-        mSyntaxPatternMap.remove(pattern)
-    }
-
-    /**
-     * @return The current number of patterns in the syntax map
-     */
-    fun getSyntaxPatternsSize(): Int {
-        return mSyntaxPatternMap.size
-    }
-
-    /**
-     * Remove all syntax patterns
-     */
-    fun resetSyntaxPatternList() {
-        mSyntaxPatternMap.clear()
-    }
-
-    /**
      * Un highlight all keywords by removing all spans
      */
     fun resetHighlighter() {
@@ -475,98 +392,10 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     }
 
     /**
-     * Add New Error to the current set of errors to highlight it
-     * @param lineNum The error line number
-     * @param color The color to highlight this error
-     */
-    fun addErrorLine(lineNum: Int, color: Int) {
-        mErrorHashSet[lineNum] = color
-        hasErrors = true
-    }
-
-    /**
-     * Remove one error by the line number from the error set
-     * @param lineNum The error line number to remove it
-     */
-    fun removeErrorLine(lineNum: Int) {
-        mErrorHashSet.remove(lineNum)
-        hasErrors = mErrorHashSet.size > 0
-    }
-
-    /**
-     * Remove all the errors from the errors set and change [.hasErrors] to false
-     */
-    fun removeAllErrorLines() {
-        mErrorHashSet.clear()
-        hasErrors = false
-    }
-
-    /**
-     * @return The current number of errors in the Errors set
-     */
-    fun getErrorsSize(): Int {
-        return mErrorHashSet.size
-    }
-
-    /**
-     * @return The current text but without any Trailing Space
-     */
-    fun getTextWithoutTrailingSpace(): String {
-        return PATTERN_TRAILING_WHITE_SPACE
-            .matcher(text)
-            .replaceAll("")
-    }
-
-    /**
-     * Enable or disable remove all the current errors when text is changed
-     * @param removeErrors True to enable remove current error
-     */
-    fun setRemoveErrorsWhenTextChanged(removeErrors: Boolean) {
-        mRemoveErrorsWhenTextChanged = removeErrors
-    }
-
-    /**
      * Re Highlight the syntax patterns
      */
     fun reHighlightSyntax() {
         highlightSyntax(editableText)
-    }
-
-    /**
-     * Re Highlight the current errors
-     */
-    fun reHighlightErrors() {
-        highlightErrorLines(editableText)
-    }
-
-    /**
-     * @return `true` if the errors lists is not empty
-     */
-    fun isHasError(): Boolean {
-        return hasErrors
-    }
-
-    /**
-     * Modify the highlighting delay time
-     * @param time The new delay time
-     */
-    fun setUpdateDelayTime(time: Int) {
-        mUpdateDelayTime = time
-    }
-
-    /**
-     * @return The current highlighting delay time
-     */
-    fun getUpdateDelayTime(): Int {
-        return mUpdateDelayTime
-    }
-
-    /**
-     * Enable or disable highlighting while text is changing
-     * @param updateWhileTextChanging True to enable highlighting while text is changing
-     */
-    fun setHighlightWhileTextChanging(updateWhileTextChanging: Boolean) {
-        highlightWhileTextChanging = updateWhileTextChanging
     }
 
     /**
@@ -584,23 +413,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
      */
     fun isLineNumberEnabled(): Boolean {
         return enableLineNumber
-    }
-
-    /**
-     * Enable or disable the relative line number feature
-     * @param enableRelativeLineNumber  Flag to enable or disable line relative number
-     * @since 1.3.6
-     */
-    fun setEnableRelativeLineNumber(enableRelativeLineNumber: Boolean) {
-        this.enableRelativeLineNumber = enableRelativeLineNumber
-    }
-
-    /**
-     * @return (@code true) if relative line number is enabled
-     * @since 1.3.6
-     */
-    fun isLineRelativeNumberEnabled(): Boolean {
-        return enableRelativeLineNumber
     }
 
     /**
@@ -666,24 +478,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     }
 
     /**
-     * Modify the maximum number of suggestions to show, default is Integer.MAX_VALUE
-     * @param maxSuggestions the maximum number of suggestions
-     * @since 1.3.0
-     */
-    fun setMaxSuggestionsSize(maxSuggestions: Int) {
-        maxNumberOfSuggestions = maxSuggestions
-    }
-
-    /**
-     * Modify the auto complete item height
-     * @param height auto complete item height in dp
-     * @since 1.3.0
-     */
-    fun setAutoCompleteItemHeightInDp(height: Int) {
-        autoCompleteItemHeightInDp = (height * Resources.getSystem().displayMetrics.density).toInt()
-    }
-
-    /**
      * Enable or disable the auto pairs complete feature
      * @param enable Flag to enable or disable auto pair complete
      * @since 1.3.0
@@ -738,33 +532,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
         mPairCompleteMap.clear()
     }
 
-    override fun showDropDown() {
-        val layout = layout
-        val position = selectionStart
-        val line = layout.getLineForOffset(position)
-        val lineButton = layout.getLineBottom(line)
-        var numberOfMatchedItems = adapter.count
-        if (numberOfMatchedItems > maxNumberOfSuggestions) {
-            numberOfMatchedItems = maxNumberOfSuggestions
-        }
-        var dropDownHeight = dropDownHeight
-        val modifiedDropDownHeight = numberOfMatchedItems * autoCompleteItemHeightInDp
-        if (dropDownHeight != modifiedDropDownHeight) {
-            dropDownHeight = modifiedDropDownHeight
-        }
-        val displayFrame = Rect()
-        getGlobalVisibleRect(displayFrame)
-        val displayFrameHeight = displayFrame.height()
-        var verticalOffset = lineButton + dropDownHeight
-        if (verticalOffset > displayFrameHeight) {
-            verticalOffset = displayFrameHeight - autoCompleteItemHeightInDp
-        }
-        setDropDownHeight(dropDownHeight)
-        dropDownVerticalOffset = verticalOffset - displayFrameHeight - dropDownHeight
-        dropDownHorizontalOffset = layout.getPrimaryHorizontal(position).toInt()
-        super.showDropDown()
-    }
-
     private val mUpdateRunnable = Runnable {
         val source = text
         highlightWithoutChange(source)
@@ -803,7 +570,6 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
                     mUpdateHandler.postDelayed(mUpdateRunnable, mUpdateDelayTime.toLong())
                 }
             }
-            if (mRemoveErrorsWhenTextChanged) removeAllErrorLines()
             if (count == 1 && (enableAutoIndentation || enablePairComplete)) {
                 val currentChar = charSequence[start]
                 if (enableAutoIndentation) {
@@ -911,6 +677,5 @@ class CodeView : AppCompatMultiAutoCompleteTextView, Findable, Replaceable {
     companion object {
         private const val LINE_HIGHLIGHT_DEFAULT_COLOR = Color.DKGRAY
         private val PATTERN_LINE = Pattern.compile("(^(.*)$)+", Pattern.MULTILINE)
-        private val PATTERN_TRAILING_WHITE_SPACE = Pattern.compile("[\\t ]+$", Pattern.MULTILINE)
     }
 }

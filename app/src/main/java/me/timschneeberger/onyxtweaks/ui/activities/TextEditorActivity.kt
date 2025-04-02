@@ -246,6 +246,10 @@ class TextEditorActivity : AppCompatActivity() {
         codeView.setEnableHighlightCurrentLine(true)
         codeView.setHighlightCurrentLineColor(ContextCompat.getColor(this, R.color.colorInverseOnSurface))
 
+        // Setup Auto indenting feature
+        codeView.setEnableAutoIndentation(mode == MMKVUtils.EditorMode.JSON)
+        codeView.setIndentationStarts(setOf('[', '{'))
+        codeView.setIndentationEnds(setOf(']', '}'))
         codeView.setTabLength(4)
         codeView.setTabWidth(4)
 
