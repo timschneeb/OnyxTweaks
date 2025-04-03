@@ -123,7 +123,7 @@ fun <TRet> MethodParam.runHookSafely(caller: KClass<*>, block: MethodParam.() ->
     catch (e: Exception) {
         Log.ex(e, "Exception in hooked method '${method.name}' of class '${method.declaringClass.name}' within mod pack '${caller.simpleName}'")
         appContextNullable?.sendHookExceptionEvent(e, null, method, callerClass = caller)
-        return null!!
+        return null
     }
 }
 
@@ -134,6 +134,6 @@ fun <T,TRet> T.runSafely(caller: KClass<*>, message: String, isWarning: Boolean 
     catch (e: Exception) {
         Log.ex(e, "Exception within mod pack '${caller.simpleName}' thrown; $message")
         appContextNullable?.sendHookExceptionEvent(e, message, null, isWarning, callerClass = caller)
-        return null!!
+        return null
     }
 }

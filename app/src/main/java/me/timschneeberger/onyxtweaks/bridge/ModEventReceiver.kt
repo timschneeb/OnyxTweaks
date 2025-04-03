@@ -27,7 +27,7 @@ class ModEventReceiver : BroadcastReceiver() {
                 ModEvents.PREFERENCE_CHANGED -> {
                     val group = args?.getString(ModEvents.ARG_PREF_GROUP)
                     val key = args?.getString(ModEvents.ARG_PREF_KEY)
-                    group ?: return@let null
+                    group ?: return@let
                     eventListener.forEach {
                         it.onPreferenceGroupChanged(
                             PreferenceGroups.valueOf(group),
@@ -42,9 +42,29 @@ class ModEventReceiver : BroadcastReceiver() {
                     }
                 }
 
+                ModEvents.HOOK_EXCEPTION, ModEvents.HOOK_WARNING -> {
+                    args ?: return@let
+
+                    val exception = args.getSerializableAs<Throwable>(ModEvents.ARG_EXCEPTION)
+                    val message = args.getString(ModEvents.ARG_MESSAGE)
+                    val packageName = args.getString(ModEvents.ARG_HOOKED_PACKAGE)
+                    val hookedMethod = args.getString(ModEvents.ARG_HOOKED_METHOD)
+                    val hookedClass = args.getString(ModEvents.ARG_HOOKED_CLASS)
+
+                    eventListener.forEach {
+                        it.onHookException(
+                            exception,
+                            message,
+                            event == ModEvents.HOOK_WARNING,
+                            packageName,
+                            hookedMethod,
+                            hookedClass
+                        )
+                    }
+                }
+
                 else -> {}
             }
-
         }
     }
 
@@ -79,12 +99,15 @@ class ModEventReceiver : BroadcastReceiver() {
 
                 return Triple(event, sender, args)
             }
+
+            Log.e("Received $ACTION intent has no extras")
             return null
         }
 
         fun ModEvents.createIntent(sender: KClass<*>, args: Bundle? = null) =
             Intent(ACTION).apply {
                 flags = Intent.FLAG_INCLUDE_STOPPED_PACKAGES
+                `package` = BuildConfig.APPLICATION_ID
                 putExtra(EXTRA_EVENT, this@createIntent)
                 putExtra(EXTRA_SENDER, sender.qualifiedName)
                 args?.let { putExtra(EXTRA_ARGS, it) }
@@ -95,7 +118,7 @@ class ModEventReceiver : BroadcastReceiver() {
             event.createIntent(T::class, args)
 
         fun Context.sendEvent(event: ModEvents, sender: KClass<*>, args: Bundle? = null) {
-            sendBroadcast(event.createIntent(sender::class, args))
+            sendBroadcast(event.createIntent(sender, args))
         }
 
         inline fun <reified T> Context.sendEvent(event: ModEvents, args: Bundle? = null) {

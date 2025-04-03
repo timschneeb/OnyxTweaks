@@ -15,7 +15,10 @@ import me.timschneeberger.onyxtweaks.utils.Preferences
  * even when the app is stopped. This is important for events like LAUNCHER_INITIALIZED
  */
 class ExportedModEventReceiver : BroadcastReceiver() {
+    // TODO doesn't seem to work reliably
     override fun onReceive(context: Context, intent: Intent) {
+        Log.i("ExportedModEventReceiver received intent: ${intent.action}")
+
         parseIntent(intent)?.let { (event, sender, args) ->
             Log.i("Event received: $event from $sender")
 

@@ -22,7 +22,6 @@
             android:name=".bridge.ExportedModEventReceiver"
             android:enabled="true"
             android:exported="true"
-            android:directBootAware="true"
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="me.timschneeberger.onyxtweaks.action.MOD_EVENT" />

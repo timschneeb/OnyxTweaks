@@ -15,6 +15,14 @@ interface OnModEventReceived {
     fun onHookLoaded(packageName: String) {}
     fun onPreferenceGroupChanged(group: PreferenceGroups, key: String?) {}
     fun onRestartRequested(packageName: String) {}
+    fun onHookException(
+        exception: Throwable?,
+        message: String?,
+        isWarning: Boolean,
+        packageName: String?,
+        hookedMethod: String?,
+        hookedClass: String?,
+    ) {}
 }
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
