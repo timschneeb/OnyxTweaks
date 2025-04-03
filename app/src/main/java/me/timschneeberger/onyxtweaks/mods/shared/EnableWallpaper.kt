@@ -75,7 +75,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
                     appContext,
                     object : BroadcastReceiver() {
                         override fun onReceive(context: Context, intent: Intent) {
-                            runSafely(EnableWallpaper::class) {
+                            runSafely(EnableWallpaper::class, "Failed to set wallpaper after WALLPAPER_CHANGED event") {
                                 Log.dx("Received broadcast: ${intent.action}")
                                 setWallpaper()
                             }

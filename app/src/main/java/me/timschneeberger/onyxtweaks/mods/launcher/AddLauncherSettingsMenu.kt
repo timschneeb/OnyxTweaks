@@ -34,7 +34,7 @@ class AddLauncherSettingsMenu : ModPack() {
             instances
                 .mapNotNull(WeakReference<Any?>::get)
                 .forEach { instance: Any? ->
-                    runSafely(AddLauncherSettingsMenu::class) {
+                    runSafely(AddLauncherSettingsMenu::class, "Failed to open launcher settings") {
                         val listenerCls = findClass("com.onyx.common.applications.view.DesktopOptionView")
                             .methodFinder()
                             .firstByName("getDesktopOptionViewListener")

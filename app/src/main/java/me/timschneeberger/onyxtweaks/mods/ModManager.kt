@@ -25,25 +25,29 @@ class ModManager {
                 .map(::ensurePackInitialized)
                 .map { it as IEarlyZygoteHook }
                 .forEach { mod ->
-                    param.runSafely(mod::class, block = mod::handleZygoteInit)
+                    param.runSafely(
+                        mod::class,
+                        "Error while handling IEarlyZygoteHooks",
+                        block = mod::handleZygoteInit
+                    )
                 }
         }
     }
 
     fun handleLoadPackage(lpParam: LoadPackageParam) {
-        runSafely(ModManager::class) {
+        runSafely(ModManager::class, "Failed to hook application/framework entrypoint") {
             if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE)
                 MethodFinder.fromClass("com.android.server.policy.PhoneWindowManager")
                     .filterNonAbstract()
                     .filterByName("init")
                     .forEach { constructor ->
                         constructor.createBeforeHook hook@ { param ->
-                            runSafely(ModManager::class) {
+                            runSafely(ModManager::class, "Failed to retrieve framework context and initialize mods") {
                                 param.args
                                     .firstOrNull { it is Context }
                                     ?.let { return@runSafely onContextReady(it as Context, lpParam) }
 
-                                Log.ex("No context found in PhoneWindowManager constructor!")
+                                throw IllegalStateException("No context found in PhoneWindowManager constructor!")
                             }
                         }
                     }
@@ -52,7 +56,7 @@ class ModManager {
                     .filterByName("newApplication")
                     .forEach { constructor ->
                         constructor.createBeforeHook hook@ { param ->
-                            runSafely(ModManager::class) {
+                            runSafely(ModManager::class, "Failed to retrieve app context and initialize mods") {
                                 param.args
                                     .firstOrNull { it is Context }
                                     ?.let { return@runSafely onContextReady(it as Context, lpParam) }
@@ -67,7 +71,7 @@ class ModManager {
 
     fun handleInitPackageResources(param: InitPackageResourcesParam) {
         getPacksForPackage(param.packageName).forEach { mod ->
-            param.runSafely(mod::class, block = mod::handleInitPackageResources)
+            param.runSafely(mod::class, "Error while hooking resources", block = mod::handleInitPackageResources)
         }
     }
 
@@ -81,7 +85,7 @@ class ModManager {
             .forEach { mod ->
                 Log.dx("Initializing mod pack: ${mod::class.java.simpleName}")
                 context.registerModEventReceiver(mod)
-                param.runSafely(mod::class, block = mod::handleLoadPackage)
+                param.runSafely(mod::class, "Error while hooking DEX code", block = mod::handleLoadPackage)
             }
     }
 

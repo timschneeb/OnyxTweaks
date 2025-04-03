@@ -132,7 +132,7 @@ fun <T,TRet> T.runSafely(caller: KClass<*>, message: String, isWarning: Boolean 
         return block(this)
     }
     catch (e: Exception) {
-        Log.ex(e, "Exception within mod pack '${caller.simpleName}' thrown")
+        Log.ex(e, "Exception within mod pack '${caller.simpleName}' thrown; $message")
         appContextNullable?.sendHookExceptionEvent(e, message, null, isWarning, callerClass = caller)
         return null!!
     }
