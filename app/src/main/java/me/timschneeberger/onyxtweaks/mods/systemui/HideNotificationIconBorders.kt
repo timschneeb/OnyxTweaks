@@ -22,7 +22,7 @@ class HideNotificationIconBorders : ModPack() {
 
         MethodFinder.fromClass("com.android.systemui.statusbar.StatusBarIconView")
             .firstByName("setNotification")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<HideNotificationIconBorders> { param ->
                 param.thisObject
                     .objectHelper()
                     .setObject("mNotifRoundPaint", null)
@@ -30,7 +30,7 @@ class HideNotificationIconBorders : ModPack() {
 
         MethodFinder.fromClass("com.android.systemui.statusbar.phone.NotificationIconAreaController")
             .firstByName("resetIconConfig")
-            .createReplaceHookCatching {
+            .createReplaceHookCatching<HideNotificationIconBorders> {
                 // Bypass method
                 it.args.first()
             }

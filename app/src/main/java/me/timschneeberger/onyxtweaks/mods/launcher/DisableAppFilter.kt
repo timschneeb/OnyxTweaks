@@ -28,7 +28,7 @@ class DisableAppFilter : ModPack() {
         findClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
                 .firstByName("getAppsFilter")
-                .createReplaceHookCatching hook@ { param ->
+                .createReplaceHookCatching<DisableAppFilter> hook@ { param ->
                     val filter = param
                         .invokeOriginalMethod()
                         .cast<List<String>>()

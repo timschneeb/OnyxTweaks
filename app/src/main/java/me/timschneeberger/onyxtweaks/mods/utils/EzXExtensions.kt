@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper
+import com.github.kyuubiran.ezxhelper.EzXHelper.appContextNullable
+import com.github.kyuubiran.ezxhelper.EzXHelper.hostPackageName
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper
@@ -15,9 +17,12 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
+import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import java.lang.reflect.Constructor
 import java.lang.reflect.Method
-import kotlin.reflect.typeOf
+import kotlin.reflect.KClass
+
+typealias MethodParam = XC_MethodHook.MethodHookParam
 
 fun findClass(className: String): Class<*> {
     return try {
@@ -33,37 +38,35 @@ fun findClass(className: String): Class<*> {
     }
 }
 
-fun Method.createBeforeHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
-    createHook { before { it.runSafely(block) } }
+inline fun <reified TCaller : ModPack> Method.createBeforeHookCatching(noinline block: (MethodParam) -> Unit) =
+    createHook { before { it.runHookSafely(TCaller::class, block) } }
 
-fun Method.createAfterHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
-    createHook { after { it.runSafely(block) } }
+inline fun <reified TCaller : ModPack> Method.createAfterHookCatching(noinline block: (MethodParam) -> Unit) =
+    createHook { after { it.runHookSafely(TCaller::class, block) } }
 
-fun Method.createReplaceHookCatching(block: (XC_MethodHook.MethodHookParam) -> Any?) =
-    createHook { replace { it.runSafely(block) } }
+inline fun <reified TCaller : ModPack> Method.createReplaceHookCatching(noinline block: (MethodParam) -> Any?) =
+    createHook { replace { it.runHookSafely(TCaller::class, block) } }
 
-fun <T> Constructor<T>.createBeforeHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
-    createHook { before { it.runSafely(block) } }
+inline fun <reified TCaller : ModPack> Constructor<*>.createBeforeHookCatching(noinline block: (MethodParam) -> Unit) =
+    createHook { before { it.runHookSafely(TCaller::class, block) } }
 
-fun <T> Constructor<T>.createAfterHookCatching(block: (XC_MethodHook.MethodHookParam) -> Unit) =
-    createHook { after { it.runSafely(block) } }
+inline fun <reified TCaller : ModPack> Constructor<*>.createAfterHookCatching(noinline block: (MethodParam) -> Unit) =
+    createHook { after { it.runHookSafely(TCaller::class, block) } }
 
-fun <T> Constructor<T>.createReplaceHookCatching(block: (XC_MethodHook.MethodHookParam) -> Any?) =
-    createHook { replace { it.runSafely(block) } }
+inline fun <reified TCaller : ModPack> Constructor<*>.createReplaceHookCatching(noinline block: (MethodParam) -> Any?) =
+    createHook { replace { it.runHookSafely(TCaller::class, block) } }
 
-fun <T> Method.replaceWithConstant(value: T?) {
+inline fun <reified TCaller : ModPack> Method.replaceCatchingWithExpression(noinline block: () -> Any?) {
     createHook {
-        replace { _ -> value }
+        replace { it ->
+            it.runHookSafely(TCaller::class) { block() }
+        }
     }
 }
 
-inline fun <reified T> Method.replaceCatchingWithExpression(crossinline block: () -> T) {
+fun Method.replaceWithConstant(value: Any?) {
     createHook {
-        replace { _ ->
-            runSafely {
-                block()
-            }
-        }
+        replace { _ -> value }
     }
 }
 
@@ -78,7 +81,7 @@ fun MethodFinder.firstByName(name: String): Method {
 
 @SuppressLint("DiscouragedApi")
 fun Resources.getResourceIdByName(name: String, type: String, packageName: String? = null) =
-    getIdentifier(name, type, packageName ?: EzXHelper.hostPackageName).let { drawableId ->
+    getIdentifier(name, type, packageName ?: hostPackageName).let { drawableId ->
         if (drawableId == 0) {
             Log.ex("Resource $type/$name not found in $packageName")
             null
@@ -103,7 +106,7 @@ fun Resources.getDimensionPxByName(name: String, packageName: String? = null) =
         getDimensionPixelSize(dimenId)
     }
 
-fun XC_MethodHook.MethodHookParam.invokeOriginalMethod(): Any? {
+fun MethodParam.invokeOriginalMethod(): Any? {
     return try {
         XposedBridge.invokeOriginalMethod(this.method, this.thisObject, this.args)
     }
@@ -113,19 +116,24 @@ fun XC_MethodHook.MethodHookParam.invokeOriginalMethod(): Any? {
     }
 }
 
-inline fun <T,reified TRet> T.runSafely(block: T.() -> TRet): TRet {
+fun <TRet> MethodParam.runHookSafely(caller: KClass<*>, block: MethodParam.() -> TRet): TRet? {
     try {
-        return block()
+        return block(this)
     }
     catch (e: Exception) {
-        Log.ex(e)
-
-        // Throw if a return type is expected
-        if (TRet::class != typeOf<Unit>()) {
-            throw e
-        }
+        Log.ex(e, "Exception in hooked method '${method.name}' of class '${method.declaringClass.name}' within mod pack '${caller.simpleName}'")
+        appContextNullable?.sendHookExceptionEvent(e, null, method, callerClass = caller)
+        return null!!
     }
+}
 
-    // If no return type is expected, return null
-    return null as TRet
+fun <T,TRet> T.runSafely(caller: KClass<*>, message: String, isWarning: Boolean = false, block: T.() -> TRet): TRet? {
+    try {
+        return block(this)
+    }
+    catch (e: Exception) {
+        Log.ex(e, "Exception within mod pack '${caller.simpleName}' thrown")
+        appContextNullable?.sendHookExceptionEvent(e, message, null, isWarning, callerClass = caller)
+        return null!!
+    }
 }

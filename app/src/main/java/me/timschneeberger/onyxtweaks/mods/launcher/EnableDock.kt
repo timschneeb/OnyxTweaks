@@ -24,7 +24,7 @@ class EnableDock : ModPack() {
         findClass("com.onyx.common.common.model.DeviceConfig").apply {
             methodFinder()
                 .firstByName("getHotSeatApps")
-                .createReplaceHookCatching { param ->
+                .createReplaceHookCatching<EnableDock> { param ->
                     // Return a list with one app
                     // This will initialize an empty dock. If the list were empty, the dock would not be shown.
                     return@createReplaceHookCatching listOf(

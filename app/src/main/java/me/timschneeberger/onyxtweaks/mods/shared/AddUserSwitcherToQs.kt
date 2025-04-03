@@ -24,8 +24,8 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.getDimensionPxByName
 import me.timschneeberger.onyxtweaks.mods.utils.getDrawableByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
@@ -67,7 +67,7 @@ class AddUserSwitcherToQs : ModPack() {
 
         MethodFinder.fromClass("com.android.systemui.qs.QSPanel")
             .firstByName("initTabletTitleBar")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<AddUserSwitcherToQs> { param ->
                 // Obtain settings button and its context
                 val settingsViewGroup = param.thisObject
                     .objectHelper()

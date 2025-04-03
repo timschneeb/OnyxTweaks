@@ -45,7 +45,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
 
         MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
             .firstByName("getUserAppConfig")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<EnableWallpaper> { param ->
                 val config = param.invokeOriginalMethod()
                 config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
                 param.result = config
@@ -55,9 +55,8 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
         ConstructorFinder.fromClass("com.onyx.common.applications.view.Workspace")
             .filterByParamTypes(Context::class.java, AttributeSet::class.java)
             .first()
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<EnableWallpaper> { param ->
                 fun setWallpaper() {
-                    runSafely {
                         MethodFinder.fromClass(View::class)
                             .filterByName("setBackground")
                             .filterByParamTypes(Drawable::class.java)
@@ -66,7 +65,6 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
                                 param.thisObject,
                                 WallpaperManager.getInstance(appContext).drawable
                             )
-                    }
                 }
 
                 // Set wallpaper on creation
@@ -77,8 +75,10 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
                     appContext,
                     object : BroadcastReceiver() {
                         override fun onReceive(context: Context, intent: Intent) {
-                            setWallpaper()
-                            Log.dx("Received broadcast: ${intent.action}")
+                            runSafely(EnableWallpaper::class) {
+                                Log.dx("Received broadcast: ${intent.action}")
+                                setWallpaper()
+                            }
                         }
                     },
                     IntentFilter().apply {
@@ -92,7 +92,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
 
         MethodFinder.fromClass("com.onyx.common.applications.action.DesktopOptionProcessImpl")
             .firstByName("onWallpaperSelection")
-            .createReplaceHookCatching {
+            .createReplaceHookCatching<EnableWallpaper> {
                 Intent().apply {
                     action = "android.intent.action.MAIN"
                     setClassName("com.android.settings", "com.android.settings.Settings\$UserSettingsActivity")

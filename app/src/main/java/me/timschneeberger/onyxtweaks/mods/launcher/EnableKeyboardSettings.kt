@@ -6,9 +6,9 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableKeyboardSettings : ModPack() {
@@ -17,8 +17,6 @@ class EnableKeyboardSettings : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isEnableKeyboardSetting")
-            .replaceWithConstant(
-                preferences.get<Boolean>(R.string.key_launcher_settings_show_physical_input)
-            )
+            .replaceCatchingWithExpression<EnableKeyboardSettings> { preferences.get<Boolean>(R.string.key_launcher_settings_show_physical_input) }
     }
 }

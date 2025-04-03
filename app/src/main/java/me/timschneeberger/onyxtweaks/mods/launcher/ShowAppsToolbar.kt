@@ -10,8 +10,8 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 
@@ -28,7 +28,7 @@ class ShowAppsToolbar : ModPack() {
             methodFinder()
                 .filterByParamTypes(View::class.java, Boolean::class.java)
                 .firstByName("setViewVisibleOrGone")
-                .createBeforeHookCatching { param ->
+                .createBeforeHookCatching<ShowAppsToolbar> { param ->
                     /* We want to force set the visibility when the view is the root of the title bar
                      * Once we are have a possible candidate, we will check the stack trace (expensive operation)
                      * to see if it is being called from initTitleBarView. */

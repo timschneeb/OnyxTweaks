@@ -6,9 +6,9 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
-import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddFunctionBarSpacer : ModPack() {
@@ -20,7 +20,7 @@ class AddFunctionBarSpacer : ModPack() {
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isConfigFunctionBarSpace")
-            .replaceWithConstant(
+            .replaceWithConstant (
                 when(preferences.get<String>(R.string.key_launcher_bar_item_alignment)) {
                     "spacer" -> true
                     else -> false

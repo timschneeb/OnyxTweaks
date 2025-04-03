@@ -45,7 +45,7 @@ class CustomizeRecents : ModPack() {
         if (preferences.get<Boolean>(R.string.key_recents_use_stock_header)) {
             MethodFinder.fromClass("com.android.systemui.recents.OnyxRecentsActivity\$TabletManagerAdapter")
                 .firstByName("onPageCreateViewHolder")
-                .createReplaceHookCatching hook@ { param ->
+                .createReplaceHookCatching<CustomizeRecents> hook@ { param ->
                     val view = param.args[0].castNonNull<ViewGroup>().let { root ->
                         root.context.inflateLayoutByName(
                             root,
@@ -77,7 +77,7 @@ class CustomizeRecents : ModPack() {
 
 
     private fun Method.replaceSizeByOrientation(portraitValue: Int, landscapeValue: Int) {
-        createReplaceHookCatching { param ->
+        createReplaceHookCatching<CustomizeRecents> { param ->
             param
                 .thisObject.javaClass
                 .methodFinder()

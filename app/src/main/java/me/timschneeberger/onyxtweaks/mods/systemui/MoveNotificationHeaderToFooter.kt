@@ -7,7 +7,7 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
@@ -18,6 +18,8 @@ class MoveNotificationHeaderToFooter : ModPack() {
         // Note: may cause minor visual issues
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
             .firstByName("isNotificationManagerItemStayOnTop")
-            .replaceWithConstant(!preferences.get<Boolean>(R.string.key_status_bar_notifications_move_header_to_bottom))
+            .replaceCatchingWithExpression<MoveNotificationHeaderToFooter> {
+                !preferences.get<Boolean>(R.string.key_status_bar_notifications_move_header_to_bottom)
+            }
     }
 }

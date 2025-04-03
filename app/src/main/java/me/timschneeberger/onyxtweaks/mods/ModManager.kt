@@ -3,6 +3,7 @@ package me.timschneeberger.onyxtweaks.mods
 import android.app.Instrumentation
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.EzXHelper
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createBeforeHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
@@ -13,7 +14,6 @@ import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import kotlin.reflect.KClass
 
@@ -25,36 +25,40 @@ class ModManager {
                 .map(::ensurePackInitialized)
                 .map { it as IEarlyZygoteHook }
                 .forEach { mod ->
-                    param.runSafely(mod::handleZygoteInit)
+                    param.runSafely(mod::class, block = mod::handleZygoteInit)
                 }
         }
     }
 
     fun handleLoadPackage(lpParam: LoadPackageParam) {
-        runSafely {
+        runSafely(ModManager::class) {
             if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE)
                 MethodFinder.fromClass("com.android.server.policy.PhoneWindowManager")
                     .filterNonAbstract()
                     .filterByName("init")
                     .forEach { constructor ->
-                        constructor.createBeforeHookCatching hook@ { param ->
-                            param.args
-                                .firstOrNull { it is Context }
-                                ?.let { return@hook onContextReady(it as Context, lpParam) }
+                        constructor.createBeforeHook hook@ { param ->
+                            runSafely(ModManager::class) {
+                                param.args
+                                    .firstOrNull { it is Context }
+                                    ?.let { return@runSafely onContextReady(it as Context, lpParam) }
 
-                            Log.ex("No context found in PhoneWindowManager constructor!")
+                                Log.ex("No context found in PhoneWindowManager constructor!")
+                            }
                         }
                     }
             else {
                 MethodFinder.fromClass(Instrumentation::class.java)
                     .filterByName("newApplication")
                     .forEach { constructor ->
-                        constructor.createBeforeHookCatching hook@ { param ->
-                            param.args
-                                .firstOrNull { it is Context }
-                                ?.let { return@hook onContextReady(it as Context, lpParam) }
+                        constructor.createBeforeHook hook@ { param ->
+                            runSafely(ModManager::class) {
+                                param.args
+                                    .firstOrNull { it is Context }
+                                    ?.let { return@runSafely onContextReady(it as Context, lpParam) }
 
-                            Log.ex("No context found in newApplication!")
+                                throw IllegalStateException("No context found in newApplication!")
+                            }
                         }
                     }
             }
@@ -62,8 +66,8 @@ class ModManager {
     }
 
     fun handleInitPackageResources(param: InitPackageResourcesParam) {
-        runSafely {
-            getPacksForPackage(param.packageName).forEach { it.handleInitPackageResources(param) }
+        getPacksForPackage(param.packageName).forEach { mod ->
+            param.runSafely(mod::class, block = mod::handleInitPackageResources)
         }
     }
 
@@ -74,10 +78,10 @@ class ModManager {
             EzXHelper.initAppContext(context, addPath = true)
 
         getPacksForPackage(param.packageName)
-            .forEach { pack ->
-                Log.dx("Initializing mod pack: ${pack::class.java.simpleName}")
-                context.registerModEventReceiver(pack)
-                param.runSafely(pack::handleLoadPackage)
+            .forEach { mod ->
+                Log.dx("Initializing mod pack: ${mod::class.java.simpleName}")
+                context.registerModEventReceiver(mod)
+                param.runSafely(mod::class, block = mod::handleLoadPackage)
             }
     }
 

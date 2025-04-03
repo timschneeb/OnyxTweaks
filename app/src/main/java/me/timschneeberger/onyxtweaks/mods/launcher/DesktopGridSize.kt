@@ -4,16 +4,16 @@ import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
-import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -68,14 +68,14 @@ class DesktopGridSize : ModPack() {
         findClass("com.onyx.common.applications.model.AppSettings").apply {
             methodFinder()
                 .firstByName("isAppInit")
-                .createReplaceHookCatching { param ->
+                .createReplaceHookCatching<DesktopGridSize> { param ->
                     if (isInitializing) false else param.invokeOriginalMethod()
                 }
 
             methodFinder()
                 .filterByParamTypes(Boolean::class.java)
                 .firstByName("setAppInit")
-                .createBeforeHookCatching { param ->
+                .createBeforeHookCatching<DesktopGridSize> { param ->
                     if(param.args[0] == true) {
                         Log.ix("Launcher initialization finished. Sending broadcast")
                         sendEvent(ModEvents.LAUNCHER_REINITIALIZED)

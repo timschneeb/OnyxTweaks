@@ -9,9 +9,10 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.applyObjectHelper
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -30,7 +31,7 @@ class AddSettingCategories : ModPack() {
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("getSettingCategory")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<AddSettingCategories> { param ->
                 val categoryCls = findClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory")
                 categoryCls
                     .getMethod("getItemList")
@@ -55,16 +56,13 @@ class AddSettingCategories : ModPack() {
             }
     }
 
-    private fun createSettingsEntry(category: SettingCategory): Any {
-        return findClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory\$ConfigItem")
+    private fun createSettingsEntry(category: SettingCategory) =
+        findClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory\$ConfigItem")
             .classHelper()
             .newInstance()
-            .apply {
-                objectHelper().run {
-                    setObject("title", category.title)
-                    setObject("name", category.name)
-                    setObject("image", category.icon)
-                }
+            .applyObjectHelper {
+                setObject("title", category.title)
+                setObject("name", category.name)
+                setObject("image", category.icon)
             }
-    }
 }

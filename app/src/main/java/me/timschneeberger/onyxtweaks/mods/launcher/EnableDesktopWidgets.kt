@@ -11,8 +11,8 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
@@ -57,7 +57,7 @@ class EnableDesktopWidgets : ModPack() {
             .filterByReturnType(List::class.java)
             .filterByModifiers(Modifier.PRIVATE)
             .first()
-            .createReplaceHookCatching hook@ { param ->
+            .createReplaceHookCatching<EnableDesktopWidgets> hook@ { param ->
                 // Get installed widgets
                 val widgets = ArrayList<Any?>()
                 val installedWidgets =
@@ -114,7 +114,7 @@ class EnableDesktopWidgets : ModPack() {
         // Force re-initialization if the widget page is empty
         MethodFinder.fromClass("com.onyx.common.applications.appwidget.utils.AppWidgetUtils")
             .firstByName("getSecondaryScreenWidgetsJsonFromMMKV")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<EnableDesktopWidgets> { param ->
                 param.result.cast<String>().takeIf {
                     it.isNullOrEmpty() || it.trim() == "[]" || it.trim() == "{}"
                 }?.let {
@@ -126,7 +126,7 @@ class EnableDesktopWidgets : ModPack() {
         // Add provider name to widget label to distinguish between widgets with the same label
         MethodFinder.fromClass("com.onyx.common.applications.appwidget.model.AppWidgetSettingsItemLayoutModel")
             .firstByName("getLabel")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<EnableDesktopWidgets> { param ->
                 val label = param.result.castNonNull<String>()
                 param.thisObject.javaClass
                     .methodFinder()

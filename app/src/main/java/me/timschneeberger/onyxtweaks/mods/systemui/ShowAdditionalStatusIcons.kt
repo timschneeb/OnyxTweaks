@@ -17,7 +17,7 @@ class ShowAdditionalStatusIcons : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.android.systemui.statusbar.phone.StatusBarIconControllerImpl")
             .firstByName("setIconVisibility")
-            .createBeforeHookCatching { param ->
+            .createBeforeHookCatching<ShowAdditionalStatusIcons> { param ->
                 val str = param.args.firstOrNull() as? String
                 when (str) {
                     "refresh_mode" -> param.args[1] = preferences.get<Boolean>(R.string.key_status_bar_status_icons_show_refresh_mode)

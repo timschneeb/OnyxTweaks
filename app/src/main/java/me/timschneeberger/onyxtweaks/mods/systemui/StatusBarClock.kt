@@ -27,6 +27,7 @@ import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.sendHookExceptionEvent
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 // Adapted from: https://github.com/siavash79/PixelXpert/
@@ -65,7 +66,7 @@ class StatusBarClock : ModPack() {
             .methodFinder()
             .filterByParamTypes(View::class.java, Bundle::class.java)
             .firstByName("onViewCreated")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<StatusBarClock> { param ->
                 // Clock view
                 clockView = getObjectField(param.thisObject, "mClockView") as View
                 clockViewParent = clockView?.parent as ViewGroup
@@ -81,6 +82,7 @@ class StatusBarClock : ModPack() {
                 centeredIconArea = try {
                     (getObjectField(param.thisObject, "mCenteredIconArea") as View).parent as View
                 } catch (ex: Throwable) {
+                    appContext.sendHookExceptionEvent<StatusBarClock>(ex, "Failed to find centered icon area", null, isWarning = true)
                     Log.ex(ex, "Failed to find mCenteredIconArea. Falling back to parent.systemIconArea")
 
                     LinearLayout(appContext).apply {
@@ -96,11 +98,11 @@ class StatusBarClock : ModPack() {
             .methodFinder()
             .firstByName("getSmallTime")
             .run {
-                createBeforeHookCatching { param ->
+                createBeforeHookCatching<StatusBarClock> { param ->
                     setObjectField(param.thisObject, "mAmPmStyle", AmPmStyle.GONE.value)
                 }
 
-                createAfterHookCatching { param ->
+                createAfterHookCatching<StatusBarClock> { param ->
                     if (param.thisObject != clockView) return@createAfterHookCatching
 
                     val clockText = SpannableStringBuilder.valueOf(param.result as CharSequence)
@@ -219,7 +221,9 @@ class StatusBarClock : ModPack() {
 
             systemIconArea?.layoutParams?.width = screenWidth - notificationWidth
         } catch (ex: Exception) {
-            Log.ex(ex, "Failed to adjust center status bar area")
+            val msg = "Failed to adjust center status bar area"
+            Log.ex(ex, msg)
+            appContext.sendHookExceptionEvent<StatusBarClock>(ex, msg)
         }
     }
 

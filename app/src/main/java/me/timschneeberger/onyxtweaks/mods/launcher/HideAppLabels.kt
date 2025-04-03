@@ -29,7 +29,7 @@ class HideAppLabels : ModPack() {
             methodFinder()
                 .filterByParamTypes(View::class.java, Boolean::class.java)
                 .firstByName("setViewVisibleOrGone")
-                .createBeforeHookCatching { param ->
+                .createBeforeHookCatching<HideAppLabels> { param ->
                     // We want to force set the visibility when the view is the TextView label in launcher_app_item
                     param.args[0].cast<View>()?.let {
                         if (it is TextView && it.id == appContext.resources.getIdentifier("name", "id", LAUNCHER_PACKAGE)) {

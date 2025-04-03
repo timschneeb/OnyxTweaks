@@ -46,7 +46,7 @@ class PerActivityRefreshModes : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass(Activity::class.java)
             .firstByName("onResume")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<PerActivityRefreshModes> { param ->
                 findRules(lpParam.packageName).let { rules ->
                     var rule = rules.firstOrNull { it.activityClass.also { string -> Log.ex("Comparing $string to ${param.thisObject::class.java.name}") } == param.thisObject::class.java.name }
                     rule = rule ?: rules.firstOrNull { it.activityClass == null }

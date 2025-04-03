@@ -9,8 +9,8 @@ import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
-import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
+import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(LAUNCHER_PACKAGE)
@@ -29,7 +29,7 @@ class HideFunctionBarItems : ModPack() {
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("getFunctionConfig")
-            .createAfterHookCatching { param ->
+            .createAfterHookCatching<HideFunctionBarItems> { param ->
                 val categoryCls = findClass("com.onyx.reader.main.model.FunctionConfig")
                 categoryCls
                     .getMethod("getItemList")
@@ -45,7 +45,6 @@ class HideFunctionBarItems : ModPack() {
                             .methodFinder()
                             .firstByName("setItemList")
                             .invoke(param.result, it)
-
                     }
             }
     }

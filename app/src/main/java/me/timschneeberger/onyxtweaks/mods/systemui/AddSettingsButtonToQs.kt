@@ -32,7 +32,7 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
             // Set the settings button to visible
             methodFinder()
                 .firstByName("initTabletTitleBar")
-                .createAfterHookCatching { param ->
+                .createAfterHookCatching<AddSettingsButtonToQs> { param ->
                     param.thisObject
                         .objectHelper()
                         .getObjectOrNull("settings")
@@ -43,7 +43,7 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
             // Override action
             methodFinder()
                 .firstByName("startOnyxSettings")
-                .createReplaceHookCatching { param ->
+                .createReplaceHookCatching<AddSettingsButtonToQs> { param ->
                     val value = preferences.get<String>(R.string.key_qs_header_settings_button_action)
                     when (value) {
                         "onyx_settings" -> param.invokeOriginalMethod()
