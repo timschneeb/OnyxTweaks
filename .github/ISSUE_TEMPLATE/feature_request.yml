@@ -1,0 +1,33 @@
+name: Feature request
+description: Request new features here
+title: '[Req]: '
+labels:
+  - bug
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of the feature request.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        Note: I'm primarily developing this module on my Go Color 7 with Android
+        12, so I might not be able to solve requests targeting other Android
+        versions. 
+  - type: input
+    attributes:
+      label: Android version
+      description: Version of Android running on your e-reader
+      placeholder: 12, 13, ...
+  - type: input
+    attributes:
+      label: Onyx device
+      description: Model name of your e-reader
+      placeholder: Go Color 7, Tab Ultra C, ...
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://issue-forms-creator.netlify.app)
