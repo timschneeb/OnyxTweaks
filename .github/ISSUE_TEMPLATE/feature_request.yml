@@ -1,5 +1,6 @@
 name: Feature request
 description: Request new features here
+assignees: "timschneeb"
 title: '[Req]: '
 labels:
   - bug
@@ -26,8 +27,3 @@ body:
       label: Onyx device
       description: Model name of your e-reader
       placeholder: Go Color 7, Tab Ultra C, ...
-  - type: markdown
-    attributes:
-      value: >-
-        This template was generated with [Issue Forms
-        Creator](https://issue-forms-creator.netlify.app)
