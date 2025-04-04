@@ -123,9 +123,17 @@ This component works without Xposed but requires root access.
 To use this module, you must first root your device using Magisk. See the [mobileread.com](https://mobileread.com) forum for guides.
 Then enable Zygisk in Magisk Manager and install the [LSPosed Magisk module](https://github.com/JingMatrix/LSPosed/releases).
 
-See [releases](https://github.com/timschneeb/OnyxTweaks) for downloads.
+See [releases](https://github.com/timschneeb/OnyxTweaks) for module downloads.
 
 This module is also published in the LSPosed module repository and can be downloaded within LSPosed Manager.
+
+## Reporting issues
+
+Before reporting crashes or issues, please retrieve the Xposed log files from LSPosed manager.
+
+On the 'Log' page of LSPosed manager, tap on the save icon in the top toolbar to save all important diagnostic data into a compressed file.
+When opening an issue, please attach that file.
+
 
 ## Screenshots
 
