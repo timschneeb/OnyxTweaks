@@ -77,6 +77,10 @@ Notifications
 * Remove notification icon borders
 * ...and minor notification panel changes
 
+Clock
+* Customize clock position (left, center, right)
+* Insert day of the week, or your custom dynamic text (ex. with the current date) next to the clock (in small or normal font size)
+
 Status icons
 * Show current e-Ink refresh mode as a status icon
 * Show current touch/stylus mode as a status icon
