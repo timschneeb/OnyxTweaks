@@ -1,0 +1,39 @@
+name: Bug report
+description: Report crashes, bugs, and other issues here
+title: '[Bug]: '
+labels:
+  - bug
+body:
+  - type: textarea
+    attributes:
+      label: Description & attachments
+      description: >-
+        A clear and concise description of the problem. Please attach log files
+        if available. 
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        Hint: You can obtain logs in the LSPosed manager. Navigate to the 'Logs'
+        tab and press the 'Save' button in the top toolbar to export the logs as
+        a ZIP files.
+  - type: input
+    attributes:
+      label: Android version
+      description: Version of Android running on your e-reader
+      placeholder: 12, 13, ...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Onyx device
+      description: Model name of your e-reader
+      placeholder: Go Color 7, Tab Ultra C, ...
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://issue-forms-creator.netlify.app)
