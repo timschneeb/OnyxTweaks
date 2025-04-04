@@ -15,12 +15,9 @@ import me.timschneeberger.onyxtweaks.utils.Preferences
  * even when the app is stopped. This is important for events like LAUNCHER_INITIALIZED
  */
 class ExportedModEventReceiver : BroadcastReceiver() {
-    // TODO doesn't seem to work reliably
     override fun onReceive(context: Context, intent: Intent) {
-        Log.i("ExportedModEventReceiver received intent: ${intent.action}")
-
         parseIntent(intent)?.let { (event, sender, args) ->
-            Log.i("Event received: $event from $sender")
+            Log.d("Event received: $event from $sender")
 
             when (event) {
                 ModEvents.LAUNCHER_REINITIALIZED -> {
@@ -29,9 +26,7 @@ class ExportedModEventReceiver : BroadcastReceiver() {
                     }
                     context.toast(R.string.launcher_desktop_reinit_done_toast)
                 }
-                ModEvents.HOOK_LOADED -> {
-                    Log.i("Hook loaded for package: ${args?.getString(ModEvents.ARG_PACKAGE)}")
-                }
+
                 else -> {}
             }
         }
