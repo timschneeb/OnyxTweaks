@@ -3,7 +3,7 @@ description: Request new features here
 assignees: "timschneeb"
 title: '[Req]: '
 labels:
-  - bug
+  - enhancement
 body:
   - type: textarea
     attributes:
