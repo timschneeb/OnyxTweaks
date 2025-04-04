@@ -1,5 +1,6 @@
 name: Bug report
 description: Report crashes, bugs, and other issues here
+assignees: "timschneeb"
 title: '[Bug]: '
 labels:
   - bug
@@ -32,8 +33,3 @@ body:
       placeholder: Go Color 7, Tab Ultra C, ...
     validations:
       required: true
-  - type: markdown
-    attributes:
-      value: >-
-        This template was generated with [Issue Forms
-        Creator](https://issue-forms-creator.netlify.app)
