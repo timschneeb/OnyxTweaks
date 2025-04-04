@@ -95,8 +95,11 @@ Header
 Panel
 * Compact panel style (top right only, instead of using the full-screen height)
 * Customize QS grid size
-* Remove minimum tile count restriction
-* Show B/W mode tile on all devices
+* Remove minimum tile count restriction 
+
+Tiles 
+* Show Black & white mode tile on all devices
+* Show split screen tile on all devices
 
 ### Recents
 
