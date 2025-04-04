@@ -54,6 +54,7 @@
     <string name="default_qs_grid_column_count" translatable="false">2</string>
     <bool name="default_qs_grid_no_min_tile_count" translatable="false">false</bool>
     <bool name="default_qs_grid_show_bw_tile" translatable="false">false</bool>
+    <bool name="default_qs_grid_show_split_screen_tile" translatable="false">false</bool>
 
     <!-- Recents -->
     <bool name="default_recents_grid_custom_size" translatable="false">false</bool>

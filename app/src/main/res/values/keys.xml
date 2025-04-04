@@ -61,6 +61,7 @@
     <string name="key_qs_grid_column_count" translatable="false">qs_grid_column_count</string>
     <string name="key_qs_grid_no_min_tile_count" translatable="false">qs_grid_no_min_tile_count</string>
     <string name="key_qs_grid_show_bw_tile" translatable="false">qs_grid_show_bw_tile</string>
+    <string name="key_qs_grid_show_split_screen_tile" translatable="false">qs_grid_show_split_screen_tile</string>
 
     <!-- Recents -->
     <string name="key_recents_grid_custom_size" translatable="false">recents_grid_custom_size</string>

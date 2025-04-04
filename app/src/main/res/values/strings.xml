@@ -203,6 +203,8 @@
     <string name="qs_grid_no_min_tile_count_summary">Allow the quick settings grid to contain less than 6 tiles</string>
     <string name="qs_grid_show_bw_tile">Show black/white-mode tile</string>
     <string name="qs_grid_show_bw_tile_summary">Add the BW mode to the list of available quick settings tiles</string>
+    <string name="qs_grid_show_split_screen_tile">Show split-screen tile</string>
+    <string name="qs_grid_show_split_screen_tile_summary">Add the split-screen tile to the list of available quick settings tiles</string>
 
     <!-- Recents -->
     <string name="recents_grid">Recents grid</string>

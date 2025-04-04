@@ -81,6 +81,13 @@
             android:title="@string/qs_grid_show_bw_tile"
             android:summary="@string/qs_grid_show_bw_tile_summary"
             app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_grid_show_split_screen_tile"
+            android:defaultValue="@bool/default_qs_grid_show_split_screen_tile"
+            android:title="@string/qs_grid_show_split_screen_tile"
+            android:summary="@string/qs_grid_show_split_screen_tile_summary"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>

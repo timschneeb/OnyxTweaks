@@ -9,25 +9,28 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
-class AddGrayscaleModeQsTile : ModPack() {
+class AddQsTiles : ModPack() {
     override val group = PreferenceGroups.QS
 
     @SuppressLint("DiscouragedApi")
     override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {
-        if (!preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
-            return
-
-        val defaultStringId = param.res.getIdentifier(
+        var defaultTiles = param.res.getIdentifier(
             "quick_settings_tiles_stock",
             "string",
             SYSTEM_UI_PACKAGE
-        )
+        ).let { param.res.getString(it) }
+
+        if (preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
+            defaultTiles += ",bw_mode"
+
+        if (preferences.get<Boolean>(R.string.key_qs_grid_show_split_screen_tile))
+            defaultTiles += ",spilt_screen"
 
         param.res.setReplacement(
             SYSTEM_UI_PACKAGE,
             "string",
             "quick_settings_tiles_stock",
-            param.res.getString(defaultStringId) + ",bw_mode"
+            defaultTiles
         )
     }
 }

@@ -21,7 +21,7 @@ import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
 import me.timschneeberger.onyxtweaks.mods.shared.UseNotificationIconColors
-import me.timschneeberger.onyxtweaks.mods.systemui.AddGrayscaleModeQsTile
+import me.timschneeberger.onyxtweaks.mods.systemui.AddQsTiles
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
 import me.timschneeberger.onyxtweaks.mods.systemui.CompactQsPanel
 import me.timschneeberger.onyxtweaks.mods.systemui.CustomizeRecents
@@ -66,7 +66,7 @@ object ModPacks {
         UseNotificationIconColors::class,
 
         // SystemUI
-        AddGrayscaleModeQsTile::class,
+        AddQsTiles::class,
         AddSettingsButtonToQs::class,
         CompactQsPanel::class,
         CustomizeRecents::class,
