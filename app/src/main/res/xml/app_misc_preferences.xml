@@ -15,6 +15,24 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/misc_troubleshooting"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:icon="@drawable/ic_twotone_info_24dp"
+            android:summary="@string/misc_export_log_hint"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="@string/key_misc_share_debug_logs"
+            android:title="@string/misc_share_debug_logs"
+            android:summary="@string/misc_share_debug_logs_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
         app:title="@string/misc_mmkv_editor"
         app:iconSpaceReserved="false">
 

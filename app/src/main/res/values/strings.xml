@@ -63,7 +63,7 @@
     <string name="mmkv_editor">System config editor</string>
     <string name="mmkv_editor_summary"><![CDATA[View & edit MMKV configuration files]]></string>
     <string name="misc_settings">Miscellaneous</string>
-    <string name="misc_settings_summary">Other actions</string>
+    <string name="misc_settings_summary">Troubleshooting, other actions</string>
     <string name="donate">Donate</string>
     <string name="donate_summary">Support the developer</string>
     <string name="about_settings">About</string>
@@ -241,6 +241,10 @@
     <string name="misc_shortcuts">Shortcuts</string>
     <string name="misc_open_stock_settings">Open stock settings</string>
     <string name="misc_open_stock_settings_summary">Launch Android\'s stock settings app</string>
+    <string name="misc_troubleshooting">Troubleshooting</string>
+    <string name="misc_export_log_hint"><![CDATA[Check LSPosed\'s module log if you are experiencing issues with this module. You can see which components are causing issues there.\nPlease export & share the logs using the save button in the top toolbar if you want open a bug report on GitHub.]]></string>
+    <string name="misc_share_debug_logs">Open module logs in LSPosed</string>
+    <string name="misc_share_debug_logs_summary">Check error logs for troubleshooting purposes</string>
     <string name="misc_mmkv_editor">MMKV editor</string>
     <string name="misc_mmkv_always_auto_detect_unknown_types">Always auto-detect unknown value types, if possible</string>
     <string name="misc_mmkv_always_auto_detect_unknown_types_summary">Instead of a showing type selection dialog for unknown types, always auto-detect the value type (may be inaccurate)</string>
