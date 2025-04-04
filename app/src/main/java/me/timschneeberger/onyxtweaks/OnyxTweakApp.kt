@@ -5,8 +5,6 @@ import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.Log
 import me.timschneeberger.onyxtweaks.utils.CustomLogger
 
-// TODO add hook issue detection and warning page
-
 class OnyxTweakApp : Application() {
     override fun onCreate() {
         Log.currentLogger = CustomLogger
