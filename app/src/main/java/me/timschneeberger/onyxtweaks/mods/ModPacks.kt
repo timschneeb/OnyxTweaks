@@ -2,6 +2,7 @@ package me.timschneeberger.onyxtweaks.mods
 
 import android.os.Build
 import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
+import me.timschneeberger.onyxtweaks.mods.global.ShowRecyclerViewScrollBar
 import me.timschneeberger.onyxtweaks.mods.launcher.AddFunctionBarSpacer
 import me.timschneeberger.onyxtweaks.mods.launcher.AddLauncherSettingsMenu
 import me.timschneeberger.onyxtweaks.mods.launcher.AddSettingCategories
@@ -26,6 +27,7 @@ import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
 import me.timschneeberger.onyxtweaks.mods.systemui.CompactQsPanel
 import me.timschneeberger.onyxtweaks.mods.systemui.CustomizeRecents
 import me.timschneeberger.onyxtweaks.mods.systemui.EnableHeadsUpNotifications
+import me.timschneeberger.onyxtweaks.mods.systemui.FixStatusBarIconColor
 import me.timschneeberger.onyxtweaks.mods.systemui.HideNotificationIconBorders
 import me.timschneeberger.onyxtweaks.mods.systemui.MoveNotificationHeaderToFooter
 import me.timschneeberger.onyxtweaks.mods.systemui.QuickTileGridSize
@@ -42,6 +44,7 @@ object ModPacks {
     val available = arrayOf(
         // Global
         PerActivityRefreshModes::class,
+        ShowRecyclerViewScrollBar::class,
 
         // Launcher
         AddFunctionBarSpacer::class,
@@ -71,6 +74,7 @@ object ModPacks {
         CompactQsPanel::class,
         CustomizeRecents::class,
         EnableHeadsUpNotifications::class,
+        FixStatusBarIconColor::class,
         HideNotificationIconBorders::class,
         MoveNotificationHeaderToFooter::class,
         QuickTileGridSize::class,

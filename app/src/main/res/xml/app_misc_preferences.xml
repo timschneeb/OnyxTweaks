@@ -31,6 +31,24 @@
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:title="@string/framework_views"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:icon="@drawable/ic_twotone_info_24dp"
+            android:summary="@string/xposed_scope_hint"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_framework_views_scrollbar_recyclerview"
+            android:defaultValue="@bool/default_framework_views_scrollbar_recyclerview"
+            android:title="@string/framework_views_scrollbar_recyclerview"
+            android:summary="@string/framework_views_scrollbar_recyclerview_summary"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         app:title="@string/misc_mmkv_editor"

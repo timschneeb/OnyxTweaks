@@ -48,7 +48,7 @@ class PerActivityRefreshModes : ModPack() {
             .firstByName("onResume")
             .createAfterHookCatching<PerActivityRefreshModes> { param ->
                 findRules(lpParam.packageName).let { rules ->
-                    var rule = rules.firstOrNull { it.activityClass.also { string -> Log.ex("Comparing $string to ${param.thisObject::class.java.name}") } == param.thisObject::class.java.name }
+                    var rule = rules.firstOrNull { it.activityClass == param.thisObject::class.java.name }
                     rule = rule ?: rules.firstOrNull { it.activityClass == null }
                     rule?.let { rule ->
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,

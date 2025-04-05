@@ -20,6 +20,7 @@
     <string name="toast_killing_process">Stopping processes of %1$s…</string>
     <string name="error_no_root_access">No root access</string>
     <string name="error_no_root_access_message">Root access is required for this action. Please open the Magisk manager app and grant root access to the app.</string>
+    <string name="xposed_scope_hint">Important: For this feature to work, you must manually enable this module for all apps you want to change the refresh mode for. This can be done in the module settings of your Xposed Manager.</string>
 
     <!-- Status panel -->
     <string name="status_needs_zygote_reset">Soft-reboot required to apply changes. Tap on this message to reboot now.</string>
@@ -72,6 +73,11 @@
     <!-- Sub-settings -->
     <string name="status_bar_clock_settings">Status bar clock</string>
     <string name="status_bar_clock_settings_summary">Change the position and style of the clock</string>
+
+    <!-- Framework -->
+    <string name="framework_views">Views</string>
+    <string name="framework_views_scrollbar_recyclerview">Re-enable scrollbars in RecyclerView-based scrolling views</string>
+    <string name="framework_views_scrollbar_recyclerview_summary">Restore stock Android behavior to show scrollbars in RecyclerView</string>
 
     <!-- Launcher -->
     <string name="launcher_apps">Apps</string>
@@ -172,6 +178,8 @@
     <string name="status_bar_date_after">After clock</string>
     <string name="status_bar_date_after_small">After clock (small)</string>
     <string name="status_bar_status_icons">Status icons</string>
+    <string name="status_bar_status_icons_fix_notification_colors">Fix white/invisible notification icons</string>
+    <string name="status_bar_status_icons_fix_notification_colors_summary">Use a color filter to fix white-on-white notification icons in the status bar</string>
     <string name="status_bar_status_icons_show_refresh_mode">Show current eInk refresh mode</string>
     <string name="status_bar_status_icons_show_refresh_mode_summary">Display the current eInk refresh mode in the status bar as an icon</string>
     <string name="status_bar_status_icons_show_touch_mode">Show current touch/stylus mode</string>
@@ -227,7 +235,6 @@
     <string name="eink_per_activity_refresh_mode">Per-activity refresh mode</string>
     <string name="eink_per_activity_refresh_mode_summary">Custom refresh mode rules for specific app activities</string>
     <string name="per_activity_settings_actions">Actions</string>
-    <string name="per_activity_settings_scope_hint">IMPORTANT: For this feature to work, you must manually enable this module for all apps you want to change the refresh mode for. This can be done in the module settings of your Xposed Manager.</string>
     <string name="per_activity_settings_lsposed_scopes">Open LSPosed permission settings</string>
     <string name="per_activity_settings_lsposed_scopes_summary">Enable this Xposed module for all apps you want to change the refresh mode for</string>
     <string name="per_activity_settings_add_app">Add new app</string>

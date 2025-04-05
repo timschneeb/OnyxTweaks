@@ -3,6 +3,9 @@
     <!-- Internal -->
     <bool name="default_launcher_reinit_flag" translatable="false" tools:ignore="UnusedResources">false</bool>
 
+    <!-- Framework -->
+    <bool name="default_framework_views_scrollbar_recyclerview">false</bool>
+
     <!-- Launcher -->
     <bool name="default_launcher_app_show_settings" translatable="false">false</bool>
     <bool name="default_launcher_app_show_file_mgr" translatable="false">false</bool>
@@ -38,6 +41,7 @@
     <string name="default_status_bar_day_week" translatable="false">0</string>
     <string name="default_status_bar_date_custom_date_before" translatable="false" />
     <string name="default_status_bar_date_custom_date_after" translatable="false" />
+    <bool name="default_status_bar_status_icons_fix_notification_colors" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_refresh_mode" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_touch_mode" translatable="false">false</bool>
     <bool name="default_status_bar_status_icons_show_wifi_activity" translatable="false">true</bool>

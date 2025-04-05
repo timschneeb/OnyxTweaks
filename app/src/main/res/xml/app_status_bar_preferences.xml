@@ -40,6 +40,13 @@
         app:iconSpaceReserved="false">
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_status_bar_status_icons_fix_notification_colors"
+            android:defaultValue="@bool/default_status_bar_status_icons_fix_notification_colors"
+            android:title="@string/status_bar_status_icons_fix_notification_colors"
+            android:summary="@string/status_bar_status_icons_fix_notification_colors_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_status_bar_status_icons_show_refresh_mode"
             android:defaultValue="@bool/default_status_bar_status_icons_show_refresh_mode"
             android:title="@string/status_bar_status_icons_show_refresh_mode"

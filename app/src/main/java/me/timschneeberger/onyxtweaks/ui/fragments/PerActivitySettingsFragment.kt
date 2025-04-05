@@ -58,7 +58,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
             root.addPreference(
                 Preference(requireContext()).apply {
                     setIcon(R.drawable.ic_twotone_error_24dp)
-                    summary = getString(R.string.per_activity_settings_scope_hint)
+                    summary = getString(R.string.xposed_scope_hint)
                     isIconSpaceReserved = false
                 }
             )
