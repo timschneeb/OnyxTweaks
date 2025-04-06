@@ -3,9 +3,6 @@
     <!-- Internal -->
     <bool name="default_launcher_reinit_flag" translatable="false" tools:ignore="UnusedResources">false</bool>
 
-    <!-- Framework -->
-    <bool name="default_framework_views_scrollbar_recyclerview">false</bool>
-
     <!-- Launcher -->
     <bool name="default_launcher_app_show_settings" translatable="false">false</bool>
     <bool name="default_launcher_app_show_file_mgr" translatable="false">false</bool>

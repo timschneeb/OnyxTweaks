@@ -74,11 +74,6 @@
     <string name="status_bar_clock_settings">Status bar clock</string>
     <string name="status_bar_clock_settings_summary">Change the position and style of the clock</string>
 
-    <!-- Framework -->
-    <string name="framework_views">Views</string>
-    <string name="framework_views_scrollbar_recyclerview">Re-enable scrollbars in RecyclerView-based scrolling views</string>
-    <string name="framework_views_scrollbar_recyclerview_summary">Restore stock Android behavior to show scrollbars in RecyclerView</string>
-
     <!-- Launcher -->
     <string name="launcher_apps">Apps</string>
     <string name="launcher_app_show_settings">Show stock settings app</string>

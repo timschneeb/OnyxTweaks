@@ -2,7 +2,6 @@ package me.timschneeberger.onyxtweaks.mods
 
 import android.os.Build
 import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
-import me.timschneeberger.onyxtweaks.mods.global.ShowRecyclerViewScrollBar
 import me.timschneeberger.onyxtweaks.mods.launcher.AddFunctionBarSpacer
 import me.timschneeberger.onyxtweaks.mods.launcher.AddLauncherSettingsMenu
 import me.timschneeberger.onyxtweaks.mods.launcher.AddSettingCategories
@@ -44,7 +43,6 @@ object ModPacks {
     val available = arrayOf(
         // Global
         PerActivityRefreshModes::class,
-        ShowRecyclerViewScrollBar::class,
 
         // Launcher
         AddFunctionBarSpacer::class,

@@ -10,9 +10,6 @@
     <!-- Internal -->
     <string name="key_launcher_reinit_flag" translatable="false">launcher_reinit_flag</string>
 
-    <!-- Framework -->
-    <string name="key_framework_views_scrollbar_recyclerview">framework_views_scrollbar_recyclerview</string>
-
     <!-- Launcher -->
     <string name="key_launcher_app_show_settings" translatable="false">launcher_app_show_settings</string>
     <string name="key_launcher_app_show_file_mgr" translatable="false">launcher_app_show_file_mgr</string>
