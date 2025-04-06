@@ -104,8 +104,6 @@ class MMKVAccessService : RootService() {
             key: String?
         ): ParcelFileDescriptor? {
             mmkvMap[handle]!!.getString(key, null).let { value ->
-                Log.e("getting large string: ${value?.length}")
-
                 return Parcel.obtain().apply {
                     writeString(value)
                 }.run {
