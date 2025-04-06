@@ -75,6 +75,7 @@ Notifications
 * Enable heads-up notifications
 * Set maximum visible notification icons
 * Remove notification icon borders
+* Fix invisible/white-on-white notification icons
 * ...and minor notification panel changes
 
 Clock
@@ -105,6 +106,11 @@ Tiles
 
 * Customize grid size & spacing
 * Restore stock Android item header styles
+
+# System settings
+
+* Show stock Android gesture settings (one handed mode, power button gestures)
+* Show memory info in app info
 
 ### e-Ink optimizations
 
