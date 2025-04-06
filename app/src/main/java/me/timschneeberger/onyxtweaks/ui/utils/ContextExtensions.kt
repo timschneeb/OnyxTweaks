@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import com.topjohnwu.superuser.Shell
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getApplicationInfoCompat
 
@@ -22,8 +23,8 @@ object ContextExtensions {
     }
 
     fun Context.restartSettings() {
-        toast(R.string.toast_launcher_restarting)
-        killPackageSilently(LAUNCHER_PACKAGE)
+        toast(R.string.toast_system_settings_restarting)
+        killPackageSilently(SYSTEM_SETTINGS_PACKAGE)
     }
 
     fun Context.restartSystemUi() {
