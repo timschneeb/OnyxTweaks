@@ -29,8 +29,7 @@ class InjectMediaHostIntoQs : ModPack() {
         if (!preferences.get<Boolean>(R.string.key_qs_media_host_inject))
             return
 
-        // TODO: Fix seekbar not updating properly
-        //       Better style for e-ink displays
+        // TODO: Better style for e-ink displays
 
         findClass("com.android.systemui.util.Utils")
             .methodFinder()
@@ -45,10 +44,8 @@ class InjectMediaHostIntoQs : ModPack() {
                 val viewGroup = param.args[1] as ViewGroup
                 val force = param.args[2] as Boolean
 
-                Log.ex("QSPanel - setUsingHorizontalLayout: force=$force")
-
-                // Only move initially; we don't support the alternative horizontal layout,
-                // so we don't need to check for
+                // Only run initially; we don't support the alternative horizontal layout,
+                // so we don't need to check for any later configuration changes
                 if (!force)
                     return@createAfterHookCatching
 
@@ -77,7 +74,7 @@ class InjectMediaHostIntoQs : ModPack() {
                 .firstByName("constraintSetForExpansion")
                 .createAfterHookCatching<InjectMediaHostIntoQs> { param ->
                     when(preferences.get<String>(R.string.key_qs_media_host_state)) {
-                        // Translate array value to field name
+                        // Translate array value to field name containing the layout
                         "expanded" -> "expandedLayout"
                         "collapsed" -> "collapsedLayout"
                         else -> {
@@ -95,7 +92,7 @@ class InjectMediaHostIntoQs : ModPack() {
             .firstByName("getHostView")
             .createReplaceHookCatching<InjectMediaHostIntoQs> { param ->
                 // Workaround: lateinit property hostView is sometimes not yet initialized,
-                //             so we create a dummy object if called too early
+                //             so we create a dummy object if it's called too early
                 return@createReplaceHookCatching param.thisObject.objectHelper().getObjectOrNull("hostView")
                     ?: findClass("com.android.systemui.util.animation.UniqueObjectHostView")
                         .constructorFinder()
