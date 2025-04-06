@@ -9,6 +9,7 @@ import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.ModManager
 import me.timschneeberger.onyxtweaks.utils.CustomLogger
@@ -53,6 +54,7 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
     private fun simplifyPackageName(packageName: String) = when (packageName) {
         BuildConfig.APPLICATION_ID -> "OnyxTweaks"
         SYSTEM_UI_PACKAGE -> "SystemUI"
+        SYSTEM_SETTINGS_PACKAGE -> "Settings"
         else -> packageName
     }
 }

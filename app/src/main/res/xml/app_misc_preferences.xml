@@ -2,19 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        app:title="@string/settings_shortcuts"
-        app:iconSpaceReserved="false">
-
-        <Preference
-            android:key="@string/key_settings_open_stock_settings"
-            android:title="@string/settings_open_stock_settings"
-            android:summary="@string/settings_open_stock_settings_summary"
-            app:iconSpaceReserved="false">
-            <intent android:action="android.settings.SETTINGS" />
-        </Preference>
-    </PreferenceCategory>
-
-    <PreferenceCategory
         app:title="@string/misc_troubleshooting"
         app:iconSpaceReserved="false">
 

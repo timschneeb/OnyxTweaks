@@ -29,6 +29,7 @@ import me.timschneeberger.onyxtweaks.mods.systemui.CustomizeRecents
 import me.timschneeberger.onyxtweaks.mods.systemui.EnableHeadsUpNotifications
 import me.timschneeberger.onyxtweaks.mods.systemui.FixStatusBarIconColor
 import me.timschneeberger.onyxtweaks.mods.systemui.HideNotificationIconBorders
+import me.timschneeberger.onyxtweaks.mods.systemui.InjectMediaHostIntoQs
 import me.timschneeberger.onyxtweaks.mods.systemui.MoveNotificationHeaderToFooter
 import me.timschneeberger.onyxtweaks.mods.systemui.QuickTileGridSize
 import me.timschneeberger.onyxtweaks.mods.systemui.SetMaxNotificationIcons
@@ -78,6 +79,7 @@ object ModPacks {
         EnableHeadsUpNotifications::class,
         FixStatusBarIconColor::class,
         HideNotificationIconBorders::class,
+        InjectMediaHostIntoQs::class,
         MoveNotificationHeaderToFooter::class,
         QuickTileGridSize::class,
         SetMaxNotificationIcons::class,
