@@ -21,6 +21,11 @@ object ContextExtensions {
         killPackageSilently(LAUNCHER_PACKAGE)
     }
 
+    fun Context.restartSettings() {
+        toast(R.string.toast_launcher_restarting)
+        killPackageSilently(LAUNCHER_PACKAGE)
+    }
+
     fun Context.restartSystemUi() {
         toast(R.string.toast_system_ui_restarting)
         killPackageSilently(SYSTEM_UI_PACKAGE)

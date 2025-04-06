@@ -25,9 +25,11 @@ import me.timschneeberger.onyxtweaks.bridge.registerModEventReceiver
 import me.timschneeberger.onyxtweaks.bridge.unregisterModEventReceiver
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.ModPacks
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSettings
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSystemUi
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
 import me.timschneeberger.onyxtweaks.ui.utils.getViewsByType
@@ -236,6 +238,8 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
                     restartSystemUi()
                 if (modifiedPackages.contains(LAUNCHER_PACKAGE))
                     restartLauncher()
+                if (modifiedPackages.contains(SYSTEM_SETTINGS_PACKAGE))
+                    restartSettings()
             }
         }
         modifiedPackages.clear()
@@ -243,17 +247,25 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
     }
 
     private fun updateStatusPanel() {
-        val text = when {
-            modifiedPackages.contains(ZYGOTE_MARKER) -> getString(R.string.status_needs_zygote_reset)
-            modifiedPackages.containsAll(setOf(SYSTEM_UI_PACKAGE, LAUNCHER_PACKAGE)) -> getString(R.string.status_needs_system_ui_launcher_restart)
-            modifiedPackages.contains(SYSTEM_UI_PACKAGE) -> getString(R.string.status_needs_system_ui_restart)
-            modifiedPackages.contains(LAUNCHER_PACKAGE) -> getString(R.string.status_needs_launcher_restart)
-            modifiedPackages.isNotEmpty() -> {
-                Log.e("Unknown package(s) in modifiedPackages: ${modifiedPackages.joinToString()}")
-                modifiedPackages.clear()
-                null
+        val text = if (modifiedPackages.contains(ZYGOTE_MARKER)) {
+            getString(R.string.status_needs_zygote_reset)
+        } else {
+            val friendlyNameMap = mapOf(
+                SYSTEM_UI_PACKAGE to getString(R.string.system_ui),
+                LAUNCHER_PACKAGE to getString(R.string.launcher),
+                SYSTEM_SETTINGS_PACKAGE to getString(R.string.settings)
+            )
+
+            val friendlyNames = modifiedPackages.map { packageName ->
+                friendlyNameMap[packageName] ?: packageName
             }
-            else -> null
+
+            val param = if (friendlyNames.size == 2)
+                getString(R.string.and_conjunction, friendlyNames[0], friendlyNames[1])
+            else
+                friendlyNames.joinToString(", ")
+
+            resources.getQuantityString(R.plurals.apps_restart_required, friendlyNames.size, param)
         }
 
         modifiedPackages.isNotEmpty().let {

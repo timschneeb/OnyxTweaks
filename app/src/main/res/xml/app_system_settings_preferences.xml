@@ -1,0 +1,35 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="@string/settings_shortcuts"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/key_settings_open_stock_settings"
+            android:title="@string/settings_open_stock_settings"
+            android:summary="@string/settings_open_stock_settings_summary"
+            app:iconSpaceReserved="false">
+            <intent android:action="android.settings.SETTINGS" />
+        </Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/settings_hidden_sections"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_settings_show_gestures"
+            android:defaultValue="@bool/default_settings_show_gestures"
+            android:title="@string/settings_show_gestures"
+            android:summary="@string/settings_show_gestures_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_settings_show_memory_in_app_info"
+            android:defaultValue="@bool/default_settings_show_memory_in_app_info"
+            android:title="@string/settings_show_memory_in_app_info"
+            android:summary="@string/settings_show_memory_in_app_info_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -76,8 +76,12 @@
     <!-- eInk optimizations -->
     <string name="key_eink_center_always_show_regal_mode" translatable="false">eink_center_always_show_regal_mode</string>
 
+    <!-- Stock settings -->
+    <string name="key_settings_open_stock_settings" translatable="false">settings_open_stock_settings</string>
+    <string name="key_settings_show_gestures" translatable="false">settings_show_gestures</string>
+    <string name="key_settings_show_memory_in_app_info" translatable="false">settings_show_memory_in_app_info</string>
+
     <!-- Misc -->
-    <string name="key_misc_open_stock_settings" translatable="false">misc_open_stock_settings</string>
     <string name="key_misc_share_debug_logs" translatable="false">misc_share_debug_logs</string>
     <string name="key_misc_mmkv_always_auto_detect_unknown_types" translatable="false">misc_mmkv_always_auto_detect_unknown_types</string>
 

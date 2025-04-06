@@ -37,6 +37,13 @@
         app:allowDividerBelow="true" />
 
     <Preference
+        app:title="@string/stock_system_settings"
+        app:summary="@string/stock_system_settings_summary"
+        app:icon="@drawable/ic_twotone_app_settings_alt_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsStockSettingsFragment"
+        app:allowDividerBelow="true" />
+
+    <Preference
         android:key="@string/key_mmkv_editor"
         app:title="@string/mmkv_editor"
         app:summary="@string/mmkv_editor_summary"

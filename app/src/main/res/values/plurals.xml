@@ -24,4 +24,10 @@
         <item quantity="one">%1$d item selected</item>
         <item quantity="other">%1$d items selected</item>
     </plurals>
+
+    <plurals name="apps_restart_required">
+        <!-- Variable can contain for example: other="SystemUI, Settings, Launcher" or one="SystemUI" -->
+        <item quantity="one">%1$s restart required to apply changes. Tap on this message to reload now.</item>
+        <item quantity="other">%1$s restart required to apply changes. Tap on this message to reload now.</item>
+    </plurals>
 </resources>

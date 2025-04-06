@@ -11,10 +11,15 @@
     <string name="value_not_set">Not set</string>
     <string name="continue_action">Continue</string>
     <string name="save">Save</string>
+    <string name="and_conjunction">%1$s and %2$s</string>
     <string name="entry_already_exists">Entry already exists</string>
     <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
     <string name="xsp_init_failed_summary">It seems that you are using an outdated version of LSPosed or LSPosed is not activated. Please update LSPosed and make sure that it is properly set up.</string>
+    <string name="system_ui">SystemUI</string>
+    <string name="launcher">Launcher</string>
+    <string name="settings">Settings</string>
     <string name="toast_launcher_restarting">Launcher restarted</string>
+    <string name="toast_system_settings_restarting">Settings restarted</string>
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
     <string name="toast_zygote_restarting">Soft-rebooting device…</string>
     <string name="toast_killing_process">Stopping processes of %1$s…</string>
@@ -61,6 +66,8 @@
     <string name="recents_settings_summary">Grid size, spacing, style</string>
     <string name="eink_optimizations_settings">e-Ink optimizations</string>
     <string name="eink_optimizations_settings_summary">Regal mode, per-activity settings</string>
+    <string name="stock_system_settings">Android system settings</string>
+    <string name="stock_system_settings_summary">Hidden settings, one-handed mode</string>
     <string name="mmkv_editor">System config editor</string>
     <string name="mmkv_editor_summary"><![CDATA[View & edit MMKV configuration files]]></string>
     <string name="misc_settings">Miscellaneous</string>
@@ -241,10 +248,17 @@
     <string name="per_activity_settings_change_mode_title">Refresh mode for %1$s</string>
     <string name="per_activity_settings_change_mode_title_other_items">all other activities</string>
 
+    <!-- Stock settings -->
+    <string name="settings_shortcuts">Shortcuts</string>
+    <string name="settings_open_stock_settings">Open stock settings</string>
+    <string name="settings_open_stock_settings_summary">Launch Android\'s stock settings app</string>
+    <string name="settings_hidden_sections">Hidden sections</string>
+    <string name="settings_show_gestures">Show gesture settings</string>
+    <string name="settings_show_gestures_summary"><![CDATA[Show one-handed & power button gestures (under Settings > General > Gestures)]]></string>
+    <string name="settings_show_memory_in_app_info">Show memory usage in app info</string>
+    <string name="settings_show_memory_in_app_info_summary"><![CDATA[Show the memory usage history on the app info screen (under Settings > Apps > App info)]]></string>
+
     <!-- Miscellaneous -->
-    <string name="misc_shortcuts">Shortcuts</string>
-    <string name="misc_open_stock_settings">Open stock settings</string>
-    <string name="misc_open_stock_settings_summary">Launch Android\'s stock settings app</string>
     <string name="misc_troubleshooting">Troubleshooting</string>
     <string name="misc_export_log_hint"><![CDATA[Check LSPosed\'s module log if you are experiencing issues with this module. You can see which components are causing issues there.\nPlease export & share the logs using the save button in the top toolbar if you want open a bug report on GitHub.]]></string>
     <string name="misc_share_debug_logs">Open module logs in LSPosed</string>
@@ -325,4 +339,5 @@
     <!-- Formatter dialog -->
     <string name="string_formatter_manual_title">Available string variables</string>
     <string name="string_formatter_manual_body" tools:ignore="TypographyDashes">"Leave empty to disable custom text.\n\nIn addition to the normal text, date &amp; time can be inserted using dynamic variables. Supported variables are currently:\n\n$G&lt;format&gt; : Gregorian date\/time, with a custom format string\nExample: \'$Gyyyy $Gz\' would output \'2025 UTC\'\n\n______ Date format documentation ______\n\nSee the Java SimpleDateFormat documentation for details.\n\nTo embed text strings inside the format string, use single quotes for example: YYYY-\'W\'ww-u (2025-W27-3).\n\nRepeating certain symbols impacts the resulting format.\n\nSymbol\t\tDescription\n\tG \t\tEra designator (AD\/BC)\n\ty  \t\tYear (yyyy=1996; yy=96)\n\tY \t\tWeek year (YYYY=2009; YY=09)\n\tM \t\tMonth in year (context sensitive) (MMMM=July; MMM=Jul; MM=07; M=7)\n\tL \t\tMonth in year (standalone form; only applicable in some locales)\n\tw \t\tWeek in year (1-53)\n\tW \t\tWeek in month (1-4)\n\tD \t\tDay in year (1-365)\n\td \t\tDay in month (1-12)\n\tF \t\tDay of week in month (1-4)\n\tE \t\tDay name in week (EEEE=Tuesday; EEE=Tue)\n\tu \t\tDay number of week (1-7)\n\ta \t\tAm\/pm marker (AM\/PM)\n\tH \t\tHour in day (0-23)\n\tk \t\tHour in day (1-24)\n\tK \t\tHour in am\/pm (0-11)\n\th \t\tHour in am\/pm (1-12)\n\tm \t\tMinute in hour (0-59)\n\ts  \t\tSecond in minute (0-59)\n\tS \t\tMillisecond (0-999)\n\tz  \t\tGeneral time zone \t(zzzz=Pacific Standard Time; zz=PST)\n\tZ \t\tRFC 822 time zone \t(-0800)\n\tX \t\tISO 8601 time zone \t(X=-08; XX=-0800; XXXX=-08:00)"</string>
+
 </resources>

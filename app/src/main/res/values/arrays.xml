@@ -4,6 +4,7 @@
         <!-- System components -->
         <item>android</item>
         <item>com.android.systemui</item>
+        <item>com.android.settings</item>
         <item>com.onyx</item>
         <!-- User apps -->
         <item>com.onyx.dict</item>

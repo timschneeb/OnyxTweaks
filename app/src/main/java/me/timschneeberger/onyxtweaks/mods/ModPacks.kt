@@ -17,6 +17,7 @@ import me.timschneeberger.onyxtweaks.mods.launcher.HideTopBorder
 import me.timschneeberger.onyxtweaks.mods.launcher.LauncherLifecycleHook
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowAppsToolbar
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowChineseBookStore
+import me.timschneeberger.onyxtweaks.mods.settings.ShowHiddenSettings
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
@@ -59,6 +60,9 @@ object ModPacks {
         HideTopBorder::class,
         ShowAppsToolbar::class,
         ShowChineseBookStore::class,
+
+        // Settings
+        ShowHiddenSettings::class,
 
         // Shared
         AddUserSwitcherToQs::class,
