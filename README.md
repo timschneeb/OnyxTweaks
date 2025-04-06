@@ -107,9 +107,9 @@ Tiles
 * Customize grid size & spacing
 * Restore stock Android item header styles
 
-# System settings
+### System settings
 
-* Show stock Android gesture settings (one handed mode, power button gestures)
+* Show stock Android gesture settings (one-handed mode, power button gestures)
 * Show memory info in app info
 
 ### e-Ink optimizations
