@@ -95,7 +95,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
             .createReplaceHookCatching<EnableWallpaper> {
                 Intent().apply {
                     action = "android.intent.action.MAIN"
-                    setClassName("com.android.settings", "com.android.settings.Settings\$UserSettingsActivity")
+                    setClassName("com.onyx", "com.onyx.common.screen.ui.WallpaperActivity")
                     setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.let(appContext::startActivity)
                 null
