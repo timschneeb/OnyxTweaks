@@ -204,6 +204,13 @@
     <string name="qs_panel_style">Panel style</string>
     <string name="qs_panel_compact">Compact panel style</string>
     <string name="qs_panel_compact_summary">Only show the panel in the top right corner, instead of using the full screen height</string>
+    <string name="qs_media_host">Media controls</string>
+    <string name="qs_media_host_inject">Inject media controls into QS panel</string>
+    <string name="qs_media_host_inject_summary">Display Android\'s media controls in the quick settings panel</string>
+    <string name="qs_media_host_state">Media controls state</string>
+    <string name="qs_media_host_state_default">Default</string>
+    <string name="qs_media_host_state_expanded">Always expanded (with seekbar, if available)</string>
+    <string name="qs_media_host_state_collapsed">Always compact (only action buttons)</string>
     <string name="qs_tiles">Tiles</string>
     <string name="qs_grid_custom_size">Customize QS grid size</string>
     <string name="qs_grid_custom_size_summary">Enable custom row/column counts for the quick settings grid</string>

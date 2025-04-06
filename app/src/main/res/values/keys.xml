@@ -57,6 +57,8 @@
     <string name="key_qs_header_settings_button_action" translatable="false">qs_header_settings_button_action</string>
     <string name="key_qs_header_show_user_switcher" translatable="false">qs_header_show_user_switcher</string>
     <string name="key_qs_panel_compact" translatable="false">qs_panel_compact</string>
+    <string name="key_qs_media_host_inject" translatable="false">qs_media_host_inject</string>
+    <string name="key_qs_media_host_state" translatable="false">qs_media_host_state</string>
     <string name="key_qs_grid_custom_size" translatable="false">qs_grid_custom_size</string>
     <string name="key_qs_grid_row_count" translatable="false">qs_grid_row_count</string>
     <string name="key_qs_grid_column_count" translatable="false">qs_grid_column_count</string>

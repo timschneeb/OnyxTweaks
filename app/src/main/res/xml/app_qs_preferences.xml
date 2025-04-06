@@ -43,6 +43,28 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/qs_media_host"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_media_host_inject"
+            android:defaultValue="@bool/default_qs_media_host_inject"
+            android:title="@string/qs_media_host_inject"
+            android:summary="@string/qs_media_host_inject_summary"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="@string/key_qs_media_host_state"
+            android:defaultValue="@string/default_qs_media_host_state"
+            android:title="@string/qs_media_host_state"
+            android:entries="@array/qs_media_host_states"
+            android:entryValues="@array/qs_media_host_states_values"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/qs_tiles"
         app:iconSpaceReserved="false">
 
