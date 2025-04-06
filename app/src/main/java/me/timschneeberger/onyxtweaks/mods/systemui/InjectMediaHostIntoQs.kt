@@ -1,6 +1,7 @@
 package me.timschneeberger.onyxtweaks.mods.systemui
 
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
@@ -18,6 +19,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.getDimensionPxByName
+import me.timschneeberger.onyxtweaks.mods.utils.getDrawableByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
@@ -28,8 +31,6 @@ class InjectMediaHostIntoQs : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         if (!preferences.get<Boolean>(R.string.key_qs_media_host_inject))
             return
-
-        // TODO: Better style for e-ink displays
 
         findClass("com.android.systemui.util.Utils")
             .methodFinder()
@@ -56,15 +57,33 @@ class InjectMediaHostIntoQs : ModPack() {
                 if (parent == qsPanel)
                     return@createAfterHookCatching
 
+                val marginHoriz = appContext.resources.getDimensionPxByName("control_center_margin_horizontal") ?: appContext.dpToPx(21)
+
                 parent?.removeView(viewGroup)
                 qsPanel.addView(viewGroup)
                 (viewGroup.layoutParams as LinearLayout.LayoutParams).apply {
                     height = -2
                     width = -1
                     weight = 0.0f
-                    bottomMargin = appContext.dpToPx(8)
-                    marginStart = appContext.dpToPx(8)
-                    marginEnd = appContext.dpToPx(8)
+                    bottomMargin = marginHoriz // intentionally re-used for bottom margin
+                    marginStart = marginHoriz
+                    marginEnd = marginHoriz
+                }
+            }
+
+        // Replace background with Onyx section border & remove tint
+        findClass("com.android.systemui.media.PlayerViewHolder")
+            .constructorFinder()
+            .filterByParamTypes(View::class.java)
+            .first()
+            .createAfterHookCatching<InjectMediaHostIntoQs> { param ->
+                val player = param.thisObject.objectHelper().getObjectOrNull("player") as? View?
+                if (player == null) {
+                    Log.ex("Player is null")
+                }
+                else {
+                    player.background = appContext.resources.getDrawableByName("tablet_rounded_border")
+                    player.backgroundTintList = null
                 }
             }
 

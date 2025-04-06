@@ -206,7 +206,7 @@
     <string name="qs_panel_compact_summary">Only show the panel in the top right corner, instead of using the full screen height</string>
     <string name="qs_media_host">Media controls</string>
     <string name="qs_media_host_inject">Inject media controls into QS panel</string>
-    <string name="qs_media_host_inject_summary">Display Android\'s media controls in the quick settings panel</string>
+    <string name="qs_media_host_inject_summary">Display Android\'s media controls in the quick settings panel during playback</string>
     <string name="qs_media_host_state">Media controls state</string>
     <string name="qs_media_host_state_default">Default</string>
     <string name="qs_media_host_state_expanded">Always expanded (with seekbar, if available)</string>
