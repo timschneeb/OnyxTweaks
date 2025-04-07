@@ -65,6 +65,51 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:title="@string/qs_sections"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_tiles"
+            android:defaultValue="@bool/default_qs_sections_hide_tiles"
+            android:title="@string/qs_sections_hide_tiles"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_volume"
+            android:defaultValue="@bool/default_qs_sections_hide_volume"
+            android:title="@string/qs_sections_hide_volume"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_frontlight_label"
+            android:defaultValue="@bool/default_qs_sections_hide_frontlight_label"
+            android:title="@string/qs_sections_hide_frontlight_label"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_brightness_slider"
+            android:defaultValue="@bool/default_qs_sections_hide_brightness_slider"
+            android:title="@string/qs_sections_hide_brightness_slider"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_temperature_slider"
+            android:defaultValue="@bool/default_qs_sections_hide_temperature_slider"
+            android:title="@string/qs_sections_hide_temperature_label"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/qs_tiles"
         app:iconSpaceReserved="false">
 

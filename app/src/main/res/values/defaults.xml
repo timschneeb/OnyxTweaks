@@ -52,6 +52,11 @@
     <bool name="default_qs_panel_compact" translatable="false">false</bool>
     <bool name="default_qs_media_host_inject" translatable="false">false</bool>
     <string name="default_qs_media_host_state" translatable="false">default</string>
+    <bool name="default_qs_sections_hide_tiles" translatable="false">false</bool>
+    <bool name="default_qs_sections_hide_volume" translatable="false">false</bool>
+    <bool name="default_qs_sections_hide_frontlight_label" translatable="false">false</bool>
+    <bool name="default_qs_sections_hide_brightness_slider" translatable="false">false</bool>
+    <bool name="default_qs_sections_hide_temperature_slider" translatable="false">false</bool>
     <bool name="default_qs_grid_custom_size" translatable="false">false</bool>
     <string name="default_qs_grid_row_count" translatable="false">4</string>
     <string name="default_qs_grid_column_count" translatable="false">2</string>

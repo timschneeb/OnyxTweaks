@@ -11,6 +11,8 @@
     <string name="value_not_set">Not set</string>
     <string name="continue_action">Continue</string>
     <string name="save">Save</string>
+    <string name="default_state">Default</string>
+    <string name="hidden_state">Hidden</string>
     <string name="and_conjunction">%1$s and %2$s</string>
     <string name="entry_already_exists">Entry already exists</string>
     <string name="xsp_init_failed">Failed to initialize shared configuration file</string>
@@ -211,6 +213,12 @@
     <string name="qs_media_host_state_default">Default</string>
     <string name="qs_media_host_state_expanded">Always expanded (with seekbar, if available)</string>
     <string name="qs_media_host_state_collapsed">Always compact (only action buttons)</string>
+    <string name="qs_sections">Sections</string>
+    <string name="qs_sections_hide_tiles">Hide tile grid</string>
+    <string name="qs_sections_hide_volume">Hide volume slider</string>
+    <string name="qs_sections_hide_frontlight_label">Hide frontlight label</string>
+    <string name="qs_sections_hide_brightness_slider">Hide brightness slider</string>
+    <string name="qs_sections_hide_temperature_label">Hide color temperature slider</string>
     <string name="qs_tiles">Tiles</string>
     <string name="qs_grid_custom_size">Customize QS grid size</string>
     <string name="qs_grid_custom_size_summary">Enable custom row/column counts for the quick settings grid</string>
@@ -346,5 +354,4 @@
     <!-- Formatter dialog -->
     <string name="string_formatter_manual_title">Available string variables</string>
     <string name="string_formatter_manual_body" tools:ignore="TypographyDashes">"Leave empty to disable custom text.\n\nIn addition to the normal text, date &amp; time can be inserted using dynamic variables. Supported variables are currently:\n\n$G&lt;format&gt; : Gregorian date\/time, with a custom format string\nExample: \'$Gyyyy $Gz\' would output \'2025 UTC\'\n\n______ Date format documentation ______\n\nSee the Java SimpleDateFormat documentation for details.\n\nTo embed text strings inside the format string, use single quotes for example: YYYY-\'W\'ww-u (2025-W27-3).\n\nRepeating certain symbols impacts the resulting format.\n\nSymbol\t\tDescription\n\tG \t\tEra designator (AD\/BC)\n\ty  \t\tYear (yyyy=1996; yy=96)\n\tY \t\tWeek year (YYYY=2009; YY=09)\n\tM \t\tMonth in year (context sensitive) (MMMM=July; MMM=Jul; MM=07; M=7)\n\tL \t\tMonth in year (standalone form; only applicable in some locales)\n\tw \t\tWeek in year (1-53)\n\tW \t\tWeek in month (1-4)\n\tD \t\tDay in year (1-365)\n\td \t\tDay in month (1-12)\n\tF \t\tDay of week in month (1-4)\n\tE \t\tDay name in week (EEEE=Tuesday; EEE=Tue)\n\tu \t\tDay number of week (1-7)\n\ta \t\tAm\/pm marker (AM\/PM)\n\tH \t\tHour in day (0-23)\n\tk \t\tHour in day (1-24)\n\tK \t\tHour in am\/pm (0-11)\n\th \t\tHour in am\/pm (1-12)\n\tm \t\tMinute in hour (0-59)\n\ts  \t\tSecond in minute (0-59)\n\tS \t\tMillisecond (0-999)\n\tz  \t\tGeneral time zone \t(zzzz=Pacific Standard Time; zz=PST)\n\tZ \t\tRFC 822 time zone \t(-0800)\n\tX \t\tISO 8601 time zone \t(X=-08; XX=-0800; XXXX=-08:00)"</string>
-
 </resources>
