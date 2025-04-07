@@ -96,6 +96,8 @@ Header
 * Show the settings button, and optionally redirect to Android's stock settings
 
 Panel
+* Inject Android's media controls into the QS panel (seek bar, play/pause buttons, etc. for music apps)
+* Hide panel components (WiFi/BT tiles, tile grid, front-light sliders, volume slider, etc.)
 * Compact panel style (top right only, instead of using the full-screen height)
 * Customize QS grid size
 * Remove minimum tile count restriction 
