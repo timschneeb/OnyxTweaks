@@ -3,14 +3,15 @@ package me.timschneeberger.onyxtweaks.mods.systemui
 import android.view.View
 import android.view.ViewGroup
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder
+import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.callbacks.XC_InitPackageResources
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
@@ -40,6 +41,14 @@ class CustomizeRecents : ModPack() {
                         preferences.getStringAsInt(R.string.key_recents_grid_column_count_landscape)
                     )
             }
+
+            findClass("com.android.systemui.recents.views.SpaceItemDecoration")
+                .constructorFinder()
+                .filterByParamTypes(Int::class.java)
+                .first()
+                .createBeforeHookCatching<CustomizeRecents> { param ->
+                    param.args[0] = preferences.getStringAsInt(R.string.key_recents_grid_spacing)
+                }
         }
 
         if (preferences.get<Boolean>(R.string.key_recents_use_stock_header)) {
@@ -61,20 +70,6 @@ class CustomizeRecents : ModPack() {
                 }
         }
     }
-
-    override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {
-        if (!preferences.get<Boolean>(R.string.key_recents_grid_custom_size))
-            return
-
-        // Set the space size between recent items
-        param.res.setReplacement(
-            SYSTEM_UI_PACKAGE,
-            "integer",
-            "onyx_recent_item_space_count",
-            preferences.getStringAsInt(R.string.key_recents_grid_spacing)
-        )
-    }
-
 
     private fun Method.replaceSizeByOrientation(portraitValue: Int, landscapeValue: Int) {
         createReplaceHookCatching<CustomizeRecents> { param ->
