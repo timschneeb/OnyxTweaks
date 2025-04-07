@@ -63,6 +63,7 @@
     <string name="key_qs_sections_hide_brightness_slider" translatable="false">qs_sections_hide_brightness_slider</string>
     <string name="key_qs_sections_hide_frontlight_label" translatable="false">qs_sections_hide_frontlight_label</string>
     <string name="key_qs_sections_hide_volume" translatable="false">qs_sections_hide_volume</string>
+    <string name="key_qs_sections_hide_fixed_tiles" translatable="false">qs_sections_hide_fixed_tiles</string>
     <string name="key_qs_sections_hide_tiles" translatable="false">qs_sections_hide_tiles</string>
     <string name="key_qs_grid_custom_size" translatable="false">qs_grid_custom_size</string>
     <string name="key_qs_grid_row_count" translatable="false">qs_grid_row_count</string>

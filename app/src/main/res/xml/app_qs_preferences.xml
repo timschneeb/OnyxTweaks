@@ -69,6 +69,14 @@
         app:iconSpaceReserved="false">
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_fixed_tiles"
+            android:defaultValue="@bool/default_qs_sections_hide_fixed_tiles"
+            android:title="@string/qs_sections_hide_fixed_tiles"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_qs_sections_hide_tiles"
             android:defaultValue="@bool/default_qs_sections_hide_tiles"
             android:title="@string/qs_sections_hide_tiles"

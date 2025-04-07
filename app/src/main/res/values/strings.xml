@@ -214,6 +214,7 @@
     <string name="qs_media_host_state_expanded">Always expanded (with seekbar, if available)</string>
     <string name="qs_media_host_state_collapsed">Always compact (only action buttons)</string>
     <string name="qs_sections">Sections</string>
+    <string name="qs_sections_hide_fixed_tiles">Hide WiFi &amp; Bluetooth tiles</string>
     <string name="qs_sections_hide_tiles">Hide tile grid</string>
     <string name="qs_sections_hide_volume">Hide volume slider</string>
     <string name="qs_sections_hide_frontlight_label">Hide frontlight label</string>
