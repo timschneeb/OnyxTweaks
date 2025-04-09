@@ -132,7 +132,7 @@ This component works without Xposed but requires root access.
 
 
 > [!IMPORTANT]
-> To use this module, you must root your device using Magisk. See the [mobileread.com](https://mobileread.com) forum for guides.
+> To use this module, you must root your device using Magisk. See the [mobileread.com](https://www.mobileread.com/forums/forumdisplay.php?f=220) forum for guides & support.
 > Then enable Zygisk in Magisk Manager and install the [LSPosed Magisk module](https://github.com/JingMatrix/LSPosed/releases).
 
 See [releases](https://github.com/timschneeb/OnyxTweaks) for module downloads.
