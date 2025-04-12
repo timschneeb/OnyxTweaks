@@ -8,6 +8,7 @@ import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ISystemUiActivityStarter
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
@@ -46,11 +47,33 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
                 .createReplaceHookCatching<AddSettingsButtonToQs> { param ->
                     val value = preferences.get<String>(R.string.key_qs_header_settings_button_action)
                     when (value) {
-                        "onyx_settings" -> param.invokeOriginalMethod()
+                        "onyx_settings" -> {
+                            // Instead of calling the original method, which opens the settings as full-screen in SettingsActivity,
+                            // we need to open the settings fragment within the MainActivity as a tab.
+                            try {
+                                startActivityDismissingKeyguard(
+                                    Intent().apply {
+                                        action = "com.onyx.intent.action.MAIN_ACTIVITY"
+                                        `package` = LAUNCHER_PACKAGE
+                                        putExtra("json", """{"action": "${TabAction.OPEN_SETTING}"}""")
+                                    }
+                                )
+                            }
+                            catch (ex: Exception) {
+                                Log.ex("Failed to start Onyx settings activity", ex)
+                                // Fall back to the original implementation
+                                param.invokeOriginalMethod()
+                            }
+                        }
                         "stock_settings" -> startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))
                         else -> Log.ex("Unknown QS settings action '$value'")
                     }
                 }
         }
+    }
+
+    private enum class TabAction {
+        NOTHING, OPEN_HOME, OPEN_STORAGE, OPEN_APPLICATION_MANAGEMENT, OPEN_SETTING,
+        OPEN_APPS, OPEN_NOTE, OPEN_ACCOUNT_MANAGER, OPEN_SHOP
     }
 }
