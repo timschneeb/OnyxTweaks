@@ -18,11 +18,11 @@ import me.timschneeberger.onyxtweaks.mods.launcher.LauncherLifecycleHook
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowAppsToolbar
 import me.timschneeberger.onyxtweaks.mods.launcher.ShowChineseBookStore
 import me.timschneeberger.onyxtweaks.mods.settings.ShowHiddenSettings
+import me.timschneeberger.onyxtweaks.mods.shared.AddQsTiles
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
 import me.timschneeberger.onyxtweaks.mods.shared.UseNotificationIconColors
-import me.timschneeberger.onyxtweaks.mods.systemui.AddQsTiles
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
 import me.timschneeberger.onyxtweaks.mods.systemui.CompactQsPanel
 import me.timschneeberger.onyxtweaks.mods.systemui.CustomizeRecents
@@ -67,13 +67,13 @@ object ModPacks {
         ShowHiddenSettings::class,
 
         // Shared
+        AddQsTiles::class,
         AddUserSwitcherToQs::class,
         EnableWallpaper::class,
         RemoveRegalModeRestriction::class,
         UseNotificationIconColors::class,
 
         // SystemUI
-        AddQsTiles::class,
         AddSettingsButtonToQs::class,
         CompactQsPanel::class,
         CustomizeRecents::class,
