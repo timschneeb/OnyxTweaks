@@ -12,7 +12,7 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -76,7 +76,7 @@ private fun Method.replaceSystemAppCheck() {
 
         return@createReplaceHookCatching when {
             calledFromTarget -> false
-            else -> param.invokeOriginalMethod()
+            else -> param.invokeOriginalMethodCatching()
         }
     }
 }

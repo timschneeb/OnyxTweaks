@@ -12,7 +12,7 @@ import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
@@ -69,7 +69,7 @@ class DesktopGridSize : ModPack() {
             methodFinder()
                 .firstByName("isAppInit")
                 .createReplaceHookCatching<DesktopGridSize> { param ->
-                    if (isInitializing) false else param.invokeOriginalMethod()
+                    if (isInitializing) false else param.invokeOriginalMethodCatching()
                 }
 
             methodFinder()

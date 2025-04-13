@@ -9,7 +9,7 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 
@@ -30,7 +30,7 @@ class DisableAppFilter : ModPack() {
                 .firstByName("getAppsFilter")
                 .createReplaceHookCatching<DisableAppFilter> hook@ { param ->
                     val filter = param
-                        .invokeOriginalMethod()
+                        .invokeOriginalMethodCatching()
                         .cast<List<String>>()
                         ?.toMutableList()
                         ?: mutableListOf()

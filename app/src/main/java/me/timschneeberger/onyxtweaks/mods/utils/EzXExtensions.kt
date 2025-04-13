@@ -19,6 +19,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import java.lang.reflect.Constructor
+import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import kotlin.reflect.KClass
 
@@ -106,13 +107,23 @@ fun Resources.getDimensionPxByName(name: String, packageName: String? = null) =
         getDimensionPixelSize(dimenId)
     }
 
-fun MethodParam.invokeOriginalMethod(): Any? {
+fun MethodParam.invokeOriginalMethodCatching(): Any? {
     return try {
-        XposedBridge.invokeOriginalMethod(this.method, this.thisObject, this.args)
+        invokeOriginalMethod()
     }
     catch (e: Exception) {
         Log.ex("Error calling original method '${method.name}': ${e.message}")
         null
+    }
+}
+
+fun MethodParam.invokeOriginalMethod(): Any? {
+    try {
+        return XposedBridge.invokeOriginalMethod(this.method, this.thisObject, this.args)
+    }
+    catch (e: InvocationTargetException) {
+        // Unwrap the InvocationTargetException to get the actual exception
+        throw e.targetException
     }
 }
 

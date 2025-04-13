@@ -15,7 +15,7 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE, Constants.SYSTEM_FRAMEWORK_PACKAGE)
@@ -40,7 +40,7 @@ class AddQsTiles : ModPack() {
             .createReplaceHookCatching<AddQsTiles> { param ->
                 // Bypass hook if disabled
                 if(!preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
-                    param.invokeOriginalMethod()
+                    param.invokeOriginalMethodCatching()
             }
     }
 

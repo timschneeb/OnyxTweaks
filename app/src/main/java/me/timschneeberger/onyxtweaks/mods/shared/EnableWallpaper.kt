@@ -26,7 +26,7 @@ import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
@@ -46,7 +46,7 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
         MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
             .firstByName("getUserAppConfig")
             .createAfterHookCatching<EnableWallpaper> { param ->
-                val config = param.invokeOriginalMethod()
+                val config = param.invokeOriginalMethodCatching()
                 config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
                 param.result = config
             }

@@ -17,7 +17,7 @@ import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
-import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
+import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 
@@ -62,7 +62,7 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
                             catch (ex: Exception) {
                                 Log.ex("Failed to start Onyx settings activity", ex)
                                 // Fall back to the original implementation
-                                param.invokeOriginalMethod()
+                                param.invokeOriginalMethodCatching()
                             }
                         }
                         "stock_settings" -> startActivityDismissingKeyguard(Intent(Settings.ACTION_SETTINGS))
