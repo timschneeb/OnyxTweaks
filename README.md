@@ -119,6 +119,7 @@ Tiles
 ### e-Ink optimizations
 
 * Allow regal mode everywhere, for example, in certain system apps
+* Unlock the e-Ink optimization menu in all apps
 * Assign different refresh modes to each activity within an app
    * For example, you could set it up to switch to Regal mode when an app has its reader activity open and use fast mode for the book library screens, which might feature lots of scrolling elements & lists.
 
