@@ -249,6 +249,8 @@
     <string name="eink_center">e-Ink Center</string>
     <string name="eink_center_always_show_regal_mode">Always show regal mode</string>
     <string name="eink_center_always_show_regal_mode_summary">Allow any app to be used in regal mode, even in system apps</string>
+    <string name="eink_center_always_allow_eac">Always enable e-Ink app customization settings</string>
+    <string name="eink_center_always_allow_eac_summary">Unlock the e-Ink app optimization menu in all apps, even in system apps</string>
     <string name="eink_rules">Custom rules</string>
     <string name="eink_per_activity_refresh_mode">Per-activity refresh mode</string>
     <string name="eink_per_activity_refresh_mode_summary">Custom refresh mode rules for specific app activities</string>

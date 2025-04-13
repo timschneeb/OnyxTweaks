@@ -21,6 +21,7 @@ import me.timschneeberger.onyxtweaks.mods.settings.ShowHiddenSettings
 import me.timschneeberger.onyxtweaks.mods.shared.AddQsTiles
 import me.timschneeberger.onyxtweaks.mods.shared.AddUserSwitcherToQs
 import me.timschneeberger.onyxtweaks.mods.shared.EnableWallpaper
+import me.timschneeberger.onyxtweaks.mods.shared.RemoveEacRestriction
 import me.timschneeberger.onyxtweaks.mods.shared.RemoveRegalModeRestriction
 import me.timschneeberger.onyxtweaks.mods.shared.UseNotificationIconColors
 import me.timschneeberger.onyxtweaks.mods.systemui.AddSettingsButtonToQs
@@ -70,6 +71,7 @@ object ModPacks {
         AddQsTiles::class,
         AddUserSwitcherToQs::class,
         EnableWallpaper::class,
+        RemoveEacRestriction::class,
         RemoveRegalModeRestriction::class,
         UseNotificationIconColors::class,
 

@@ -76,6 +76,7 @@
 
     <!-- eInk optimizations -->
     <bool name="default_eink_center_always_show_regal_mode" translatable="false">false</bool>
+    <bool name="default_eink_center_always_allow_eac" translatable="false">false</bool>
 
     <!-- Stock settings -->
     <bool name="default_settings_show_gestures" translatable="false">false</bool>

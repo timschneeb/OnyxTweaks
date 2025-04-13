@@ -10,6 +10,12 @@
             android:title="@string/eink_center_always_show_regal_mode"
             android:summary="@string/eink_center_always_show_regal_mode_summary"
             app:iconSpaceReserved="false" />
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_eink_center_always_allow_eac"
+            android:defaultValue="@bool/default_eink_center_always_allow_eac"
+            android:title="@string/eink_center_always_allow_eac"
+            android:summary="@string/eink_center_always_allow_eac_summary"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

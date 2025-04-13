@@ -53,7 +53,10 @@ class AddQsTiles : ModPack() {
             "quick_settings_tiles_stock",
             "string",
             Constants.SYSTEM_UI_PACKAGE
-        ).let { param.res.getString(it) }
+        ).let {
+            // TODO resource Id not found during boot?
+            param.res.getString(it)
+        }
 
         if (preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
             defaultTiles += ",bw_mode"
