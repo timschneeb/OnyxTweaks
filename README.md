@@ -45,6 +45,8 @@
 > [!CAUTION]
 > This Xposed module was primarily designed for my Go Color 7 running the Beta 4.0 firmware with Android 12. 
 > I cannot guarantee full compatibility with other Boox models, especially if they do not run the 4.0 beta firmware.
+> >
+> However, in general it should largely work on other devices, provided they are running Android 12.
 
 ## Features
 
@@ -82,7 +84,7 @@ Notifications
 
 Clock
 * Customize clock position (left, center, right)
-* Insert day of the week, or your custom dynamic text (ex. with the current date) next to the clock (in small or normal font size)
+* Insert day of the week, or your custom dynamic text (ex., with the current date) next to the clock (in small or normal font size)
 
 Status icons
 * Show current e-Ink refresh mode as a status icon
@@ -96,7 +98,7 @@ Header
 * Show the settings button, and optionally redirect to Android's stock settings
 
 Panel
-* Inject Android's media controls into the QS panel (seek bar, play/pause buttons, etc. for music apps)
+* Inject Android's media controls into the QS panel (seek bar, play/pause buttons, etc., for music apps)
 * Hide panel components (WiFi/BT tiles, tile grid, front-light sliders, volume slider, etc.)
 * Compact panel style (top right only, instead of using the full-screen height)
 * Customize QS grid size
@@ -104,7 +106,7 @@ Panel
 
 Tiles 
 * Show Black & white mode tile on all devices
-* Show split screen tile on all devices
+* Show split-screen tile on all devices
 
 ### Recents
 
