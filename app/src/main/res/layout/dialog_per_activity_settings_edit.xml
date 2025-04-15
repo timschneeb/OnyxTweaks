@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingTop="?attr/dialogPreferredPadding"
+    android:paddingStart="?attr/dialogPreferredPadding"
+    android:paddingEnd="?attr/dialogPreferredPadding">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:helperTextEnabled="true"
+        app:helperText="@string/per_activity_settings_edit_refresh_mode_help">
+
+        <AutoCompleteTextView
+            android:id="@+id/refresh_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/per_activity_settings_edit_refresh_mode"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:helperTextEnabled="true"
+        app:helperText="@string/per_activity_settings_edit_update_mode_help">
+
+        <AutoCompleteTextView
+            android:id="@+id/update_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/per_activity_settings_edit_update_mode"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

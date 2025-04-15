@@ -1,18 +1,24 @@
 package me.timschneeberger.onyxtweaks.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.SimpleAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import com.github.kyuubiran.ezxhelper.Log
+import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.topjohnwu.superuser.Shell
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import me.timschneeberger.onyxtweaks.BuildConfig
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.databinding.DialogPerActivitySettingsEditBinding
 import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.model.ActivityInfo
@@ -23,7 +29,6 @@ import me.timschneeberger.onyxtweaks.ui.model.AppItemViewModel
 import me.timschneeberger.onyxtweaks.ui.preferences.DeletablePreference
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.toast
-import me.timschneeberger.onyxtweaks.ui.utils.showSingleChoiceAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 
@@ -121,29 +126,12 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
                                 setIcon(R.drawable.ic_twotone_more_horiz_24)
 
                             title = rule.activityClass ?: getString(R.string.per_activity_settings_scope_all_activities)
-                            summary = getString(
-                                R.string.per_activity_settings_activity_mode_summary,
-                                rule.updateMode
-                            )
+                            summary = if (rule.updateMethod == UpdateMode.None)
+                                getString(R.string.per_activity_settings_activity_mode_summary, rule.updateMode)
+                            else
+                                getString(R.string.per_activity_settings_activity_mode_summary_2, rule.updateMode, rule.updateMethod)
                             onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                                requireContext().showSingleChoiceAlert(
-                                    getString(
-                                        R.string.per_activity_settings_change_mode_title,
-                                        rule.activityName ?: getString(R.string.per_activity_settings_change_mode_title_other_items)
-                                    ),
-                                    PerActivityRefreshModes.UpdateOption
-                                        .entries
-                                        .map { it.name as CharSequence }
-                                        .toTypedArray(),
-                                    rule.updateMode.ordinal
-                                ) { index ->
-                                    index ?: return@showSingleChoiceAlert
-
-                                    val newRules = readRules().toMutableList()
-                                    newRules[newRules.indexOf(rule)] = rule.copy(updateMode = PerActivityRefreshModes.UpdateOption.entries[index])
-                                    saveRules(newRules)
-                                    refreshList()
-                                }
+                                showEditDialog(rule)
                                 true
                             }
 
@@ -199,6 +187,64 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
         }
     }
 
+    private fun showEditDialog(rule: ActivityRule) {
+        val content = DialogPerActivitySettingsEditBinding.inflate(layoutInflater).apply {
+            refreshMode.setAdapter(ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                PerActivityRefreshModes.UpdateOption.entries.map { it.name }
+            ))
+            refreshMode.setText(rule.updateMode.name, false)
+
+            updateMode.setAdapter(CustomSimpleAdapter(
+                requireContext(),
+                UpdateMode.entries.map {
+                    linkedMapOf(
+                        "name" to it.name,
+                        "desc" to getString(updateModeSummaries.getOrElse(it) { R.string.update_mode_undocumented_summary })
+                    )
+                },
+                android.R.layout.simple_list_item_2,
+                arrayOf("name", "desc"),
+                intArrayOf(android.R.id.text1, android.R.id.text2)
+            ))
+            updateMode.setText(rule.updateMethod.name, false)
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(
+                R.string.per_activity_settings_change_mode_title,
+                rule.activityName ?: getString(R.string.per_activity_settings_change_mode_title_other_items)
+            ))
+            .setView(content.root)
+            .setPositiveButton(android.R.string.ok) { inputDialog, _ ->
+                val newRefreshMode = try {
+                    PerActivityRefreshModes.UpdateOption.valueOf(content.refreshMode.text.toString())
+                }
+                catch (_: IllegalArgumentException) {
+                    PerActivityRefreshModes.UpdateOption.DEFAULT
+                }
+
+                val newUpdateMode = try {
+                    UpdateMode.valueOf(content.updateMode.text.toString())
+                }
+                catch (_: IllegalArgumentException) {
+                    UpdateMode.None
+                }
+
+                val newRules = readRules().toMutableList()
+                newRules[newRules.indexOf(rule)] = rule.copy(
+                    updateMode = newRefreshMode,
+                    updateMethod = newUpdateMode,
+                )
+                saveRules(newRules)
+                refreshList()
+            }
+            .setNegativeButton(android.R.string.cancel) {_, _ -> }
+            .create()
+            .show()
+    }
+
     private fun showAppSelector() {
         if(!appsListFragment.isAdded)
             appsListFragment.show(childFragmentManager, AppsListFragment::class.java.name)
@@ -216,5 +262,37 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
         onConfigurePreferences()
 
         listView.scrollY = scrollY
+    }
+
+    private class CustomSimpleAdapter(
+        context: Context,
+        data: List<Map<String, Any>>,
+        layout: Int,
+        from: Array<String>,
+        to: IntArray
+    ) : SimpleAdapter(context, data, layout, from, to) {
+        override fun getItem(position: Int): Any {
+            val map = super.getItem(position) as LinkedHashMap<*, *>
+            return map.entries.first { entry -> entry.key == "name" }.value
+        }
+    }
+
+    companion object {
+        val updateModeSummaries = UpdateMode.entries.associate { mode ->
+            mode to when (mode) {
+                UpdateMode.None -> R.string.update_mode_none_summary
+                UpdateMode.DU -> R.string.update_mode_du_summary
+                UpdateMode.GU -> R.string.update_mode_gu_summary
+                UpdateMode.GU_FAST -> R.string.update_mode_gu_fast_summary
+                UpdateMode.GC -> R.string.update_mode_gc_summary
+                UpdateMode.ANIMATION -> R.string.update_mode_animation_summary
+                UpdateMode.ANIMATION_QUALITY -> R.string.update_mode_animation_quality_summary
+                UpdateMode.GC4 -> R.string.update_mode_gc4_summary
+                UpdateMode.REGAL -> R.string.update_mode_regal_summary
+                UpdateMode.REGAL_D -> R.string.update_mode_regal_d_summary
+                UpdateMode.DU_QUALITY -> R.string.update_mode_du_quality_summary
+                else -> R.string.update_mode_undocumented_summary
+            }
+        }
     }
 }

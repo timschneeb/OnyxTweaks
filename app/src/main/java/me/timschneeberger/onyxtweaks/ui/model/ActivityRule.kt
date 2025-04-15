@@ -1,6 +1,7 @@
 package me.timschneeberger.onyxtweaks.ui.model
 
 import android.content.Context
+import com.onyx.android.sdk.api.device.epd.UpdateMode
 import kotlinx.serialization.Serializable
 import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.getAppName
@@ -11,7 +12,8 @@ data class ActivityRule(
     val appName: String,
     val activityClass: String?,
     val activityName: String?,
-    val updateMode: PerActivityRefreshModes.UpdateOption,
+    val updateMode: PerActivityRefreshModes.UpdateOption = PerActivityRefreshModes.UpdateOption.DEFAULT,
+    val updateMethod: UpdateMode = UpdateMode.None
 ) {
     companion object {
         fun fromActivityInfo(context: Context, activity: ActivityInfo): ActivityRule {
@@ -21,8 +23,7 @@ data class ActivityRule(
                     ?: activity.packageName.split('.').lastOrNull()
                     ?: activity.packageName).toString(),
                 activity.activityClass,
-                activity.activityName,
-                PerActivityRefreshModes.UpdateOption.DEFAULT
+                activity.activityName
             )
         }
 
@@ -31,8 +32,7 @@ data class ActivityRule(
                 packageName,
                 appName,
                 null,
-                null,
-                PerActivityRefreshModes.UpdateOption.DEFAULT
+                null
             )
         }
     }

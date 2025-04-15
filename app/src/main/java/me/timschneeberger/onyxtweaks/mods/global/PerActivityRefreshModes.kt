@@ -5,6 +5,7 @@ import android.onyx.optimization.EInkHelper
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.misc.AndroidUtils
+import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.onyx.android.sdk.device.Device
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import kotlinx.serialization.SerializationException
@@ -43,19 +44,34 @@ class PerActivityRefreshModes : ModPack() {
             }
         }
 
+
+
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass(Activity::class.java)
             .firstByName("onResume")
             .createAfterHookCatching<PerActivityRefreshModes> { param ->
                 findRules(lpParam.packageName).let { rules ->
                     var rule = rules.firstOrNull { it.activityClass == param.thisObject::class.java.name }
-                    rule = rule ?: rules.firstOrNull { it.activityClass == null }
+                    rule = rule ?: rules.firstOrNull { it.activityClass == null } // fallback to default rule
                     rule?.let { rule ->
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,
                         // otherwise the previous component will be modified
                         AndroidUtils.mainHandler.postDelayed({
                             EInkHelper.setAppScopeRefreshMode(rule.updateMode.value)
                             Log.dx("Refresh mode set to ${Device.currentDevice().appScopeRefreshMode}")
+
+                            Device.currentDevice().clearAppScopeUpdate()
+                            val method = rule.updateMethod
+                            if (method != UpdateMode.None) {
+                                Device.currentDevice().applyAppScopeUpdate(
+                                    lpParam.packageName,
+                                    true,
+                                    false,
+                                    method,
+                                    Int.MAX_VALUE
+                                )
+                                Log.dx("Update mode set to $method")
+                            }
                         }, 500)
                     }
                 }
