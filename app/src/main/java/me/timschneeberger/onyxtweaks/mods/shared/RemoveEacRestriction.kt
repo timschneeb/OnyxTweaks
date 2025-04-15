@@ -2,7 +2,6 @@ package me.timschneeberger.onyxtweaks.mods.shared
 
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
@@ -25,11 +24,6 @@ class RemoveEacRestriction : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         if (!preferences.get<Boolean>(R.string.key_eink_center_always_allow_eac))
             return
-
-        findClass("android.onyx.optimization.OECServiceUtils")
-            .methodFinder()
-            .firstByName("isDebug")
-            .replaceWithConstant(true)
 
         if (lpParam.packageName == LAUNCHER_PACKAGE) {
             MethodFinder.fromClass("com.onyx.android.sdk.eac.data.v2.EACAppConfig")
