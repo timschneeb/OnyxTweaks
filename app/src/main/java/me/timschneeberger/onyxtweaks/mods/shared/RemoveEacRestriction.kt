@@ -4,10 +4,11 @@ import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
-import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
-import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
-import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
+import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
@@ -17,7 +18,7 @@ import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import java.lang.reflect.Method
 
-@TargetPackages(GLOBAL)
+@TargetPackages(SYSTEM_FRAMEWORK_PACKAGE, SYSTEM_UI_PACKAGE, LAUNCHER_PACKAGE)
 class RemoveEacRestriction : ModPack() {
     override val group = PreferenceGroups.EINK
 
