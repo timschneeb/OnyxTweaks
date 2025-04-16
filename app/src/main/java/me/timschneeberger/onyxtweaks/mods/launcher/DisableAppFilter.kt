@@ -3,9 +3,9 @@ package me.timschneeberger.onyxtweaks.mods.launcher
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
@@ -21,8 +21,6 @@ class DisableAppFilter : ModPack() {
         val showSettings = preferences.get<Boolean>(R.string.key_launcher_app_show_settings)
         val showFiles = preferences.get<Boolean>(R.string.key_launcher_app_show_file_mgr)
         val showAll = preferences.get<Boolean>(R.string.key_launcher_app_show_all)
-
-        listOf<String>(LAUNCHER_PACKAGE)
 
         // Note: added icons will persist after turning off this mod
         findClass("com.onyx.common.common.model.DeviceConfig").apply {

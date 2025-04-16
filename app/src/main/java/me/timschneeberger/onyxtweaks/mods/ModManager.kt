@@ -13,6 +13,7 @@ import me.timschneeberger.onyxtweaks.bridge.registerModEventReceiver
 import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
+import me.timschneeberger.onyxtweaks.mods.base.IResourceHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import kotlin.reflect.KClass
@@ -22,7 +23,7 @@ class ModManager {
         val startTime = System.currentTimeMillis()
         Log.ex("=== Zygote init")
         synchronized(this) {
-            ModRegistry.modsWithZygoteInit
+            ModRegistry.modsWithZygoteHook
                 .map(::ensurePackInitialized)
                 .map { it as IEarlyZygoteHook }
                 .forEach { mod ->
@@ -77,8 +78,18 @@ class ModManager {
     fun handleInitPackageResources(param: InitPackageResourcesParam) {
         val startTime = System.currentTimeMillis()
         Log.ex("=== Init package resources: ${param.packageName}")
-        getPacksForPackage(param.packageName).forEach { mod ->
-            param.runSafely(mod::class, "Error while hooking resources", block = mod::handleInitPackageResources)
+        if (ModRegistry.packagesWithResourceHooks.contains(param.packageName) ||
+            ModRegistry.packagesWithResourceHooks.contains(GLOBAL)) {
+
+            getPacksForPackage(param.packageName).forEach { mod ->
+                if (mod is IResourceHook) {
+                    param.runSafely(
+                        mod::class,
+                        "Error while hooking resources",
+                        block = mod::handleInitPackageResources
+                    )
+                }
+            }
         }
         Log.ex("=== Init package resources done for ${param.packageName} (${System.currentTimeMillis() - startTime}ms)")
     }

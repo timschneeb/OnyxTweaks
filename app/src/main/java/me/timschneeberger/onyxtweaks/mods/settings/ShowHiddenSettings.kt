@@ -4,9 +4,9 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinde
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
@@ -42,17 +42,12 @@ class ShowHiddenSettings : ModPack() {
                 .firstByName("isGestureAvailable")
                 .replaceWithConstant(true)
         }
-    }
 
-    override fun handleInitPackageResources(param: ResParam) {
-        if (!preferences.get<Boolean>(R.string.key_settings_show_memory_in_app_info))
-            return
-
-        param.res.setReplacement(
-            SYSTEM_SETTINGS_PACKAGE,
-            "bool",
-            "config_show_app_info_settings_memory",
-            true
-        )
+        if (preferences.get<Boolean>(R.string.key_settings_show_memory_in_app_info)) {
+            findClass("com.android.settings.applications.appinfo.AppMemoryPreferenceController")
+                .methodFinder()
+                .firstByName("getAvailabilityStatus")
+                .replaceWithConstant(0)
+        }
     }
 }

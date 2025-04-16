@@ -69,19 +69,40 @@ class ModPackProcessor(private val environment: SymbolProcessorEnvironment) : Sy
 
                     )
                     .addProperty(
-                        PropertySpec.builder("modsWithZygoteInit", MOD_LIST)
+                        PropertySpec.builder("modsWithZygoteHook", MOD_LIST)
                             .initializer(buildListInitializer(
                                 grouped.values.flatten().filter { def ->
                                     def.getAllSuperTypes().any {
-                                        type -> type.toClassName() == ClassName("me.timschneeberger.onyxtweaks.mods.base", "IEarlyZygoteHook")
+                                            type -> type.toClassName() == ClassName("me.timschneeberger.onyxtweaks.mods.base", "IEarlyZygoteHook")
                                     }
-                                }
+                                }.distinct()
                             ))
                             .build()
                     )
                     .addProperty(
                         PropertySpec.builder("modsByPackage", STRING_TO_MOD_MAP)
                             .initializer(buildMapInitializer(grouped))
+                            .build()
+                    )
+                    .addProperty(
+                        PropertySpec.builder("packagesWithResourceHooks", STRING_LIST)
+                            .initializer(
+                                buildStringListInitializer(
+                                    grouped.mapNotNull { entry ->
+                                        entry.value.any { declaration ->
+                                            declaration.getAllSuperTypes().any {
+                                                type -> type.toClassName() == ClassName("me.timschneeberger.onyxtweaks.mods.base", "IResourceHook")
+                                            }
+                                        }.let {
+                                            if (it) {
+                                                entry.key
+                                            } else {
+                                                null
+                                            }
+                                        }
+                                    }.distinct()
+                                )
+                            )
                             .build()
                     )
                     .build()
@@ -117,6 +138,18 @@ class ModPackProcessor(private val environment: SymbolProcessorEnvironment) : Sy
         }.build()
     }
 
+
+    private fun buildStringListInitializer(list: List<String>): CodeBlock {
+        return CodeBlock.builder().apply {
+            add("listOf(\n")
+            list.forEachIndexed { idx, string ->
+                if (idx > 0) add(", \n")
+                add("%S", string)
+            }
+            add("\n)")
+        }.build()
+    }
+
     companion object {
         private val MOD_BASE_CLASS = ClassName("me.timschneeberger.onyxtweaks.mods.base", "ModPack")
 
@@ -139,5 +172,7 @@ class ModPackProcessor(private val environment: SymbolProcessorEnvironment) : Sy
                         WildcardTypeName.producerOf(MOD_BASE_CLASS)
                     )
             )
+
+        val STRING_LIST = List::class.asClassName().parameterizedBy(String::class.asClassName())
     }
 }

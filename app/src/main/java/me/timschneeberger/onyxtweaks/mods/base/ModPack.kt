@@ -3,7 +3,6 @@ package me.timschneeberger.onyxtweaks.mods.base
 import android.os.Bundle
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.Log
-import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver
 import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver.Companion.createEventIntent
@@ -50,12 +49,4 @@ abstract class ModPack : OnModEventReceived {
      * @param lpParam load package parameters
      */
     open fun handleLoadPackage(lpParam: LoadPackageParam) {}
-
-    /**
-     * Handle the initialization of package resources.
-     * Optional.
-     *
-     * @param param the initialization parameters
-     */
-    open fun handleInitPackageResources(param: InitPackageResourcesParam) {}
 }
