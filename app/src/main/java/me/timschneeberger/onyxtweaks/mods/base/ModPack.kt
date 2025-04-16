@@ -9,11 +9,8 @@ import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver
 import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver.Companion.createEventIntent
 import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.bridge.OnModEventReceived
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.XPreferences
-import kotlin.reflect.KClass
-import kotlin.reflect.full.findAnnotations
 
 /**
  * Base class for all mod packs.
@@ -23,7 +20,6 @@ import kotlin.reflect.full.findAnnotations
 abstract class ModPack : OnModEventReceived {
     abstract val group: PreferenceGroups
 
-    val targetPackages by lazy { getTargetPackages(this::class) }
     val preferences by lazy { XPreferences(group) }
 
     override var modEventReceiver: ModEventReceiver? = null
@@ -62,10 +58,4 @@ abstract class ModPack : OnModEventReceived {
      * @param param the initialization parameters
      */
     open fun handleInitPackageResources(param: InitPackageResourcesParam) {}
-
-    companion object {
-        fun getTargetPackages(modPackCls: KClass<*>): Array<String> =
-            modPackCls.findAnnotations<TargetPackages>()
-                .fold(arrayOf<String>()) { acc, annotation -> acc + annotation.targets }
-    }
 }

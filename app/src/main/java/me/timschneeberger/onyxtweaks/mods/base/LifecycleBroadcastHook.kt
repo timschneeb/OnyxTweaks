@@ -10,9 +10,6 @@ abstract class LifecycleBroadcastHook : ModPack() {
     override val group = PreferenceGroups.MISC
 
     final override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
-        if (!targetPackages.contains(lpParam.packageName))
-            return
-
         sendEvent(ModEvents.HOOK_LOADED, Bundle().apply {
             putString(ARG_PACKAGE, lpParam.packageName)
         })
