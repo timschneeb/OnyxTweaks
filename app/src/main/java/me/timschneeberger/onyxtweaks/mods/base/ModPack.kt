@@ -9,10 +9,17 @@ import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver
 import me.timschneeberger.onyxtweaks.bridge.ModEventReceiver.Companion.createEventIntent
 import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.bridge.OnModEventReceived
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.XPreferences
 import kotlin.reflect.KClass
+import kotlin.reflect.full.findAnnotations
 
+/**
+ * Base class for all mod packs.
+ *
+ * @property group the preference group this mod pack belongs to
+ */
 abstract class ModPack : OnModEventReceived {
     abstract val group: PreferenceGroups
 
@@ -41,7 +48,8 @@ abstract class ModPack : OnModEventReceived {
     open fun onPreferencesChanged(key: String?) {}
 
     /**
-     * Handle the loading of a package.
+     * Handle the loading of a package DEX code.
+     * When this method is called, EzXHelper.appContext is available
      *
      * @param lpParam load package parameters
      */
@@ -57,8 +65,7 @@ abstract class ModPack : OnModEventReceived {
 
     companion object {
         fun getTargetPackages(modPackCls: KClass<*>): Array<String> =
-            modPackCls.annotations
-                .mapNotNull { it as? TargetPackages }
+            modPackCls.findAnnotations<TargetPackages>()
                 .fold(arrayOf<String>()) { acc, annotation -> acc + annotation.targets }
     }
 }

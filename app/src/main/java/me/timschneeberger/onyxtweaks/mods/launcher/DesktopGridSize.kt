@@ -7,7 +7,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass

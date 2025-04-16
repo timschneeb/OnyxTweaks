@@ -7,7 +7,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName

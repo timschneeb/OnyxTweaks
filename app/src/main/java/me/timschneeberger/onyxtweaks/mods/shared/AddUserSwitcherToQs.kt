@@ -21,7 +21,7 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
 import me.timschneeberger.onyxtweaks.mods.utils.findClass

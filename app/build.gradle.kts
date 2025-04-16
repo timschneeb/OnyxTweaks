@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.devtools.ksp") version "2.1.20-1.0.32"
     id("dev.rikka.tools.refine") version "4.4.0"
     kotlin("plugin.serialization") version "2.1.0"
 }
@@ -94,7 +95,7 @@ android {
 dependencies {
     // AndroidX
     implementation("androidx.annotation:annotation-jvm:1.9.1")
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
@@ -102,8 +103,8 @@ dependencies {
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 
     // UI
@@ -126,6 +127,8 @@ dependencies {
 
     // Local sub-modules
     implementation(project(":codeview"))
+    implementation(project(":mod-processor"))
+    ksp(project(":mod-processor"))
 
     // API references
     compileOnly(project(":hidden-api"))

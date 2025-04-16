@@ -27,7 +27,9 @@ import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
-import me.timschneeberger.onyxtweaks.mods.ModPacks
+import me.timschneeberger.onyxtweaks.mods.ModRegistry
+import me.timschneeberger.onyxtweaks.mods.ModRegistryExtensions.testedAndroidVersions
+import me.timschneeberger.onyxtweaks.mods.ModRegistryExtensions.testedModels
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSettings
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSystemUi
@@ -221,8 +223,8 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
 
     private fun updateCompatibilityStatusBarState(isVisible: Boolean) {
         val message = when {
-            !ModPacks.testedModels.contains(Build.MODEL) -> getString(R.string.compat_model_not_tested)
-            !ModPacks.testedAndroidVersions.contains(Build.VERSION.SDK_INT) -> getString(R.string.compat_android_version_not_tested)
+            !ModRegistry.testedModels.contains(Build.MODEL) -> getString(R.string.compat_model_not_tested)
+            !ModRegistry.testedAndroidVersions.contains(Build.VERSION.SDK_INT) -> getString(R.string.compat_android_version_not_tested)
             else -> null
         }
 

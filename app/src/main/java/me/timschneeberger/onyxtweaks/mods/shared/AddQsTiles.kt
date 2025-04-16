@@ -5,13 +5,14 @@ import android.onyx.ViewUpdateHelper
 import android.provider.Settings
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.EzXHelper.hostPackageName
+import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mods.base.TargetPackages
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
@@ -54,7 +55,13 @@ class AddQsTiles : ModPack() {
             "string",
             Constants.SYSTEM_UI_PACKAGE
         ).let {
-            // TODO resource Id not found during boot?
+            if(it == 0) {
+                // This only happens in the first zygote process (probably the 32-bit one?)
+                // The secondary zygote process can resolve the resource.
+                Log.ex("Failed to find quick_settings_tiles_stock string")
+                return
+            }
+
             param.res.getString(it)
         }
 
