@@ -20,8 +20,6 @@ import kotlin.reflect.KClass
 
 class ModManager {
     fun initZygote(param: IXposedHookZygoteInit.StartupParam) {
-        val startTime = System.currentTimeMillis()
-        Log.ex("=== Zygote init")
         synchronized(this) {
             ModRegistry.modsWithZygoteHook
                 .map(::ensurePackInitialized)
@@ -34,12 +32,9 @@ class ModManager {
                     )
                 }
         }
-        Log.ex("=== Zygote init done (${System.currentTimeMillis() - startTime}ms)")
     }
 
     fun handleLoadPackage(lpParam: LoadPackageParam) {
-        Log.ex("=== Create ctx hooks: ${lpParam.packageName} (${lpParam.processName})")
-        val startTime = System.currentTimeMillis()
         runSafely(ModManager::class, "Failed to hook application/framework entrypoint") {
             if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE)
                 MethodFinder.fromClass("com.android.server.policy.PhoneWindowManager")
@@ -72,12 +67,9 @@ class ModManager {
                     }
             }
         }
-        Log.ex("=== Create ctx hooks for ${lpParam.packageName} (${System.currentTimeMillis() - startTime}ms)")
     }
 
     fun handleInitPackageResources(param: InitPackageResourcesParam) {
-        val startTime = System.currentTimeMillis()
-        Log.ex("=== Init package resources: ${param.packageName}")
         if (ModRegistry.packagesWithResourceHooks.contains(param.packageName) ||
             ModRegistry.packagesWithResourceHooks.contains(GLOBAL)) {
 
@@ -91,13 +83,9 @@ class ModManager {
                 }
             }
         }
-        Log.ex("=== Init package resources done for ${param.packageName} (${System.currentTimeMillis() - startTime}ms)")
     }
 
     private fun onContextReady(context: Context, param: LoadPackageParam) {
-        val startTime = System.currentTimeMillis()
-        Log.ex("=== Context ready: ${param.packageName} (${param.processName})")
-
         if (context.packageName != EzXHelper.hostPackageName)
             Log.dx("Context package name does not match host package name! Context not updated. (${context.packageName} != ${EzXHelper.hostPackageName})")
         else
@@ -109,8 +97,6 @@ class ModManager {
                 context.registerModEventReceiver(mod)
                 param.runSafely(mod::class, "Error while hooking DEX code", block = mod::handleLoadPackage)
             }
-
-        Log.ex("=== Context ready done for ${param.packageName} (${System.currentTimeMillis() - startTime}ms)")
     }
 
     private fun getPacksForPackage(packageName: String): List<ModPack> {
