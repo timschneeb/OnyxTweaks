@@ -11,9 +11,9 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.GLOBAL
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.ui.model.ActivityRule
@@ -57,10 +57,11 @@ class PerActivityRefreshModes : ModPack() {
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,
                         // otherwise the previous component will be modified
                         AndroidUtils.mainHandler.postDelayed({
+                            Device.currentDevice().clearAppScopeUpdate()
+                            
                             EInkHelper.setAppScopeRefreshMode(rule.updateMode.value)
                             Log.dx("Refresh mode set to ${Device.currentDevice().appScopeRefreshMode}")
 
-                            Device.currentDevice().clearAppScopeUpdate()
                             val method = rule.updateMethod
                             if (method != UpdateMode.None) {
                                 Device.currentDevice().applyAppScopeUpdate(
