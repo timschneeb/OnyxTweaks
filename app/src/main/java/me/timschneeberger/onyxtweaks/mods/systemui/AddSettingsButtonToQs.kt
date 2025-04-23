@@ -5,14 +5,14 @@ import android.provider.Settings
 import android.view.View
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
-import me.timschneeberger.onyxtweaks.mods.base.ISystemUiActivityStarter
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
@@ -22,7 +22,7 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 
 @TargetPackages(SYSTEM_UI_PACKAGE)
-class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
+class AddSettingsButtonToQs : ModPack() {
     override val group = PreferenceGroups.QS
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
@@ -70,6 +70,21 @@ class AddSettingsButtonToQs : ModPack(), ISystemUiActivityStarter {
                     }
                 }
         }
+    }
+
+    private fun getActivityStarter(): Any? = MethodFinder.fromClass("com.android.systemui.Dependency")
+        .filterByParamTypes(Class::class.java)
+        .firstByName("get")
+        .invoke(null, findClass("com.android.systemui.plugins.ActivityStarter"))
+
+    private fun startActivityDismissingKeyguard(intent: Intent, flags: Int = 0) {
+        getActivityStarter()?.let {
+            it.javaClass
+                .methodFinder()
+                .filterByParamTypes(Intent::class.java, Int::class.javaPrimitiveType)
+                .firstByName("postStartActivityDismissingKeyguard")
+                .invoke(it, intent, flags)
+        } ?: Log.w("ActivityStarter not found")
     }
 
     private enum class TabAction {

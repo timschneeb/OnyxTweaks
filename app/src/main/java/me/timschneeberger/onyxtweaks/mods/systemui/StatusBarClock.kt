@@ -17,9 +17,9 @@ import de.robv.android.xposed.XposedHelpers.setObjectField
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.bridge.ModEvents
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.systemui.StatusBarClock.AmPmStyle.entries
 import me.timschneeberger.onyxtweaks.mods.systemui.StatusBarClock.ClockPosition.entries
 import me.timschneeberger.onyxtweaks.mods.utils.StringFormatter
@@ -54,7 +54,7 @@ class StatusBarClock : ModPack() {
     private var clockView: View? = null
     private var clockViewParent: ViewGroup? = null
 
-    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+    override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         rightClockPadding = appContext.resources.getDimensionPixelSize(
             appContext.resources.getIdentifier("status_bar_clock_starting_padding", "dimen", SYSTEM_UI_PACKAGE)
         )
