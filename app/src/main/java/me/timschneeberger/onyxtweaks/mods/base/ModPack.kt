@@ -40,7 +40,7 @@ abstract class ModPack : OnModEventReceived {
      */
     protected fun sendEvent(event: ModEvents, extras: Bundle? = null, callback: ((Intent) -> Unit)? = null) {
         if(callback == null)
-            sendBroadcast(createEventIntent(event, this, extras))
+            appContext.sendBroadcast(createEventIntent(event, this, extras))
         else {
             appContext.sendOrderedBroadcast(
                 createEventIntent(event, this, extras),
