@@ -19,10 +19,10 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.IEarlyZygoteHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
@@ -31,6 +31,15 @@ import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack enables the wallpaper feature in the Onyx Launcher
+ * and enables the wallpaper system service, allowing 3rd party apps to display wallpapers.
+ * It also show the wallpaper picker button in the launcher when long-pressing the home screen.
+ *
+ * Note: Onyx firmware 4.0 re-enables the wallpaper system service,
+ *       restoring the wallpaper feature in 3rd-party apps.
+ *       The service was disabled during Beta 4.0.
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableWallpaper : ModPack(), IEarlyZygoteHook {
     override val group = PreferenceGroups.LAUNCHER

@@ -9,9 +9,9 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinde
 import com.github.kyuubiran.ezxhelper.misc.ViewUtils.findViewByIdName
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
@@ -21,6 +21,10 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 
+/**
+ * This mod pack hides the volume slider, fixed tiles (wifi & bluetooth), tile grid,
+ * brightness and temperature sliders, and the front-light label above the sliders.
+ */
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE)
 class HideQsComponents : ModPack() {
     override val group = PreferenceGroups.QS

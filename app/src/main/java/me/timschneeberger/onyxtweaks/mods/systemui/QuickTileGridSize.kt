@@ -12,6 +12,10 @@ import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack allows the user to change the grid size of the quick settings tiles
+ * and remove the minimum tile count.
+ */
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE)
 class QuickTileGridSize : ModPack(), IResourceHook {
     override val group = PreferenceGroups.QS
@@ -22,7 +26,7 @@ class QuickTileGridSize : ModPack(), IResourceHook {
 
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
             .firstByName("getQSNumColumns")
-            .replaceWithConstant(4)
+            .replaceWithConstant(preferences.getStringAsInt(R.string.key_qs_grid_column_count))
     }
 
     override fun handleInitPackageResources(param: XC_InitPackageResources.InitPackageResourcesParam) {

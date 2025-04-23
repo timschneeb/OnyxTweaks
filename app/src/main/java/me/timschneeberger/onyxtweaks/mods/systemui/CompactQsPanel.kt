@@ -8,6 +8,11 @@ import me.timschneeberger.onyxtweaks.mods.base.IResourceHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack enables a compact Quick Settings panel normally
+ * only found on large screen devices.
+ * The height wraps the content instead of filling the screen vertically.
+ */
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class CompactQsPanel : ModPack(), IResourceHook {
     override val group = PreferenceGroups.QS

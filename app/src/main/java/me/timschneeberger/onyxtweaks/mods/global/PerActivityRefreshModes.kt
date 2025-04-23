@@ -19,6 +19,12 @@ import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.ui.model.ActivityRule
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack allows setting the refresh mode and update method for specific activities.
+ *
+ * Update methods are not supposed to be exposed to the user and should be used with caution.
+ * Not all methods are supported by all refresh modes and devices.
+ */
 @TargetPackages(GLOBAL)
 class PerActivityRefreshModes : ModPack() {
     override val group = PreferenceGroups.PER_ACTIVITY_SETTINGS
@@ -51,16 +57,16 @@ class PerActivityRefreshModes : ModPack() {
             .firstByName("onResume")
             .createAfterHookCatching<PerActivityRefreshModes> { param ->
                 findRules(lpParam.packageName).let { rules ->
-                    var rule = rules.firstOrNull { it.activityClass == param.thisObject::class.java.name }
-                    rule = rule ?: rules.firstOrNull { it.activityClass == null } // fallback to default rule
-                    rule?.let { rule ->
+                    rules.firstOrNull { it.activityClass == param.thisObject::class.java.name }
+                        ?: rules.firstOrNull { it.activityClass == null } // fallback to default rule
+                        ?.let { rule ->
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,
                         // otherwise the previous component will be modified
                         AndroidUtils.mainHandler.postDelayed({
                             Device.currentDevice().clearAppScopeUpdate()
-                            
                             EInkHelper.setAppScopeRefreshMode(rule.updateMode.value)
-                            Log.dx("Refresh mode set to ${Device.currentDevice().appScopeRefreshMode}")
+
+                            // TODO Allow user to select turbo level using EInkHelper.setTurbo
 
                             val method = rule.updateMethod
                             if (method != UpdateMode.None) {

@@ -11,9 +11,9 @@ import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constr
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
@@ -24,6 +24,12 @@ import me.timschneeberger.onyxtweaks.mods.utils.getDrawableByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack injects Android's stock media host into the quick settings panel.
+ *
+ * Onyx devices have the media host stripped out of the status bar.
+ * To re-enable it, we need to inject lots of stock code back in.
+ */
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE)
 class InjectMediaHostIntoQs : ModPack() {
     override val group = PreferenceGroups.QS

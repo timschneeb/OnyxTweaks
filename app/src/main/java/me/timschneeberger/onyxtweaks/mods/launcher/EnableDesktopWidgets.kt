@@ -6,9 +6,9 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
@@ -19,6 +19,13 @@ import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import java.lang.reflect.Modifier
 
+/**
+ * This mod pack enables the advanced desktop widget mode on the Onyx Launcher.
+ *
+ * It also unlocks other features dependent on it, such as the dock or the smart assistant page.
+ * The widget filter from the assistant page is removed, and all widgets are shown.
+ * The mode is only enabled by default on large screen devices.
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class EnableDesktopWidgets : ModPack() {
     override val group = PreferenceGroups.LAUNCHER

@@ -13,6 +13,13 @@ import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 
+/**
+ * This mod pack disables the app filter in the Onyx Launcher.
+ *
+ * Either the stock Settings and File Manager apps can be shown, or the entire filter can be
+ * disabled. When the filter is re-disabled, all apps will continue to be shown until the
+ * launcher is re-initialized using the flag in [DesktopGridSize].
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class DisableAppFilter : ModPack() {
     override val group = PreferenceGroups.LAUNCHER

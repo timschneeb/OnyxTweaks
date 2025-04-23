@@ -21,6 +21,13 @@ import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 
+/**
+ * This mod pack adds a settings button to the quick settings panel header.
+ *
+ * It can be configured to open the Onyx settings app or the stock settings app
+ * depending on the user's preference.
+ * The button is already visible by default on large screen devices.
+ */
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class AddSettingsButtonToQs : ModPack() {
     override val group = PreferenceGroups.QS

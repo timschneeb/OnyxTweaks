@@ -20,6 +20,14 @@ import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack adds the B/W mode and split screen tiles to the quick settings panel.
+ *
+ * The B/W mode tile needs additional hooks to enable persistence.
+ * After boot, the B/W mode must manually be restored.
+ * When switching activities, the B/W mode is reset by the default EAC display config,
+ * but the QS tile remains enabled. The EAC B/W display config is be ignored.
+ */
 @TargetPackages(Constants.SYSTEM_UI_PACKAGE, Constants.SYSTEM_FRAMEWORK_PACKAGE)
 class AddQsTiles : ModPack(), IResourceHook {
     override val group = PreferenceGroups.QS

@@ -8,9 +8,9 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
@@ -20,6 +20,15 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.castNonNull
 import java.lang.reflect.Method
 
+/**
+ * This mod pack customizes the recents grid size and spacing.
+ *
+ * It also allows users to restore the stock Android recents item header,
+ * which supports long-press to show a shortcut to the app info.
+ *
+ * Note: Onyx (on A12) still uses the legacy Android 9 recents baked into SystemUI.
+ *       Newer Android versions delegate this to the launcher.
+ */
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class CustomizeRecents : ModPack() {
     override val group = PreferenceGroups.RECENTS

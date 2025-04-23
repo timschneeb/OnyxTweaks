@@ -8,6 +8,11 @@ import me.timschneeberger.onyxtweaks.mods.base.IResourceHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack hides the Wi-Fi activity indicators in the status bar.
+ *
+ * This is not Onyx-related, but it is included here for convenience.
+ */
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class ShowWifiActivityIndicators : ModPack(), IResourceHook {
     override val group = PreferenceGroups.STATUS_BAR

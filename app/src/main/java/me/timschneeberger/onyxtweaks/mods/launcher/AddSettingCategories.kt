@@ -6,15 +6,21 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.applyObjectHelper
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack adds custom settings shortcuts to the launcher settings menu.
+ *
+ * It is especially useful for adding shortcuts to the app/freeze settings that become
+ * inaccessible when enabling the app dock and widget feature, which hides the toolbar by default.
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddSettingCategories : ModPack() {
     private data class SettingCategory(val title: String, val name: String, val icon: String)

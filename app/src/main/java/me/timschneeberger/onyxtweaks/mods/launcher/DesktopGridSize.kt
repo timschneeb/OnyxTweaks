@@ -5,9 +5,9 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinde
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.bridge.ModEvents
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
@@ -16,6 +16,14 @@ import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack allows users to set a custom grid size for the desktop and dock
+ * in the Onyx Launcher.
+ *
+ * Additionally, it allows users to reset the initialization flag of the launcher,
+ * allowing the launcher to reset its layout. This is useful if the user lowers
+ * the grid size and ends up with icons that are off the screen and inaccessible.
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class DesktopGridSize : ModPack() {
     private var isInitializing = true

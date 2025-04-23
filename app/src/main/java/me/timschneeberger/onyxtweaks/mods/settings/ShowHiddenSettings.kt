@@ -14,6 +14,13 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 typealias ResParam = XC_InitPackageResources.InitPackageResourcesParam
 
+/**
+ * This mod pack shows hidden settings in the stock Android settings app.
+ *
+ * Gesture settings are intentionally disabled as they don't work flawlessly.
+ * One-handed mode works to some extent, but conflicts with Onyx gestures.
+ * The app memory info is normally hidden by default when the dev settings are off.
+ */
 @TargetPackages(SYSTEM_SETTINGS_PACKAGE)
 class ShowHiddenSettings : ModPack() {
     override val group = PreferenceGroups.SYSTEM_SETTINGS

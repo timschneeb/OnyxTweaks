@@ -10,6 +10,10 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack hides the black top border of the Onyx Launcher separating
+ * the status bar from the app grid.
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class HideTopBorder : ModPack() {
     override val group = PreferenceGroups.LAUNCHER

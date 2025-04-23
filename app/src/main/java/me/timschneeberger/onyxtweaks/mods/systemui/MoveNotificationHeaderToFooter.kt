@@ -3,13 +3,18 @@ package me.timschneeberger.onyxtweaks.mods.systemui
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * This mod pack moves the notification header to the bottom of the notification shade.
+ *
+ * This is a hidden setting in the Onyx SystemUIConfig.
+ */
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class MoveNotificationHeaderToFooter : ModPack() {
     override val group = PreferenceGroups.STATUS_BAR

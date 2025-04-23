@@ -18,6 +18,15 @@ import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import java.lang.reflect.Method
 
+/**
+ * This mod pack removes the restriction of EAC in the Onyx EInk Center.
+ *
+ * Note: It also seems to force-enable the EAC configuration for all apps.
+ *       This is problematic, as it causes the rotation to the forcefully fixed, unless
+ *       the EAC rotation setting is manually changed.
+ *
+ * @deprecated This mod pack causes side-effects and has no real use case. Slated for removal.
+ */
 @TargetPackages(SYSTEM_FRAMEWORK_PACKAGE, SYSTEM_UI_PACKAGE, LAUNCHER_PACKAGE)
 class RemoveEacRestriction : ModPack() {
     override val group = PreferenceGroups.EINK

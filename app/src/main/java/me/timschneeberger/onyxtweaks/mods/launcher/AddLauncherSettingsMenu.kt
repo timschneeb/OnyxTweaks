@@ -10,9 +10,9 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.dpToPx
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
@@ -24,6 +24,12 @@ import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
+/**
+ * This mod pack shows the hidden settings button in the launcher desktop options menu.
+ *
+ * It will show open the launcher settings dialog when clicked.
+ * The setting is only visible by default on large screen devices.
+ */
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddLauncherSettingsMenu : ModPack() {
     override val group = PreferenceGroups.LAUNCHER

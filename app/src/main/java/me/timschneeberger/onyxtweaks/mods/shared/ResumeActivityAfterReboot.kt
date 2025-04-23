@@ -26,6 +26,10 @@ import me.timschneeberger.onyxtweaks.mods.utils.runSafely
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 
+/**
+ * This mod pack resumes the last activity after a reboot/shutdown.
+ * It will persist all activity extras, data URIs, etc.
+ */
 @TargetPackages(SYSTEM_FRAMEWORK_PACKAGE, SYSTEM_SETTINGS_PACKAGE)
 class ResumeActivityAfterReboot : ModPack() {
     override val group = PreferenceGroups.RESUME_APP_SETTINGS
@@ -62,6 +66,16 @@ class ResumeActivityAfterReboot : ModPack() {
     }
 
     private fun hookFallbackHome() {
+        /*
+         * Android first starts the FallbackHome activity, which is a placeholder for the launcher.
+         * It is blank and waits until the user account is unlocked and the user storage in mounted
+         * and decrypted. Once this is done, the activity is closed using finish(), which
+         * causes the actual home activity to be started.
+         *
+         * This hook waits for the FallbackHome activity to be finished, to make sure that the
+         * /data storage is available. Otherwise the intent would fail. We also need to wait
+         * long enough to let the actual launcher to initialize and start up.
+         */
         MethodFinder.fromClass("android.app.Activity")
             .firstByName("finish")
             .createAfterHookCatching<ResumeActivityAfterReboot> { param ->
@@ -119,6 +133,9 @@ class ResumeActivityAfterReboot : ModPack() {
     }
 
     private fun hookShutdownThread() {
+        /*
+         * Intercept the shutdown thread and persist the current intent that launched the top activity.
+         */
         MethodFinder.fromClass("com.android.server.power.ShutdownThread")
             .firstByName("run")
             .createReplaceHookCatching<ResumeActivityAfterReboot> hook@ { param ->

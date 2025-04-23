@@ -3,14 +3,17 @@ package me.timschneeberger.onyxtweaks.mods.shared
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
+import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_FRAMEWORK_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * Disables the restriction of Regal mode in the Onyx EInk Center.
+ */
 @TargetPackages(SYSTEM_UI_PACKAGE, SYSTEM_FRAMEWORK_PACKAGE)
 class RemoveRegalModeRestriction : ModPack() {
     override val group = PreferenceGroups.EINK

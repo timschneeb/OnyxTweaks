@@ -32,6 +32,12 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 // Adapted from: https://github.com/siavash79/PixelXpert/
 
+/**
+ * This mod pack customizes the status bar clock.
+ *
+ * Supports custom date/time formats, AM/PM styles, and clock positions.
+ * This is not Onyx-related, but it is included here for convenience.
+ */
 @SuppressLint("DiscouragedApi")
 @TargetPackages(SYSTEM_UI_PACKAGE)
 class StatusBarClock : ModPack() {
