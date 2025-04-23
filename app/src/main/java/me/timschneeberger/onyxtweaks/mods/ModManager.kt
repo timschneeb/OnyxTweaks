@@ -35,6 +35,11 @@ class ModManager {
     }
 
     fun handleLoadPackage(lpParam: LoadPackageParam) {
+        getPacksForPackage(lpParam.packageName)
+            .forEach { mod ->
+                lpParam.runSafely(mod::class, "Error while hooking DEX code (early hook)", block = mod::handleEarlyLoadPackage)
+            }
+
         runSafely(ModManager::class, "Failed to hook application/framework entrypoint") {
             if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE)
                 MethodFinder.fromClass("com.android.server.policy.PhoneWindowManager")
@@ -93,7 +98,7 @@ class ModManager {
 
         getPacksForPackage(param.packageName)
             .forEach { mod ->
-                Log.dx("Initializing mod pack: ${mod::class.java.simpleName}")
+                Log.dx("Initializing mod pack with context: ${mod::class.java.simpleName}")
                 context.registerModEventReceiver(mod)
                 param.runSafely(mod::class, "Error while hooking DEX code", block = mod::handleLoadPackage)
             }

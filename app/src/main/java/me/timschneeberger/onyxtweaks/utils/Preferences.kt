@@ -30,6 +30,7 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
     // Without directly attached preference fragments
     TEXT_EDITOR(R.xml.app_empty_preferences, "app_text_editor"),
     PER_ACTIVITY_SETTINGS(R.xml.app_empty_preferences, "app_per_activity_settings"),
+    RESUME_APP_SETTINGS(R.xml.app_empty_preferences, "app_resume_app_settings"),
 }
 
 /**
@@ -170,8 +171,7 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
         return getDefault(nameRes, T::class)
     }
 
-    @SuppressLint("ApplySharedPref")
-    fun <T : Any> reset(@StringRes nameRes: Int, type: KClass<T>) {
+    fun reset(@StringRes nameRes: Int, type: KClass<*>) {
         set(nameRes, getDefault(nameRes, type), type)
     }
 
@@ -179,26 +179,47 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
         return reset(nameRes, T::class)
     }
 
+    fun remove(@StringRes nameRes: Int) = remove(resources.getString(nameRes))
+
     @SuppressLint("ApplySharedPref")
-    fun <T : Any> set(@StringRes nameRes: Int, value: T, type: KClass<T>) {
+    fun remove(key: String) {
         if(isReadOnly) {
             throw IllegalStateException("This preferences implementation is read-only")
         }
 
-        val key = resources.getString(nameRes)
-        val edit = prefs.edit()
+        prefs.edit().remove(key).commit()
+    }
 
-        when(type) {
-            Boolean::class -> edit.putBoolean(key, value as Boolean)
-            String::class -> edit.putString(key, value as String)
-            Int::class -> edit.putInt(key, value as Int)
-            Long::class -> edit.putLong(key, value as Long)
-            Float::class -> edit.putFloat(key, value as Float)
-            else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
+    @Suppress("UNCHECKED_CAST")
+    @SuppressLint("ApplySharedPref")
+    fun set(key: String, value: Any?, type: KClass<*>) {
+        if(isReadOnly) {
+            throw IllegalStateException("This preferences implementation is read-only")
+        }
+
+        prefs.edit().run {
+            if (value == null) {
+                remove(key)
+            }
+            else {
+                when(type) {
+                    Boolean::class -> putBoolean(key, value as Boolean)
+                    String::class -> putString(key, value as String)
+                    Int::class -> putInt(key, value as Int)
+                    Long::class -> putLong(key, value as Long)
+                    Float::class -> putFloat(key, value as Float)
+                    Set::class -> putStringSet(key, value as Set<String>)
+                    else -> throw IllegalArgumentException("Unknown type ${type.qualifiedName}")
+                }
+            }
         }.run(SharedPreferences.Editor::commit)
     }
 
-    inline fun <reified T : Any> set(@StringRes nameRes: Int, value: T) {
+    fun set(@StringRes nameRes: Int, value: Any?, type: KClass<*>) {
+        set(resources.getString(nameRes), value, type)
+    }
+
+    inline fun <reified T : Any> set(@StringRes nameRes: Int, value: T?) {
         set(nameRes, value, T::class)
     }
 }

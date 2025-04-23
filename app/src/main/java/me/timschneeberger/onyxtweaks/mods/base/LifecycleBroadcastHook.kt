@@ -6,6 +6,10 @@ import me.timschneeberger.onyxtweaks.bridge.ModEvents
 import me.timschneeberger.onyxtweaks.bridge.ModEvents.Companion.ARG_PACKAGE
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/**
+ * Abstract hook that sends the HOOK_LOADED event when the package is loaded.
+ * Extend this class and apply the [me.timschneeberger.onyxtweaks.mod_processor.TargetPackages] annotation to the class to use it.
+ */
 abstract class LifecycleBroadcastHook : ModPack() {
     override val group = PreferenceGroups.MISC
 

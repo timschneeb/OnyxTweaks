@@ -2,6 +2,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
+        app:title="@string/misc_resume_app_cat"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:title="@string/misc_resume_app"
+            app:summary="@string/misc_resume_app_summary"
+            app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.ResumeActivitySettingsFragment"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/misc_troubleshooting"
         app:iconSpaceReserved="false">
 

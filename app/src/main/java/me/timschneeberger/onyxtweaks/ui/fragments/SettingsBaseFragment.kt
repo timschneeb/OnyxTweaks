@@ -89,6 +89,7 @@ abstract class SettingsBaseFragment<T> : PreferenceFragmentCompat() where T : Ba
         requireContext().sendEvent(ModEvents.PREFERENCE_CHANGED, this::class, Bundle().apply {
             putString(ModEvents.ARG_PREF_GROUP, group.name)
             putString(ModEvents.ARG_PREF_KEY, key)
+            putString(ModEvents.ARG_PREF_TYPE, String::class.qualifiedName)
         })
     }
 

@@ -10,6 +10,9 @@ import me.timschneeberger.onyxtweaks.ui.utils.CompatExtensions.getSerializableAs
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import kotlin.reflect.KClass
 
+/**
+ * BroadcastReceiver that receives and unpacks mod events.
+ */
 class ModEventReceiver : BroadcastReceiver() {
     private val eventListener = mutableListOf<OnModEventReceived>()
 
@@ -42,6 +45,10 @@ class ModEventReceiver : BroadcastReceiver() {
                     }
                 }
 
+                ModEvents.LAUNCHER_REINITIALIZED -> {
+                    eventListener.forEach { it.onLauncherReinitialized() }
+                }
+
                 ModEvents.HOOK_EXCEPTION, ModEvents.HOOK_WARNING -> {
                     args ?: return@let
 
@@ -63,7 +70,35 @@ class ModEventReceiver : BroadcastReceiver() {
                     }
                 }
 
-                else -> {}
+                ModEvents.SET_PREFERENCE -> {
+                    val groupName = args?.getString(ModEvents.ARG_PREF_GROUP)
+                    val key = args?.getString(ModEvents.ARG_PREF_KEY)
+                    val type = args?.getString(ModEvents.ARG_PREF_TYPE)
+
+                    if (groupName == null || key == null || type == null)
+                        return@let
+
+                    val value = ModEvents.ARG_PREF_VALUE.let { key ->
+                        when (Class.forName(type).kotlin) {
+                            Boolean::class -> args.getBoolean(key)
+                            String::class -> args.getString(key)
+                            Int::class -> args.getInt(key)
+                            Long::class -> args.getLong(key)
+                            Float::class -> args.getFloat(key)
+                            Set::class -> args.getStringArray(key)?.toSet()
+                            else -> null
+                        }
+                    }
+
+                    eventListener.forEach {
+                        it.onSetPreferenceRequested(
+                            PreferenceGroups.valueOf(groupName),
+                            key,
+                            Class.forName(type).kotlin,
+                            value
+                        )
+                    }
+                }
             }
         }
     }
@@ -114,8 +149,8 @@ class ModEventReceiver : BroadcastReceiver() {
             }
 
         // We inline and reify this function to able to obtain the calling class automatically
-        inline fun <reified T : Any> T.createEventIntent(event: ModEvents, args: Bundle? = null) =
-            event.createIntent(T::class, args)
+        inline fun <reified T : Any> createEventIntent(event: ModEvents, sender: T, args: Bundle? = null) =
+            event.createIntent(sender::class, args)
 
         fun Context.sendEvent(event: ModEvents, sender: KClass<*>, args: Bundle? = null) {
             sendBroadcast(event.createIntent(sender, args))

@@ -99,4 +99,9 @@
 
     <!-- Per-activity settings -->
     <string name="key_per_activity_settings" translatable="false">per_activity_settings</string>
+
+    <!-- Resume app settings -->
+    <string name="key_resume_app_rules" translatable="false">resume_app_rules</string>
+    <string name="key_resume_app_delay_seconds" translatable="false">resume_app_delay_seconds</string>
+    <string name="key_resume_app_persisted_intent" translatable="false">resume_app_persisted_intent</string>
 </resources>
