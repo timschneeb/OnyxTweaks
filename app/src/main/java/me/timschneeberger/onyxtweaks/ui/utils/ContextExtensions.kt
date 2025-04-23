@@ -16,7 +16,6 @@ object ContextExtensions {
         killPackageSilently(pkgName)
     }
 
-
     fun Context.restartLauncher() {
         toast(R.string.toast_launcher_restarting)
         killPackageSilently(LAUNCHER_PACKAGE)

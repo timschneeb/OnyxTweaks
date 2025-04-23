@@ -26,8 +26,8 @@ abstract class ModPack : OnModEventReceived {
      * This is used to identify the preferences that are accessed by this mod pack.
      */
     protected abstract val group: PreferenceGroups
+    protected val preferences = XPreferences(group)
 
-    val preferences by lazy { XPreferences(group) }
     final override var modEventReceiver: ModEventReceiver? = null
 
     /**
@@ -40,7 +40,7 @@ abstract class ModPack : OnModEventReceived {
      */
     protected fun sendEvent(event: ModEvents, extras: Bundle? = null, callback: ((Intent) -> Unit)? = null) {
         if(callback == null)
-            appContext.sendBroadcast(createEventIntent(event, this, extras))
+            sendBroadcast(createEventIntent(event, this, extras))
         else {
             appContext.sendOrderedBroadcast(
                 createEventIntent(event, this, extras),

@@ -148,16 +148,13 @@ class ModEventReceiver : BroadcastReceiver() {
                 args?.let { putExtra(EXTRA_ARGS, it) }
             }
 
-        // We inline and reify this function to able to obtain the calling class automatically
-        inline fun <reified T : Any> createEventIntent(event: ModEvents, sender: T, args: Bundle? = null) =
+        fun <T : Any> createEventIntent(event: ModEvents, sender: T, args: Bundle? = null) =
             event.createIntent(sender::class, args)
 
-        fun Context.sendEvent(event: ModEvents, sender: KClass<*>, args: Bundle? = null) {
+        fun Context.sendEvent(event: ModEvents, sender: KClass<*>, args: Bundle? = null) =
             sendBroadcast(event.createIntent(sender, args))
-        }
 
-        inline fun <reified T> Context.sendEvent(event: ModEvents, args: Bundle? = null) {
+        inline fun <reified T> Context.sendEvent(event: ModEvents, args: Bundle? = null) =
             sendEvent(event, T::class, args)
-        }
     }
 }

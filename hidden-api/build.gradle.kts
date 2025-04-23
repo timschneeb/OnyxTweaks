@@ -33,10 +33,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.15.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-
     annotationProcessor("dev.rikka.tools.refine:annotation-processor:4.4.0")
     compileOnly("dev.rikka.tools.refine:annotation:4.4.0")
 }

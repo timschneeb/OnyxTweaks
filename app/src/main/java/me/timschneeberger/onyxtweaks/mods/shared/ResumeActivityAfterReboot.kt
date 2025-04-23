@@ -184,12 +184,12 @@ class ResumeActivityAfterReboot : ModPack() {
                             while (!actionDone) {
                                 val delay = endTime - SystemClock.elapsedRealtime()
                                 if (delay <= 0) {
-                                    Log.wx("Shutdown broadcast timed out");
+                                    Log.wx("Shutdown broadcast timed out")
                                     break
                                 }
 
                                 try {
-                                    actionDoneSync.wait(delay.coerceAtMost(ACTION_DONE_POLL_WAIT_MS));
+                                    actionDoneSync.wait(delay.coerceAtMost(ACTION_DONE_POLL_WAIT_MS))
                                 } catch (_: InterruptedException) {
                                 }
                             }

@@ -1,14 +1,7 @@
 package me.timschneeberger.onyxtweaks.mods.utils
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.res.Resources
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContextNullable
-import com.github.kyuubiran.ezxhelper.EzXHelper.hostPackageName
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper
@@ -25,6 +18,11 @@ import kotlin.reflect.KClass
 
 typealias MethodParam = XC_MethodHook.MethodHookParam
 
+/**
+ * Finds a class by its qualified name, logging errors to the Xposed log.
+ *
+ * @throws ClassNotFoundException if the class cannot be found.
+ */
 fun findClass(className: String): Class<*> {
     return try {
         if (!EzXHelper.isClassLoaderInited) {
@@ -76,36 +74,12 @@ inline fun <T> T.applyObjectHelper(block: ObjectHelper.() -> Unit): T {
     return this
 }
 
+/**
+ * Filters the methods by name and returns the first one found.
+ */
 fun MethodFinder.firstByName(name: String): Method {
     return filterByName(name).first()
 }
-
-@SuppressLint("DiscouragedApi")
-fun Resources.getResourceIdByName(name: String, type: String, packageName: String? = null) =
-    getIdentifier(name, type, packageName ?: hostPackageName).let { drawableId ->
-        if (drawableId == 0) {
-            Log.ex("Resource $type/$name not found in $packageName")
-            null
-        }
-        else {
-            drawableId
-        }
-    }
-
-fun Resources.getDrawableByName(name: String, packageName: String? = null) =
-    getResourceIdByName(name, "drawable", packageName)?.let { drawableId ->
-        ResourcesCompat.getDrawable(this, drawableId, null)
-    }
-
-fun Context.inflateLayoutByName(root: ViewGroup?, name: String, packageName: String? = null) =
-    resources.getResourceIdByName(name, "layout", packageName)?.let { layoutId ->
-        LayoutInflater.from(this).inflate(layoutId, root, false)
-    }
-
-fun Resources.getDimensionPxByName(name: String, packageName: String? = null) =
-    getResourceIdByName(name, "dimen", packageName)?.let { dimenId ->
-        getDimensionPixelSize(dimenId)
-    }
 
 fun MethodParam.invokeOriginalMethodCatching(): Any? {
     return try {

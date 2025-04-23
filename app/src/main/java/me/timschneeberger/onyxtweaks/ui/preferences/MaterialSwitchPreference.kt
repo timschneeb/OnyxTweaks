@@ -7,7 +7,6 @@ import me.timschneeberger.onyxtweaks.R
 
 
 class MaterialSwitchPreference : SwitchPreferenceCompat {
-    @Suppress("unused")
     @JvmOverloads
     constructor(
         context: Context,

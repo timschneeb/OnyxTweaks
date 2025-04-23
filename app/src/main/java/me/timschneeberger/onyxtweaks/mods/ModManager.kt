@@ -121,8 +121,6 @@ class ModManager {
             .getDeclaredConstructor()
             .newInstance()
             .run { this as ModPack }
-            // Ensure preferences are initialized at this point
-            .also { pack -> pack.preferences }
             .also { pack -> runningMods.add(pack) }
     }
 

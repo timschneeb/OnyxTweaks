@@ -9,6 +9,9 @@ import kotlin.math.max
 
 private const val MAX_DEPTH = 4
 
+/**
+ * Recursively renders a complex object to the Xposed log.
+ */
 @Suppress("unused")
 fun Any?.renderToXLog(prefix: String? = null, multiline: Boolean = true, maxDepth: Int = MAX_DEPTH) {
     renderToString(multiline, maxDepth)
@@ -20,15 +23,14 @@ fun Any?.renderToXLog(prefix: String? = null, multiline: Boolean = true, maxDept
         }
 }
 
+/**
+ * Recursively renders a complex object to the logcat log.
+ */
 @Suppress("unused")
 fun Any?.renderToLog(prefix: String? = null, multiline: Boolean = true, maxDepth: Int = MAX_DEPTH) {
     renderToString(multiline, maxDepth)
         .lines()
-        .forEach { line ->
-            Log.e(
-                if (prefix.isNullOrBlank()) line else "$prefix: $line"
-            )
-        }
+        .forEach { line -> Log.e(if (prefix.isNullOrBlank()) line else "$prefix: $line") }
 }
 
 fun Any?.renderToString(multiline: Boolean = false, maxDepth: Int = MAX_DEPTH): String {
@@ -44,16 +46,22 @@ private fun renderInternal(
 ): String {
     if(indentLevel > maxDepth) return "... (max depth reached)"
 
-    return when {
-        obj == null -> "null"
-        obj is String -> "\"$obj\""
-        obj is Char -> "'$obj'"
-        obj is Number || obj is Boolean -> obj.toString()
-        obj is Enum<*> -> obj.name
-        obj is Map<*, *> -> renderMap(obj, visited, multiline, indentLevel, maxDepth)
-        obj is Collection<*> -> renderCollection(obj, visited, multiline, indentLevel, maxDepth)
-        obj.javaClass.isArray -> renderArray(obj, visited, multiline, indentLevel, maxDepth)
-        else -> renderObject(obj, visited, multiline, indentLevel, maxDepth)
+    try {
+        return when {
+            obj == null -> "null"
+            obj is String -> "\"$obj\""
+            obj is Char -> "'$obj'"
+            obj is Number || obj is Boolean -> obj.toString()
+            obj is Enum<*> -> obj.name
+            obj is Map<*, *> -> renderMap(obj, visited, multiline, indentLevel, maxDepth)
+            obj is Collection<*> -> renderCollection(obj, visited, multiline, indentLevel, maxDepth)
+            obj.javaClass.isArray -> renderArray(obj, visited, multiline, indentLevel, maxDepth)
+            else -> renderObject(obj, visited, multiline, indentLevel, maxDepth)
+        }
+    }
+    catch (e: Exception) {
+        Log.ex(e, "Failed to render object: $obj")
+        return "<${e.javaClass.simpleName}> (Failed to render '${e.message}')"
     }
 }
 

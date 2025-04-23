@@ -15,15 +15,10 @@ import me.timschneeberger.onyxtweaks.bridge.ModEvents.Companion.ARG_MESSAGE
 import java.lang.reflect.Member
 import kotlin.reflect.KClass
 
-
-fun Context.dpToPx(dp: Int): Int {
-    return dpToPx(dp.toFloat())
-}
-
-fun Context.dpToPx(dp: Float): Int {
+fun Context.dpToPx(dp: Number): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
-        dp,
+        dp.toFloat(),
         resources.displayMetrics
     ).toInt()
 }

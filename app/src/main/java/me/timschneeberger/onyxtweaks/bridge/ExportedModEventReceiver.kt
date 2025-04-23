@@ -17,6 +17,7 @@ import kotlin.reflect.KClass
  */
 class ExportedModEventReceiver : BroadcastReceiver(), OnModEventReceived {
     override var modEventReceiver: ModEventReceiver? = null
+        
     private var currentContext: Context? = null
 
     override fun onReceive(context: Context, intent: Intent) {

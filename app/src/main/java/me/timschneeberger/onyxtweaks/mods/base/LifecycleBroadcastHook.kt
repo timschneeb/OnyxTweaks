@@ -11,7 +11,7 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
  * Extend this class and apply the [me.timschneeberger.onyxtweaks.mod_processor.TargetPackages] annotation to the class to use it.
  */
 abstract class LifecycleBroadcastHook : ModPack() {
-    override val group = PreferenceGroups.MISC
+    final override val group = PreferenceGroups.NONE
 
     final override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         sendEvent(ModEvents.HOOK_LOADED, Bundle().apply {

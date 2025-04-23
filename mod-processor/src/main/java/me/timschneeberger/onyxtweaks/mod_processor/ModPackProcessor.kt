@@ -73,7 +73,7 @@ class ModPackProcessor(private val environment: SymbolProcessorEnvironment) : Sy
                             .initializer(buildListInitializer(
                                 grouped.values.flatten().filter { def ->
                                     def.getAllSuperTypes().any {
-                                            type -> type.toClassName() == ClassName("me.timschneeberger.onyxtweaks.mods.base", "IEarlyZygoteHook")
+                                        type -> type.toClassName() == ClassName("me.timschneeberger.onyxtweaks.mods.base", "IEarlyZygoteHook")
                                     }
                                 }.distinct()
                             ))
@@ -93,13 +93,7 @@ class ModPackProcessor(private val environment: SymbolProcessorEnvironment) : Sy
                                             declaration.getAllSuperTypes().any {
                                                 type -> type.toClassName() == ClassName("me.timschneeberger.onyxtweaks.mods.base", "IResourceHook")
                                             }
-                                        }.let {
-                                            if (it) {
-                                                entry.key
-                                            } else {
-                                                null
-                                            }
-                                        }
+                                        }.let { if (it) entry.key else null }
                                     }.distinct()
                                 )
                             )

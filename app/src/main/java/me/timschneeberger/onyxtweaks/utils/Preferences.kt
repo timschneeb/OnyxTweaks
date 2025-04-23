@@ -65,9 +65,9 @@ class XPreferences(group: PreferenceGroups) : BasePreferences() {
  *          Do not use in hooked apps.
  */
 class Preferences(private val context: Context, group: PreferenceGroups) : BasePreferences() {
-    private val dataStore = WorldReadableDataStore(context, group).also {
+    private val dataStore by lazy { WorldReadableDataStore(context, group).also {
         it.prefs.registerOnSharedPreferenceChangeListener(this)
-    }
+    }}
 
     override val isReadOnly = false
     override val resources: Resources get() = context.resources

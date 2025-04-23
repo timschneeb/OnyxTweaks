@@ -88,7 +88,7 @@ class StatusBarClock : ModPack() {
                 centeredIconArea = try {
                     (getObjectField(param.thisObject, "mCenteredIconArea") as View).parent as View
                 } catch (ex: Throwable) {
-                    appContext.sendHookExceptionEvent<StatusBarClock>(ex, "Failed to find centered icon area", null, isWarning = true)
+                    appContext.sendHookExceptionEvent<StatusBarClock>(ex, "Failed to find centered icon area", isWarning = true)
                     Log.ex(ex, "Failed to find mCenteredIconArea. Falling back to parent.systemIconArea")
 
                     LinearLayout(appContext).apply {
