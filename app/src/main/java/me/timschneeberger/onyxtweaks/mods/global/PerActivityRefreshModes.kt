@@ -50,19 +50,20 @@ class PerActivityRefreshModes : ModPack() {
             }
         }
 
-
-
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass(Activity::class.java)
             .firstByName("onResume")
             .createAfterHookCatching<PerActivityRefreshModes> { param ->
                 findRules(lpParam.packageName).let { rules ->
-                    rules.firstOrNull { it.activityClass == param.thisObject::class.java.name }
-                        ?: rules.firstOrNull { it.activityClass == null } // fallback to default rule
-                        ?.let { rule ->
+                    var rule = rules.firstOrNull { it.activityClass == param.thisObject::class.java.name }
+                    rule = rule ?: rules.firstOrNull { it.activityClass == null } // fallback to default rule
+                    rule?.let { rule ->
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,
                         // otherwise the previous component will be modified
                         AndroidUtils.mainHandler.postDelayed({
+
+                            Log.dx("Setting refresh mode to ${rule.updateMode}")
+
                             Device.currentDevice().clearAppScopeUpdate()
                             EInkHelper.setAppScopeRefreshMode(rule.updateMode.value)
 
@@ -77,7 +78,7 @@ class PerActivityRefreshModes : ModPack() {
                                     method,
                                     Int.MAX_VALUE
                                 )
-                                Log.dx("Update mode set to $method")
+                                Log.dx("Setting update mode to $method")
                             }
                         }, 500)
                     }
