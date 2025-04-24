@@ -20,8 +20,8 @@ android {
         applicationId = "me.timschneeberger.onyxtweaks"
         minSdk = 28
         targetSdk = 35
-        versionCode = 9
-        versionName = "1.6.0"
+        versionCode = 10
+        versionName = "1.6.1"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getGitSha()}\"")
