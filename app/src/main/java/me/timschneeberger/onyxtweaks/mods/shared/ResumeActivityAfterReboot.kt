@@ -125,8 +125,8 @@ class ResumeActivityAfterReboot : ModPack() {
                     Runnable {
                         intent.runSafely(this::class, "Resuming activity", block = EzXHelper.appContext::startActivity)
                     },
-                    1000 * preferences
-                        .get<Long>(R.string.key_resume_app_delay_seconds)
+                    1000L * preferences
+                        .getStringAsInt(R.string.key_resume_app_delay_seconds)
                         .coerceAtLeast(0)
                 )
             }
