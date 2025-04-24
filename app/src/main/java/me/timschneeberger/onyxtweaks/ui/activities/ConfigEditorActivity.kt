@@ -108,11 +108,6 @@ class ConfigEditorActivity : BasePreferenceActivity() {
                     Log.e("Failed to initialize MMKV")
                     return
                 }
-
-                // service.findDataStoresForPackage(LAUNCHER_PACKAGE).renderToLog("DS")
-
-                //service.allKeys(handle).renderToLog("Test")
-
             } catch (e: RemoteException) {
                 Log.e("Remote service threw an exception", e)
             }
