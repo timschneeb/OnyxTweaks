@@ -23,6 +23,7 @@
     <string name="toast_launcher_restarting">Launcher restarted</string>
     <string name="toast_system_settings_restarting">Settings restarted</string>
     <string name="toast_system_ui_restarting">Restarting system UI…</string>
+    <string name="toast_generic_component_restarting">Restarting component…</string>
     <string name="toast_zygote_restarting">Soft-rebooting device…</string>
     <string name="toast_killing_process">Stopping processes of %1$s…</string>
     <string name="error_no_root_access">No root access</string>
@@ -73,7 +74,7 @@
     <string name="mmkv_editor">System config editor</string>
     <string name="mmkv_editor_summary"><![CDATA[View & edit MMKV configuration files]]></string>
     <string name="misc_settings">Miscellaneous</string>
-    <string name="misc_settings_summary">Troubleshooting, other actions</string>
+    <string name="misc_settings_summary">Other apps, troubleshooting</string>
     <string name="donate">Donate</string>
     <string name="donate_summary">Support the developer</string>
     <string name="about_settings">About</string>
@@ -301,14 +302,25 @@
     <string name="misc_mmkv_editor">MMKV editor</string>
     <string name="misc_mmkv_always_auto_detect_unknown_types">Always auto-detect unknown value types, if possible</string>
     <string name="misc_mmkv_always_auto_detect_unknown_types_summary">Instead of a showing type selection dialog for unknown types, always auto-detect the value type (may be inaccurate)</string>
-    <string name="misc_resume_app_cat">Resume apps</string>
+    <string name="misc_floating_button">NaviBall (Floating button)</string>
+    <string name="misc_floating_button_summary">Behavior, custom actions</string>
     <string name="misc_resume_app">Resume app activities after reboot</string>
-    <string name="misc_resume_app_summary">Restart the foreground app that was running before the device was turned off</string>
+    <string name="misc_resume_app_summary">Auto-resume last active activity</string>
     <string name="misc_resume_app_add">Add new app</string>
     <string name="misc_resume_app_add_summary">Add a new app that will be resumed if it was in the foreground before shutting down or rebooting</string>
     <string name="misc_resume_app_allowed_category">Allowed apps</string>
     <string name="misc_resume_app_hint">This feature can reopen the last visible app activity before the device was shut down or restarted. It saves all activity parameters, allowing reader apps to reopen the book that was read before the shutdown, for example. This only applies to apps that make use of multiple app activities.</string>
     <string name="misc_resume_app_delay_seconds">Delay before resuming the app after boot</string>
+
+    <!-- Floating button -->
+    <string name="floating_button_actions">Actions</string>
+    <string name="floating_button_show_all_apps">Remove app filter</string>
+    <string name="floating_button_show_all_apps_summary">Show all apps for the \'Open app\' action</string>
+    <string name="floating_button_show_bw_function">Add B/W mode action</string>
+    <string name="floating_button_show_bw_function_summary">Add B/W mode to the list of available button actions</string>
+    <string name="floating_button_bw_mode">Toggle black/white mode</string>
+    <string name="floating_button_launch">Open NaviBall</string>
+    <string name="floating_button_launch_summary">Launch NaviBall settings</string>
 
     <!-- MMKV config -->
     <string name="mmkv_select_mmkv_source">Select MMKV source</string>

@@ -94,6 +94,10 @@
     <string name="key_misc_share_debug_logs" translatable="false">misc_share_debug_logs</string>
     <string name="key_misc_mmkv_always_auto_detect_unknown_types" translatable="false">misc_mmkv_always_auto_detect_unknown_types</string>
 
+    <!-- Floating button -->
+    <string name="key_floating_button_show_all_apps" translatable="false">floating_button_show_all_apps</string>
+    <string name="key_floating_button_show_bw_function" translatable="false">floating_button_show_bw_function</string>
+
     <!-- Editor -->
     <string name="key_editor_font_size" translatable="false">editor_font_size</string>
 

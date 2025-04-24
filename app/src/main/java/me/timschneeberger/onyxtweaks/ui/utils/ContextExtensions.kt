@@ -31,6 +31,11 @@ object ContextExtensions {
         killPackageSilently(SYSTEM_UI_PACKAGE)
     }
 
+    fun Context.restartPackage(pkgName: String) {
+        toast(R.string.toast_generic_component_restarting)
+        killPackageSilently(pkgName)
+    }
+
     fun Context.restartZygote() {
         toast(R.string.toast_zygote_restarting)
         runAsRoot("kill $(pidof zygote)", "kill $(pidof zygote64)")

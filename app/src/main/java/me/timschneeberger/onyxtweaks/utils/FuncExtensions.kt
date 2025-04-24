@@ -2,6 +2,7 @@ package me.timschneeberger.onyxtweaks.utils
 
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlin.reflect.KClass
 import kotlin.reflect.typeOf
 
 @OptIn(ExperimentalContracts::class)
@@ -25,6 +26,8 @@ inline fun <reified T> Any?.castNonNull(): T {
 
     return cast<T>()!!
 }
+
+fun <T: Any> cast(any: Any, clazz: KClass<out T>): T = clazz.javaObjectType.cast(any)!!
 
 fun String?.ellipsize(i: Int): String? {
     return if (this != null && this.length > i) {

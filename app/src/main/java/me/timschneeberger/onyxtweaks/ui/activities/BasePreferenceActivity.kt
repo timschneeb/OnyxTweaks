@@ -24,13 +24,16 @@ import me.timschneeberger.onyxtweaks.bridge.OnModEventReceived
 import me.timschneeberger.onyxtweaks.bridge.registerModEventReceiver
 import me.timschneeberger.onyxtweaks.bridge.unregisterModEventReceiver
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
+import me.timschneeberger.onyxtweaks.mods.Constants.FLOATING_BUTTON_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.ModRegistry
 import me.timschneeberger.onyxtweaks.mods.ModRegistryExtensions.testedAndroidVersions
 import me.timschneeberger.onyxtweaks.mods.ModRegistryExtensions.testedModels
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.getAppName
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
+import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartPackage
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSettings
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartSystemUi
 import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartZygote
@@ -236,12 +239,15 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
         when {
             modifiedPackages.contains(ZYGOTE_MARKER) -> restartZygote()
             else -> {
+                // TODO This needs some clean up
                 if (modifiedPackages.contains(SYSTEM_UI_PACKAGE))
                     restartSystemUi()
                 if (modifiedPackages.contains(LAUNCHER_PACKAGE))
                     restartLauncher()
                 if (modifiedPackages.contains(SYSTEM_SETTINGS_PACKAGE))
                     restartSettings()
+                if (modifiedPackages.contains(FLOATING_BUTTON_PACKAGE))
+                    restartPackage(FLOATING_BUTTON_PACKAGE)
             }
         }
         modifiedPackages.clear()
@@ -259,7 +265,7 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
             )
 
             val friendlyNames = modifiedPackages.map { packageName ->
-                friendlyNameMap[packageName] ?: packageName
+                friendlyNameMap[packageName] ?: getAppName(packageName) ?: packageName
             }
 
             val param = if (friendlyNames.size == 2)

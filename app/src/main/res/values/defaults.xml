@@ -85,6 +85,10 @@
     <!-- Misc -->
     <bool name="default_misc_mmkv_always_auto_detect_unknown_types" translatable="false">false</bool>
 
+    <!-- Floating button -->
+    <bool name="default_floating_button_show_all_apps" translatable="false">false</bool>
+    <bool name="default_floating_button_show_bw_function" translatable="false">false</bool>
+
     <!-- Editor -->
     <integer name="default_editor_font_size" translatable="false">14</integer>
 

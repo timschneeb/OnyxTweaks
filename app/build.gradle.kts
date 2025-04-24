@@ -53,7 +53,7 @@ android {
     }
 
     androidResources {
-        additionalParameters += arrayOf("--allow-reserved-package-id", "--package-id", "0x45")
+        additionalParameters += arrayOf("--allow-reserved-package-id", "--package-id", "0x46")
     }
 
     buildTypes {

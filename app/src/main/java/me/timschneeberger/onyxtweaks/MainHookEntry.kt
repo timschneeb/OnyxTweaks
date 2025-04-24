@@ -27,6 +27,7 @@ class MainHookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IX
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
         ensureLoggerInitialized()
         Config.enableFinderExceptionMessage = true
+        EzXHelper.addAssetsPath = true
 
         // Only initialize using the first package for this process.
         // This is a workaround for the fact that the hook is called multiple times when an app is

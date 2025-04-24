@@ -23,6 +23,7 @@ enum class PreferenceGroups(@XmlRes val xmlRes: Int, val prefName: String) {
     RECENTS(R.xml.app_recents_preferences, "app_recents_preferences"),
     EINK(R.xml.app_eink_opt_preferences, "app_eink_opt_preferences"),
     SYSTEM_SETTINGS(R.xml.app_system_settings_preferences, "app_system_settings_preferences"),
+    FLOATING_BUTTON(R.xml.app_floating_button_preferences, "app_floating_button_preferences"),
     MISC(R.xml.app_misc_preferences, "app_misc_preferences"),
     ABOUT(R.xml.app_about_preferences, "app_about_preferences"),
     NONE(R.xml.app_empty_preferences, ""),

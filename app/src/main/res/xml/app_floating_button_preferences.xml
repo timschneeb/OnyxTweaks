@@ -1,0 +1,39 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="@string/floating_button_actions"
+        app:iconSpaceReserved="false">
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_floating_button_show_all_apps"
+            android:defaultValue="@bool/default_floating_button_show_all_apps"
+            android:title="@string/floating_button_show_all_apps"
+            android:summary="@string/floating_button_show_all_apps_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_floating_button_show_bw_function"
+            android:defaultValue="@bool/default_floating_button_show_bw_function"
+            android:title="@string/floating_button_show_bw_function"
+            android:summary="@string/floating_button_show_bw_function_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/settings_shortcuts"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:title="@string/floating_button_launch"
+            android:summary="@string/floating_button_launch_summary"
+            app:iconSpaceReserved="false">
+            <!--suppress AndroidDomInspection -->
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.onyx.floatingbutton"
+                android:targetClass="com.onyx.floatingbutton.FloatButtonSettingActivity" />
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,16 +1,18 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        app:title="@string/misc_resume_app_cat"
-        app:iconSpaceReserved="false">
+    <Preference
+        app:title="@string/misc_floating_button"
+        app:summary="@string/misc_floating_button_summary"
+        app:icon="@drawable/ic_twotone_touch_app_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.SettingsFloatingButtonFragment" />
 
-        <Preference
-            app:title="@string/misc_resume_app"
-            app:summary="@string/misc_resume_app_summary"
-            app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.ResumeActivitySettingsFragment"
-            app:iconSpaceReserved="false" />
-    </PreferenceCategory>
+    <Preference
+        app:title="@string/misc_resume_app"
+        app:summary="@string/misc_resume_app_summary"
+        app:icon="@drawable/ic_twotone_rocket_launch_24dp"
+        app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.ResumeActivitySettingsFragment"
+        app:allowDividerBelow="true" />
 
     <PreferenceCategory
         app:title="@string/misc_troubleshooting"

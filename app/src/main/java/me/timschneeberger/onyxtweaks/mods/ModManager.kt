@@ -91,8 +91,10 @@ class ModManager {
     }
 
     private fun onContextReady(context: Context, param: LoadPackageParam) {
-        if (context.packageName != EzXHelper.hostPackageName)
+        if (context.packageName != EzXHelper.hostPackageName) {
             Log.dx("Context package name does not match host package name! Context not updated. (${context.packageName} != ${EzXHelper.hostPackageName})")
+            EzXHelper.addModuleAssetPath(context)
+        }
         else
             EzXHelper.initAppContext(context, addPath = true)
 

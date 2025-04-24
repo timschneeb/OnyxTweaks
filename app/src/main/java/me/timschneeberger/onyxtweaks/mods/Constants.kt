@@ -5,5 +5,6 @@ object Constants {
     const val SYSTEM_FRAMEWORK_PACKAGE: String = "android"
     const val SYSTEM_SETTINGS_PACKAGE: String = "com.android.settings"
     const val LAUNCHER_PACKAGE: String = "com.onyx"
+    const val FLOATING_BUTTON_PACKAGE: String = "com.onyx.floatingbutton"
     const val GLOBAL: String = "#global"
 }
