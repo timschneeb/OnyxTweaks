@@ -3,15 +3,12 @@ package me.timschneeberger.onyxtweaks.mods.floatingbutton
 import android.content.Context
 import android.onyx.ViewUpdateHelper
 import android.provider.Settings
-import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder
-import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.timschneeberger.onyxtweaks.R
@@ -72,24 +69,6 @@ class InjectCustomActions : ModPack() {
             .firstByName("values")
             .invoke(null) as Array<*>)
             .size
-
-        // Workaround: Add our module asset path to the context of the ImageView
-        findClass("androidx.appcompat.widget.AppCompatImageHelper")
-            .constructorFinder()
-            .filterByParamTypes(ImageView::class.java)
-            .first()
-            .createAfterHookCatching<InjectCustomActions> { param ->
-                /*
-                 * This is a workaround for the issue where our module's asset path is not injected properly
-                 * into the context used by AppCompatImageView.
-                 * Otherwise, a resource not found exception occurs when trying to load the icon
-                 * for the custom action. However, only the main settings screen is affected.
-                 * Neither the floating button nor the action selector need this workaround.
-                 * Normally, the asset path is already injected by the EzXHelper module.
-                 * Not sure why this Context instance is separate.
-                 */
-                EzXHelper.addModuleAssetPath((param.args.first() as ImageView).context)
-            }
 
         // Inject titles and icons for custom actions
         findClass("com.onyx.floatingbutton.setting.data.FunctionDataMap").apply {
