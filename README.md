@@ -5,7 +5,7 @@
   OnyxTweaks
   <br>
 </h1>
-<h4 align="center">Xposed module for modding the Onyx Boox Go Color 7 (Android 12) and similar devices</h4>
+<h4 align="center">Xposed module for modding the Onyx Boox Go Color 7 (1st gen, Android 12) and similar devices</h4>
 <p align="center">
   <a href="https://github.com/timschneeb/OnyxTweaks/releases">
   	<img alt="Release" src="https://img.shields.io/github/v/release/timschneeb/OnyxTweaks">
