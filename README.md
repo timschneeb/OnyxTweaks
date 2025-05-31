@@ -43,7 +43,7 @@
 ## Compatibility
 
 > [!CAUTION]
-> This Xposed module was primarily designed for my Go Color 7 running the 4.0 firmware with Android 12. 
+> This Xposed module was primarily designed for my Go Color 7 (1st gen) running the 4.0 firmware with Android 12. 
 > I cannot guarantee full compatibility with other Boox models, especially if they do not run the 4.0 firmware.
 > >
 > However, in general it should largely work on other devices, provided they are running Android 12.
