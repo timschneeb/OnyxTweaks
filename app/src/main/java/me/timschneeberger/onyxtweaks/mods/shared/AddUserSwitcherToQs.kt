@@ -2,6 +2,8 @@ package me.timschneeberger.onyxtweaks.mods.shared
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.content.res.loader.ResourcesLoader
+import android.content.res.loader.ResourcesProvider
 import android.graphics.PorterDuff
 import android.view.View
 import android.view.ViewGroup
@@ -90,7 +92,11 @@ class AddUserSwitcherToQs : ModPack() {
                         marginStart = ctx.dpToPx(12)
                     }.let { it -> layoutParams = it }
 
-                    background = ctx.resources.getDrawableByName("button_focus_background_dot")
+                    background = ctx.resources.let {
+                        // On v4.1+, this resource was moved into the framework
+                        it.getDrawableByName("button_focus_background_dot", "android")
+                            ?: it.getDrawableByName("button_focus_background_dot")
+                    }
 
                     setOnClickListener { v ->
                         // Open switcher dialog if available, otherwise launch user settings
