@@ -96,16 +96,16 @@ dependencies {
     // AndroidX
     implementation("androidx.annotation:annotation-jvm:1.9.1")
     implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.2")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     // UI
     implementation("com.google.android.material:material:1.12.0")
@@ -123,7 +123,7 @@ dependencies {
     implementation("dev.rikka.tools.refine:runtime:4.4.0")
 
     // Onyx SDK
-    implementation("com.onyx.android.sdk:onyxsdk-device:1.2.30")
+    implementation("com.onyx.android.sdk:onyxsdk-device:1.3.1.2")
 
     // Local sub-modules
     implementation(project(":codeview"))
