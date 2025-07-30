@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.View
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
 import com.github.kyuubiran.ezxhelper.HookFactory
-import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
@@ -114,7 +113,11 @@ class AddLauncherSettingsMenu : ModPack() {
 
                     val newWidth = (oldWidth - (padding * (newItemCount - 1))) / newItemCount
                     items.forEach { item ->
-                        item?.objectHelper()?.setObject("width", newWidth)
+                        item ?: return@forEach
+                        item.javaClass
+                            .methodFinder()
+                            .firstByName("setWidth")
+                            .invoke(item, newWidth)
                     }
 
                     val settingsItem = createItemMtd.invoke(
