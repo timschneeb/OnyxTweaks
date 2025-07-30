@@ -12,6 +12,7 @@ import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.hasField
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
@@ -47,7 +48,19 @@ class HideFunctionBarItems : ModPack() {
                     .let { (it as List<*>).toMutableList() }
                     .apply {
                         removeIf { t ->
-                            t?.objectHelper()?.getObjectOrNull("name") in hiddenItems.map(FunctionItem::name)
+                            t ?: return@removeIf false
+                            // On 4.0, this is a regular Java class with a public field and no getters
+                            if(t.javaClass.hasField("name")) {
+                                t.objectHelper().getObjectOrNull("name") in hiddenItems.map(FunctionItem::name)
+                            }
+                            // On 4.1+, this is a Kotlin class with getters, but erased private member names
+                            else {
+                                t.javaClass
+                                    .methodFinder()
+                                    .firstByName("getName")
+                                    .invoke(t) in hiddenItems.map(FunctionItem::name)
+                            }
+
                         }
                     }
                     .also {
