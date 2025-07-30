@@ -43,10 +43,10 @@
 ## Compatibility
 
 > [!CAUTION]
-> This Xposed module was primarily designed for my Go Color 7 (1st gen) running the 4.0 firmware with Android 12. 
-> I cannot guarantee full compatibility with other Boox models, especially if they do not run the 4.0 firmware.
+> This Xposed module was primarily designed for my Go Color 7 (1st gen) running the 4.1-beta or 4.0 firmware with Android 12. 
+> I cannot guarantee full compatibility with other Boox models, especially if they do not run the 4.1-beta or 4.0 firmware.
 > >
-> However, in general it should largely work on other devices, provided they are running Android 12.
+> However, in general, it should largely work on other devices, provided they are running Android 12.
 
 ## Features
 
@@ -120,8 +120,6 @@ Tiles
 
 ### e-Ink optimizations
 
-* Allow regal mode everywhere, for example, in certain system apps
-* Unlock the e-Ink optimization menu in all apps
 * Assign different refresh modes to each activity within an app
    * For example, you could set it up to switch to Regal mode when an app has its reader activity open and use fast mode for the book library screens, which might feature lots of scrolling elements & lists.
    
