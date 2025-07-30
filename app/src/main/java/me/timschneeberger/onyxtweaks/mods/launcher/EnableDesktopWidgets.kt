@@ -3,7 +3,6 @@ package me.timschneeberger.onyxtweaks.mods.launcher
 import android.appwidget.AppWidgetProviderInfo
 import com.github.kyuubiran.ezxhelper.MemberExtensions.isStatic
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder
-import com.github.kyuubiran.ezxhelper.finders.FieldFinder
 import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
@@ -16,6 +15,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.hasCompanion
+import me.timschneeberger.onyxtweaks.mods.utils.invokeCompanionMethod
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
@@ -104,16 +105,8 @@ class EnableDesktopWidgets : ModPack() {
                     val widgetMap = findClass("com.onyx.common.applications.appwidget.model.AppWidgetBundle")
                         .run {
                             // On 4.1+, the getter is in Kotlin's companion object
-                            if (declaredFields.any { it.name == "Companion" }) {
-                                val comp = FieldFinder.fromClass(this)
-                                    .filterByName("Companion")
-                                    .first()
-                                    .get(null)
-
-                                comp.javaClass
-                                    .methodFinder()
-                                    .firstByName("getInstance")
-                                    .invoke(comp)
+                            if (hasCompanion()) {
+                                invokeCompanionMethod("getInstance")!!
                             }
                             else {
                                 // On 4.0, this is a static Java method
