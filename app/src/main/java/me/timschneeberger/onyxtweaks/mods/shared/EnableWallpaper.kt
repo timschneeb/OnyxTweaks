@@ -52,11 +52,18 @@ class EnableWallpaper : ModPack(), IEarlyZygoteHook {
             .firstByName("isWallpaperFeatureEnabled")
             .replaceWithConstant(true)
 
+        // Hook for 4.0 only.
         MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
             .firstByName("getUserAppConfig")
             .createAfterHookCatching<EnableWallpaper> { param ->
-                val config = param.invokeOriginalMethodCatching()
-                config?.objectHelper()?.setObjectUntilSuperclass("enableWallpaperFeature", true)
+                val config = param.invokeOriginalMethodCatching() ?: return@createAfterHookCatching
+                // On 4.1+ the field name is obfuscated and isn't needed anyways.
+                if(!config::class.java.fields.any { it.name == "enableWallpaperFeature" })
+                    return@createAfterHookCatching
+
+                config
+                    .objectHelper()
+                    .setObjectUntilSuperclass("enableWallpaperFeature", true)
                 param.result = config
             }
 
