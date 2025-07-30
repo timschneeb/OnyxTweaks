@@ -2,6 +2,47 @@ package me.timschneeberger.onyxtweaks.utils
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+
+val onyxVersion by lazy {
+    /*
+     * Example build ids:
+     *      2025-07-26_22-49_4.1-beta_0726_6aa3fa239
+     *      2025-04-27_23-34_4.0.2_135ce530f
+     *      2025-06-19_00-19_4.0.2-rel_0614
+     *      2025-03-26_18-59_v4.0-rel_2aa96eb60
+     */
+    Build.ID
+        .split('_')[2]
+        .split('-').first()
+        .replace("v", "")
+        .toVersion()
+}
+
+
+class Version(val major: Int, val minor: Int, val patch: Int) : Comparable<Version> {
+    override operator fun compareTo(other: Version): Int {
+        return when {
+            major != other.major -> major - other.major
+            minor != other.minor -> minor - other.minor
+            else -> patch - other.patch
+        }
+    }
+
+    override fun toString(): String = "$major.$minor.$patch"
+
+    companion object {
+        fun String.toVersion(): Version {
+            val parts = split('.')
+            return Version(
+                major = parts.getOrNull(0)?.toIntOrNull() ?: 0,
+                minor = parts.getOrNull(1)?.toIntOrNull() ?: 0,
+                patch = parts.getOrNull(2)?.toIntOrNull() ?: 0
+            )
+        }
+    }
+
+}
 
 class SdkCheckElseBranch<T>(private val result: T?) {
     fun valueOrNull(): T? = result

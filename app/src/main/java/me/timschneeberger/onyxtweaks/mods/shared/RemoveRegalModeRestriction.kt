@@ -10,15 +10,20 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 /**
  * Disables the restriction of Regal mode in the Onyx EInk Center.
+ * Only for v4.0, dropped in v4.1.
  */
 @TargetPackages(SYSTEM_UI_PACKAGE, SYSTEM_FRAMEWORK_PACKAGE)
 class RemoveRegalModeRestriction : ModPack() {
     override val group = PreferenceGroups.EINK
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (onyxVersion >= "4.1".toVersion()) return
+
         if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE) {
             MethodFinder.fromClass("android.onyx.optimization.data.v2.EACRefreshConfig")
                 .firstByName("isSupportRegal")

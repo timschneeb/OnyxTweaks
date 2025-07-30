@@ -16,6 +16,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.mods.utils.replaceCatchingWithExpression
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 import java.lang.reflect.Method
 
 /**
@@ -26,13 +28,14 @@ import java.lang.reflect.Method
  *       the EAC rotation setting is manually changed.
  *
  * @deprecated This mod pack causes side-effects and has no real use case. Slated for removal.
+ *             Only functional in firmware v4.0, dropped in v4.1.
  */
 @TargetPackages(SYSTEM_FRAMEWORK_PACKAGE, SYSTEM_UI_PACKAGE, LAUNCHER_PACKAGE)
 class RemoveEacRestriction : ModPack() {
     override val group = PreferenceGroups.EINK
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
-        if (!preferences.get<Boolean>(R.string.key_eink_center_always_allow_eac))
+        if (onyxVersion >= "4.1".toVersion() || !preferences.get<Boolean>(R.string.key_eink_center_always_allow_eac))
             return
 
         if (lpParam.packageName == LAUNCHER_PACKAGE) {
