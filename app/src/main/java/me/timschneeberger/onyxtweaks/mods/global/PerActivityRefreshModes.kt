@@ -36,7 +36,8 @@ class PerActivityRefreshModes : ModPack() {
         DU(1),
         A2(2),
         REGAL(3),
-        X(4)
+        X(4),
+        REGAL_PLUS(5)
     }
 
     private fun findRules(pkgName: String) =
