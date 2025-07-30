@@ -74,7 +74,7 @@ class ModManager {
                     .forEach { constructor ->
                         constructor.createBeforeHook hook@ { param ->
                             runSafely(ModManager::class, "Failed to retrieve framework context and initialize mods") {
-                                param.args
+                                param.args[0]
                                     .cast<Context>()
                                     ?.let { return@runSafely onContextReady(it, lpParam) }
 
