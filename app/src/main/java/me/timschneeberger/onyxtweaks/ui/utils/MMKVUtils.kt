@@ -28,10 +28,18 @@ object MMKVUtils {
             "showForegroundNotificationPackages" to KnownTypes.STRING_SET,
             "supportForceStopAppSet" to KnownTypes.STRING_SET,
             "supportMultiInstencePackages" to KnownTypes.STRING_SET,
+            "unSupportLongScreenshotCompSet" to KnownTypes.STRING_SET,
+
+            // LightStyleConfig
+            "ctm_light_style" to KnownTypes.STRING_JSON, // JSON LightStyleConfig object
 
             // KeyboardDeviceConfig
             "keyboard_device_version" to KnownTypes.INT,
             "keyboard_default_device_version" to KnownTypes.INT,
+
+            // EACAppTheme
+            "default_config_eac_app_theme" to KnownTypes.STRING_JSON, // JSON EACAppTheme object
+            "default_config_eac_onyx_app_theme" to KnownTypes.STRING_JSON, // JSON EACAppTheme object
 
             // EACAppConfig
             "eac_default_app_config" to KnownTypes.STRING_JSON, // JSON EACAppConfig object
@@ -52,13 +60,23 @@ object MMKVUtils {
             "gc_after_scrolling_refresh_mode" to KnownTypes.INT,
             "pre_grant_premission_pkg" to KnownTypes.STRING_SET, // String set of package names
 
+            // ActivePenConfig
+            "active_pen_version" to KnownTypes.INT,
+            "active_pen_mmkv_key" to KnownTypes.STRING_JSON, // ActivePenConfig object
+
             // NotificationConfig
             "notification_version" to KnownTypes.INT,
             "notification_pkg_black_list" to KnownTypes.STRING_SET, // String set of package names
             "notification_pkg_white_list" to KnownTypes.STRING_SET, // String set of package names
 
-            // GesturesConfig (SystemUI)
+            // PMConfig
+            "pm_config_version"  to KnownTypes.INT,
+            "pm_config_mmkv_key" to KnownTypes.STRING_JSON, // ActivePenConfig object
+
+            // SystemUI
             "gesture_config" to KnownTypes.STRING_JSON, // JSON GesturesConfig object
+            "use_screenshot_preview_dialog" to KnownTypes.BOOLEAN,
+            "constant_eac_device_config" to KnownTypes.STRING_JSON, // JSON EACConstantDeviceConfig object
 
             // From the keyboard app?
             "forceComputeImeBoundsSystemComponents" to KnownTypes.STRING_SET, // String set of pkg/component names
@@ -223,6 +241,10 @@ object MMKVUtils {
         "keymapping_" to KnownTypes.STRING_JSON, // JSON KeyboardMapping object for a specific device name
         // EACAppConfig
         "eac_app_" to KnownTypes.STRING_JSON,  // JSON EACAppConfig object for a specific package
+        // EACAppTheme
+        "default_app_theme_" to KnownTypes.STRING_JSON,  // JSON EACAppTheme object for a specific package
+        "eac_theme_" to KnownTypes.STRING_JSON, // JSON EACAppTheme object for a specific package
+
 
         /* ==== Launcher @ com.onyx ==== */
         "auto_create_netdisk_library-" to KnownTypes.BOOLEAN,
