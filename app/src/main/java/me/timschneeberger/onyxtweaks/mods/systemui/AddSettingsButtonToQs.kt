@@ -85,13 +85,13 @@ class AddSettingsButtonToQs : ModPack() {
         .invoke(null, findClass("com.android.systemui.plugins.ActivityStarter"))
 
     private fun startActivityDismissingKeyguard(intent: Intent, flags: Int = 0) {
-        getActivityStarter()?.let {
+        getActivityStarter()!!.let {
             it.javaClass
                 .methodFinder()
                 .filterByParamTypes(Intent::class.java, Int::class.javaPrimitiveType)
                 .firstByName("postStartActivityDismissingKeyguard")
                 .invoke(it, intent, flags)
-        } ?: Log.w("ActivityStarter not found")
+        }
     }
 
     private enum class TabAction {
