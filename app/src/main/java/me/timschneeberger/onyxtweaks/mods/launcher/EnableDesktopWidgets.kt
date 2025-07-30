@@ -1,7 +1,10 @@
 package me.timschneeberger.onyxtweaks.mods.launcher
 
 import android.appwidget.AppWidgetProviderInfo
+import com.github.kyuubiran.ezxhelper.MemberExtensions.isStatic
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder
+import com.github.kyuubiran.ezxhelper.finders.FieldFinder
+import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -17,7 +20,6 @@ import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.cast
 import me.timschneeberger.onyxtweaks.utils.castNonNull
-import java.lang.reflect.Modifier
 
 /**
  * This mod pack enables the advanced desktop widget mode on the Onyx Launcher.
@@ -62,15 +64,28 @@ class EnableDesktopWidgets : ModPack() {
         MethodFinder.fromClass("com.onyx.common.applications.appwidget.action.LoadSettingWidgetModelsAction")
             .filterByParamCount(0)
             .filterByReturnType(List::class.java)
-            .filterByModifiers(Modifier.PRIVATE)
             .first()
             .createReplaceHookCatching<EnableDesktopWidgets> hook@ { param ->
                 // Get installed widgets
                 val widgets = ArrayList<Any?>()
+                val utilCls = findClass("com.onyx.common.applications.appwidget.utils.AppWidgetUtils")
+
                 val installedWidgets =
-                    MethodFinder.fromClass("com.onyx.common.applications.appwidget.utils.AppWidgetUtils")
+                    utilCls.methodFinder()
                         .firstByName("getInstalledWidgets")
-                        .invoke(null)
+                        .run {
+                            if (isStatic) {
+                                // On 4.0, this is a static method, invoke without receiver
+                                invoke(null)
+                            } else {
+                                // On 4.1+, the class is a singleton, so we need to obtain the instance first
+                                utilCls.fieldFinder()
+                                    .filterByName("INSTANCE")
+                                    .first()
+                                    .get(null)
+                                    .let(::invoke)
+                            }
+                        }
                         .castNonNull<List<AppWidgetProviderInfo>>()
 
                 for (appWidgetProviderInfo in installedWidgets) {
@@ -86,10 +101,28 @@ class EnableDesktopWidgets : ModPack() {
                                     .forEach { it.invoke(this) }
                             }
 
-                    val widgetMap = MethodFinder.fromClass("com.onyx.common.applications.appwidget.model.AppWidgetBundle")
-                        .filterStatic()
-                        .firstByName("getInstance")
-                        .invoke(null)
+                    val widgetMap = findClass("com.onyx.common.applications.appwidget.model.AppWidgetBundle")
+                        .run {
+                            // On 4.1+, the getter is in Kotlin's companion object
+                            if (declaredFields.any { it.name == "Companion" }) {
+                                val comp = FieldFinder.fromClass(this)
+                                    .filterByName("Companion")
+                                    .first()
+                                    .get(null)
+
+                                comp.javaClass
+                                    .methodFinder()
+                                    .firstByName("getInstance")
+                                    .invoke(comp)
+                            }
+                            else {
+                                // On 4.0, this is a static Java method
+                                MethodFinder.fromClass(this)
+                                    .filterStatic()
+                                    .firstByName("getInstance")
+                                    .invoke(null)
+                            }
+                        }
                         .run {
                             // Retrieve widgets map from AppWidgetBundle
                             MethodFinder.fromClass(this::class)
