@@ -12,8 +12,10 @@ import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.createReplaceHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.hasCompanion
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
+import me.timschneeberger.onyxtweaks.mods.utils.requireCompanionObject
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 /**
@@ -42,34 +44,43 @@ class DesktopGridSize : ModPack() {
         val columns = preferences.getStringAsInt(R.string.key_launcher_desktop_column_count)
         val rows = preferences.getStringAsInt(R.string.key_launcher_desktop_row_count)
 
-        findClass("com.onyx.common.applications.model.AppSettings").apply {
-            methodFinder()
-                .firstByName("getDesktopFixCol")
-                .replaceWithConstant(columns)
-            methodFinder()
-                .firstByName("getDesktopFixRow")
-                .replaceWithConstant(rows)
+        findClass("com.onyx.common.applications.model.AppSettings")
+            .let {
+                // On 4.1+ these methods were moved to the companion object
+                if(it.hasCompanion()) it.requireCompanionObject() else it
+            }
+            .run {
+                methodFinder()
+                    .firstByName("getDesktopFixCol")
+                    .replaceWithConstant(columns)
+                methodFinder()
+                    .firstByName("getDesktopFixRow")
+                    .replaceWithConstant(rows)
+            }
 
-            methodFinder()
-                .firstByName("calDesktopColumnCount")
-                .replaceWithConstant(columns)
-            methodFinder()
-                .firstByName("calDesktopRowCount")
-                .replaceWithConstant(rows)
+        findClass("com.onyx.common.applications.model.AppSettings")
+            .run {
 
-            methodFinder()
-                .firstByName("getDesktopColumnCount")
-                .replaceWithConstant(columns)
-            methodFinder()
-                .firstByName("getDesktopRowCount")
-                .replaceWithConstant(rows)
+                methodFinder()
+                    .firstByName("calDesktopColumnCount")
+                    .replaceWithConstant(columns)
+                methodFinder()
+                    .firstByName("calDesktopRowCount")
+                    .replaceWithConstant(rows)
 
-            methodFinder()
-                .firstByName("getDockColumnCount")
-                .replaceWithConstant(
-                    preferences.getStringAsInt(R.string.key_launcher_desktop_dock_column_count)
-                )
-        }
+                methodFinder()
+                    .firstByName("getDesktopColumnCount")
+                    .replaceWithConstant(columns)
+                methodFinder()
+                    .firstByName("getDesktopRowCount")
+                    .replaceWithConstant(rows)
+
+                methodFinder()
+                    .firstByName("getDockColumnCount")
+                    .replaceWithConstant(
+                        preferences.getStringAsInt(R.string.key_launcher_desktop_dock_column_count)
+                    )
+            }
     }
 
     private fun hookInitializationFlag() {

@@ -7,6 +7,7 @@ import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.ObjectHelper
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -15,6 +16,8 @@ import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import kotlin.reflect.KClass
+import kotlin.reflect.full.companionObject
+import kotlin.reflect.full.companionObjectInstance
 
 typealias MethodParam = XC_MethodHook.MethodHookParam
 
@@ -67,6 +70,34 @@ fun Method.replaceWithConstant(value: Any?) {
     createHook {
         replace { _ -> value }
     }
+}
+
+/** Check if the class declares the method name. Superclasses are ignored. */
+fun Class<*>.hasMethod(name: String) = declaredMethods.any { it.name == name }
+/** Check if the class declares the method name. Superclasses are ignored. */
+fun Class<*>.hasField(name: String) = declaredFields.any { it.name == name }
+
+fun Class<*>.requireCompanionObject(): Class<*> {
+    return kotlin.companionObject?.java ?: run {
+        throw IllegalStateException("Class '${this.name}' does not have a companion object")
+    }
+}
+fun Class<*>.requireCompanionInstance(): Any {
+    return kotlin.companionObjectInstance ?: run {
+        throw IllegalStateException("Class '${this.name}' does not have a companion object")
+    }
+}
+
+fun Class<*>.hasCompanion() = kotlin.companionObject != null
+
+fun Class<*>.invokeCompanionMethod(name: String): Any? {
+    return kotlin
+        .companionObject
+        ?.java
+        ?.methodFinder()
+        ?.firstByName(name)
+        ?.invoke(kotlin.companionObjectInstance)
+        ?: throw NullPointerException("Class '$name' does not have a companion object")
 }
 
 inline fun <T> T.applyObjectHelper(block: ObjectHelper.() -> Unit): T {
