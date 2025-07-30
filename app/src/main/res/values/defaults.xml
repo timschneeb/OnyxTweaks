@@ -56,6 +56,8 @@
     <bool name="default_qs_sections_hide_tiles" translatable="false">false</bool>
     <bool name="default_qs_sections_hide_volume" translatable="false">false</bool>
     <bool name="default_qs_sections_hide_frontlight_label" translatable="false">false</bool>
+    <bool name="default_qs_sections_hide_frontlight_presets" translatable="false">false</bool>
+    <bool name="default_qs_sections_hide_pen_container" translatable="false">false</bool>
     <bool name="default_qs_sections_hide_brightness_slider" translatable="false">false</bool>
     <bool name="default_qs_sections_hide_temperature_slider" translatable="false">false</bool>
     <bool name="default_qs_grid_custom_size" translatable="false">false</bool>

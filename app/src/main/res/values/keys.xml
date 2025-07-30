@@ -62,6 +62,8 @@
     <string name="key_qs_sections_hide_temperature_slider" translatable="false">qs_sections_hide_temperature_slider</string>
     <string name="key_qs_sections_hide_brightness_slider" translatable="false">qs_sections_hide_brightness_slider</string>
     <string name="key_qs_sections_hide_frontlight_label" translatable="false">qs_sections_hide_frontlight_label</string>
+    <string name="key_qs_sections_hide_frontlight_presets">qs_sections_hide_frontlight_presets</string>
+    <string name="key_qs_sections_hide_pen_container">qs_sections_hide_pen_container</string>
     <string name="key_qs_sections_hide_volume" translatable="false">qs_sections_hide_volume</string>
     <string name="key_qs_sections_hide_fixed_tiles" translatable="false">qs_sections_hide_fixed_tiles</string>
     <string name="key_qs_sections_hide_tiles" translatable="false">qs_sections_hide_tiles</string>
@@ -108,4 +110,5 @@
     <string name="key_resume_app_rules" translatable="false">resume_app_rules</string>
     <string name="key_resume_app_delay_seconds" translatable="false">resume_app_delay_seconds</string>
     <string name="key_resume_app_persisted_intent" translatable="false">resume_app_persisted_intent</string>
+
 </resources>

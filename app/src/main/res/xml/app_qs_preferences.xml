@@ -93,9 +93,25 @@
             app:iconSpaceReserved="false" />
 
         <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_pen_container"
+            android:defaultValue="@bool/default_qs_sections_hide_pen_container"
+            android:title="@string/qs_sections_hide_pen_container"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
             android:key="@string/key_qs_sections_hide_frontlight_label"
             android:defaultValue="@bool/default_qs_sections_hide_frontlight_label"
             android:title="@string/qs_sections_hide_frontlight_label"
+            android:summaryOff="@string/default_state"
+            android:summaryOn="@string/hidden_state"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_qs_sections_hide_frontlight_presets"
+            android:defaultValue="@bool/default_qs_sections_hide_frontlight_presets"
+            android:title="@string/qs_sections_hide_frontlight_presets"
             android:summaryOff="@string/default_state"
             android:summaryOn="@string/hidden_state"
             app:iconSpaceReserved="false" />

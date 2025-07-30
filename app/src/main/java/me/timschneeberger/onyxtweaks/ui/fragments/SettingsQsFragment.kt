@@ -6,6 +6,8 @@ import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.preferences.PreferenceGroup
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 @PreferenceGroup(PreferenceGroups.QS)
 class SettingsQsFragment : SettingsBaseFragment<SettingsActivity>() {
@@ -15,6 +17,11 @@ class SettingsQsFragment : SettingsBaseFragment<SettingsActivity>() {
     override fun onConfigurePreferences() {
         gridRows?.configureAsNumberInput(1, 10, R.plurals.unit_rows)
         gridColumns?.configureAsNumberInput(1, 10, R.plurals.unit_columns)
+
+        // Hide unavailable preferences
+        if (onyxVersion < "4.1".toVersion()) {
+            findPreference<EditTextPreference>(getString(R.string.key_qs_sections_hide_frontlight_presets))?.isVisible = false
+        }
     }
 
     override fun onPreferenceChanged(key: String) {

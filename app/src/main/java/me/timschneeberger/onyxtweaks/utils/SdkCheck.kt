@@ -2,6 +2,7 @@ package me.timschneeberger.onyxtweaks.utils
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
+import com.github.kyuubiran.ezxhelper.Log
 import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
 
 val onyxVersion by lazy {
@@ -12,11 +13,17 @@ val onyxVersion by lazy {
      *      2025-06-19_00-19_4.0.2-rel_0614
      *      2025-03-26_18-59_v4.0-rel_2aa96eb60
      */
-    Build.ID
-        .split('_')[2]
-        .split('-').first()
-        .replace("v", "")
-        .toVersion()
+    try {
+        Build.ID
+            .split('_')[2]
+            .split('-').first()
+            .replace("v", "")
+            .toVersion()
+    }
+    catch (e: Exception) {
+        Log.ex("Failed to parse Onyx version from Build.ID: ${Build.ID}", e)
+        Version(0, 0, 0)
+    }
 }
 
 

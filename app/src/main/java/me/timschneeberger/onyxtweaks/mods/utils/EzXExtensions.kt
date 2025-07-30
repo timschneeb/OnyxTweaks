@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods.utils
 
+import android.view.View
 import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.EzXHelper.appContextNullable
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
@@ -8,6 +9,7 @@ import com.github.kyuubiran.ezxhelper.ObjectHelper
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
+import com.github.kyuubiran.ezxhelper.misc.ViewUtils.findViewByIdName
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -155,3 +157,5 @@ fun <T,TRet> T.runSafely(caller: KClass<*>, message: String, isWarning: Boolean 
         return null
     }
 }
+
+inline fun <reified T> View.findViewByIdName(name: String): T? = findViewByIdName(name) as T
