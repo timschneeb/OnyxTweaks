@@ -74,8 +74,10 @@ fun Method.replaceWithConstant(value: Any?) {
 
 /** Check if the class declares the method name. Superclasses are ignored. */
 fun Class<*>.hasMethod(name: String) = declaredMethods.any { it.name == name }
+fun Class<*>.hasMethods(vararg names: String): Boolean = names.all(::hasMethod)
 /** Check if the class declares the method name. Superclasses are ignored. */
 fun Class<*>.hasField(name: String) = declaredFields.any { it.name == name }
+fun Class<*>.hasFields(vararg names: String): Boolean = names.all(::hasField)
 
 fun Class<*>.requireCompanionObject(): Class<*> {
     return kotlin.companionObject?.java ?: run {

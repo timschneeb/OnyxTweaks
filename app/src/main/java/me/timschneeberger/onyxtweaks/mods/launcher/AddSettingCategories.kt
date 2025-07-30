@@ -9,10 +9,11 @@ import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mod_processor.TargetPackages
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
-import me.timschneeberger.onyxtweaks.mods.utils.applyObjectHelper
 import me.timschneeberger.onyxtweaks.mods.utils.createAfterHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
+import me.timschneeberger.onyxtweaks.mods.utils.hasField
+import me.timschneeberger.onyxtweaks.mods.utils.hasFields
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
 /**
@@ -47,7 +48,19 @@ class AddSettingCategories : ModPack() {
                         injectedCategories
                             .takeWhile { category ->
                                 this.none { item ->
-                                    item?.objectHelper()?.getObjectOrNull("name") == category.name
+                                    item ?: return@none false
+
+                                    // On 4.0, this is a regular Java class with a public field and no getters
+                                    if(item.javaClass.hasField("name")) {
+                                        item.objectHelper().getObjectOrNull("name") == category.name
+                                    }
+                                    // On 4.1+, this is a Kotlin class with getters, but erased private member names
+                                    else {
+                                        item.javaClass
+                                            .methodFinder()
+                                            .firstByName("getName")
+                                            .invoke(item) == category.name
+                                    }
                                 }
                             }
                             .map(::createSettingsEntry)
@@ -66,9 +79,22 @@ class AddSettingCategories : ModPack() {
         findClass("com.onyx.android.sdk.kcb.setting.model.SettingCategory\$ConfigItem")
             .classHelper()
             .newInstance()
-            .applyObjectHelper {
-                setObject("title", category.title)
-                setObject("name", category.name)
-                setObject("image", category.icon)
+            .apply {
+                // On 4.0 access fields directly
+                if(javaClass.hasFields("name", "name", "image")) {
+                    objectHelper {
+                        setObject("title", category.title)
+                        setObject("name", category.name)
+                        setObject("image", category.icon)
+                    }
+                }
+                else {
+                    // On 4.1+ use setters instead
+                    javaClass.run {
+                        methodFinder().firstByName("setTitle").invoke(this@apply, category.title)
+                        methodFinder().firstByName("setName").invoke(this@apply, category.name)
+                        methodFinder().firstByName("setImage").invoke(this@apply, category.icon)
+                    }
+                }
             }
 }
