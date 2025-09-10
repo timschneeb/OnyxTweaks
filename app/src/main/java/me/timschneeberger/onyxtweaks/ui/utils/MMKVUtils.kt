@@ -43,6 +43,8 @@ object MMKVUtils {
 
             // EACAppConfig
             "eac_default_app_config" to KnownTypes.STRING_JSON, // JSON EACAppConfig object
+            "app_networking_config" to KnownTypes.STRING_JSON, // JSON AppNetworkingConfig object
+            "auto_start_config" to KnownTypes.STRING_JSON, // JSON AutoStartConfig object
 
             // EACDeviceConfig
             "eac_app_pkg_set" to KnownTypes.STRING_SET, // String set of package names
@@ -81,6 +83,10 @@ object MMKVUtils {
             // From the keyboard app?
             "forceComputeImeBoundsSystemComponents" to KnownTypes.STRING_SET, // String set of pkg/component names
             "ignoreComputeImeBoundsSystemComponents" to KnownTypes.STRING_SET, // String set of pkg/component names
+
+            // Battery
+            "battery_production_date" to KnownTypes.STRING,
+            "battery_first_use_date" to KnownTypes.STRING,
 
             /* ==== COMMON @ (including kcb_feedback) ==== */
             "search_history_key" to KnownTypes.STRING_JSON, // JSON string list
