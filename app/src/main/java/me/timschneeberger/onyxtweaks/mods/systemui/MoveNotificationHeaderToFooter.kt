@@ -24,7 +24,7 @@ class MoveNotificationHeaderToFooter : ModPack() {
         MethodFinder.fromClass("android.onyx.systemui.SystemUIConfig")
             .firstByName("isNotificationManagerItemStayOnTop")
             .replaceCatchingWithExpression<MoveNotificationHeaderToFooter> {
-                !preferences.get<Boolean>(R.string.key_status_bar_notifications_move_header_to_bottom)
+                !preferences.get<Boolean>(R.string.key_status_bar_notifications_move_header_to_bottom, reload = true)
             }
     }
 }

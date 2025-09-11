@@ -28,8 +28,8 @@ class FixBwModePersistence : ModPack() {
     override val group = PreferenceGroups.QS
 
     private fun shouldApplyFix() =
-        preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile) ||
-                preferences.get<Boolean>(R.string.key_floating_button_show_bw_function)
+        preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile, reload = true) ||
+                preferences.get<Boolean>(R.string.key_floating_button_show_bw_function, reload = true)
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         if (!shouldApplyFix())
@@ -46,7 +46,7 @@ class FixBwModePersistence : ModPack() {
             .firstByName("applyBwMode")
             .createReplaceHookCatching<FixBwModePersistence> { param ->
                 // Bypass hook if disabled
-                if(!preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
+                if(!shouldApplyFix())
                     param.invokeOriginalMethodCatching()
             }
     }

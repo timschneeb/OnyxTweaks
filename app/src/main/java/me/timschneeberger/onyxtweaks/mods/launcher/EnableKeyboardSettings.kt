@@ -20,6 +20,6 @@ class EnableKeyboardSettings : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isEnableKeyboardSetting")
-            .replaceCatchingWithExpression<EnableKeyboardSettings> { preferences.get<Boolean>(R.string.key_launcher_settings_show_physical_input) }
+            .replaceCatchingWithExpression<EnableKeyboardSettings> { preferences.get<Boolean>(R.string.key_launcher_settings_show_physical_input, reload = true) }
     }
 }

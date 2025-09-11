@@ -98,7 +98,7 @@ class InjectMediaHostIntoQs : ModPack() {
                 .methodFinder()
                 .firstByName("constraintSetForExpansion")
                 .createAfterHookCatching<InjectMediaHostIntoQs> { param ->
-                    when(preferences.get<String>(R.string.key_qs_media_host_state)) {
+                    when(preferences.get<String>(R.string.key_qs_media_host_state, reload = true)) {
                         // Translate array value to field name containing the layout
                         "expanded" -> "expandedLayout"
                         "collapsed" -> "collapsedLayout"

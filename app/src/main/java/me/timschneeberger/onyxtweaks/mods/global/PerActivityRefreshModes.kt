@@ -28,7 +28,7 @@ class PerActivityRefreshModes : ModPack() {
     override val group = PreferenceGroups.PER_ACTIVITY_SETTINGS
 
     private fun findRules(pkgName: String) =
-        preferences.get<String>(R.string.key_per_activity_settings).run {
+        preferences.get<String>(R.string.key_per_activity_settings, reload = true).run {
             try {
                 Json.decodeFromString<List<ActivityRule>>(this)
                     .filter { it.packageName == pkgName }

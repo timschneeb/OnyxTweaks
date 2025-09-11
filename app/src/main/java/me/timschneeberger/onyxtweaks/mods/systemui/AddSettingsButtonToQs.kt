@@ -52,7 +52,7 @@ class AddSettingsButtonToQs : ModPack() {
             methodFinder()
                 .firstByName("startOnyxSettings")
                 .createReplaceHookCatching<AddSettingsButtonToQs> { param ->
-                    val value = preferences.get<String>(R.string.key_qs_header_settings_button_action)
+                    val value = preferences.get<String>(R.string.key_qs_header_settings_button_action, reload = true)
                     when (value) {
                         "onyx_settings" -> {
                             // Instead of calling the original method, which opens the settings as full-screen in SettingsActivity,

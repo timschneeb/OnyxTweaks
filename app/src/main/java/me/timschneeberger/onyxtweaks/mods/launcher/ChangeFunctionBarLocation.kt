@@ -23,6 +23,6 @@ class ChangeFunctionBarLocation : ModPack() {
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")
             .firstByName("isSupportChangeFunctionBarLocation")
-            .replaceWithConstant(preferences.get<Boolean>(R.string.key_launcher_bar_show_position_setting))
+            .replaceWithConstant(preferences.get<Boolean>(R.string.key_launcher_bar_show_position_setting, reload = true))
     }
 }

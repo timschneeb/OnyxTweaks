@@ -42,7 +42,7 @@ class XPreferences(group: PreferenceGroups) : BasePreferences() {
     override val isReadOnly = true
     override val resources get() = moduleRes
 
-    override val prefs: SharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, group.prefName).also { it ->
+    override val prefs: XSharedPreferences = XSharedPreferences(BuildConfig.APPLICATION_ID, group.prefName).also { it ->
         if (group == PreferenceGroups.NONE)
             return@also
 
@@ -59,6 +59,8 @@ class XPreferences(group: PreferenceGroups) : BasePreferences() {
             Log.wx("Failed to register XPreference change listener", e)
         }
     }
+
+    override fun reload() = prefs.reload()
 }
 
 /**
@@ -73,6 +75,8 @@ class Preferences(private val context: Context, group: PreferenceGroups) : BaseP
     override val isReadOnly = false
     override val resources: Resources get() = context.resources
     override val prefs: SharedPreferences = dataStore.prefs
+
+    override fun reload() {}
 }
 
 @Suppress("unused")
@@ -84,6 +88,8 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
     protected abstract val prefs: SharedPreferences
     protected abstract val resources: Resources
     protected abstract val isReadOnly: Boolean
+
+    protected abstract fun reload()
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         loadEverything(key)
@@ -108,7 +114,7 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
      * @return Returns the current value of the preference or the default value if none is set
      */
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> get(@StringRes nameRes: Int, default: T? = null, type: KClass<T>): T {
+    fun <T : Any> get(@StringRes nameRes: Int, default: T? = null, type: KClass<T>, reload: Boolean = false): T {
         val key = resources.getString(nameRes)
         val defValue = default ?: getDefault(nameRes, type)
 
@@ -123,8 +129,8 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
         }
     }
 
-    inline fun <reified T : Any> get(@StringRes nameRes: Int): T {
-        return get<T>(nameRes, type = T::class)
+    inline fun <reified T : Any> get(@StringRes nameRes: Int, reload: Boolean = false): T {
+        return get(nameRes, type = T::class, reload = reload)
     }
 
     @Suppress("UNCHECKED_CAST")

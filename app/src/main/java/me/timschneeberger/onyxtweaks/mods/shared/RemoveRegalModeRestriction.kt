@@ -27,12 +27,12 @@ class RemoveRegalModeRestriction : ModPack() {
         if (lpParam.packageName == SYSTEM_FRAMEWORK_PACKAGE) {
             MethodFinder.fromClass("android.onyx.optimization.data.v2.EACRefreshConfig")
                 .firstByName("isSupportRegal")
-                .replaceCatchingWithExpression<RemoveRegalModeRestriction> { preferences.get<Boolean>(R.string.key_eink_center_always_show_regal_mode) }
+                .replaceCatchingWithExpression<RemoveRegalModeRestriction> { preferences.get<Boolean>(R.string.key_eink_center_always_show_regal_mode, reload = true) }
         }
         else if (lpParam.packageName == SYSTEM_UI_PACKAGE) {
             MethodFinder.fromClass("com.android.systemui.settings.EInkCenterController")
                 .firstByName("currentTopComponentSupportRegal")
-                .replaceCatchingWithExpression<RemoveRegalModeRestriction> { preferences.get<Boolean>(R.string.key_eink_center_always_show_regal_mode) }
+                .replaceCatchingWithExpression<RemoveRegalModeRestriction> { preferences.get<Boolean>(R.string.key_eink_center_always_show_regal_mode, reload = true) }
         }
     }
 }
