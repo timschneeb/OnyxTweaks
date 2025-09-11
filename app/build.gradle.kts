@@ -20,8 +20,8 @@ android {
         applicationId = "me.timschneeberger.onyxtweaks"
         minSdk = 28
         targetSdk = 35
-        versionCode = 11
-        versionName = "2.0.0"
+        versionCode = 12
+        versionName = "2.1.0"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getGitSha()}\"")
@@ -95,11 +95,11 @@ android {
 dependencies {
     // AndroidX
     implementation("androidx.annotation:annotation-jvm:1.9.1")
-    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.core:core-ktx:1.17.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.3")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
@@ -108,11 +108,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     // UI
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.material:material:1.13.0")
 
     // Serialization
-    implementation("com.tencent:mmkv:2.1.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+    implementation("com.tencent:mmkv:2.2.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
 
     // Xposed/Root utilities
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
