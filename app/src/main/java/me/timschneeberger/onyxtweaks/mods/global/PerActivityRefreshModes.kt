@@ -1,7 +1,6 @@
 package me.timschneeberger.onyxtweaks.mods.global
 
 import android.app.Activity
-import android.onyx.optimization.EInkHelper
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.misc.AndroidUtils
@@ -29,17 +28,6 @@ import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 class PerActivityRefreshModes : ModPack() {
     override val group = PreferenceGroups.PER_ACTIVITY_SETTINGS
 
-    // Note: Do not modify the enum value names, as they are serialized to preferences
-    enum class UpdateOption(val value: Int) {
-        UNKNOWN(-1),
-        DEFAULT(0),
-        DU(1),
-        A2(2),
-        REGAL(3),
-        X(4),
-        REGAL_PLUS(5)
-    }
-
     private fun findRules(pkgName: String) =
         preferences.get<String>(R.string.key_per_activity_settings).run {
             try {
@@ -62,24 +50,17 @@ class PerActivityRefreshModes : ModPack() {
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,
                         // otherwise the previous component will be modified
                         AndroidUtils.mainHandler.postDelayed({
+                            if (rule.updateMethod != UpdateMode.None) {
+                                Log.dx("Setting refresh mode to ${rule.updateMethod}")
 
-                            Log.dx("Setting refresh mode to ${rule.updateMode}")
-
-                            Device.currentDevice().clearAppScopeUpdate()
-                            EInkHelper.setAppScopeRefreshMode(rule.updateMode.value)
-
-                            // TODO Allow user to select turbo level using EInkHelper.setTurbo
-
-                            val method = rule.updateMethod
-                            if (method != UpdateMode.None) {
+                                Device.currentDevice().clearAppScopeUpdate()
                                 Device.currentDevice().applyAppScopeUpdate(
                                     lpParam.packageName,
                                     true,
                                     false,
-                                    method,
+                                    rule.updateMethod,
                                     Int.MAX_VALUE
                                 )
-                                Log.dx("Setting update mode to $method")
                             }
                         }, 500)
                     }

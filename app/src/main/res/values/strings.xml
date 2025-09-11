@@ -269,10 +269,8 @@
     <string name="per_activity_settings_activity_mode_summary_2">Mode: %1$s; %2$s</string>
     <string name="per_activity_settings_change_mode_title">Refresh mode for %1$s</string>
     <string name="per_activity_settings_change_mode_title_other_items">all other activities</string>
-    <string name="per_activity_settings_edit_refresh_mode">Refresh mode</string>
-    <string name="per_activity_settings_edit_refresh_mode_help">Overrides the refresh mode for an app component.</string>
     <string name="per_activity_settings_edit_update_mode">Screen update mode</string>
-    <string name="per_activity_settings_edit_update_mode_help">Optional. Set to \'None\' to use defaults. Some update modes may not work on all devices or in combination with certain refresh modes.</string>
+    <string name="per_activity_settings_edit_update_mode_help">Some update modes may not work on all devices or in combination with certain refresh modes.</string>
     <string name="update_mode_du_summary">Black/white screen update</string>
     <string name="update_mode_du_quality_summary">Optimized DU mode with dithering</string>
     <string name="update_mode_gu_summary">16-level gray partial update</string>
@@ -281,10 +279,12 @@
     <string name="update_mode_gc4_summary">(Deprecated) 4-level gray full screen update</string>
     <string name="update_mode_animation_summary">Black/white screen update, faster than DU, but lower quality</string>
     <string name="update_mode_animation_quality_summary">Optimized animation mode with dithering</string>
+    <string name="update_mode_animation_x_summary">Animation mode with heavier loss of details</string>
     <string name="update_mode_regal_summary">Optimized 16-level partial update mode for text pages</string>
     <string name="update_mode_regal_d_summary">(Deprecated, same as regal now)</string>
+    <string name="update_mode_regal_plus_summary">New Regal mode</string>
     <string name="update_mode_undocumented_summary">(Undocumented)</string>
-    <string name="update_mode_none_summary">Do not override, use default</string>
+    <string name="update_mode_none_summary">Do not change, use current mode</string>
 
     <!-- Stock settings -->
     <string name="settings_shortcuts">Shortcuts</string>

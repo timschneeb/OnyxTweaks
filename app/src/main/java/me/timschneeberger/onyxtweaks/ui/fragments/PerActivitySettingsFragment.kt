@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.SimpleAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -19,7 +18,6 @@ import kotlinx.serialization.json.Json
 import me.timschneeberger.onyxtweaks.BuildConfig
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.DialogPerActivitySettingsEditBinding
-import me.timschneeberger.onyxtweaks.mods.global.PerActivityRefreshModes
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
 import me.timschneeberger.onyxtweaks.ui.model.ActivityInfo
 import me.timschneeberger.onyxtweaks.ui.model.ActivityItemViewModel
@@ -126,10 +124,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
                                 setIcon(R.drawable.ic_twotone_more_horiz_24)
 
                             title = rule.activityClass ?: getString(R.string.per_activity_settings_scope_all_activities)
-                            summary = if (rule.updateMethod == UpdateMode.None)
-                                getString(R.string.per_activity_settings_activity_mode_summary, rule.updateMode)
-                            else
-                                getString(R.string.per_activity_settings_activity_mode_summary_2, rule.updateMode, rule.updateMethod)
+                            summary = rule.updateMethod.toString()
                             onPreferenceClickListener = Preference.OnPreferenceClickListener {
                                 showEditDialog(rule)
                                 true
@@ -183,19 +178,12 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
         }
         catch (ex: SerializationException) {
             Log.e(ex, "Failed to deserialize activity rules")
-            emptyList<ActivityRule>()
+            emptyList()
         }
     }
 
     private fun showEditDialog(rule: ActivityRule) {
         val content = DialogPerActivitySettingsEditBinding.inflate(layoutInflater).apply {
-            refreshMode.setAdapter(ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                PerActivityRefreshModes.UpdateOption.entries.map { it.name }
-            ))
-            refreshMode.setText(rule.updateMode.name, false)
-
             updateMode.setAdapter(CustomSimpleAdapter(
                 requireContext(),
                 UpdateMode.entries.map {
@@ -218,13 +206,6 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
             ))
             .setView(content.root)
             .setPositiveButton(android.R.string.ok) { inputDialog, _ ->
-                val newRefreshMode = try {
-                    PerActivityRefreshModes.UpdateOption.valueOf(content.refreshMode.text.toString())
-                }
-                catch (_: IllegalArgumentException) {
-                    PerActivityRefreshModes.UpdateOption.DEFAULT
-                }
-
                 val newUpdateMode = try {
                     UpdateMode.valueOf(content.updateMode.text.toString())
                 }
@@ -233,10 +214,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
                 }
 
                 val newRules = readRules().toMutableList()
-                newRules[newRules.indexOf(rule)] = rule.copy(
-                    updateMode = newRefreshMode,
-                    updateMethod = newUpdateMode,
-                )
+                newRules[newRules.indexOf(rule)] = rule.copy(updateMethod = newUpdateMode)
                 saveRules(newRules)
                 refreshList()
             }
@@ -287,9 +265,11 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
                 UpdateMode.GC -> R.string.update_mode_gc_summary
                 UpdateMode.ANIMATION -> R.string.update_mode_animation_summary
                 UpdateMode.ANIMATION_QUALITY -> R.string.update_mode_animation_quality_summary
+                UpdateMode.ANIMATION_X -> R.string.update_mode_animation_x_summary
                 UpdateMode.GC4 -> R.string.update_mode_gc4_summary
                 UpdateMode.REGAL -> R.string.update_mode_regal_summary
                 UpdateMode.REGAL_D -> R.string.update_mode_regal_d_summary
+                UpdateMode.REGAL_PLUS -> R.string.update_mode_regal_plus_summary
                 UpdateMode.DU_QUALITY -> R.string.update_mode_du_quality_summary
                 else -> R.string.update_mode_undocumented_summary
             }
