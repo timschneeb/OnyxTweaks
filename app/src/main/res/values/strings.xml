@@ -282,7 +282,7 @@
     <string name="update_mode_animation_x_summary">Animation mode with heavier loss of details</string>
     <string name="update_mode_regal_summary">Optimized 16-level partial update mode for text pages</string>
     <string name="update_mode_regal_d_summary">(Deprecated, same as regal now)</string>
-    <string name="update_mode_regal_plus_summary">New Regal mode</string>
+    <string name="update_mode_regal_plus_summary">New Regal mode (firmware v4.1 and later)</string>
     <string name="update_mode_undocumented_summary">(Undocumented)</string>
     <string name="update_mode_none_summary">Do not change, use current mode</string>
 
