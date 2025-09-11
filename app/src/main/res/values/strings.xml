@@ -278,13 +278,13 @@
     <string name="update_mode_gc_summary">16-level gray full screen update</string>
     <string name="update_mode_gc4_summary">(Deprecated) 4-level gray full screen update</string>
     <string name="update_mode_animation_summary">Black/white screen update, faster than DU, but lower quality</string>
-    <string name="update_mode_animation_quality_summary">Optimized animation mode with dithering</string>
+    <string name="update_mode_animation_quality_summary">Optimized animation mode with dithering (A2)</string>
     <string name="update_mode_animation_x_summary">Animation mode with heavier loss of details</string>
     <string name="update_mode_regal_summary">Optimized 16-level partial update mode for text pages</string>
     <string name="update_mode_regal_d_summary">(Deprecated, same as regal now)</string>
     <string name="update_mode_regal_plus_summary">New Regal mode (firmware v4.1 and later)</string>
     <string name="update_mode_undocumented_summary">(Undocumented)</string>
-    <string name="update_mode_none_summary">Do not change, use current mode</string>
+    <string name="update_mode_none_summary">Normal mode</string>
 
     <!-- Stock settings -->
     <string name="settings_shortcuts">Shortcuts</string>

@@ -4,7 +4,6 @@ import android.app.Activity
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder
 import com.github.kyuubiran.ezxhelper.misc.AndroidUtils
-import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.onyx.android.sdk.device.Device
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import kotlinx.serialization.SerializationException
@@ -50,18 +49,16 @@ class PerActivityRefreshModes : ModPack() {
                         // Delay to allow Onyx's onResume hook to switch the currently cached component name,
                         // otherwise the previous component will be modified
                         AndroidUtils.mainHandler.postDelayed({
-                            if (rule.updateMethod != UpdateMode.None) {
-                                Log.dx("Setting refresh mode to ${rule.updateMethod}")
+                            Log.dx("Setting refresh mode to ${rule.updateMethod}")
 
-                                Device.currentDevice().clearAppScopeUpdate()
-                                Device.currentDevice().applyAppScopeUpdate(
-                                    lpParam.packageName,
-                                    true,
-                                    false,
-                                    rule.updateMethod,
-                                    Int.MAX_VALUE
-                                )
-                            }
+                            Device.currentDevice().clearAppScopeUpdate()
+                            Device.currentDevice().applyAppScopeUpdate(
+                                lpParam.packageName,
+                                true,
+                                false,
+                                rule.updateMethod,
+                                Int.MAX_VALUE
+                            )
                         }, 500)
                     }
                 }
