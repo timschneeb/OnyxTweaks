@@ -260,6 +260,7 @@ class PerActivitySettingsFragment : SettingsBaseFragment<SettingsActivity>() {
             mode to when (mode) {
                 UpdateMode.None -> R.string.update_mode_none_summary
                 UpdateMode.DU -> R.string.update_mode_du_summary
+                UpdateMode.DU4 -> R.string.update_mode_du4_summary
                 UpdateMode.GU -> R.string.update_mode_gu_summary
                 UpdateMode.GU_FAST -> R.string.update_mode_gu_fast_summary
                 UpdateMode.GC -> R.string.update_mode_gc_summary

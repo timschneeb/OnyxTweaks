@@ -13,7 +13,7 @@ val releaseKeyAlias: String? by rootProject
 val releaseKeyPassword: String? by rootProject
 
 android {
-    compileSdk = 35
+    compileSdk = 36
     buildToolsVersion = "35.0.0"
 
     defaultConfig {
