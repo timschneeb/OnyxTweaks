@@ -115,6 +115,9 @@ abstract class BasePreferences() : SharedPreferences.OnSharedPreferenceChangeLis
      */
     @Suppress("UNCHECKED_CAST")
     fun <T : Any> get(@StringRes nameRes: Int, default: T? = null, type: KClass<T>, reload: Boolean = false): T {
+        if (reload)
+            this.reload()
+
         val key = resources.getString(nameRes)
         val defValue = default ?: getDefault(nameRes, type)
 
