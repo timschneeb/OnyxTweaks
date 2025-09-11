@@ -32,8 +32,7 @@ class SettingsEinkFragment : SettingsBaseFragment<SettingsActivity>() {
         findPreference<MaterialSwitchPreference>(getString(key))?.apply {
             isEnabled = false
             isChecked = false
-            summary = getString(R.string.eink_center_deprecated_summary)
+            summary = getString(R.string.deprecated_after_fw_4_0)
         }
-
     }
 }

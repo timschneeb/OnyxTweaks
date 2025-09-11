@@ -9,6 +9,8 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.utils.createBeforeHookCatching
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 /**
  * This mod pack shows additional Onyx-related status icons in the status bar.
@@ -23,7 +25,8 @@ class ShowAdditionalStatusIcons : ModPack() {
             .createBeforeHookCatching<ShowAdditionalStatusIcons> { param ->
                 val str = param.args.firstOrNull() as? String
                 when (str) {
-                    "refresh_mode" -> param.args[1] = preferences.get<Boolean>(R.string.key_status_bar_status_icons_show_refresh_mode)
+                    // On v4.1+, the update mode icon doesn't correspond to the update mode anymore
+                    "refresh_mode" -> param.args[1] = onyxVersion < "4.1".toVersion() && preferences.get<Boolean>(R.string.key_status_bar_status_icons_show_refresh_mode)
                     "tp_touch_mode" -> param.args[1] = preferences.get<Boolean>(R.string.key_status_bar_status_icons_show_touch_mode)
                 }
             }
