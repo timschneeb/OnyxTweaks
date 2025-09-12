@@ -26,6 +26,7 @@ import me.timschneeberger.onyxtweaks.bridge.unregisterModEventReceiver
 import me.timschneeberger.onyxtweaks.databinding.ActivitySettingsBinding
 import me.timschneeberger.onyxtweaks.mods.Constants.FLOATING_BUTTON_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.LAUNCHER_PACKAGE
+import me.timschneeberger.onyxtweaks.mods.Constants.OTA_SERVICE_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_SETTINGS_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.mods.ModRegistry
@@ -248,6 +249,8 @@ abstract class BasePreferenceActivity() : AppCompatActivity(), OnModEventReceive
                     restartSettings()
                 if (modifiedPackages.contains(FLOATING_BUTTON_PACKAGE))
                     restartPackage(FLOATING_BUTTON_PACKAGE)
+                if (modifiedPackages.contains(OTA_SERVICE_PACKAGE))
+                    restartPackage(OTA_SERVICE_PACKAGE)
             }
         }
         modifiedPackages.clear()

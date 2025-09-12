@@ -14,6 +14,26 @@
         app:fragment="me.timschneeberger.onyxtweaks.ui.fragments.ResumeActivitySettingsFragment"
         app:allowDividerBelow="true" />
 
+
+    <PreferenceCategory
+        app:title="@string/misc_ota"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/key_misc_ota_tips"
+            android:title="@string/misc_ota_tips"
+            android:summary="@string/misc_ota_tips_summary"
+            app:iconSpaceReserved="false" />
+
+        <me.timschneeberger.onyxtweaks.ui.preferences.MaterialSwitchPreference
+            android:key="@string/key_misc_skip_reboot_after_ota"
+            android:defaultValue="@bool/default_misc_skip_reboot_after_ota"
+            android:title="@string/misc_ota_prevent_reboot_after_ota"
+            android:summary="@string/misc_ota_prevent_reboot_after_ota_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+
     <PreferenceCategory
         app:title="@string/misc_troubleshooting"
         app:iconSpaceReserved="false">

@@ -93,6 +93,8 @@
     <string name="key_settings_show_memory_in_app_info" translatable="false">settings_show_memory_in_app_info</string>
 
     <!-- Misc -->
+    <string name="key_misc_ota_tips" translatable="false">misc_ota_tips</string>
+    <string name="key_misc_skip_reboot_after_ota" translatable="false">misc_skip_reboot_after_ota</string>
     <string name="key_misc_share_debug_logs" translatable="false">misc_share_debug_logs</string>
     <string name="key_misc_mmkv_always_auto_detect_unknown_types" translatable="false">misc_mmkv_always_auto_detect_unknown_types</string>
 

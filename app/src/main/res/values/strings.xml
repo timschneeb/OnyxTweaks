@@ -298,6 +298,12 @@
     <string name="settings_show_memory_in_app_info_summary"><![CDATA[Show the memory usage history on the app info screen (under Settings > Apps > App info)]]></string>
 
     <!-- Miscellaneous -->
+    <string name="misc_ota">Firmware updates</string>
+    <string name="misc_ota_tips">How to update a system patched with Magisk</string>
+    <string name="misc_ota_tips_summary">Information on how to update quickly without needing to reflash Magisk via EDL</string>
+    <string name="misc_ota_tips_text"><![CDATA[<h2>Updating a Magisk-patched system</h2> <p>If you have patched your system with Magisk, you need to re-install the original boot image to apply differential OTA update patches. However, this can be done in one go without the need to use EDL to re-flash partitions manually. Just follow these steps:</p> <ol> <li>&nbsp;Enable the \'Prevent automatic reboot after OTA update\' patch in this module. This is necessary to be able to access the Magisk app afterwards.</li> <li>&nbsp;Open the Magisk app and tap on the \'Uninstall Magisk\' button and select the \'Restore images\' option. Do not reboot!</li> <li>&nbsp;Install the OTA update using the stock settings app. Afterwards, do not reboot!</li> <li>&nbsp;Open the Magisk app again. Magisk should detect that the system has been updated and will prompt you to reinstall Magisk to the new boot partition. Follow the prompts to complete the installation. If not, start the installation manually.</li> <li>&nbsp;Once Magisk has been reinstalled, you can now reboot your device safely.</li> </ol> <p>This method allows you to quickly update your rooted device without EDL while keeping Magisk intact.</p>]]></string>
+    <string name="misc_ota_prevent_reboot_after_ota">Prevent automatic reboot after OTA update</string>
+    <string name="misc_ota_prevent_reboot_after_ota_summary">Allows you to return to the Magisk app to re-install it to the new boot partition</string>
     <string name="misc_troubleshooting">Troubleshooting</string>
     <string name="misc_export_log_hint"><![CDATA[Check LSPosed\'s module log if you are experiencing issues with this module. You can see which components are causing issues there.\nPlease export & share the logs using the save button in the top toolbar if you want open a bug report on GitHub.]]></string>
     <string name="misc_share_debug_logs">Open module logs in LSPosed</string>

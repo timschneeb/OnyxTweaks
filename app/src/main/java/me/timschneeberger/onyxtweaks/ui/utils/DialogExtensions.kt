@@ -2,6 +2,8 @@ package me.timschneeberger.onyxtweaks.ui.utils
 
 import android.content.Context
 import android.text.Editable
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.text.InputType
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -12,13 +14,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.databinding.DialogTextinputBinding
 
-fun Context.showAlert(@StringRes title: Int, @StringRes message: Int, callback: (() -> Unit)? = null) =
-    showAlert(getString(title), getString(message), callback)
+fun Context.showAlert(@StringRes title: Int?, @StringRes message: Int, callback: (() -> Unit)? = null, html: Boolean = false) =
+    showAlert(title?.let(::getString), getString(message), callback, html)
 
-fun Context.showAlert(title: CharSequence, message: CharSequence, callback: (() -> Unit)? = null) =
+fun Context.showAlert(title: CharSequence?, message: CharSequence, callback: (() -> Unit)? = null, html: Boolean = false) =
     MaterialAlertDialogBuilder(this)
         .setBackground(AppCompatResources.getDrawable(this, R.drawable.shape_dialog_background))
-        .setMessage(message)
+        .setMessage(if (html) Html.fromHtml(message.toString(), FROM_HTML_MODE_LEGACY) else message)
         .setTitle(title)
         .setPositiveButton(android.R.string.ok) { _, _ -> callback?.invoke() }
         .create()

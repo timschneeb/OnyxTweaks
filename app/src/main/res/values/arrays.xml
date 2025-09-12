@@ -6,6 +6,7 @@
         <item>com.android.systemui</item>
         <item>com.android.settings</item>
         <item>com.onyx</item>
+        <item>com.onyx.android.onyxotaservice</item>
         <!-- User apps -->
         <item>com.onyx.dict</item>
         <item>com.onyx.kime</item>
