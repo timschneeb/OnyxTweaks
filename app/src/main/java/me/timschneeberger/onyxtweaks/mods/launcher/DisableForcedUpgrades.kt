@@ -9,6 +9,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 
 /**
@@ -19,6 +21,8 @@ class DisableForcedUpgrades : ModPack() {
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (onyxVersion < "4.1".toVersion()) return
+
         // Disable forced upgrade flag, to prevent the system getting locked down
         MethodFinder.fromClass("com.onyx.common.setting.model.OTABundle")
             .firstByName("isForceUpgrade")
