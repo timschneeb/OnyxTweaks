@@ -28,6 +28,7 @@
     <string name="toast_killing_process">Stopping processes of %1$s…</string>
     <string name="error_no_root_access">No root access</string>
     <string name="error_no_root_access_message">Root access is required for this action. Please open the Magisk manager app and grant root access to the app.</string>
+    <string name="error_no_root_access_for_soft_reboot_message">Root access is required to soft-reboot the device. Either grant this app root or perform a full reboot manually.</string>
     <string name="xposed_scope_hint">Important: For this feature to work, you must manually enable this module for all apps you want to change the refresh mode for. This can be done in the module settings of your Xposed Manager.</string>
 
     <!-- Status panel -->
@@ -360,17 +361,20 @@
 
     <!-- MMKV config list -->
     <string name="mmkv_list_load_failed">Failed to open data store</string>
-    <string name="mmkv_list_load_failed_message">The data store could not be opened. Make sure that root access has been granted and restart the app.</string>
+    <string name="mmkv_list_load_failed_message">The data store could not be opened. Make sure that root access has been granted and restart the app. Only the system config at /onyxconfig is accessible without root.</string>
     <string name="mmkv_list_system_config">System config</string>
     <string name="mmkv_list_open_failed_system">Failed to open system config</string>
-    <string name="mmkv_list_open_failed_system_message">The system config at \'/onyxconfig/mmkv/onyx_config\' could not be opened. Check if the path exists and ensure root access has been granted.</string>
+    <string name="mmkv_list_open_failed_system_message">The system config at \'/onyxconfig/mmkv/onyx_config\' could not be opened. Check if the path exists and try to grant root access.</string>
     <string name="mmkv_list_service_unavailable">Service unavailable</string>
     <string name="mmkv_list_service_unavailable_message">The root service is not yet initialized. Please try again in a moment. Also make sure that root access has been granted and restart the app, if it was not granted before.</string>
+    <string name="mmkv_list_no_root_mode">Root not granted. Access may be restricted</string>
     <string name="mmkv_list_no_config">No config files</string>
-    <string name="mmkv_list_no_config_message">No MMKV data stores found for this package.</string>
+    <string name="mmkv_list_no_config_message">No MMKV data stores found for this package. Config file be missing for inaccessible because of the Magisk namespace isolation setting.</string>
     <string name="mmkv_list_private_config_summary">Private data store at /data/data/%1$s/files/mmkv</string>
     <string name="mmkv_list_system_config_summary">Global data store at /onyxconfig/mmkv</string>
     <string name="mmkv_list_select_data_store">Select data store</string>
+    <string name="mmkv_list_needs_root">Root required</string>
+    <string name="mmkv_list_needs_root_message">Private app data cannot be modified or viewed without root access. Only the system config can be accessed without root.</string>
 
     <!-- Text editor -->
     <string name="title_activity_editor">Text editor</string>

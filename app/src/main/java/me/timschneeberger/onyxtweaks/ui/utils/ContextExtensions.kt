@@ -38,15 +38,18 @@ object ContextExtensions {
 
     fun Context.restartZygote() {
         toast(R.string.toast_zygote_restarting)
-        runAsRoot("kill $(pidof zygote)", "kill $(pidof zygote64)")
+        runAsRoot(
+            getString(R.string.error_no_root_access_for_soft_reboot_message),
+            "kill $(pidof zygote)", "kill $(pidof zygote64)"
+        )
     }
 
-    private fun Context.runAsRoot(vararg commands: String) {
+    private fun Context.runAsRoot(messageIfNoRoot: String, vararg commands: String) {
         Shell.getShell().let { shell ->
             if (!shell.isRoot) {
                 showAlert(
                     getString(R.string.error_no_root_access),
-                    getString(R.string.error_no_root_access_message),
+                    messageIfNoRoot,
                 )
                 return
             }
@@ -55,7 +58,10 @@ object ContextExtensions {
         }
     }
 
-    private fun Context.killPackageSilently(pkgName: String) = runAsRoot("killall $pkgName")
+    private fun Context.killPackageSilently(pkgName: String) = runAsRoot(
+        getString(R.string.error_no_root_access_message),
+        "killall $pkgName"
+    )
 
     fun Context.toast(@StringRes message: Int, long: Boolean = true) = Toast.makeText(this, getString(message),
         if(long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()

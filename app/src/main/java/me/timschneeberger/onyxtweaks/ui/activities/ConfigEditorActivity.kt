@@ -7,6 +7,7 @@ import android.os.IBinder
 import android.os.RemoteException
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kyuubiran.ezxhelper.Log
+import com.topjohnwu.superuser.NoShellException
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ipc.RootService
 import me.timschneeberger.onyxtweaks.IMMKVAccessService
@@ -30,6 +31,8 @@ class ConfigEditorActivity : BasePreferenceActivity() {
     override fun createRootFragment() = ConfigListFragment()
 
     private var aidlConn: AIDLConnection? = null
+    var isNonRootMode: Boolean = true
+        private set
     var mmkvService: IMMKVAccessService? = null
         private set
 
@@ -79,8 +82,30 @@ class ConfigEditorActivity : BasePreferenceActivity() {
         }
 
     override fun onResume() {
-        // Launch service if not already running
-        if (aidlConn == null) {
+        // Shell must be initialized before isAppGrantedRoot
+        // If it is already initialized, we skip this step
+        if (Shell.isAppGrantedRoot() != true) {
+            try {
+                Shell.Builder.create()
+                    .setContext(this) // initialize the static appcontext in libsu, needed for no-root codepath
+                    .build()
+            }
+            catch (e: NoShellException) {
+                Log.e("No shell found, not even a non-root shell", e)
+            }
+        }
+
+        if (Shell.isAppGrantedRoot() != true) {
+            toast(getString(R.string.mmkv_list_no_root_mode))
+            // Use service class directly if no root
+            if(mmkvService == null) {
+                mmkvService = MMKVAccessService().MMKVAccessIPC()
+                isNonRootMode = true
+            }
+        }
+        // Launch root service if not already running
+        else if (aidlConn == null) {
+            isNonRootMode = false
             val intent = Intent(this, MMKVAccessService::class.java)
             val task = RootService.bindOrTask(intent, Shell.EXECUTOR, AIDLConnection())
             if(task != null) {

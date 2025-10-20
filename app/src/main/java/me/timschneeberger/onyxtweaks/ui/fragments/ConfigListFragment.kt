@@ -63,6 +63,14 @@ class ConfigListFragment : SettingsBaseFragment<ConfigEditorActivity>() {
                         getString(R.string.mmkv_list_private_config_summary, appInfo.packageName)
                     isIconSpaceReserved = false
                     onPreferenceClickListener = Preference.OnPreferenceClickListener { pref ->
+                        if (parentActivity?.isNonRootMode == true) {
+                            requireContext().showAlert(
+                                R.string.mmkv_list_needs_root,
+                                R.string.mmkv_list_needs_root_message
+                            )
+                            return@OnPreferenceClickListener false
+                        }
+
                         val ids = parentActivity
                             ?.mmkvService
                             ?.findDataStoresForPackage(pkg)

@@ -1,5 +1,6 @@
 package me.timschneeberger.onyxtweaks.ui.services
 
+import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.os.Parcel
@@ -16,8 +17,16 @@ import me.timschneeberger.onyxtweaks.utils.CustomLogger
 import me.timschneeberger.onyxtweaks.utils.ellipsize
 import java.io.File
 
-class MMKVAccessService : RootService() {
-    var mmkvMap: HashMap<String, MMKV> = HashMap()
+class MMKVAccessService() : RootService() {
+    // Secondary constructor to allow context overriding for non-root usage
+    constructor(ctx: Context) : this() {
+        overriddenContext = ctx
+    }
+
+    private var overriddenContext: Context? = null
+
+    val context: Context
+        get() = overriddenContext ?: applicationContext // this applicationContext is from libsu
 
     init {
         Log.currentLogger = CustomLogger
@@ -25,8 +34,10 @@ class MMKVAccessService : RootService() {
     }
 
     inner class MMKVAccessIPC : IMMKVAccessService.Stub() {
+        private var mmkvMap: HashMap<String, MMKV> = HashMap()
+
         override fun findDataStoresForPackage(packageName: String): Array<out String?>? {
-            val launcherCtx = applicationContext.createPackageContext(packageName, 0)
+            val launcherCtx = context.createPackageContext(packageName, 0)
 
             if(!launcherCtx.filesDir.exists()) {
                 Log.e("Launcher files dir inaccessible. Check MagiskSU namespace isolation setting.")
@@ -58,7 +69,7 @@ class MMKVAccessService : RootService() {
         override fun open(packageName: String, mmapId: String): String? {
             Log.d("Initializing MMKV for package $packageName with mmapId $mmapId")
 
-            val launcherCtx = applicationContext.createPackageContext(packageName, 0)
+            val launcherCtx = context.createPackageContext(packageName, 0)
 
             val handle = "$packageName/$mmapId"
             val ns = MMKV.nameSpace(launcherCtx.filesDir.absolutePath + "/mmkv/")
