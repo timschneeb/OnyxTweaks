@@ -21,7 +21,7 @@ val onyxVersion by lazy {
             .toVersion()
     }
     catch (e: Exception) {
-        Log.ex("Failed to parse Onyx version from Build.ID: ${Build.ID}", e)
+        Log.e("Failed to parse Onyx version from Build.ID: ${Build.ID}", e)
         Version(0, 0, 0)
     }
 }
