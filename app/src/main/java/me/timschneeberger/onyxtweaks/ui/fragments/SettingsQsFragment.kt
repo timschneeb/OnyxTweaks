@@ -1,6 +1,7 @@
 package me.timschneeberger.onyxtweaks.ui.fragments
 
 import androidx.preference.EditTextPreference
+import androidx.preference.Preference
 import me.timschneeberger.onyxtweaks.R
 import me.timschneeberger.onyxtweaks.mods.Constants.SYSTEM_UI_PACKAGE
 import me.timschneeberger.onyxtweaks.ui.activities.SettingsActivity
@@ -20,7 +21,7 @@ class SettingsQsFragment : SettingsBaseFragment<SettingsActivity>() {
 
         // Hide unavailable preferences
         if (onyxVersion < "4.1".toVersion()) {
-            findPreference<EditTextPreference>(getString(R.string.key_qs_sections_hide_frontlight_presets))?.isVisible = false
+            findPreference<Preference>(getString(R.string.key_qs_sections_hide_frontlight_presets))?.isVisible = false
         }
     }
 
