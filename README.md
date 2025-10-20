@@ -137,7 +137,8 @@ All apps
 
 The app also includes an editor for the MMKV file format. It is used in Onyx apps and by the system to store configuration data.
 
-This component works without Xposed but requires root access.
+This components works without Xposed. **You can even modify the system config at /onyxconfig without root access!** However, other config files stored in private app data require root access.
+
 
 ## Downloads
 
