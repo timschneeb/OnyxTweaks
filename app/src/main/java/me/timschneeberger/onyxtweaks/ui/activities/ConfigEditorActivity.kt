@@ -101,6 +101,8 @@ class ConfigEditorActivity : BasePreferenceActivity() {
 
         if (Shell.isAppGrantedRoot() != true) {
             toast(getString(R.string.mmkv_list_no_root_mode))
+            ensureAllFilesAccessIfNeeded()
+
             // Use service class directly if no root
             if(mmkvService == null) {
                 mmkvService = MMKVAccessService().MMKVAccessIPC()
@@ -125,20 +127,21 @@ class ConfigEditorActivity : BasePreferenceActivity() {
     }
 
     private fun ensureAllFilesAccessIfNeeded() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                toast(getString(R.string.editor_request_file_permission))
-                try {
-                    startActivity(
-                        Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
-                            data = "package:$packageName".toUri()
-                        }
-                    )
-                } catch (e: Exception) {
-                    startActivity(
-                        Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-                    )
-                }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
+            return
+
+        if (!Environment.isExternalStorageManager()) {
+            toast(getString(R.string.editor_request_file_permission))
+            try {
+                startActivity(
+                    Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+                        data = "package:$packageName".toUri()
+                    }
+                )
+            } catch (e: Exception) {
+                startActivity(
+                    Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                )
             }
         }
     }
