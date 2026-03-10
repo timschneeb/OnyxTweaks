@@ -137,8 +137,9 @@ All apps
 
 The app also includes an editor for the MMKV file format. It is used in Onyx apps and by the system to store configuration data.
 
-This components works without Xposed. You can modify the system config at /onyxconfig without root access, if you are on firmware 4.0 or 4.1. Firmware 4.1+ requires ADB shell access to access it, as the SELinux permissions were changed to prevent access by unprivileged apps.
+This components works without Xposed. You can modify the system config at /onyxconfig without root access, but you may need to grant the 'all file access' permission on newer firmware versions or device models.
 
+Non-rooted users can also use [this tool](https://github.com/l-althueser/OnyxMMKVEditor) to edit /onxyconfig, which also supports an easy way to enable handwriting optimizations for more 3rd-party apps.
 
 ## Downloads
 
