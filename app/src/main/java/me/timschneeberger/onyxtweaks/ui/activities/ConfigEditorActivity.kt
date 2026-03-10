@@ -3,9 +3,13 @@ package me.timschneeberger.onyxtweaks.ui.activities
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
+import android.os.Environment
 import android.os.IBinder
 import android.os.RemoteException
+import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import com.github.kyuubiran.ezxhelper.Log
 import com.topjohnwu.superuser.NoShellException
 import com.topjohnwu.superuser.Shell
@@ -118,6 +122,25 @@ class ConfigEditorActivity : BasePreferenceActivity() {
         }
 
         super.onResume()
+    }
+
+    private fun ensureAllFilesAccessIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                toast(getString(R.string.editor_request_file_permission))
+                try {
+                    startActivity(
+                        Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+                            data = "package:$packageName".toUri()
+                        }
+                    )
+                } catch (e: Exception) {
+                    startActivity(
+                        Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                    )
+                }
+            }
+        }
     }
 
     inner class AIDLConnection() : ServiceConnection {

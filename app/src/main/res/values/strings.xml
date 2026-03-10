@@ -400,6 +400,7 @@
     <string name="editor_string_list_hint">String list: enter each item on a separate line</string>
     <string name="editor_invalid_json">Invalid JSON</string>
     <string name="editor_invalid_json_message">The JSON content is invalid. Do you want to save it anyway?\n\nReason: %1$s</string>
+    <string name="editor_request_file_permission">Please grant file access permission for non-root access</string>
 
     <!-- App list -->
     <string name="app_list_loading">Loading apps…</string>
