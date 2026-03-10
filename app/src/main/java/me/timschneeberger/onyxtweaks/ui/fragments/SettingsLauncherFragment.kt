@@ -26,6 +26,7 @@ class SettingsLauncherFragment : SettingsBaseFragment<SettingsActivity>() {
     private val desktopColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_column_count)) }
     private val desktopDockColumns by lazy { findPreference<EditTextPreference>(getString(R.string.key_launcher_desktop_dock_column_count)) }
     private val barHiddenItems by lazy { findPreference<MultiSelectListPreference>(getString(R.string.key_launcher_bar_hidden_items)) }
+    private val barHiddenItemsHint by lazy { findPreference<MultiSelectListPreference>(getString(R.string.key_launcher_bar_hidden_items_hint)) }
     private val settingsAddedShortcuts by lazy { findPreference<MultiSelectListPreference>(getString(R.string.key_launcher_settings_added_shortcuts)) }
 
     override fun onConfigurePreferences() {
@@ -103,6 +104,10 @@ class SettingsLauncherFragment : SettingsBaseFragment<SettingsActivity>() {
 
         barHiddenItems?.configureAsMultiSelectInput()
         settingsAddedShortcuts?.configureAsMultiSelectInput()
+
+        if (onyxVersion < "4.1".toVersion()) {
+            barHiddenItemsHint?.isVisible = false
+        }
     }
 
     override fun onPreferenceChanged(key: String) {

@@ -15,6 +15,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.hasField
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 /* TODO: DeviceConfig has migrated to new function bar setting
     @NotNull
@@ -77,17 +79,64 @@ class HideFunctionBarItems : ModPack() {
                     }
             }
 
-        MethodFinder.fromClass("com.onyx.reader.main.adapter.FunctionBarAdapter")
-            .firstByName("getItemViewType")
-            .createReplaceHookCatching<HideFunctionBarItems> { param ->
-                // WORKAROUND: When in side bar mode, the adapter can cause an OutOfRange exception when enumerating the items in the single column
-                return@createReplaceHookCatching try {
-                    param.invokeOriginalMethod()
+        if (onyxVersion >= "4.1.1".toVersion()) {
+            /*MethodFinder.fromClass("com.onyx.common.common.utils.KCBMMKVHelper")
+                .firstByName("getConfigurableFunctionList")
+                .createAfterHookCatching<HideFunctionBarItems> { param ->
+                    val list = param.result as List<*> // FunctionConfig.ConfigItem
+                    param.result = list.filterNot { item ->
+                        item?.objectHelper()
+                            ?.getObjectOrNull("name") in hiddenItems.map(FunctionItem::name)
+                    }
+                }*/
+            MethodFinder.fromClass("com.onyx.reader.main.model.NormalUserDataProvider")
+                .firstByName("getFunctionConfig")
+                .createAfterHookCatching<HideFunctionBarItems> { param ->
+                    val categoryCls = findClass("com.onyx.reader.main.model.FunctionConfig")
+                    categoryCls
+                        .getMethod("getItemList")
+                        .invoke(param.result)
+                        .let { (it as List<*>).toMutableList() }
+                        .apply {
+                            removeIf { t ->
+                                t ?: return@removeIf false
+                                // On 4.0 and 4.1.1+, this is a regular Java class with a public field and no getters
+                                if(t.javaClass.hasField("name")) {
+                                    t.objectHelper().getObjectOrNull("name") in hiddenItems.map(FunctionItem::name)
+                                }
+                                // On 4.1, this is a Kotlin class with getters, but erased private member names
+                                else {
+                                    t.javaClass
+                                        .methodFinder()
+                                        .firstByName("getName")
+                                        .invoke(t) in hiddenItems.map(FunctionItem::name)
+                                }
+
+                            }
+                        }
+                        .also {
+                            categoryCls
+                                .methodFinder()
+                                .firstByName("setItemList")
+                                .invoke(param.result, it)
+                        }
                 }
-                catch (ex: IndexOutOfBoundsException) {
-                    // Ignore and return the item id for an empty space
-                    1
+        }
+
+        if (onyxVersion < "4.1.1".toVersion()) {
+            MethodFinder.fromClass("com.onyx.reader.main.adapter.FunctionBarAdapter")
+                .firstByName("getItemViewType")
+                .createReplaceHookCatching<HideFunctionBarItems> { param ->
+                    // WORKAROUND: When in sidebar mode, the adapter can cause an OutOfRange exception when enumerating the items in the single column
+                    // This was fixed in 4.1 and the overload was removed in 4.1.1.
+                    return@createReplaceHookCatching try {
+                        param.invokeOriginalMethod()
+                    }
+                    catch (ex: IndexOutOfBoundsException) {
+                        // Ignore and return the item id for an empty space
+                        1
+                    }
                 }
-            }
+        }
     }
 }

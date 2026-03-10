@@ -29,6 +29,7 @@
     <string name="key_launcher_bar_show_position_setting" translatable="false">launcher_bar_show_position_setting</string>
     <string name="key_launcher_bar_item_alignment" translatable="false">launcher_bar_item_alignment</string>
     <string name="key_launcher_bar_hidden_items" translatable="false">launcher_bar_hidden_items</string>
+    <string name="key_launcher_bar_hidden_items_hint" translatable="false">launcher_bar_hidden_items_hint</string>
     <string name="key_launcher_settings_added_shortcuts" translatable="false">launcher_settings_added_shortcuts</string>
     <string name="key_launcher_settings_show_physical_input" translatable="false">launcher_settings_show_physical_input</string>
     <string name="key_launcher_store_show_chinese_store" translatable="false">launcher_store_show_chinese_store</string>

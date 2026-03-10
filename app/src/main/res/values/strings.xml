@@ -139,6 +139,7 @@
     <string name="launcher_bar_hidden_item_storage">Storage</string>
     <string name="launcher_bar_hidden_item_apps">Apps</string>
     <string name="launcher_bar_hidden_item_settings">Settings</string>
+    <string name="launcher_bar_hidden_items_fw411_hint">You are on firmware 4.1+ which provides is a more powerful, official system setting to rearrange and edit the function bar. Unless you want to hide the settings tab, which cannot be disabled normally, you should migrate to the official setting.</string>
     <string name="launcher_bar_hidden_items_remove_apps_warning">Are you sure?</string>
     <string name="launcher_bar_hidden_items_remove_apps_warning_message">You have requested to hide the apps tab in the launcher.\nThis may soft-lock you, if you don\'t have any other method set up to re-open this app to undo the change later.\n\nDo you want to continue anyway?</string>
     <string name="launcher_settings_onyx">Settings</string>

@@ -162,6 +162,12 @@
             android:entries="@array/function_bar_items"
             android:entryValues="@array/function_bar_items_values"
             app:iconSpaceReserved="false"/>
+
+        <Preference
+            android:key="@string/key_launcher_bar_hidden_items_hint"
+            android:icon="@drawable/ic_twotone_info_24dp"
+            android:selectable="false"
+            android:summary="@string/launcher_bar_hidden_items_fw411_hint" />
     </PreferenceCategory>
 
     <PreferenceCategory
