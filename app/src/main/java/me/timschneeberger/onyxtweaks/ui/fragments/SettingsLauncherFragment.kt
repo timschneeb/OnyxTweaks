@@ -13,7 +13,9 @@ import me.timschneeberger.onyxtweaks.ui.utils.ContextExtensions.restartLauncher
 import me.timschneeberger.onyxtweaks.ui.utils.showYesNoAlert
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 import me.timschneeberger.onyxtweaks.utils.Preferences
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
 import me.timschneeberger.onyxtweaks.utils.cast
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 
 @PreferenceGroup(PreferenceGroups.LAUNCHER)
@@ -85,6 +87,14 @@ class SettingsLauncherFragment : SettingsBaseFragment<SettingsActivity>() {
             }
 
             false
+        }
+
+        if (onyxVersion >= "4.1.1".toVersion()) {
+            // Removed on v4.1.1 without alternative
+            findPreference<Preference>(getString(R.string.key_launcher_bar_item_alignment))?.apply {
+                isEnabled = false
+                isVisible = false
+            }
         }
 
         desktopRows?.configureAsNumberInput(2, 16, R.plurals.unit_rows)

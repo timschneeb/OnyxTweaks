@@ -9,19 +9,23 @@ import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.replaceWithConstant
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 /**
  * This mod pack adds a spacer to the function bar in the Onyx Launcher, or disables it.
  *
  * The spacer is placed between the last and the second last item in the function bar.
  * The spacer is inserted by default on large screen devices.
+ *
+ * @deprecated Removed in FW 4.1.1
  */
 @TargetPackages(LAUNCHER_PACKAGE)
 class AddFunctionBarSpacer : ModPack() {
     override val group = PreferenceGroups.LAUNCHER
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
-        if(preferences.get<String>(R.string.key_launcher_bar_item_alignment) == "default")
+        if(onyxVersion >= "4.1.1".toVersion() || preferences.get<String>(R.string.key_launcher_bar_item_alignment) == "default")
             return
 
         MethodFinder.fromClass("com.onyx.common.common.model.DeviceConfig")

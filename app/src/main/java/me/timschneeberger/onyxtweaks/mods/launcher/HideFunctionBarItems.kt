@@ -16,6 +16,12 @@ import me.timschneeberger.onyxtweaks.mods.utils.hasField
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
 
+/* TODO: DeviceConfig has migrated to new function bar setting
+    @NotNull
+    private List<CustomFunctionUtils.OnyxCustomFunction> functionBarCustomFunctions;
+*/
+
+
 /**
  * This mod pack hides certain items from the function bar in the Onyx Launcher.
  *
