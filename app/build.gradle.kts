@@ -1,10 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("com.google.devtools.ksp") version "2.1.20-1.0.32"
+    id("com.google.devtools.ksp") version "2.3.6"
     id("dev.rikka.tools.refine") version "4.4.0"
-    kotlin("plugin.serialization") version "2.1.0"
+    kotlin("plugin.serialization") version "2.3.10"
 }
 
 val releaseStoreFile: String? by rootProject
@@ -20,8 +22,8 @@ android {
         applicationId = "me.timschneeberger.onyxtweaks"
         minSdk = 28
         targetSdk = 35
-        versionCode = 13
-        versionName = "2.2.0"
+        versionCode = 14
+        versionName = "2.3.0"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getGitSha()}\"")
@@ -76,15 +78,17 @@ android {
         targetCompatibility(JavaVersion.VERSION_17)
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
 
     lint {
         abortOnError = false
         disable += "NonConstantResourceId"
     }
-    
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
@@ -99,20 +103,20 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.3")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
 
     // UI
     implementation("com.google.android.material:material:1.13.0")
 
     // Serialization
-    implementation("com.tencent:mmkv:2.2.3")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    implementation("com.tencent:mmkv:2.3.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.21.1")
 
     // Xposed/Root utilities
     implementation("com.github.kyuubiran:EzXHelper:2.2.1")
