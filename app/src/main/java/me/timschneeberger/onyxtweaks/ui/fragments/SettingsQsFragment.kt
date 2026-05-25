@@ -23,6 +23,14 @@ class SettingsQsFragment : SettingsBaseFragment<SettingsActivity>() {
         if (onyxVersion < "4.1".toVersion()) {
             findPreference<Preference>(getString(R.string.key_qs_sections_hide_frontlight_presets))?.isVisible = false
         }
+
+        if (onyxVersion >= "4.2".toVersion()) {
+            // BW mode does not work anymore on FW 4.2
+            findPreference<Preference>(getString(R.string.key_qs_grid_show_bw_tile))?.apply {
+                isEnabled = false
+                isVisible = false
+            }
+        }
     }
 
     override fun onPreferenceChanged(key: String) {

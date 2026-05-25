@@ -9,6 +9,8 @@ import me.timschneeberger.onyxtweaks.mods.Constants
 import me.timschneeberger.onyxtweaks.mods.base.IResourceHook
 import me.timschneeberger.onyxtweaks.mods.base.ModPack
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 /**
  * This mod pack adds the B/W mode and split screen tiles to the quick settings panel.
@@ -36,8 +38,10 @@ class AddQsTiles : ModPack(), IResourceHook {
             param.res.getString(it)
         }
 
-        if (preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
-            defaultTiles += ",bw_mode"
+        if (onyxVersion < "4.2".toVersion()) {
+            if (preferences.get<Boolean>(R.string.key_qs_grid_show_bw_tile))
+                defaultTiles += ",bw_mode"
+        }
 
         if (preferences.get<Boolean>(R.string.key_qs_grid_show_split_screen_tile))
             defaultTiles += ",spilt_screen"

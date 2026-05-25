@@ -14,6 +14,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethodCatching
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 
 /**
  * The B/W mode tile needs additional hooks to enable persistence.
@@ -32,6 +34,9 @@ class FixBwModePersistence : ModPack() {
                 preferences.get<Boolean>(R.string.key_floating_button_show_bw_function, reload = true)
 
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (onyxVersion >= "4.2".toVersion())
+            return
+
         if (!shouldApplyFix())
             return
 
