@@ -24,6 +24,8 @@ import me.timschneeberger.onyxtweaks.mods.utils.findClass
 import me.timschneeberger.onyxtweaks.mods.utils.firstByName
 import me.timschneeberger.onyxtweaks.mods.utils.invokeOriginalMethod
 import me.timschneeberger.onyxtweaks.utils.PreferenceGroups
+import me.timschneeberger.onyxtweaks.utils.Version.Companion.toVersion
+import me.timschneeberger.onyxtweaks.utils.onyxVersion
 import java.lang.invoke.MethodHandles
 
 /**
@@ -63,6 +65,10 @@ class InjectCustomActions : ModPack() {
 
     @Suppress("UNCHECKED_CAST")
     override fun handleLoadPackage(lpParam: XC_LoadPackage.LoadPackageParam) {
+        // BW mode broken on FW 4.2, so no need to inject the action
+        if (onyxVersion >= "4.2".toVersion())
+            return
+
         if(!preferences.get<Boolean>(R.string.key_floating_button_show_bw_function))
             return
 
